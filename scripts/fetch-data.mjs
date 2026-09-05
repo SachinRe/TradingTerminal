@@ -191,14 +191,19 @@ async function fetchStockTwitsBuzz() {
 }
 
 async function main() {
+  // A manual "Run workflow" click (workflow_dispatch) should always do real
+  // work, regardless of the time of day — otherwise there's no way to test.
+  const isManualRun = process.env.GITHUB_EVENT_NAME === "workflow_dispatch";
   const slot = matchedSlot();
   const dataPath = path.join(process.cwd(), "data", "candidates.json");
 
-  if (!slot) {
+  if (!slot && !isManualRun) {
     console.log("Not within a target Pacific time slot right now — skipping (no-op run).");
     return;
   }
-  console.log("Matched slot: " + slot.label + " — running full refresh.");
+  console.log(isManualRun && !slot
+    ? "Manual run (workflow_dispatch) — running full refresh regardless of time."
+    : "Matched slot: " + slot.label + " — running full refresh.");
 
   await mkdir(path.dirname(dataPath), { recursive: true });
 
@@ -229,7 +234,7 @@ async function main() {
 
   const output = {
     generatedAt: new Date().toISOString(),
-    generatedSlot: slot.label,
+    generatedSlot: slot ? slot.label : "Manual run",
     wsjHeadlines,
     screener,
     buzz
