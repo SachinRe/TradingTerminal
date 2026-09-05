@@ -1,0 +1,11 @@
+{
+  "generatedAt": null,
+  "generatedSlot": null,
+  "wsjHeadlines": [],
+  "screener": {
+    "available": false,
+    "note": "No scheduled run has completed yet. This will populate automatically at the next 4:00am / 5:30am / 10:30am / 2:00pm Pacific run, or you can trigger one manually from the repo's Actions tab (Refresh Watchlist Data -> Run workflow).",
+    "candidates": []
+  },
+  "buzz": []
+}

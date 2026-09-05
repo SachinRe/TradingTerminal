@@ -1,0 +1,3533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIP Terminal · Stocks in Play</title>
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --panel: #111827;
+      --border: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #eab308;
+      --blue: #3b82f6;
+      --accent: #06b6d4;
+      --header: #0f172a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+      font-size: 13px;
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+    .header {
+      background: var(--header);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header h1 { font-size: 15px; font-weight: 600; letter-spacing: 0.5px; color: var(--accent); }
+    .header .meta { display: flex; gap: 16px; color: var(--muted); font-size: 12px; align-items: center; }
+    .header .status { color: var(--green); font-weight: 600; }
+    .shell { display: flex; min-height: calc(100vh - 48px); }
+    .sidebar {
+      width: 200px;
+      flex-shrink: 0;
+      background: #0f172a;
+      border-right: 1px solid var(--border);
+      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .nav-group { margin-bottom: 10px; }
+    .nav-group-title {
+      padding: 8px 16px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .nav-item {
+      padding: 9px 16px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      border-left: 3px solid transparent;
+    }
+    .nav-item:hover { color: var(--text); background: #111827; }
+    .nav-item.active {
+      color: var(--accent);
+      background: #111827;
+      border-left-color: var(--accent);
+    }
+    .nav-item.sub {
+      padding-left: 28px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .nav-hint {
+      margin-top: auto;
+      padding: 12px 16px;
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.4;
+      border-top: 1px solid var(--border);
+    }
+    .steps { display: none; }
+    .step-tab { display: none; }
+    .content { padding: 12px 16px; flex: 1; max-width: 1400px; overflow-x: auto; }
+    @media (max-width: 800px) {
+      .shell { flex-direction: column; }
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; padding: 6px; }
+      .nav-group { display: flex; flex-wrap: wrap; margin: 0; }
+      .nav-group-title { display: none; }
+      .nav-item { border-left: none; border-bottom: 2px solid transparent; padding: 8px 12px; }
+      .nav-item.active { border-bottom-color: var(--accent); }
+      .nav-item.sub { padding-left: 12px; }
+      .nav-hint { display: none; }
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .panel-header {
+      background: #0f172a;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+    }
+    .panel-header .tag {
+      background: #1e293b;
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+    }
+    .panel-body { padding: 0; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 7px 9px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th {
+      background: #0f172a;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 11px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    tr:hover { background: #1a2332; }
+    .pos { color: var(--green); }
+    .neg { color: var(--red); }
+    .ticker { font-weight: 700; color: #fff; }
+    .muted { color: var(--muted); }
+    .score {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .score-high { background: #14532d; color: #86efac; }
+    .score-med { background: #713f12; color: #fde047; }
+    .score-low { background: #7f1d1d; color: #fca5a5; }
+    .avoid-flag {
+      background: #7f1d1d;
+      color: #fecaca;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .ok-flag {
+      background: #14532d;
+      color: #86efac;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .btn {
+      background: #1e293b;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      font-family: inherit;
+    }
+    .btn:hover { background: #334155; }
+    .btn-accent { background: #0e7490; border-color: #0891b2; color: #fff; }
+    .btn-accent:hover { background: #155e75; }
+    .btn-danger { background: #7f1d1d; border-color: #991b1b; color: #fecaca; }
+    .btn-sm { padding: 3px 7px; font-size: 10px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 1000px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    .form-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 12px;
+      align-items: flex-end;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+    .form-group input, .form-group select {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 13px;
+      width: 110px;
+    }
+    .result-box {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 0 12px 12px;
+    }
+    .result-box .big { font-size: 20px; font-weight: 700; color: var(--accent); }
+    .checklist { padding: 12px; }
+    .check-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-icon { color: var(--green); font-weight: 700; min-width: 18px; }
+    .note {
+      padding: 10px 12px;
+      background: #0f172a;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+    .rationale { font-size: 11px; color: var(--muted); max-width: 260px; white-space: normal; }
+    .wl-empty, .journal-empty {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+    }
+    textarea {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 12px;
+      width: 100%;
+      min-height: 60px;
+      resize: vertical;
+    }
+    .journal-entry {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+    }
+    .journal-entry:last-child { border-bottom: none; }
+    .journal-meta { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .footer {
+      text-align: center;
+      padding: 14px;
+      color: var(--muted);
+      font-size: 11px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .ticker-link {
+      font-weight: 700;
+      color: #67e8f9;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .ticker-link:hover { color: #fff; }
+    /* Detail modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 200;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 12px;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      margin-bottom: 40px;
+    }
+    .modal-header {
+      padding: 16px 18px 8px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-company { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .modal-ticker-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .modal-price { font-size: 28px; font-weight: 700; }
+    .modal-chg { font-size: 14px; margin-top: 2px; }
+    .modal-meta { font-size: 11px; color: var(--muted); text-align: right; }
+    .modal-catalyst { font-size: 13px; color: var(--text); margin: 10px 0 8px; line-height: 1.45; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .tag-pill {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid var(--border);
+    }
+    .tag-pill.qualified { background: #14532d; color: #86efac; border-color: #166534; }
+    .tag-pill.hot { background: #1e3a5f; color: #7dd3fc; }
+    .spark {
+      height: 72px;
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin: 8px 0 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .spark svg { width: 100%; height: 100%; display: block; }
+    .case-block { padding: 0 18px 12px; }
+    .case-block h4 { font-size: 12px; margin-bottom: 6px; }
+    .case-block.bull h4 { color: var(--green); }
+    .case-block.bear h4 { color: var(--red); }
+    .case-block ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .modal-actions { padding: 12px 18px; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+    .qualify-panel { padding: 12px 18px 18px; border-top: 1px solid var(--border); }
+    .qualify-panel h4 { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .q-item { display: flex; gap: 8px; font-size: 12px; padding: 5px 0; border-bottom: 1px solid #1e293b; }
+    .q-item:last-child { border-bottom: none; }
+    .q-ok { color: var(--green); }
+    .q-no { color: var(--red); }
+    .q-text strong { color: var(--text); display: block; font-weight: 600; }
+    .q-text span { color: var(--muted); font-size: 11px; }
+    /* Settings */
+    .settings-panel {
+      display: none;
+      position: fixed;
+      top: 52px;
+      right: 12px;
+      width: 300px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      z-index: 150;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .settings-panel.open { display: block; }
+    .settings-panel .panel-header { border-radius: 8px 8px 0 0; }
+    .settings-body { padding: 12px; font-size: 12px; }
+    .settings-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .settings-row:last-child { border-bottom: none; }
+    .toggle {
+      width: 40px; height: 22px; border-radius: 11px; background: #334155;
+      position: relative; cursor: pointer; border: none;
+    }
+    .toggle.on { background: #0e7490; }
+    .toggle::after {
+      content: ""; position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; border-radius: 50%; background: #fff;
+      transition: left 0.15s;
+    }
+    .toggle.on::after { left: 21px; }
+    .privacy-badge {
+      font-size: 10px; padding: 2px 6px; border-radius: 3px;
+      background: #1e293b; color: var(--muted);
+    }
+    .privacy-badge.public { background: #14532d; color: #86efac; }
+    .news-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-item a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .news-item a:hover { color: var(--accent); }
+    .news-meta {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .news-desc {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 120px;
+      padding-top: 8px;
+      position: relative;
+    }
+    .bar-chart .bar {
+      flex: 1;
+      min-width: 3px;
+      border-radius: 2px 2px 0 0;
+      opacity: 0.9;
+      position: relative;
+      cursor: crosshair;
+    }
+    .bar-chart .bar.up { background: #22c55e; }
+    .bar-chart .bar.dn { background: #ef4444; }
+    .bar-chart .bar:hover { opacity: 1; filter: brightness(1.25); }
+    .bar-tip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #e5e7eb;
+      border: 1px solid #334155;
+      font-size: 10px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .bar-chart .bar:hover .bar-tip { display: block; }
+    .regime-offense { color: #86efac !important; }
+    .regime-protect { color: #fde047 !important; }
+    .regime-defense { color: #fca5a5 !important; }
+    .regime-tactical { color: #7dd3fc !important; }
+    .regime-choppy { color: #c4b5fd !important; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>TRADING TERMINAL</h1>
+    <div class="meta">
+      <span>Market Monitor → SIPs</span>
+      <span id="clock">--:--:-- ET</span>
+      <span class="status">● PRE-MARKET</span>
+      <span id="mm-regime-badge" class="privacy-badge">REGIME: —</span>
+      <span id="last-refresh">List: —</span>
+      <span class="privacy-badge" id="privacy-badge">PRIVATE</span>
+      <button class="btn btn-sm" onclick="refreshCandidates()" title="Refresh candidate list">↻ Refresh</button>
+      <button class="btn btn-sm" onclick="toggleSettings()" title="Settings">⚙</button>
+    </div>
+  </div>
+
+  <!-- Settings panel -->
+  <!-- Access gate (Private mode) -->
+  <div id="access-gate" style="display:none;position:fixed;inset:0;background:#0a0e17;z-index:500;align-items:center;justify-content:center;">
+    <div style="width:min(360px,92vw);background:#111827;border:1px solid #1f2937;border-radius:10px;padding:24px;">
+      <div style="color:#06b6d4;font-weight:600;margin-bottom:6px;">SIP Terminal · Locked</div>
+      <div style="font-size:12px;color:#9ca3af;margin-bottom:14px;">Private mode is on. Enter your access PIN to continue.</div>
+      <input type="password" id="gate-pin" placeholder="Access PIN" style="width:100%;background:#0f172a;border:1px solid #1f2937;color:#e5e7eb;padding:10px;border-radius:6px;font-family:inherit;margin-bottom:10px;" onkeydown="if(event.key==='Enter')unlockGate()" />
+      <button class="btn btn-accent" style="width:100%;" onclick="unlockGate()">Unlock</button>
+      <div id="gate-error" style="color:#ef4444;font-size:11px;margin-top:8px;display:none;">Wrong PIN</div>
+    </div>
+  </div>
+
+  <div class="settings-panel" id="settings-panel">
+    <div class="panel-header">Settings</div>
+    <div class="settings-body">
+      <div class="settings-row">
+        <div>
+          <strong>Public access</strong><br>
+          <span class="muted" id="privacy-desc">Off — PIN required to open the terminal</span>
+        </div>
+        <button class="toggle" id="privacy-toggle" onclick="togglePrivacy()" title="Toggle public/private"></button>
+      </div>
+      <div class="settings-row">
+        <div style="flex:1;">
+          <strong>Access PIN</strong> (for Private mode)<br>
+          <input type="password" id="access-pin-input" placeholder="Set PIN" style="width:100%;margin-top:6px;background:#0f172a;border:1px solid #1f2937;color:#e5e7eb;padding:6px 8px;border-radius:4px;font-family:inherit;" />
+          <button class="btn btn-sm" style="margin-top:6px;" onclick="saveAccessPin()">Save PIN</button>
+        </div>
+      </div>
+      <div class="settings-row">
+        <div>
+          <strong>This page URL</strong><br>
+          <span class="muted" style="font-size:10px;word-break:break-all;" id="share-link">—</span>
+        </div>
+      </div>
+      <div class="settings-row">
+        <div>
+          <strong>Auto-refresh</strong><br>
+          <span class="muted">Candidate list every 60 min</span>
+        </div>
+        <span class="muted">ON</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.4;">
+        <strong>Public ON:</strong> anyone with the URL can open the terminal (no PIN).<br>
+        <strong>Public OFF (Private):</strong> PIN gate on load. Watchlist/journal still stay in each browser.<br>
+        Client-side PIN is a practical lock for travel use — not bank-grade security.
+      </div>
+      <div style="margin-top:10px;display:flex;gap:6px;">
+        <button class="btn btn-sm" onclick="exportData()">Export JSON</button>
+        <button class="btn btn-sm" onclick="importData()">Import JSON</button>
+      </div>
+      <input type="file" id="import-file" accept="application/json" style="display:none" onchange="handleImport(event)" />
+    </div>
+  </div>
+
+  <!-- Detail modal -->
+  <div class="modal-overlay" id="detail-modal" onclick="if(event.target===this)closeDetail()">
+    <div class="modal" id="detail-content"></div>
+  </div>
+
+  <div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="nav-group">
+      <div class="nav-group-title">1 · Setup Library</div>
+      <div class="nav-item" data-section="setup-library" onclick="navTo('setup-library', this)">Setups (SIP / EP / EP9M / Patterns)</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">2 · Context</div>
+      <div class="nav-item active" data-section="market-monitor" onclick="navTo('market-monitor', this)">Market Monitor</div>
+      <div class="nav-item" data-section="news" onclick="navTo('news', this)">News</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">3 · NTRT/MTRT process</div>
+      <div class="nav-item" data-section="qualify" onclick="navTo('qualify', this)">Discover &amp; Qualify</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">4 · Pre-execution</div>
+      <div class="nav-item" data-section="watchlist" onclick="navTo('watchlist', this)">Watchlist &amp; Plans</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">5 · Live book</div>
+      <div class="nav-item" data-section="positions" onclick="navTo('positions', this)">Positions &amp; Schwab Import</div>
+      <div class="nav-item" data-section="dashboard" onclick="navTo('dashboard', this)">Performance Dashboard</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">6 · Improve</div>
+      <div class="nav-item" data-section="ai-review" onclick="navTo('ai-review', this)">AI Trade Review</div>
+      <div class="nav-item" data-section="journal" onclick="navTo('journal', this)">Manual Journal</div>
+    </div>
+    <div class="nav-hint">Setups → Monitor → Discover/Qualify → Watchlist/Plans → Execute → Import Schwab → Dashboard → AI Review</div>
+  </nav>
+
+  <div class="content">
+
+    <!-- MARKET MONITOR -->
+    <!-- SETUP LIBRARY -->
+    <div id="setup-library" class="section">
+      <div class="panel">
+        <div class="panel-header">
+          Your Setups
+          <span class="tag">Catalyst setups auto-suggest in Qualify · Pattern setups add manually in Watchlist</span>
+        </div>
+        <div class="panel-body" style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>Key</th><th>Label</th><th>Category</th><th>Risk % ideal / max</th><th>Hold</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="setup-library-table"></tbody>
+          </table>
+        </div>
+        <div class="note">Catalyst setups (SIP, EP, EP9M) come from your NTRT/MTRT gap+volume+catalyst screen. Pattern setups (Reversal Bullish, Anticipation) are chart-based — add them straight to Watchlist without needing a Qualify hit. Add as many more of either kind as you want below.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-header" id="setup-form-header">Add a New Setup</div>
+        <div class="panel-body">
+          <div class="form-row" style="flex-wrap:wrap;">
+            <div class="form-group"><label>Key (short, unique)</label><input type="text" id="su-key" placeholder="e.g. Breakout" style="width:140px" /></div>
+            <div class="form-group"><label>Label</label><input type="text" id="su-label" placeholder="e.g. Breakout · Pattern" style="width:220px" /></div>
+            <div class="form-group"><label>Category</label>
+              <select id="su-category" style="width:120px"><option value="catalyst">Catalyst</option><option value="pattern">Pattern</option></select>
+            </div>
+            <div class="form-group"><label>Risk % ideal</label><input type="number" id="su-riskpct" value="1" step="0.1" style="width:90px" /></div>
+            <div class="form-group"><label>Risk % max</label><input type="number" id="su-riskmax" value="2.5" step="0.1" style="width:90px" /></div>
+          </div>
+          <div class="form-group" style="margin-top:6px;"><label>Typical hold</label><input type="text" id="su-hold" placeholder="e.g. Days to a few weeks" style="width:100%" /></div>
+          <div class="form-row" style="flex-wrap:wrap;margin-top:6px;">
+            <div class="form-group" style="flex:1;min-width:220px;"><label>Open entry rule</label><input type="text" id="su-openentry" style="width:100%" /></div>
+            <div class="form-group" style="flex:1;min-width:220px;"><label>Delayed entry rule</label><input type="text" id="su-delayedentry" style="width:100%" /></div>
+          </div>
+          <div class="form-row" style="flex-wrap:wrap;margin-top:6px;">
+            <div class="form-group" style="flex:1;min-width:220px;"><label>Stop rule</label><input type="text" id="su-stop" style="width:100%" /></div>
+            <div class="form-group" style="flex:1;min-width:220px;"><label>Exit rule</label><input type="text" id="su-exit" style="width:100%" /></div>
+          </div>
+          <div class="form-group" style="margin-top:6px;"><label>Execution bullets (one per line)</label><textarea id="su-execbullets" rows="4" style="width:100%"></textarea></div>
+          <div class="form-group" style="margin-top:6px;"><label>Risk bullets (one per line)</label><textarea id="su-riskbullets" rows="3" style="width:100%"></textarea></div>
+          <div style="margin-top:10px;">
+            <button class="btn btn-accent" onclick="saveSetupForm()">Save Setup</button>
+            <button class="btn btn-sm" onclick="resetSetupForm()">Clear form</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="market-monitor" class="section active">
+      <div class="panel">
+        <div class="panel-header">
+          Morning Regime Check · Auto-retrieved
+          <span class="tag" id="mm-asof">As of —</span>
+          <button class="btn btn-sm" onclick="loadMarketMonitorData()">↻ Refresh data</button>
+        </div>
+        <div class="panel-body">
+          <div class="grid-2">
+            <div>
+              <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">
+                Readings are pulled by frequency (daily after close · intermediate · longer-term). No manual entry required.
+                Exact TC2000 4%/25%/50% scans need your platform; public breadth proxies are mapped into the MM framework.
+              </div>
+              <table>
+                <thead><tr><th>Frequency</th><th>Indicator</th><th>Reading</th><th>Signal</th></tr></thead>
+                <tbody id="mm-data-table"></tbody>
+              </table>
+              <div class="note" id="mm-data-note" style="margin-top:8px;"></div>
+            </div>
+            <div>
+              <div id="mm-regime-card" style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:16px;">
+                <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Regime</div>
+                <div id="mm-regime-title" style="font-size:22px;font-weight:700;color:var(--accent);margin:6px 0;">—</div>
+                <div id="mm-regime-detail" style="font-size:12px;color:var(--muted);line-height:1.5;"></div>
+                <div id="mm-playbook" style="margin-top:12px;font-size:12px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          Stocks ±20% in 5 Days · Rolling constructed chart
+          <span class="tag" id="mm-20-asof">Built from daily counts</span>
+        </div>
+        <div class="panel-body">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+            <div style="font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;">Stocks Up 20% in 5 Days</div>
+            <div style="font-size:12px;"><span class="pos" id="mm-20up-latest">—</span> latest</div>
+          </div>
+          <div id="chart-up20" style="height:180px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px 4px 4px;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 4px;">
+            <div style="font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;">Stocks Down 20% in 5 Days</div>
+            <div style="font-size:12px;"><span class="neg" id="mm-20dn-latest">—</span> latest</div>
+          </div>
+          <div id="chart-dn20" style="height:180px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px 4px 4px;"></div>
+          <div class="note" style="margin-top:10px;">
+            Hover any bar for <strong>date + exact count</strong>. Chart is built from the rolling series (not a static image).
+          </div>
+          <div style="margin-top:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <strong style="font-size:12px;">Table · Date · Up · Down</strong>
+              <button class="btn btn-sm" type="button" onclick="toggle20Table()">Show / hide table</button>
+            </div>
+            <div id="mm-20-table-wrap" style="display:none;max-height:260px;overflow:auto;border:1px solid var(--border);border-radius:6px;">
+              <table>
+                <thead><tr><th>Date</th><th>Up ≥20% / 5d</th><th>Down ≥20% / 5d</th></tr></thead>
+                <tbody id="mm-20-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">Decision Tree (from guide)</div>
+          <div class="checklist">
+            <div class="check-item"><span class="check-icon">1</span> <strong>Primary trend?</strong> Bullish / Bearish / Mixed</div>
+            <div class="check-item"><span class="check-icon">2</span> <strong>Secondary stretch?</strong> Monthly / yearly extremes</div>
+            <div class="check-item"><span class="check-icon">3</span> <strong>Daily pressure?</strong> Adv/dec + MA breadth + 20%/5d pulse</div>
+            <div class="check-item"><span class="check-icon">4</span> <strong>Playbook:</strong> Offense · Protect · Defense · Tactical</div>
+            <div class="check-item"><span class="check-icon">5</span> Only then open <strong>SIPs · Qualify</strong></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">Threshold reference</div>
+          <div class="checklist">
+            <div class="check-item"><span class="check-icon">4%</span> Daily significant movers — 300+ unusual</div>
+            <div class="check-item"><span class="check-icon">50%</span> Month up — &gt;20 historically rare → protect</div>
+            <div class="check-item"><span class="check-icon">100%</span> Year ~100 → possible new-bull / bear-end clue</div>
+            <div class="check-item"><span class="check-icon">200%</span> Year &gt;300 → high correction risk in source examples</div>
+            <div class="check-item"><span class="check-icon">MA</span> % above 50d / 200d — participation vs index</div>
+          </div>
+          <div class="note">Decision support only — not a prediction engine.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUALIFY (SIPs) -->
+    <div id="qualify" class="section">
+      <div class="panel" id="live-data-status-panel">
+        <div class="panel-header">
+          Scheduled Data Refresh · 4:00am / 5:30am / 10:30am / 2:00pm Pacific
+          <span class="tag" id="live-data-badge">Checking…</span>
+        </div>
+        <div class="panel-body" id="live-data-status-body" style="font-size:12px;color:var(--muted);">
+          Loading data/candidates.json…
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">
+            Top 5 Bullish · NTRT list
+            <span class="tag" style="background:#14532d;color:#86efac;">LONG BIAS</span>
+          </div>
+          <div class="panel-body" style="max-height: 280px; overflow-y: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ticker</th>
+                  <th>Price</th>
+                  <th>Gap</th>
+                  <th>Score</th>
+                  <th>Setup</th>
+                  <th>Bull / Base</th>
+                  <th>Catalyst</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="bullish-table"></tbody>
+            </table>
+          </div>
+          <div class="note">Highest-scoring non-avoid names. Setup tag = SIP / EP / EP9M assessment (editable on full list).</div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            Top 5 Bearish / Avoid Candidates
+            <span class="tag" style="background:#7f1d1d;color:#fecaca;">SHORT / AVOID</span>
+          </div>
+          <div class="panel-body" style="max-height: 280px; overflow-y: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ticker</th>
+                  <th>Price</th>
+                  <th>Gap</th>
+                  <th>Score</th>
+                  <th>Setup</th>
+                  <th>Why Bearish / Avoid</th>
+                </tr>
+              </thead>
+              <tbody id="bearish-table"></tbody>
+            </table>
+          </div>
+          <div class="note">Gap-downs / weak quality. Setup tag is informational for review.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          NTRT Discover · Qualify list
+          <span class="tag">Review category → Add to Watchlist for plans</span>
+        </div>
+        <div class="panel-body" style="max-height: 420px; overflow-y: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Ticker</th>
+                <th>Price</th>
+                <th>Gap</th>
+                <th>Vol</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Assessment</th>
+                <th>Your category</th>
+                <th>Targets</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="sip-table"></tbody>
+          </table>
+        </div>
+        <div class="note">
+          <strong>NTRT assessment:</strong> each name is classified SIP / EP / EP9M with a short reason. Change <strong>Your category</strong> after review — that value is used on Add and on Watchlist execution/risk rules.
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Qualification Checklist (from Playbook)</div>
+        <div class="checklist">
+          <div class="check-item"><span class="check-icon">✓</span> Catalyst is real and capable of moving the stock</div>
+          <div class="check-item"><span class="check-icon">✓</span> Volume exceptional: 2–3× avg (good) or 5–10× (great), ideally 9M+ shares</div>
+          <div class="check-item"><span class="check-icon">✓</span> Gap meaningful: 4%+ on 100k+ pre-market volume</div>
+          <div class="check-item"><span class="check-icon">✓</span> Some neglect: sideways/down base, low analyst & fund ownership</div>
+          <div class="check-item"><span class="check-icon">✓</span> Clean base — not already extended before catalyst day</div>
+          <div class="check-item"><span class="check-icon">✓</span> Sector / theme is supportive</div>
+          <div class="check-item"><span class="check-icon">✓</span> Short interest >5 days (10 ideal) where relevant</div>
+          <div class="check-item"><span class="check-icon">✓</span> Stop location defined; position size calculated</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div id="news" class="section">
+      <div class="panel">
+        <div class="panel-header">
+          WSJ Markets · Live Feed (official public RSS · refreshed on schedule)
+          <span class="tag" id="wsj-feed-badge">Loading…</span>
+        </div>
+        <div class="panel-body" id="wsj-feed-body" style="max-height: 320px; overflow-y: auto;">
+          <div class="wl-empty">Loading data/candidates.json…</div>
+        </div>
+        <div class="note">Source: feeds.content.dowjones.io (Dow Jones' own public syndication feed) — refreshed by the scheduled Action, not scraped live in-browser. Tickers are auto-tagged from a small keyword list and may miss some names.</div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">
+            Live Market / SIP Headlines
+            <button class="btn btn-sm" onclick="loadMarketNews()">↻ Refresh</button>
+          </div>
+          <div class="panel-body" id="market-news-body" style="max-height: 360px; overflow-y: auto;">
+            <div class="wl-empty">Click Refresh to load live headlines…</div>
+          </div>
+          <div class="note">Fetched live (no API key). Verify catalysts on primary sources before trading.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            Ticker News
+            <span style="display:flex;gap:6px;align-items:center;">
+              <select id="news-ticker-select" style="width:110px" onchange="loadTickerNews()">
+                <option value="">— pick —</option>
+              </select>
+              <button class="btn btn-sm" onclick="loadTickerNews()">↻</button>
+            </span>
+          </div>
+          <div class="panel-body" id="ticker-news-body" style="max-height: 360px; overflow-y: auto;">
+            <div class="wl-empty">Select a candidate or watchlist ticker for related headlines.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">SIP Source Feeds (open for full context)</div>
+        <div class="panel-body">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <a class="btn btn-sm" href="https://www.briefing.com/story-stocks" target="_blank" rel="noopener">Briefing Story Stocks</a>
+            <a class="btn btn-sm" href="https://www.wsj.com/news/markets" target="_blank" rel="noopener">WSJ Markets</a>
+            <a class="btn btn-sm" href="https://www.bloomberg.com/markets" target="_blank" rel="noopener">Bloomberg Markets</a>
+            <a class="btn btn-sm" href="https://www.benzinga.com/premarket" target="_blank" rel="noopener">Benzinga Premarket</a>
+            <a class="btn btn-sm" href="https://www.marketwatch.com/tools/screener/premarket" target="_blank" rel="noopener">MarketWatch Premarket</a>
+            <a class="btn btn-sm" href="https://stockanalysis.com/markets/premarket/" target="_blank" rel="noopener">StockAnalysis Premarket</a>
+            <a class="btn btn-sm" href="https://finviz.com/news.ashx" target="_blank" rel="noopener">Finviz News</a>
+            <a class="btn btn-sm" href="https://news.google.com/search?q=premarket%20stocks&hl=en-US&gl=US&ceid=US:en" target="_blank" rel="noopener">Google News Premarket</a>
+          </div>
+        </div>
+        <div class="note">These are the discovery sources from your SIP playbook. Use with Qualify scoring.</div>
+      </div>
+    </div>
+
+    <!-- WATCHLIST (with Execute + Manage Risk as sub-menus) -->
+    <div id="watchlist" class="section">
+      <div class="steps" style="border:1px solid var(--border);border-radius:6px 6px 0 0;margin-bottom:0;background:#0f172a;">
+        <div class="step-tab active" data-wl-sub="wl-list" onclick="switchWatchSub(this)">Saved Plans</div>
+        <div class="step-tab" data-wl-sub="wl-execute" onclick="switchWatchSub(this)">4 · Execute</div>
+        <div class="step-tab" data-wl-sub="wl-risk" onclick="switchWatchSub(this)">5 · Manage Risk</div>
+      </div>
+
+      <!-- Sub: Saved Plans (market-open view) -->
+      <div id="wl-list" class="wl-sub active">
+        <div class="panel" style="border-top:none;">
+          <div class="panel-header">Add Ticker Manually · Pattern setups (Reversal Bullish, Anticipation, etc.)</div>
+          <div class="panel-body">
+            <div class="form-row">
+              <div class="form-group"><label>Ticker</label><input type="text" id="wl-manual-ticker" style="width:100px" placeholder="AAPL" /></div>
+              <div class="form-group"><label>Setup</label><select id="wl-manual-setup" style="width:160px"></select></div>
+              <button class="btn btn-accent" onclick="addManualToWatchlist()">Add to Watchlist</button>
+            </div>
+            <div class="note">Use this for chart/pattern-based ideas that don't come from the NTRT/MTRT catalyst screen — Qualify's Add button already handles catalyst setups (SIP/EP/EP9M).</div>
+          </div>
+        </div>
+        <div class="panel" style="border-top:none;border-radius:0 0 6px 6px;">
+          <div class="panel-header">
+            Saved Plans · Tickers ready to trade
+            <button class="btn btn-sm" onclick="clearWatchlist()">Clear All</button>
+          </div>
+          <div class="panel-body" id="watchlist-body">
+            <div class="wl-empty">No names yet.<br><br><strong>Pre-market:</strong> Qualify → Add → Execute (set plan).<br><strong>Open:</strong> Plans appear here → Size → trade → Close out.</div>
+          </div>
+          <div class="note">
+            <strong>Workflow:</strong> Pre-market Qualify &amp; plan → Market open use this list → Size position → trade → <strong>Close out</strong> logs to Trade Journal.
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub: Execute -->
+      <div id="wl-execute" class="wl-sub" style="display:none;">
+        <div class="panel" id="exec-empty" style="display:none;border-top:none;border-radius:0 0 6px 6px;">
+          <div class="panel-body">
+            <div class="wl-empty">
+              No qualified tickers on your watchlist yet.<br><br>
+              Go to <strong>Qualify</strong>, click <strong>Add</strong> on a STRONG or WATCH name, then return here to plan the entry.
+            </div>
+          </div>
+        </div>
+        <div id="exec-content">
+          <div class="panel" style="border-top:none;border-radius:0;">
+            <div class="panel-header">Select Qualified Ticker (from Watchlist)</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Watchlist Ticker</label>
+                <select id="exec-ticker-select" style="width:160px" onchange="onExecTickerChange()">
+                  <option value="">— select —</option>
+                </select>
+              </div>
+              <div style="font-size:12px;color:var(--muted);align-self:center;" id="exec-ticker-meta"></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header">Execution rules for this setup <span class="tag" id="exec-setup-tag">Select ticker</span></div>
+            <div class="panel-body" id="exec-rules-body">
+              <div class="wl-empty">Select a watchlist ticker — rules load for SIP, EP, or EP9M (open vs delayed).</div>
+            </div>
+          </div>
+          <div class="panel" style="border-radius:0 0 6px 6px;">
+            <div class="panel-header">Execution Plan · fill placeholders</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Entry Method</label>
+                <select id="exec-method">
+                  <option>On the news (pre-mkt)</option>
+                  <option>On the open</option>
+                  <option>Break of 1/3/5-min high</option>
+                  <option>Break back above open</option>
+                  <option>ANTS / VCP consolidation</option>
+                  <option>Delayed · VWAP / range break</option>
+                  <option>EP structural pivot</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Planned Entry $</label>
+                <input type="number" id="exec-entry" step="0.01" placeholder="0.00" />
+              </div>
+              <div class="form-group">
+                <label>Stop $</label>
+                <input type="number" id="exec-stop" step="0.01" placeholder="0.00" />
+              </div>
+              <div class="form-group">
+                <label>Target $</label>
+                <input type="number" id="exec-target" step="0.01" placeholder="0.00" />
+              </div>
+              <button class="btn btn-accent" onclick="saveExecPlan()">Save Plan</button>
+            </div>
+            <div class="note" id="exec-placeholder-note">Placeholders adapt to SIP / EP / EP9M after you select a ticker.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub: Manage Risk -->
+      <div id="wl-risk" class="wl-sub" style="display:none;">
+        <div class="panel" id="risk-empty" style="display:none;border-top:none;border-radius:0 0 6px 6px;">
+          <div class="panel-body">
+            <div class="wl-empty">
+              No qualified tickers on your watchlist yet.<br><br>
+              Go to <strong>Qualify</strong>, click <strong>Add</strong> on a STRONG or WATCH name, then return here to size the position.
+            </div>
+          </div>
+        </div>
+        <div id="risk-content">
+          <div class="panel" style="border-top:none;border-radius:0;">
+            <div class="panel-header">Select Qualified Ticker (from Watchlist)</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Watchlist Ticker</label>
+                <select id="risk-ticker-select" style="width:160px" onchange="onRiskTickerChange()">
+                  <option value="">— select —</option>
+                </select>
+              </div>
+              <div style="font-size:12px;color:var(--muted);align-self:center;" id="risk-ticker-meta"></div>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-header">Position Sizing Calculator</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Account Value $</label>
+                  <input type="number" id="risk-account" value="50000" step="1000" />
+                </div>
+                <div class="form-group">
+                  <label>Risk % (ideal 1%)</label>
+                  <input type="number" id="risk-pct" value="1" step="0.1" min="0.1" max="2.5" />
+                </div>
+                <div class="form-group">
+                  <label>Entry Price</label>
+                  <input type="number" id="risk-entry" step="0.01" placeholder="0.00" />
+                </div>
+                <div class="form-group">
+                  <label>Stop Price</label>
+                  <input type="number" id="risk-stop" step="0.01" placeholder="0.00" />
+                </div>
+                <button class="btn btn-accent" onclick="calcSize()">Calculate</button>
+              </div>
+              <div class="result-box" id="size-result">
+                <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">SHARES TO BUY</div>
+                <div class="big" id="shares-out">—</div>
+                <div style="margin-top:8px;font-size:12px;" id="size-details">Select a watchlist ticker or enter values</div>
+              </div>
+              <div class="note">
+                Formula: Shares = (Account × Risk%) ÷ (Entry − Stop).<br>
+                Ideal risk 1% · Hard max 2.5%. Wider stop = fewer shares. Risk $ stays constant.
+              </div>
+            </div>
+            <div class="panel" style="border-radius:0 0 6px 6px;">
+              <div class="panel-header">Risk rules for this setup <span class="tag" id="risk-setup-tag">Select ticker</span></div>
+              <div class="checklist" id="risk-rules-body">
+                <div class="check-item"><span class="check-icon">•</span> Select a watchlist ticker to load SIP / EP / EP9M risk placeholders</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONS -->
+    <div id="positions" class="section">
+      <div class="panel">
+        <div class="panel-header">Baseline capital &amp; account</div>
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Starting capital $</label>
+              <input type="number" id="baseline-capital" value="50000" step="1000" style="width:140px" />
+            </div>
+            <div class="form-group">
+              <label>Baseline date</label>
+              <input type="date" id="baseline-date" style="width:150px" />
+            </div>
+            <button class="btn btn-accent" onclick="saveBaseline()">Save baseline</button>
+            <div style="font-size:12px;color:var(--muted);align-self:center;" id="baseline-status">Not set</div>
+          </div>
+          <div class="note">Set once when you start tracking. Dashboard uses this as the journey start for equity / drawdown context.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Import Charles Schwab history
+          <span class="tag">CSV / Excel export</span>
+        </div>
+        <div class="panel-body">
+          <div class="form-row">
+            <input type="file" id="schwab-file" accept=".csv,.txt,.tsv,text/csv" style="font-size:12px;color:var(--muted);" />
+            <button class="btn btn-accent" onclick="importSchwabFile()">Import trades</button>
+          </div>
+          <div class="note">
+            Export trade history from Schwab as <strong>Transactions</strong> (CSV) — the file with Date, Action, Symbol, Quantity, Price, Fees &amp; Comm, Amount columns.
+            Buy/Sell rows are matched FIFO per ticker into real round-trip trades (correct realized P&amp;L), remaining unmatched shares become Open Positions below.
+            Options rows (spaces in the symbol) are currently skipped — dividends/interest rows are skipped too.
+          </div>
+          <div id="import-result" style="font-size:12px;margin-top:8px;color:var(--muted);"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Open Positions
+          <button class="btn btn-sm btn-accent" onclick="promptOpenPosition()">+ Open from plan</button>
+        </div>
+        <div class="panel-body" id="open-positions-body">
+          <div class="wl-empty">No open positions. Mark open from Watchlist after fill, or import open lots from Schwab.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Closed Positions</div>
+        <div class="panel-body" id="closed-positions-body">
+          <div class="wl-empty">Closed trades from Journal or Schwab import appear here.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PORTFOLIO DASHBOARD -->
+    <div id="dashboard" class="section">
+      <div class="panel">
+        <div class="panel-header">
+          Portfolio Dashboard
+          <button class="btn btn-sm" onclick="togglePortfolioEdit()">Edit values</button>
+          <button class="btn btn-sm btn-accent" onclick="savePortfolioSnapshot()">Save</button>
+        </div>
+        <div class="panel-body">
+          <div id="portfolio-edit" style="display:none;margin-bottom:14px;padding:12px;background:#0f172a;border:1px solid var(--border);border-radius:8px;">
+            <div class="form-row" style="flex-wrap:wrap;">
+              <div class="form-group"><label>Starting Date</label><input type="date" id="pf-start-date" style="width:150px" /></div>
+              <div class="form-group"><label>Starting Portfolio Value $</label><input type="number" id="pf-start-value" step="0.01" style="width:160px" /></div>
+              <div class="form-group"><label>Current Portfolio Value $</label><input type="number" id="pf-current-value" step="0.01" style="width:160px" /></div>
+              <div class="form-group"><label>Current Cash Balance $</label><input type="number" id="pf-cash" step="0.01" style="width:160px" /></div>
+              <div class="form-group"><label>Unrealized PnL $</label><input type="number" id="pf-unrealized" step="0.01" style="width:140px" /></div>
+              <div class="form-group"><label>Total Heat $</label><input type="number" id="pf-heat" step="0.01" style="width:120px" value="0" /></div>
+              <div class="form-group"><label>Peak Portfolio Value $</label><input type="number" id="pf-peak" step="0.01" style="width:160px" /></div>
+            </div>
+            <div class="note">Realized PnL can come from Journal/Schwab or be entered. Capital deployed = Current Value − Cash. Drawdowns use peak.</div>
+          </div>
+          <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Trading performance (closed trades)</div>
+        <div class="panel-body" id="dash-metrics" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Daily equity curve</div>
+        <div class="panel-body">
+          <div id="equity-curve" style="height:220px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;"></div>
+          <div class="note" id="equity-curve-note">Equity path from baseline + cumulative closed P&amp;L (and portfolio snapshot when set).</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">By setup type</div>
+          <div class="panel-body" id="dash-by-type"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">More stats</div>
+          <div class="panel-body" id="dash-extra"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Setup rules cheat-sheet
+          <span class="tag">Auto-generated from Setup Library · <a href="#" onclick="navTo('setup-library');return false;" style="color:var(--accent);">edit setups</a></span>
+        </div>
+        <div class="panel-body" style="overflow-x:auto;" id="dash-cheat-sheet"></div>
+      </div>
+    </div>
+
+    <!-- AI REVIEW -->
+    <div id="ai-review" class="section">
+      <div class="panel">
+        <div class="panel-header">AI Trade Review · SWOT &amp; improvement</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:12px;">
+            Uses your Journal + imported Schwab trades (local only). Click run to generate a structured review.
+            You can paste this into a chat with Grok for a deeper session.
+          </div>
+          <button class="btn btn-accent" onclick="runAIReview()">Run AI review on my trades</button>
+          <div id="ai-review-output" style="margin-top:14px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNAL -->
+    <div id="journal" class="section">
+      <div class="panel">
+        <div class="panel-header">Log a Trade</div>
+        <div class="form-row" style="flex-direction: column; align-items: stretch;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <div class="form-group"><label>Ticker</label><input type="text" id="j-ticker" style="width:90px" /></div>
+            <div class="form-group"><label>Date</label><input type="date" id="j-date" style="width:140px" /></div>
+            <div class="form-group"><label>Setup</label>
+              <select id="j-setup" style="width:100px"><option>SIP</option><option>EP</option><option>EP9M</option><option>Other</option></select>
+            </div>
+            <div class="form-group"><label>Side</label>
+              <select id="j-side" style="width:80px"><option>Long</option><option>Short</option></select>
+            </div>
+            <div class="form-group"><label>Entry</label><input type="number" id="j-entry" step="0.01" style="width:90px" /></div>
+            <div class="form-group"><label>Exit</label><input type="number" id="j-exit" step="0.01" style="width:90px" /></div>
+            <div class="form-group"><label>Shares</label><input type="number" id="j-shares" style="width:90px" /></div>
+            <div class="form-group"><label>P&L $</label><input type="number" id="j-pnl" step="0.01" style="width:90px" /></div>
+          </div>
+          <div class="form-group" style="margin-top:8px;">
+            <label>Notes (what worked / what to improve)</label>
+            <textarea id="j-notes" placeholder="Catalyst, entry method, why exit, lesson..."></textarea>
+          </div>
+          <div style="margin-top:8px;">
+            <button class="btn btn-accent" onclick="addJournalEntry()">Save Trade</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          Trade History
+          <button class="btn btn-sm" onclick="clearJournal()">Clear Journal</button>
+        </div>
+        <div class="panel-body" id="journal-body">
+          <div class="journal-empty">No trades logged yet. Record actual vs planned to improve execution.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.content -->
+  </div><!-- /.shell -->
+
+  <div class="footer">
+    Trading Terminal · Market Monitor → SIPs · Educational use only · Not financial advice<br>
+    MM thresholds from Market Monitor guide. SIP data is a snapshot — verify live quotes before trading.
+  </div>
+
+  <script>
+    const candidates = [
+      { ticker: "AOUT", name: "American Outdoor Brands, Inc.", price: 14.48, gap: 44.7, vol: "4.4M", volMult: "42.2x avg",
+        catalyst: "Q1 FY27 beat with a swing to non-GAAP profitability, driven by new-product innovation across the outdoor-lifestyle lineup.",
+        score: 88, avoid: false, shortInterest: "n/a",
+        tags: ["Earnings Beat", "Turnaround", "Gap Up", "A — Qualified", "Premarket Volume"],
+        qualifyGrade: "A — Qualified",
+        checks: [
+          { ok: true, title: "Real, dated catalyst", detail: "A specific, sourced catalyst was found for today's move." },
+          { ok: true, title: "Exceptional volume (2x+ avg, 5–10x ideal)", detail: "Trading at 42.2x average volume — squarely in the \"great\" 5–10x zone." },
+          { ok: true, title: "Meaningful gap (4%+ on 100K+ volume)", detail: "+44.7% move on 4.4M shares clears the 4%/100K threshold." },
+          { ok: true, title: "Clean base (not already extended)", detail: "Prior base was constructive before the earnings gap." }
+        ],
+        bull: [
+          "A swing from loss to profit is a durable inflection, not a one-quarter fluke, and the market rewarded it with a 42x-average-volume move.",
+          "Product-innovation-driven beat gives a repeatable growth story rather than a single lucky quarter."
+        ],
+        bear: [
+          "Up nearly 45% in a single session is extended well past any reasonable near-term technical target.",
+          "Small-cap consumer names that gap this hard on a single earnings beat often round-trip a large portion of the move within 1–2 weeks."
+        ],
+        targets: { bull: 16.80, base: 15.20, bear: 12.50, scenarios: "Bull: hold gap + trend to next resistance. Base: chop 14–15.5. Bear: fade 30–50% of gap within 1–2 sessions." },
+        rationale: "Earnings beat + profitability swing + extreme volume. A-Qualified SIP.",
+        sources: [{name:"Earnings / Premarket Volume", url:"https://stockanalysis.com/markets/premarket/"}, {name:"Benzinga Premarket", url:"https://www.benzinga.com/"}] },
+      { ticker: "IMRN", name: "Immuron Limited", price: 1.83, gap: 65, vol: "4.0M", volMult: "high RVol",
+        catalyst: "US distribution deal for IBS treatment (PROIBS).",
+        score: 82, avoid: false, shortInterest: "n/a",
+        tags: ["News Catalyst", "Gap Up", "B — Watch", "Premarket Volume"],
+        qualifyGrade: "B — Watch",
+        checks: [
+          { ok: true, title: "Real, dated catalyst", detail: "US distribution agreement is a concrete, dated catalyst." },
+          { ok: true, title: "Exceptional volume", detail: "~4M shares on a small name — strong participation." },
+          { ok: true, title: "Meaningful gap", detail: "+65% clears 4% threshold with ease." },
+          { ok: false, title: "Clean base / quality", detail: "Low-priced biotech-style name — higher fade and dilution risk." }
+        ],
+        bull: ["Concrete distribution catalyst + huge relative volume.", "Small float can extend further if news follows through."],
+        bear: ["Low price / biotech-adjacent — dilution and fade risk after Day 1.", "Not a classic large-cap SIP structure."],
+        targets: { bull: 2.25, base: 1.95, bear: 1.35, scenarios: "Bull: continuation if volume holds. Base: digests 1.70–2.00. Bear: classic Day-1 fade toward pre-news levels." },
+        rationale: "Strong catalyst + high relative volume. Low float style mover.",
+        sources: [{name:"Premarket Volume / RVol Spike", url:"https://stockanalysis.com/markets/premarket/"}, {name:"Grok X Buzz", url:null}] },
+      { ticker: "IOT", name: "Samsara Inc.", price: 44.30, gap: 14, vol: "235k", volMult: "~3x",
+        catalyst: "Q2 earnings beat and raised outlook; AI / IoT platform momentum.",
+        score: 74, avoid: false, shortInterest: "moderate",
+        tags: ["Earnings Beat", "Guidance", "Gap Up", "A — Qualified"],
+        qualifyGrade: "A — Qualified",
+        checks: [
+          { ok: true, title: "Real, dated catalyst", detail: "Earnings beat + raise is a classic SIP catalyst." },
+          { ok: true, title: "Exceptional volume", detail: "Elevated pre-market volume vs average." },
+          { ok: true, title: "Meaningful gap", detail: "+14% on liquid name clears threshold." },
+          { ok: true, title: "Clean base", detail: "Liquid large-ish name suitable for structured entries." }
+        ],
+        bull: ["Beat-and-raise in a growth software name often gets multi-day follow-through.", "Liquid enough for clean open / 1–5 min breakout entries."],
+        bear: ["Already a large move — risk of open fade if buyers are exhausted.", "Software multiples can compress quickly on any guidance wobble."],
+        targets: { bull: 48.50, base: 45.50, bear: 41.00, scenarios: "Bull: open drive + 1–5 min high break. Base: hold gap fill zone. Bear: open fade back into prior range." },
+        rationale: "Liquid earnings SIP. Good for open / 1-5 min breakout entries.",
+        sources: [{name:"Briefing.com Story Stocks", url:"https://www.briefing.com/story-stocks/archive"}, {name:"Bloomberg Movers", url:"https://www.bloomberg.com/markets"}] },
+      { ticker: "WETO", name: "Wetour Robotics Limited", price: 4.11, gap: 28, vol: "1.3M", volMult: "elevated",
+        catalyst: "Robotics demo / product news (Orchestra / human-hand data).",
+        score: 68, avoid: false, shortInterest: "n/a",
+        tags: ["Product News", "Gap Up", "B — Watch"],
+        qualifyGrade: "B — Watch",
+        checks: [
+          { ok: true, title: "Real, dated catalyst", detail: "Product/demo news is specific." },
+          { ok: true, title: "Exceptional volume", detail: "1.3M on a small name is notable." },
+          { ok: true, title: "Meaningful gap", detail: "+28% clears 4% filter." },
+          { ok: false, title: "Quality / float", detail: "Thin float — size carefully; spreads can be wide." }
+        ],
+        bull: ["News + volume combo fits SIP framework.", "Robotics theme can attract speculative flow."],
+        bear: ["Thin float — high risk of sharp reversals.", "Catalyst may already be fully priced in the gap."],
+        targets: { bull: 5.00, base: 4.30, bear: 3.20, scenarios: "Bull: thin-float extension on sustained volume. Base: range after open. Bear: sharp reversal if news is fully priced." },
+        rationale: "News + volume. Thin float — size carefully.",
+        sources: [{name:"Premarket Volume Spike", url:"https://stockanalysis.com/markets/premarket/"}, {name:"Grok X Buzz", url:null}] },
+      { ticker: "PL", name: "Planet Labs PBC", price: 20.50, gap: 12, vol: "0.9M", volMult: "~3x",
+        catalyst: "Earnings-related gap; space / satellite data theme.",
+        score: 65, avoid: false, shortInterest: "n/a",
+        tags: ["Earnings", "Theme", "Gap Up"],
+        qualifyGrade: "B — Watch",
+        checks: [
+          { ok: true, title: "Real, dated catalyst", detail: "Earnings reaction is dated and specific." },
+          { ok: true, title: "Volume", detail: "Decent pre-market participation." },
+          { ok: true, title: "Meaningful gap", detail: "+12% qualifies." },
+          { ok: true, title: "Liquidity", detail: "Liquid enough for structured SIP entries." }
+        ],
+        bull: ["Space theme + earnings reaction can sustain interest.", "Liquid enough for clean risk management."],
+        bear: ["Gap may fade if broader risk-off hits growth/space names.", "Not the strongest absolute volume of the day."],
+        targets: { bull: 22.50, base: 21.00, bear: 18.80, scenarios: "Bull: theme continuation. Base: hold above gap midpoint. Bear: risk-off fade into prior consolidation." },
+        rationale: "Space theme + earnings reaction. Liquid enough.",
+        sources: [{name:"Premarket Movers", url:"https://www.marketwatch.com/tools/screener/premarket"}] },
+      { ticker: "SWBI", name: "Smith & Wesson Brands, Inc.", price: 14.15, gap: 15, vol: "34k", volMult: "light",
+        catalyst: "Earnings / sector move.",
+        score: 55, avoid: false, shortInterest: "n/a",
+        tags: ["Earnings", "Gap Up"],
+        qualifyGrade: "C — Lower priority",
+        checks: [
+          { ok: true, title: "Catalyst", detail: "Earnings-related move present." },
+          { ok: false, title: "Exceptional volume", detail: "Volume is light vs ideal 5–10x / 100k+ standard." },
+          { ok: true, title: "Meaningful gap", detail: "+15% on >$5 name." },
+          { ok: true, title: "Price filter", detail: "Above $5." }
+        ],
+        bull: [">$5 with a clear gap — usable if volume expands at the open."],
+        bear: ["Light pre-market volume weakens the SIP case.", "Lower priority vs higher-volume names."],
+        targets: { bull: 15.50, base: 14.40, bear: 12.80, scenarios: "Bull: only if volume expands at open. Base: limited follow-through. Bear: light volume fails — fade." },
+        rationale: ">$5, gap >4%. Volume light — lower priority.",
+        sources: [{name:"Benzinga Premarket", url:"https://www.benzinga.com/"}] },
+      { ticker: "AI", name: "C3.ai, Inc.", price: 10.90, gap: 3.6, vol: "—", volMult: "—",
+        catalyst: "High short interest residual; monitor for fresh catalyst.",
+        score: 50, avoid: false, shortInterest: "~9 days to cover",
+        tags: ["High SI", "Watch"],
+        qualifyGrade: "C — Monitor",
+        checks: [
+          { ok: false, title: "Fresh catalyst today", detail: "No strong dated catalyst confirmed for this session." },
+          { ok: false, title: "Gap quality", detail: "Gap under 4% threshold." },
+          { ok: true, title: "Short interest", detail: "Elevated days-to-cover can fuel a squeeze if catalyst appears." },
+          { ok: true, title: "Price", detail: "Above $5." }
+        ],
+        bull: ["High SI can amplify any positive catalyst."],
+        bear: ["Without a fresh catalyst, fails core SIP filter.", "Do not force a trade."],
+        targets: { bull: 12.00, base: 11.20, bear: 10.20, scenarios: "Bull: squeeze only with a fresh catalyst. Base: noise. Bear: no catalyst — avoid forcing." },
+        rationale: "High short interest. Monitor for catalyst confirmation.",
+        sources: [{name:"High Short Interest Screen", url:"https://www.chartmill.com/stock/markets/usa/screener/most-shorted-stocks"}] },
+      { ticker: "AMC", name: "AMC Entertainment Holdings", price: 2.63, gap: 3.5, vol: "8.4M", volMult: "high",
+        catalyst: "Residual high volume / meme flow — weak fresh news.",
+        score: 48, avoid: false, shortInterest: "elevated",
+        tags: ["High Volume", "Meme"],
+        qualifyGrade: "C — Borderline",
+        checks: [
+          { ok: false, title: "Real catalyst", detail: "No strong dated fundamental catalyst." },
+          { ok: true, title: "Volume", detail: "Very high share volume." },
+          { ok: false, title: "Gap", detail: "Under 4% meaningful-gap filter." },
+          { ok: false, title: "Structure", detail: "Meme dynamics — plan required if trading." }
+        ],
+        bull: ["Extreme volume can still produce tradable intraday structure."],
+        bear: ["Weak catalyst — fails primary SIP thesis.", "Borderline only with clear intraday plan."],
+        targets: { bull: 2.90, base: 2.70, bear: 2.40, scenarios: "Bull: intraday structure only. Base: chop. Bear: no catalyst — plan required if trading." },
+        rationale: "Extreme volume but weak fresh catalyst. Borderline.",
+        sources: [{name:"Highest Raw Premarket Volume", url:"https://www.nasdaq.com/"}] },
+      { ticker: "LULU", name: "lululemon athletica inc.", price: 98.00, gap: -19.5, vol: "3.8M", volMult: "elevated",
+        catalyst: "Second consecutive guidance cut; Americas weakness.",
+        score: 18, avoid: true, shortInterest: "n/a",
+        tags: ["Guidance Cut", "Gap Down", "AVOID long"],
+        qualifyGrade: "AVOID (long)",
+        checks: [
+          { ok: true, title: "Real catalyst", detail: "Guidance cut is real and dated — but bearish." },
+          { ok: true, title: "Volume", detail: "High volume confirms importance of the news." },
+          { ok: false, title: "Long SIP direction", detail: "Gap DOWN — wrong direction for long SIP framework." },
+          { ok: false, title: "Clean long setup", detail: "Playbook: gap downs are choppy for longs." }
+        ],
+        bull: ["Deep gap can see short-covering bounces; not a long SIP."],
+        bear: ["Guidance cut + weak Americas = structural concern.", "High volume gap-down is a short/avoid-long setup per playbook."],
+        targets: { bull: 105.00, base: 98.00, bear: 88.00, scenarios: "Not a long SIP. Bull bounce = short-cover only. Base: stabilize near open. Bear: continuation lower on guidance cut." },
+        rationale: "AVOID — Gap DOWN. High volume but wrong direction for long SIP.",
+        sources: [{name:"Bloomberg Markets", url:"https://www.bloomberg.com/markets"}, {name:"Highest Premarket Volume", url:"https://www.marketwatch.com/tools/screener/premarket"}] },
+      { ticker: "GWRE", name: "Guidewire Software, Inc.", price: 167, gap: -17, vol: "46k", volMult: "—",
+        catalyst: "ARR growth clouds strong FY view (Briefing Story Stock).",
+        score: 20, avoid: true, shortInterest: "n/a",
+        tags: ["Story Stock", "Gap Down", "AVOID long"],
+        qualifyGrade: "AVOID (long)",
+        checks: [
+          { ok: true, title: "Catalyst", detail: "Briefing story stock on the downside." },
+          { ok: false, title: "Long SIP", detail: "Gap down — not a long SIP." },
+          { ok: false, title: "Volume ideal", detail: "Modest relative to large-cap peers." },
+          { ok: false, title: "Direction", detail: "Fails long bias filter." }
+        ],
+        bull: ["Overdone selloffs can bounce — separate short-cover plan only."],
+        bear: ["Gap down on mixed fundamentals is classic avoid-for-long."],
+        targets: { bull: 175.00, base: 167.00, bear: 155.00, scenarios: "Avoid long. Bounce only with separate short-cover plan. Bear: gap-down continuation." },
+        rationale: "AVOID — Gap DOWN. Briefing Story Stock on the downside.",
+        sources: [{name:"Briefing.com Story Stocks", url:"https://www.briefing.com/story-stocks/archive"}] },
+      { ticker: "OFAL", name: "OFA Group", price: 0.92, gap: 35, vol: "47M", volMult: "extreme",
+        catalyst: "Extreme volume / speculative float rotation.",
+        score: 40, avoid: true, shortInterest: "n/a",
+        tags: ["Nano-cap", "Extreme Vol", "AVOID"],
+        qualifyGrade: "AVOID",
+        checks: [
+          { ok: false, title: "Quality catalyst", detail: "Speculative volume spike more than durable catalyst." },
+          { ok: true, title: "Volume", detail: "Extreme share volume." },
+          { ok: true, title: "Gap", detail: "Large % gap." },
+          { ok: false, title: "Quality / float", detail: "Nano-cap — high manip / fade risk." }
+        ],
+        bull: ["Only for experienced scalpers with tight predetermined plan."],
+        bear: ["Extreme thin-float pump characteristics.", "Fails standard SIP quality filter."],
+        targets: { bull: 1.15, base: 0.95, bear: 0.60, scenarios: "Avoid standard SIP. Scalp-only with tight plan. Bear: typical nano fade." },
+        rationale: "AVOID — nano-cap extreme float rotation. High fade / manip risk.",
+        sources: [{name:"Highest Raw Premarket Volume", url:"https://stockanalysis.com/markets/premarket/"}] },
+      { ticker: "EGAN", name: "eGain Corporation", price: 5.53, gap: -22, vol: "58k", volMult: "—",
+        catalyst: "Earnings miss / guidance disappointment.",
+        score: 15, avoid: true, shortInterest: "n/a",
+        tags: ["Earnings Miss", "Gap Down", "AVOID long"],
+        qualifyGrade: "AVOID (long)",
+        checks: [
+          { ok: true, title: "Catalyst", detail: "Earnings miss is real." },
+          { ok: false, title: "Long SIP", detail: "Gap down." },
+          { ok: false, title: "Direction", detail: "Wrong side for long framework." },
+          { ok: true, title: "Price", detail: "Above $5." }
+        ],
+        bull: ["None for long SIP."],
+        bear: ["Gap down on miss — avoid long; choppy action expected."],
+        targets: { bull: 6.00, base: 5.50, bear: 4.80, scenarios: "Avoid long. Gap-down on miss — chop expected. Bear continuation preferred framing." },
+        rationale: "AVOID — Gap DOWN >$5.",
+        sources: [{name:"Premarket Losers", url:"https://www.marketwatch.com/tools/screener/premarket"}] }
+    ];
+
+    candidates.sort((a, b) => b.score - a.score);
+
+    function renderBullishBearish() {
+      // Top 5 Bullish: not avoid, positive gap preferred, highest score
+      const bullish = candidates
+        .filter(c => !c.avoid && c.gap >= 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+      const bullBody = document.getElementById("bullish-table");
+      if (bullBody) {
+        bullBody.innerHTML = bullish.map((c, i) => {
+          const t = c.targets;
+          const tgt = t ? `<span class="pos">$${Number(t.bull).toFixed(2)}</span> / $${Number(t.base).toFixed(2)}` : "—";
+          const a = assessSetup(c);
+          const tag = c.userSetup || a.type;
+          return `
+          <tr>
+            <td>${i + 1}</td>
+            <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+            <td>$${c.price.toFixed(2)}</td>
+            <td class="pos">+${c.gap}%</td>
+            <td><span class="score ${c.score >= 70 ? "score-high" : c.score >= 55 ? "score-med" : "score-low"}">${c.score}</span></td>
+            <td><span class="tag" style="background:#0e7490;color:#a5f3fc;">${tag}</span></td>
+            <td style="font-size:11px;">${tgt}</td>
+            <td class="muted" style="font-size:11px;white-space:normal;">${c.catalyst || "—"}</td>
+            <td><button class="btn btn-sm btn-accent" onclick="addToWatchlist('${c.ticker}')">Add</button></td>
+          </tr>`;
+        }).join("") || `<tr><td colspan="9" class="muted">No bullish candidates</td></tr>`;
+      }
+
+      // Top 5 Bearish: avoid=true or negative gap, worst first (most negative gap or lowest score among avoids)
+      const bearish = candidates
+        .filter(c => c.avoid || c.gap < 0)
+        .sort((a, b) => {
+          // Prefer gap-downs first, then by how negative / avoid strength
+          if (a.gap !== b.gap) return a.gap - b.gap;
+          return a.score - b.score;
+        })
+        .slice(0, 5);
+      const bearBody = document.getElementById("bearish-table");
+      if (bearBody) {
+        bearBody.innerHTML = bearish.map((c, i) => {
+          const a = assessSetup(c);
+          const tag = c.userSetup || a.type;
+          return `
+          <tr>
+            <td>${i + 1}</td>
+            <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+            <td>$${c.price.toFixed(2)}</td>
+            <td class="${c.gap >= 0 ? "pos" : "neg"}">${c.gap > 0 ? "+" : ""}${c.gap}%</td>
+            <td><span class="score score-low">${c.score}</span></td>
+            <td><span class="tag" style="background:#7f1d1d;color:#fecaca;">${tag}</span></td>
+            <td class="rationale">${c.rationale}</td>
+          </tr>`;
+        }).join("") || `<tr><td colspan="7" class="muted">No bearish candidates</td></tr>`;
+      }
+    }
+
+    function renderSIPTable() {
+      const tbody = document.getElementById("sip-table");
+      tbody.innerHTML = "";
+      candidates.forEach((c, i) => {
+        let scoreClass = "score-low";
+        if (c.score >= 70) scoreClass = "score-high";
+        else if (c.score >= 55) scoreClass = "score-med";
+
+        const status = c.avoid
+          ? `<span class="avoid-flag">AVOID</span>`
+          : c.score >= 70
+            ? `<span class="ok-flag">STRONG</span>`
+            : `<span class="ok-flag" style="background:#713f12;color:#fde047">WATCH</span>`;
+
+        const srcHtml = (c.sources || []).map(s => {
+          if (s.url) return `<a href="${s.url}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;display:block;font-size:10px;margin-bottom:2px;">↗ ${s.name}</a>`;
+          return `<span style="color:var(--muted);font-size:10px;display:block;">${s.name}</span>`;
+        }).join("");
+
+        const t = c.targets;
+        const tgtHtml = t
+          ? `<span class="pos">$${Number(t.bull).toFixed(2)}</span> / $${Number(t.base).toFixed(2)} / <span class="neg">$${Number(t.bear).toFixed(2)}</span>`
+          : "—";
+        const a = assessSetup(c);
+        const chosen = c.userSetup || a.type;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${i + 1}</td>
+          <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span>
+            ${c._live ? `<span class="tag" style="background:#14532d;color:#86efac;font-size:9px;margin-left:4px;">LIVE</span>` : c._buzz ? `<span class="tag" style="background:#581c87;color:#e9d5ff;font-size:9px;margin-left:4px;">BUZZ</span>` : c._demo ? `<span class="tag" style="background:#374151;color:#9ca3af;font-size:9px;margin-left:4px;">DEMO</span>` : ""}
+          </td>
+          <td>$${c.price.toFixed(2)}</td>
+          <td class="${c.gap >= 0 ? "pos" : "neg"}">${c.gap > 0 ? "+" : ""}${c.gap}%</td>
+          <td class="muted">${c.vol}</td>
+          <td><span class="score ${scoreClass}">${c.score}</span></td>
+          <td>${status}</td>
+          <td style="font-size:11px;max-width:200px;white-space:normal;">
+            <strong style="color:var(--accent)">${a.type}</strong>
+            <div class="muted" style="font-size:10px;margin-top:2px;">${a.reason}</div>
+          </td>
+          <td>
+            <select onchange="setQualifySetup('${c.ticker}', this.value)" style="width:88px" ${c.avoid ? "disabled" : ""}>
+              ${setupOptionsHtml(chosen)}
+            </select>
+          </td>
+          <td style="font-size:11px;white-space:nowrap;">${tgtHtml}</td>
+          <td>
+            ${c.avoid
+              ? `<button class="btn btn-sm btn-danger" disabled>Blocked</button>`
+              : `<button class="btn btn-sm btn-accent" onclick="addToWatchlist('${c.ticker}')">Add</button>`
+            }
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      renderBullishBearish();
+    }
+
+    function renderAvoidTable() {
+      // Avoid names are shown in Qualify full list with AVOID flags — no separate page.
+      const tbody = document.getElementById("avoid-table");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      candidates.filter(c => c.avoid).forEach(c => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+          <td>$${c.price.toFixed(2)}</td>
+          <td class="neg">${c.gap}%</td>
+          <td class="rationale">${c.rationale}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function getWatchlist() {
+      try { return JSON.parse(localStorage.getItem("sip_watchlist") || "[]"); }
+      catch { return []; }
+    }
+    function saveWatchlist(list) {
+      localStorage.setItem("sip_watchlist", JSON.stringify(list));
+    }
+    function assessSetup(c) {
+      if (!c) return { type: "SIP", reason: "Default — insufficient data" };
+      if (c.avoid) return { type: "SIP", reason: "AVOID for long — if traded at all, treat as tactical SIP only" };
+      const volStr = (c.vol || "").toUpperCase();
+      let volM = 0;
+      if (volStr.includes("M")) volM = parseFloat(volStr) || 0;
+      else if (volStr.includes("K")) volM = (parseFloat(volStr) || 0) / 1000;
+      const cat = (c.catalyst || "").toLowerCase();
+      const fundamental = /earnings|guidance|beat|profitability|raise|turnaround|inflection/.test(cat);
+      // EP9M first: absolute volume floor
+      if (volM >= 8.9 && c.gap >= 4) {
+        return { type: "EP9M", reason: "Volume ≥ ~8.9M + meaningful gap → EP9M (volume-confirmed thematic/momentum)" };
+      }
+      // Classic EP: rare major fundamental + strong gap/score
+      if (fundamental && c.gap >= 15 && c.score >= 75 && c.price >= 5) {
+        return { type: "EP", reason: "Major fundamental catalyst + large gap → classic EP candidate (review: multi-week hold?)" };
+      }
+      if (fundamental && c.score >= 80 && c.gap >= 8) {
+        return { type: "EP", reason: "Strong earnings/fundamental catalyst → EP lean (confirm rarity & structure)" };
+      }
+      // Default SIP — daily opportunity
+      return { type: "SIP", reason: "Minor/daily catalyst profile → SIP (1-day focus; upgrade to EP/EP9M if you disagree)" };
+    }
+    function suggestSetupType(c) {
+      return assessSetup(c).type;
+    }
+
+    function addToWatchlist(ticker) {
+      const list = getWatchlist();
+      if (list.find(x => x.ticker === ticker)) {
+        alert(ticker + " already on watchlist");
+        return;
+      }
+      const c = candidates.find(x => x.ticker === ticker);
+      const assessment = assessSetup(c);
+      const finalType = (c && c.userSetup) ? c.userSetup : assessment.type;
+      const finalReason = (c && c.userSetup)
+        ? ("Manual review → " + c.userSetup + " (system suggested " + assessment.type + ")")
+        : assessment.reason;
+      list.push({
+        ticker,
+        price: c ? c.price : 0,
+        gap: c ? c.gap : 0,
+        score: c ? c.score : 0,
+        catalyst: c ? c.catalyst : "",
+        targets: c && c.targets ? c.targets : null,
+        setupType: finalType,
+        setupReason: finalReason,
+        entryMode: "open",
+        added: new Date().toISOString(),
+        plan: null,
+        position: null
+      });
+      saveWatchlist(list);
+      renderWatchlist();
+      populateTickerSelects();
+      updateExecRiskVisibility();
+      alert(ticker + " · " + finalType + "\n" + finalReason + "\n\nExecution/risk rules will follow this category.");
+    }
+
+    function addManualToWatchlist() {
+      const tickerInput = document.getElementById("wl-manual-ticker");
+      const setupSel = document.getElementById("wl-manual-setup");
+      const ticker = (tickerInput.value || "").trim().toUpperCase();
+      if (!ticker) { alert("Enter a ticker"); return; }
+      const list = getWatchlist();
+      if (list.find(x => x.ticker === ticker)) { alert(ticker + " already on watchlist"); return; }
+      const setupType = setupSel.value;
+      list.push({
+        ticker, price: 0, gap: 0, score: 0, catalyst: "",
+        targets: null, setupType, setupReason: "Added manually · " + setupType,
+        entryMode: "open", added: new Date().toISOString(), plan: null, position: null
+      });
+      saveWatchlist(list);
+      renderWatchlist();
+      populateTickerSelects();
+      updateExecRiskVisibility();
+      tickerInput.value = "";
+      alert(ticker + " added to watchlist as " + setupType + ".");
+    }
+    function setWatchSetup(ticker, type) {
+      const list = getWatchlist();
+      const item = list.find(x => x.ticker === ticker);
+      if (!item) return;
+      item.setupType = type;
+      item.setupReason = "Manual review → " + type;
+      saveWatchlist(list);
+      renderWatchlist();
+      populateTickerSelects();
+    }
+    function setQualifySetup(ticker, type) {
+      const c = candidates.find(x => x.ticker === ticker);
+      if (c) {
+        c.userSetup = type;
+        c.setupReason = "Manual review → " + type;
+      }
+      // if already on watchlist, sync
+      const list = getWatchlist();
+      const item = list.find(x => x.ticker === ticker);
+      if (item) {
+        item.setupType = type;
+        item.setupReason = "Manual review → " + type;
+        saveWatchlist(list);
+        renderWatchlist();
+      }
+      renderSIPTable();
+      renderBullishBearish();
+    }
+    function setEntryMode(ticker, mode) {
+      const list = getWatchlist();
+      const item = list.find(x => x.ticker === ticker);
+      if (!item) return;
+      item.entryMode = mode;
+      saveWatchlist(list);
+      renderWatchlist();
+    }
+    function removeFromWatchlist(ticker) {
+      saveWatchlist(getWatchlist().filter(x => x.ticker !== ticker));
+      renderWatchlist();
+      updateExecRiskVisibility();
+    }
+    function clearWatchlist() {
+      if (confirm("Clear entire watchlist?")) {
+        saveWatchlist([]);
+        renderWatchlist();
+        updateExecRiskVisibility();
+      }
+    }
+    // Extensible setup registry — persisted in localStorage so new setups can be
+    // added from the UI (Setup Library) without touching code.
+    const DEFAULT_SETUPS = {
+      SIP: {
+        label: "SIP · Stock in Play",
+        category: "catalyst",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "1 day (maybe 2–3) — usually flat by close",
+        openEntry: "On the open · break of 1/3/5-min high · break back above open",
+        delayedEntry: "Range break / open reclaim after early fade",
+        stop: "1–2% or LOD / ~¼–½ of gap — move stop to breakeven ASAP",
+        exit: "Peel on first slowdown; trail ~2% or 3/5-min MA; day-trade default",
+        execBullets: [
+          "Catalyst is minor/daily — not a career EP",
+          "Open entry: trade the open or first 1–5 min structure",
+          "Delayed: wait for open reclaim or range break — do not chase mid-day noise",
+          "Placeholder entry $: prior close gap zone or open print",
+          "Placeholder stop $: LOD or 1–2% below entry",
+          "Placeholder target $: partial at +1R to +2R; runner only if strength holds"
+        ],
+        riskBullets: [
+          "Risk 1% of account ideal (hard max 2.5%)",
+          "Shares = (Account × Risk%) ÷ (Entry − Stop)",
+          "Wider stop → fewer shares — keep $ risk fixed",
+          "Most SIPs are day trades — reduce overnight unless edge is clear"
+        ]
+      },
+      EP: {
+        label: "EP · Episodic Pivot",
+        category: "catalyst",
+        riskPct: 2.5,
+        riskMax: 10,
+        hold: "Weeks to months (structural)",
+        openEntry: "Structural pivot — entry near catalyst day range; wider LOD/base stop",
+        delayedEntry: "Pullback to pivot · VCP / ANTS consolidation break",
+        stop: "Structural (LOD or base low) — size so $ risk matches plan (can be 2.5–10% rare)",
+        exit: "Scale into strength; trail for weeks; protect after +20–25% bursts",
+        execBullets: [
+          "Game-changing catalyst (major earnings/sales inflection) — rare",
+          "Open entry: accept wider stop; do not use tight day-trade stops only",
+          "Delayed: wait for constructive pullback/VCP — patience is the edge",
+          "Placeholder entry $: pivot high break or pullback buy zone",
+          "Placeholder stop $: LOD of EP day or base low",
+          "Placeholder target $: multi-week measured moves; trail remainder"
+        ],
+        riskBullets: [
+          "Default risk 2.5%; true EP exception up to 5–10% only with conviction",
+          "Position size from stop distance — never ignore $ risk",
+          "Expect multi-week hold — plan inventory and overnight risk",
+          "After +20–25% in a few days, tighten / bank partials (guide)"
+        ]
+      },
+      EP9M: {
+        label: "EP9M · ≥8.9M share volume EP",
+        category: "catalyst",
+        riskPct: 1.5,
+        riskMax: 2.5,
+        hold: "3–5 day momentum to 2–4 week swing",
+        openEntry: "Open drive when pre-market volume already extreme",
+        delayedEntry: "Hold VWAP / break 5-min high after open volume confirms",
+        stop: "LOD or 1–2% — volume is the edge; respect failed opens",
+        exit: "Peel first extension; trail swing pocket 2–4 weeks max",
+        execBullets: [
+          "Absolute volume floor ≥ ~8.9M shares (not just relative volume)",
+          "Open entry: only if tape is already thick pre-market",
+          "Delayed: require VWAP hold or 5-min high after volume confirms",
+          "Placeholder entry $: open or VWAP reclaim",
+          "Placeholder stop $: LOD or 1–2%",
+          "Placeholder target $: day-1 peel + swing target 3–15 sessions"
+        ],
+        riskBullets: [
+          "Risk 1–1.5% typical (max 2.5%)",
+          "High-beta liquid leaders — size for volatility",
+          "Failed volume follow-through = exit, do not average",
+          "Shorter than classic EP — do not force multi-month hold"
+        ]
+      },
+      "Reversal Bullish": {
+        label: "Reversal Bullish · Pattern",
+        category: "pattern",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "Days to a few weeks — until thesis confirms or invalidates",
+        openEntry: "Confirmation candle at/above key reversal level — higher low, trendline reclaim, or base breakout",
+        delayedEntry: "Wait for retest of the reversal/breakout level holding as new support",
+        stop: "Below the reversal low / pattern invalidation point",
+        exit: "Trail below rising swing lows; take partials into visible resistance",
+        execBullets: [
+          "No catalyst required — this is a chart-pattern setup, not a news setup",
+          "Confirm the prior downtrend is actually broken (higher low + higher high) before entry",
+          "Open entry: enter on the confirmation candle itself",
+          "Delayed: wait for a clean retest that holds as support",
+          "Placeholder entry $: reversal/breakout level",
+          "Placeholder stop $: below the reversal low"
+        ],
+        riskBullets: [
+          "Risk 1% of account ideal (hard max 2.5%)",
+          "Reversal setups fail often — respect the stop, don't average down",
+          "Size off the distance to the invalidation low, not a round number"
+        ]
+      },
+      Anticipation: {
+        label: "Anticipation · Pattern",
+        category: "pattern",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "Pre-breakout hold, days to weeks, until the move triggers or setup expires",
+        openEntry: "Enter into a tightening range ahead of an expected move (earnings, base apex, VCP tip)",
+        delayedEntry: "Wait for the actual breakout/trigger instead of anticipating it",
+        stop: "Below the tightening range / base low — define before entry, since anticipation risk is open-ended",
+        exit: "Reduce or exit if the range fails to resolve within your expected timeframe",
+        execBullets: [
+          "Chart/pattern-based — you're positioning ahead of a trigger, not reacting to one",
+          "Requires a clearly defined range and a specific reason to expect resolution soon",
+          "Open entry: size smaller since you're pre-empting the move",
+          "Delayed: safer — wait for the actual break of the range",
+          "Placeholder entry $: current price inside the tightening range",
+          "Placeholder stop $: base/range low"
+        ],
+        riskBullets: [
+          "Risk 1% ideal (hard max 2.5%) — anticipation carries event risk",
+          "Never oversize just because conviction is high; the trigger may not come",
+          "Time-box the idea — if it hasn't resolved, don't keep re-upping risk"
+        ]
+      },
+      Other: {
+        label: "Other setup",
+        category: "catalyst",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "Define before entry",
+        openEntry: "Pre-define trigger",
+        delayedEntry: "Pre-define trigger",
+        stop: "1% risk default",
+        exit: "Pre-define exit",
+        execBullets: ["Define catalyst, entry, stop, target before size"],
+        riskBullets: ["Default 1% risk until rules are written"]
+      }
+    };
+
+    function getSetups() {
+      try {
+        const stored = JSON.parse(localStorage.getItem("tt_setups") || "null");
+        if (stored && Object.keys(stored).length) return stored;
+      } catch (e) {}
+      return DEFAULT_SETUPS;
+    }
+    function saveSetups(obj) {
+      localStorage.setItem("tt_setups", JSON.stringify(obj));
+    }
+    function ensureSetupsSeeded() {
+      if (!localStorage.getItem("tt_setups")) saveSetups(DEFAULT_SETUPS);
+    }
+    function getSetupTypes() {
+      return Object.keys(getSetups());
+    }
+    function getSetupRules(key) {
+      const s = getSetups();
+      return s[key] || s.Other || Object.values(s)[0];
+    }
+    function addOrUpdateSetup(key, def) {
+      const s = getSetups();
+      s[key] = def;
+      saveSetups(s);
+    }
+    function deleteSetup(key) {
+      const s = getSetups();
+      delete s[key];
+      saveSetups(s);
+    }
+
+    function setupOptionsHtml(selected) {
+      return getSetupTypes().map(t =>
+        `<option value="${t}" ${selected === t ? "selected" : ""}>${t}</option>`
+      ).join("");
+    }
+
+    function renderSetupLibrary() {
+      const tbody = document.getElementById("setup-library-table");
+      if (!tbody) return;
+      const setups = getSetups();
+      tbody.innerHTML = Object.keys(setups).map(key => {
+        const s = setups[key];
+        const catColor = s.category === "pattern" ? "#7c3aed" : "#0891b2";
+        const catText = s.category === "pattern" ? "PATTERN" : "CATALYST";
+        return `<tr>
+          <td><span class="ticker">${key}</span></td>
+          <td>${s.label || key}</td>
+          <td><span class="tag" style="background:${catColor}22;color:${catColor};">${catText}</span></td>
+          <td>${s.riskPct}% / ${s.riskMax}%</td>
+          <td>${s.hold || "—"}</td>
+          <td>
+            <button class="btn btn-sm" onclick="editSetup('${key}')">Edit</button>
+            ${key === "Other" ? "" : `<button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deleteSetupConfirm('${key}')">Delete</button>`}
+          </td>
+        </tr>`;
+      }).join("");
+    }
+
+    function editSetup(key) {
+      const s = getSetupRules(key);
+      document.getElementById("setup-form-header").textContent = "Edit Setup · " + key;
+      document.getElementById("su-key").value = key;
+      document.getElementById("su-key").disabled = true;
+      document.getElementById("su-label").value = s.label || "";
+      document.getElementById("su-category").value = s.category || "catalyst";
+      document.getElementById("su-riskpct").value = s.riskPct != null ? s.riskPct : 1;
+      document.getElementById("su-riskmax").value = s.riskMax != null ? s.riskMax : 2.5;
+      document.getElementById("su-hold").value = s.hold || "";
+      document.getElementById("su-openentry").value = s.openEntry || "";
+      document.getElementById("su-delayedentry").value = s.delayedEntry || "";
+      document.getElementById("su-stop").value = s.stop || "";
+      document.getElementById("su-exit").value = s.exit || "";
+      document.getElementById("su-execbullets").value = (s.execBullets || []).join("\n");
+      document.getElementById("su-riskbullets").value = (s.riskBullets || []).join("\n");
+      navTo("setup-library");
+      document.getElementById("su-label").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function resetSetupForm() {
+      document.getElementById("setup-form-header").textContent = "Add a New Setup";
+      document.getElementById("su-key").disabled = false;
+      ["su-key", "su-label", "su-hold", "su-openentry", "su-delayedentry", "su-stop", "su-exit", "su-execbullets", "su-riskbullets"]
+        .forEach(id => document.getElementById(id).value = "");
+      document.getElementById("su-category").value = "catalyst";
+      document.getElementById("su-riskpct").value = 1;
+      document.getElementById("su-riskmax").value = 2.5;
+    }
+
+    function saveSetupForm() {
+      const key = (document.getElementById("su-key").value || "").trim();
+      if (!key) { alert("Enter a short unique key for this setup (e.g. Breakout)"); return; }
+      const splitLines = (v) => (v || "").split("\n").map(x => x.trim()).filter(Boolean);
+      const def = {
+        label: document.getElementById("su-label").value.trim() || key,
+        category: document.getElementById("su-category").value,
+        riskPct: parseFloat(document.getElementById("su-riskpct").value) || 1,
+        riskMax: parseFloat(document.getElementById("su-riskmax").value) || 2.5,
+        hold: document.getElementById("su-hold").value.trim(),
+        openEntry: document.getElementById("su-openentry").value.trim(),
+        delayedEntry: document.getElementById("su-delayedentry").value.trim(),
+        stop: document.getElementById("su-stop").value.trim(),
+        exit: document.getElementById("su-exit").value.trim(),
+        execBullets: splitLines(document.getElementById("su-execbullets").value),
+        riskBullets: splitLines(document.getElementById("su-riskbullets").value)
+      };
+      addOrUpdateSetup(key, def);
+      renderSetupLibrary();
+      resetSetupForm();
+      // keep every dropdown that lists setups in sync
+      const jSel = document.getElementById("j-setup");
+      if (jSel) jSel.innerHTML = setupOptionsHtml();
+      const manualSel = document.getElementById("wl-manual-setup");
+      if (manualSel) manualSel.innerHTML = setupOptionsHtml();
+      renderDashboard();
+      alert("Setup \"" + key + "\" saved. It's now available everywhere setups are selected.");
+    }
+
+    function deleteSetupConfirm(key) {
+      if (!confirm("Delete setup \"" + key + "\"? Existing trades already tagged with it keep the label, but you won't be able to pick it for new ones.")) return;
+      deleteSetup(key);
+      renderSetupLibrary();
+      const jSel = document.getElementById("j-setup");
+      if (jSel) jSel.innerHTML = setupOptionsHtml();
+      const manualSel = document.getElementById("wl-manual-setup");
+      if (manualSel) manualSel.innerHTML = setupOptionsHtml();
+    }
+
+    function renderWatchlist() {
+      const body = document.getElementById("watchlist-body");
+      const list = getWatchlist();
+      if (!list.length) {
+        body.innerHTML = `<div class="wl-empty">No names yet.<br><br>
+          <strong>NTRT morning:</strong> Qualify → Add (auto SIP / EP / EP9M) → adjust category → set plan.<br>
+          Execution &amp; risk rules change with setup type and open vs delayed entry.</div>`;
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Plan</th><th>Risk cue</th><th>Actions</th>
+      </tr></thead><tbody>`;
+      list.forEach(w => {
+        const st = w.setupType || "SIP";
+        const rules = getSetupRules(st);
+        const mode = w.entryMode || "open";
+        const p = w.plan;
+        const planTxt = p
+          ? `${p.method || "—"} · E $${p.entry != null ? p.entry : "—"} · S $${p.stop != null ? p.stop : "—"} · T $${p.target != null ? p.target : "—"}`
+          : "<span class='muted'>No plan</span>";
+        html += `<tr>
+          <td><span class="ticker-link" onclick="showDetail('${w.ticker}')">${w.ticker}</span>
+            <div class="muted" style="font-size:10px;">$${Number(w.price).toFixed(2)} · ${w.gap > 0 ? "+" : ""}${w.gap}% · ${w.catalyst || ""}</div>
+          </td>
+          <td>
+            <select onchange="setWatchSetup('${w.ticker}', this.value)" style="width:90px">
+              ${setupOptionsHtml(st)}
+            </select>
+            <div class="muted" style="font-size:9px;margin-top:2px;max-width:120px;white-space:normal;">${w.setupReason || ""}</div>
+          </td>
+          <td>
+            <select onchange="setEntryMode('${w.ticker}', this.value)" style="width:100px">
+              <option value="open" ${mode==="open"?"selected":""}>Open entry</option>
+              <option value="delayed" ${mode==="delayed"?"selected":""}>Delayed</option>
+            </select>
+          </td>
+          <td style="font-size:11px;max-width:220px;white-space:normal;">${planTxt}</td>
+          <td style="font-size:10px;color:var(--muted);max-width:160px;white-space:normal;">${rules.riskPct}% risk · ${rules.hold}</td>
+          <td style="white-space:nowrap;">
+            <button class="btn btn-sm btn-accent" onclick="openPlanFor('${w.ticker}')">${p ? "Edit" : "Plan"}</button>
+            <button class="btn btn-sm" onclick="openRiskFor('${w.ticker}')">Size</button>
+            <button class="btn btn-sm" onclick="markPositionOpen('${w.ticker}')">Open pos</button>
+            <button class="btn btn-sm" style="border-color:#166534;color:#86efac;" onclick="closeOutTrade('${w.ticker}')">Close</button>
+            <button class="btn btn-sm" onclick="removeFromWatchlist('${w.ticker}')">✕</button>
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table>`;
+      html += `<div class="note" style="margin-top:10px;">Change <strong>Setup</strong> (SIP / EP / EP9M) anytime. Open vs Delayed switches the execution playbook when you open Execute.</div>`;
+      body.innerHTML = html;
+    }
+
+    function openPlanFor(ticker) {
+      const execTab = document.querySelector('[data-wl-sub="wl-execute"]');
+      if (execTab) switchWatchSub(execTab);
+      populateTickerSelects();
+      const sel = document.getElementById("exec-ticker-select");
+      if (sel) {
+        sel.value = ticker;
+        onExecTickerChange();
+      }
+    }
+    function openRiskFor(ticker) {
+      const riskTab = document.querySelector('[data-wl-sub="wl-risk"]');
+      if (riskTab) switchWatchSub(riskTab);
+      populateTickerSelects();
+      const sel = document.getElementById("risk-ticker-select");
+      if (sel) {
+        sel.value = ticker;
+        onRiskTickerChange();
+      }
+    }
+    function closeOutTrade(ticker) {
+      const item = getWatchlist().find(x => x.ticker === ticker);
+      // Switch to Trade Journal top tab and pre-fill from plan
+      navTo("journal");
+
+      document.getElementById("j-ticker").value = ticker;
+      document.getElementById("j-date").valueAsDate = new Date();
+      document.getElementById("j-side").value = "Long";
+      if (document.getElementById("j-setup") && item) {
+        document.getElementById("j-setup").value = item.setupType || "SIP";
+      }
+      if (item && item.plan) {
+        if (item.plan.entry != null && !isNaN(item.plan.entry)) {
+          document.getElementById("j-entry").value = item.plan.entry;
+        }
+        const noteParts = [];
+        noteParts.push("Setup: " + (item.setupType || "SIP"));
+        noteParts.push("Mode: " + (item.entryMode || "open"));
+        noteParts.push("Plan: " + (item.plan.method || ""));
+        if (item.plan.entry != null) noteParts.push("Planned entry $" + item.plan.entry);
+        if (item.plan.stop != null) noteParts.push("Stop $" + item.plan.stop);
+        if (item.plan.target != null) noteParts.push("Target $" + item.plan.target);
+        if (item.catalyst) noteParts.push("Catalyst: " + item.catalyst);
+        document.getElementById("j-notes").value = noteParts.filter(Boolean).join(" · ");
+      }
+      document.getElementById("j-exit").focus();
+    }
+
+    function saveExecPlan() {
+      const ticker = document.getElementById("exec-ticker-select").value;
+      if (!ticker) { alert("Select a watchlist ticker first"); return; }
+      const method = document.getElementById("exec-method").value;
+      const entry = parseFloat(document.getElementById("exec-entry").value);
+      const stop = parseFloat(document.getElementById("exec-stop").value);
+      const target = parseFloat(document.getElementById("exec-target").value);
+
+      let list = getWatchlist();
+      let item = list.find(x => x.ticker === ticker);
+      if (!item) { alert("Ticker not on watchlist"); return; }
+      item.plan = { method, entry, stop, target };
+      saveWatchlist(list);
+      renderWatchlist();
+      if (entry) document.getElementById("risk-entry").value = entry;
+      if (stop) document.getElementById("risk-stop").value = stop;
+      // keep risk select in sync
+      document.getElementById("risk-ticker-select").value = ticker;
+      onRiskTickerChange();
+      // jump back to Saved Plans so user sees it
+      const listTab = document.querySelector('[data-wl-sub="wl-list"]');
+      if (listTab) switchWatchSub(listTab);
+      alert("Plan saved for " + ticker + ".\nView it under Watchlist → Saved Plans.");
+    }
+
+    function populateTickerSelects() {
+      const list = getWatchlist();
+      ["exec-ticker-select", "risk-ticker-select"].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const prev = sel.value;
+        sel.innerHTML = '<option value="">— select —</option>';
+        list.forEach(w => {
+          const opt = document.createElement("option");
+          opt.value = w.ticker;
+          opt.textContent = w.ticker + (w.plan ? " ✓" : "");
+          sel.appendChild(opt);
+        });
+        if (prev && list.find(x => x.ticker === prev)) sel.value = prev;
+      });
+    }
+
+    function onExecTickerChange() {
+      const ticker = document.getElementById("exec-ticker-select").value;
+      const meta = document.getElementById("exec-ticker-meta");
+      const item = getWatchlist().find(x => x.ticker === ticker);
+      const c = candidates.find(x => x.ticker === ticker);
+      if (!item) { meta.textContent = ""; return; }
+      const st = item.setupType || "SIP";
+      const mode = item.entryMode || "open";
+      const rules = getSetupRules(st);
+      let tgtNote = "";
+      if (c && c.targets) {
+        tgtNote = ` · Targets B $${c.targets.bull} / Base $${c.targets.base} / Bear $${c.targets.bear}`;
+      }
+      meta.innerHTML = `<strong>${st}</strong> · ${mode} entry · Score ${item.score} · $${item.price.toFixed(2)}${tgtNote}`;
+      const tag = document.getElementById("exec-setup-tag");
+      if (tag) tag.textContent = st + " · " + mode;
+      const body = document.getElementById("exec-rules-body");
+      if (body) {
+        const bullets = (rules.execBullets || []).map(b =>
+          `<div class="check-item"><span class="check-icon">•</span> ${b}</div>`
+        ).join("");
+        body.innerHTML = `
+          <div class="checklist">
+            <div class="check-item"><span class="check-icon">E</span> <strong>Entry (${mode}):</strong> ${mode === "open" ? rules.openEntry : rules.delayedEntry}</div>
+            <div class="check-item"><span class="check-icon">S</span> <strong>Stop:</strong> ${rules.stop}</div>
+            <div class="check-item"><span class="check-icon">X</span> <strong>Exit / hold:</strong> ${rules.exit} · ${rules.hold}</div>
+            ${bullets}
+          </div>
+          <div class="note">${item.setupReason || rules.label}</div>`;
+      }
+      const note = document.getElementById("exec-placeholder-note");
+      if (note) note.textContent = st + " placeholders: fill Entry / Stop / Target below, then Save Plan.";
+      if (item.plan) {
+        document.getElementById("exec-method").value = item.plan.method || "On the open";
+        if (item.plan.entry) document.getElementById("exec-entry").value = item.plan.entry;
+        if (item.plan.stop) document.getElementById("exec-stop").value = item.plan.stop;
+        if (item.plan.target) document.getElementById("exec-target").value = item.plan.target;
+      } else if (c && c.targets) {
+        document.getElementById("exec-entry").value = item.price;
+        document.getElementById("exec-target").value = c.targets.base;
+        document.getElementById("exec-stop").value = (item.price * 0.98).toFixed(2);
+      }
+    }
+
+    function onRiskTickerChange() {
+      const ticker = document.getElementById("risk-ticker-select").value;
+      const meta = document.getElementById("risk-ticker-meta");
+      const item = getWatchlist().find(x => x.ticker === ticker);
+      if (!item) { meta.textContent = ""; return; }
+      const st = item.setupType || "SIP";
+      const rules = getSetupRules(st);
+      meta.innerHTML = `<strong>${st}</strong> · ideal ${rules.riskPct}% (max ${rules.riskMax}%) · ${rules.hold}`;
+      const tag = document.getElementById("risk-setup-tag");
+      if (tag) tag.textContent = st;
+      const rb = document.getElementById("risk-rules-body");
+      if (rb) {
+        rb.innerHTML = (rules.riskBullets || []).map(b =>
+          `<div class="check-item"><span class="check-icon">•</span> ${b}</div>`
+        ).join("") + `<div class="check-item"><span class="check-icon">S</span> <strong>Stop cue:</strong> ${rules.stop}</div>`;
+      }
+      document.getElementById("risk-pct").value = rules.riskPct;
+      if (item.plan) {
+        if (item.plan.entry) document.getElementById("risk-entry").value = item.plan.entry;
+        if (item.plan.stop) document.getElementById("risk-stop").value = item.plan.stop;
+        calcSize();
+      } else if (item.price) {
+        document.getElementById("risk-entry").value = item.price;
+      }
+    }
+
+    function updateExecRiskVisibility() {
+      const has = getWatchlist().length > 0;
+      const execEmpty = document.getElementById("exec-empty");
+      const execContent = document.getElementById("exec-content");
+      const riskEmpty = document.getElementById("risk-empty");
+      const riskContent = document.getElementById("risk-content");
+      if (execEmpty && execContent) {
+        execEmpty.style.display = has ? "none" : "block";
+        execContent.style.display = has ? "block" : "none";
+      }
+      if (riskEmpty && riskContent) {
+        riskEmpty.style.display = has ? "none" : "block";
+        riskContent.style.display = has ? "block" : "none";
+      }
+      populateTickerSelects();
+    }
+
+    let lastRefreshTime = Date.now();
+    // ---- Scheduled live data (written by .github/workflows/refresh-watchlist.yml) ----
+    let liveDataLoaded = false;
+    function renderWsjFeed(headlines) {
+      const body = document.getElementById("wsj-feed-body");
+      const badge = document.getElementById("wsj-feed-badge");
+      if (!body) return;
+      if (!headlines || !headlines.length) {
+        body.innerHTML = `<div class="wl-empty">No WSJ headlines yet — populates at the next scheduled refresh.</div>`;
+        if (badge) badge.textContent = "No data yet";
+        return;
+      }
+      if (badge) badge.textContent = headlines.length + " headlines";
+      body.innerHTML = headlines.map(h => {
+        const tickerTags = (h.tickers || []).filter(t => t !== "N/A")
+          .map(t => `<span class="tag" style="background:#0e7490;color:#a5f3fc;margin-right:4px;">${t}</span>`).join("");
+        return `<div class="news-item">
+          <a href="${h.link}" target="_blank" rel="noopener">${h.title}</a>
+          <div class="news-meta">${(h.pubDate || "").slice(0, 16)}</div>
+          ${tickerTags ? `<div style="margin-top:4px;">${tickerTags}</div>` : ""}
+          ${h.description ? `<div class="news-desc">${h.description}</div>` : ""}
+        </div>`;
+      }).join("");
+    }
+
+    function mapLiveCandidate(lc, kind) {
+      // Maps a screener/buzz row from data/candidates.json into the same shape
+      // renderSIPTable/renderBullishBearish/showDetail already expect.
+      return {
+        ticker: lc.ticker,
+        name: lc.name || lc.ticker,
+        price: lc.price || 0,
+        gap: lc.changePct != null ? Number(lc.changePct.toFixed(1)) : 0,
+        vol: lc.volume ? (lc.volume >= 1e6 ? (lc.volume / 1e6).toFixed(1) + "M" : (lc.volume / 1e3).toFixed(0) + "K") : "—",
+        score: Math.max(0, Math.min(99, Math.round((lc.changePct || 0) * 2 + (lc.volume ? Math.min(lc.volume / 200000, 30) : 0)))),
+        avoid: (lc.changePct || 0) < 0,
+        shortInterest: "n/a",
+        catalyst: kind === "buzz"
+          ? "Trending on StockTwits right now — verify why manually, no catalyst text attached."
+          : "Live pre-market screener hit — verify catalyst manually (no news attached).",
+        tags: [kind === "buzz" ? "BUZZ" : "LIVE"],
+        qualifyGrade: "",
+        checks: [],
+        bull: [], bear: [],
+        targets: null,
+        rationale: kind === "buzz"
+          ? "Flagged by StockTwits trending feed (real substitute for X — see notes)."
+          : "Flagged by scheduled pre-market screener: " + (lc.changePct || 0).toFixed(1) + "% move on " + (lc.volume || 0).toLocaleString() + " volume.",
+        sources: [{ name: lc.source || "Live source", url: lc.sourceUrl || null }],
+        _live: kind !== "buzz",
+        _buzz: kind === "buzz"
+      };
+    }
+
+    async function loadLiveWatchlistData() {
+      const badge = document.getElementById("live-data-badge");
+      const statusBody = document.getElementById("live-data-status-body");
+      try {
+        const res = await fetch("./data/candidates.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+
+        renderWsjFeed(data.wsjHeadlines);
+
+        const screener = data.screener || { available: false, candidates: [] };
+        const buzz = data.buzz || [];
+        const hasLive = (screener.available && screener.candidates && screener.candidates.length) || buzz.length;
+        if (hasLive) {
+          // Tag existing demo rows so they're clearly distinguishable, then
+          // prepend real live rows tagged with their actual source.
+          candidates.forEach(c => { if (!("_live" in c) && !("_buzz" in c)) c._demo = true; });
+          const liveMapped = (screener.candidates || []).map(c => mapLiveCandidate(c, "screener"));
+          const buzzMapped = buzz.map(c => mapLiveCandidate(c, "buzz"));
+          candidates.unshift(...buzzMapped, ...liveMapped);
+          renderSIPTable();
+          renderBullishBearish();
+        }
+
+        if (badge) badge.textContent = data.generatedAt ? "Live · updated" : "Waiting for first run";
+        if (statusBody) {
+          if (data.generatedAt) {
+            const d = new Date(data.generatedAt);
+            const bits = [`Last scheduled refresh: <strong>${d.toLocaleString()}</strong> (slot: ${data.generatedSlot || "—"}).`];
+            bits.push(`Pre-market screener: ${screener.available ? screener.candidates.length + " candidates (stockanalysis.com)" : "<span class='neg'>" + (screener.note || "no data") + "</span>"}.`);
+            bits.push(`Trader buzz: ${buzz.length ? buzz.length + " tickers (StockTwits trending)" : "<span class='neg'>no data this run</span>"}.`);
+            statusBody.innerHTML = bits.join(" ");
+          } else {
+            statusBody.innerHTML = data.screener && data.screener.note ? data.screener.note : "No scheduled run has completed yet.";
+          }
+        }
+        liveDataLoaded = true;
+      } catch (e) {
+        if (badge) badge.textContent = "Not connected";
+        if (statusBody) statusBody.textContent = "Could not load data/candidates.json (" + e.message + "). This is expected if you're opening the file directly rather than through the deployed site, or before the first scheduled/manual Action run.";
+        renderWsjFeed([]);
+      }
+    }
+
+    function refreshCandidates() {
+      // In a live system this would re-query Briefing, WSJ, Bloomberg, X, volume screens, etc.
+      // Here we re-sort, re-render, and stamp the time so the hourly cadence is visible.
+      candidates.sort((a, b) => b.score - a.score);
+      renderSIPTable();
+      renderAvoidTable();
+      lastRefreshTime = Date.now();
+      updateRefreshLabel();
+    }
+
+    function updateRefreshLabel() {
+      const el = document.getElementById("last-refresh");
+      if (!el) return;
+      const d = new Date(lastRefreshTime);
+      const h = String(d.getHours()).padStart(2, "0");
+      const m = String(d.getMinutes()).padStart(2, "0");
+      el.textContent = "List: " + h + ":" + m;
+    }
+
+    function calcSize() {
+      const account = parseFloat(document.getElementById("risk-account").value) || 0;
+      let pct = parseFloat(document.getElementById("risk-pct").value) || 0;
+      const entry = parseFloat(document.getElementById("risk-entry").value) || 0;
+      const stop = parseFloat(document.getElementById("risk-stop").value) || 0;
+
+      if (account <= 0 || pct <= 0 || entry <= 0 || stop <= 0) {
+        document.getElementById("shares-out").textContent = "—";
+        document.getElementById("size-details").textContent = "Fill all fields";
+        return;
+      }
+      if (pct > 2.5) {
+        alert("Hard max is 2.5%. Capping.");
+        pct = 2.5;
+        document.getElementById("risk-pct").value = 2.5;
+      }
+      const riskDollars = account * (pct / 100);
+      const riskPerShare = Math.abs(entry - stop);
+      if (riskPerShare === 0) {
+        document.getElementById("shares-out").textContent = "—";
+        document.getElementById("size-details").textContent = "Entry and Stop cannot be equal";
+        return;
+      }
+      const shares = Math.floor(riskDollars / riskPerShare);
+      const notional = shares * entry;
+
+      document.getElementById("shares-out").textContent = shares.toLocaleString();
+      document.getElementById("size-details").innerHTML =
+        `Risk $: <strong>$${riskDollars.toFixed(0)}</strong> (${pct}%) · Risk/share: <strong>$${riskPerShare.toFixed(2)}</strong> · Notional: <strong>$${notional.toLocaleString(undefined,{maximumFractionDigits:0})}</strong>`;
+    }
+
+    function getJournal() {
+      try { return JSON.parse(localStorage.getItem("sip_journal") || "[]"); }
+      catch { return []; }
+    }
+    function saveJournal(list) {
+      localStorage.setItem("sip_journal", JSON.stringify(list));
+    }
+    function addJournalEntry() {
+      const ticker = document.getElementById("j-ticker").value.trim().toUpperCase();
+      const date = document.getElementById("j-date").value;
+      const setup = document.getElementById("j-setup") ? document.getElementById("j-setup").value : "SIP";
+      const side = document.getElementById("j-side").value;
+      const entry = parseFloat(document.getElementById("j-entry").value);
+      const exitP = parseFloat(document.getElementById("j-exit").value);
+      const shares = parseFloat(document.getElementById("j-shares").value);
+      const pnl = parseFloat(document.getElementById("j-pnl").value);
+      const notes = document.getElementById("j-notes").value.trim();
+
+      if (!ticker || !date) { alert("Ticker and Date required"); return; }
+
+      const list = getJournal();
+      list.unshift({
+        id: Date.now(), ticker, date, setup, side, entry, exit: exitP, shares, pnl, notes,
+        logged: new Date().toISOString()
+      });
+      saveJournal(list);
+      // close any open position for ticker
+      const wl = getWatchlist();
+      const w = wl.find(x => x.ticker === ticker);
+      if (w && w.position && w.position.status === "open") {
+        w.position = { status: "closed", closedAt: new Date().toISOString(), pnl };
+        saveWatchlist(wl);
+      }
+      renderJournal();
+      renderPositions();
+      renderDashboard();
+      document.getElementById("j-ticker").value = "";
+      document.getElementById("j-entry").value = "";
+      document.getElementById("j-exit").value = "";
+      document.getElementById("j-shares").value = "";
+      document.getElementById("j-pnl").value = "";
+      document.getElementById("j-notes").value = "";
+    }
+    function clearJournal() {
+      if (confirm("Clear entire trade journal?")) {
+        saveJournal([]);
+        renderJournal();
+        renderDashboard();
+        renderPositions();
+      }
+    }
+    function renderJournal() {
+      const body = document.getElementById("journal-body");
+      const list = getJournal();
+      if (!list.length) {
+        body.innerHTML = `<div class="journal-empty">No trades logged yet. Record actual vs planned to improve execution.</div>`;
+        return;
+      }
+      body.innerHTML = list.map(t => `
+        <div class="journal-entry">
+          <div class="journal-meta">
+            <strong class="ticker">${t.ticker}</strong> · ${t.date} · ${t.setup || "SIP"} · ${t.side}
+            ${t.entry ? ` · Entry $${t.entry}` : ""} ${t.exit ? `→ Exit $${t.exit}` : ""}
+            ${t.shares ? ` · ${t.shares} sh` : ""}
+            ${t.pnl != null && !isNaN(t.pnl) ? ` · <span class="${t.pnl >= 0 ? "pos" : "neg"}">P&L $${t.pnl}</span>` : ""}
+          </div>
+          <div style="font-size:12px;color:var(--muted);">${t.notes || "No notes"}</div>
+        </div>
+      `).join("");
+    }
+
+    function showDetail(ticker) {
+      const c = candidates.find(x => x.ticker === ticker);
+      if (!c) return;
+      const chgClass = c.gap >= 0 ? "pos" : "neg";
+      const chgStr = (c.gap > 0 ? "+" : "") + c.gap + "%";
+      const tags = (c.tags || []).map(t => {
+        const cls = t.includes("Qualified") || t.includes("A —") ? "qualified" : (t.includes("Volume") || t.includes("Gap Up") ? "hot" : "");
+        return `<span class="tag-pill ${cls}">${t}</span>`;
+      }).join("");
+      const bull = (c.bull || []).map(b => `<li>${b}</li>`).join("");
+      const bear = (c.bear || []).map(b => `<li>${b}</li>`).join("");
+      const checks = (c.checks || []).map(ch => `
+        <div class="q-item">
+          <span class="${ch.ok ? "q-ok" : "q-no"}">${ch.ok ? "✓" : "✗"}</span>
+          <div class="q-text"><strong>${ch.title}</strong><span>${ch.detail}</span></div>
+        </div>`).join("");
+      // simple sparkline path (decorative)
+      const spark = `<svg viewBox="0 0 200 60" preserveAspectRatio="none">
+        <polyline fill="none" stroke="${c.gap >= 0 ? "#22c55e" : "#ef4444"}" stroke-width="2"
+          points="0,40 20,38 40,42 60,35 80,36 100,30 120,28 140,32 160,20 180,18 200,${c.gap >= 0 ? 8 : 50}" />
+      </svg>`;
+      const srcLinks = (c.sources || []).filter(s => s.url).map(s =>
+        `<a href="${s.url}" target="_blank" rel="noopener" style="color:var(--accent);font-size:11px;">Read source ↗</a>`
+      ).join(" · ");
+
+      document.getElementById("detail-content").innerHTML = `
+        <div class="modal-header">
+          <button class="modal-close" onclick="closeDetail()">×</button>
+          <div class="modal-company">${c.ticker} · ${c.name || ""}</div>
+          <div class="modal-catalyst">${c.catalyst || ""} ${srcLinks}</div>
+          <div class="modal-ticker-row">
+            <div>
+              <div class="modal-price">$${c.price.toFixed(2)}</div>
+              <div class="modal-chg ${chgClass}">${chgStr}</div>
+            </div>
+            <div class="modal-meta">
+              Vol ${c.vol}${c.volMult ? " (" + c.volMult + ")" : ""}<br>
+              Short interest ${c.shortInterest || "n/a"}
+            </div>
+          </div>
+          <div class="modal-tags">${tags}</div>
+          <div class="spark">${spark}</div>
+        </div>
+        ${c.targets ? `
+        <div class="case-block" style="padding-bottom:4px;">
+          <h4 style="color:var(--accent);">Indicative targets</h4>
+          <div style="font-size:13px;margin:6px 0;">
+            <span class="pos">Bull $${Number(c.targets.bull).toFixed(2)}</span>
+            &nbsp;·&nbsp; Base $${Number(c.targets.base).toFixed(2)}
+            &nbsp;·&nbsp; <span class="neg">Bear $${Number(c.targets.bear).toFixed(2)}</span>
+          </div>
+          <div class="news-desc">${c.targets.scenarios || ""}</div>
+        </div>` : ""}
+        <div class="case-block bull">
+          <h4>↗ Bullish case</h4>
+          <ul>${bull || "<li>No bull notes</li>"}</ul>
+        </div>
+        <div class="case-block bear">
+          <h4>↘ Bearish case</h4>
+          <ul>${bear || "<li>No bear notes</li>"}</ul>
+        </div>
+        <div class="modal-actions">
+          ${c.avoid
+            ? `<button class="btn btn-danger" disabled>Blocked — AVOID</button>`
+            : `<button class="btn btn-accent" onclick="addToWatchlist('${c.ticker}');closeDetail();">Add to watchlist</button>`
+          }
+          <button class="btn" onclick="openNewsFor('${c.ticker}')">News</button>
+          <button class="btn" onclick="closeDetail()">Close</button>
+        </div>
+        <div class="qualify-panel">
+          <h4>Qualify <span class="${c.avoid ? "neg" : "pos"}">${c.qualifyGrade || (c.avoid ? "AVOID" : "—")}</span></h4>
+          ${checks || "<div class='muted'>No checklist data</div>"}
+        </div>
+      `;
+      document.getElementById("detail-modal").classList.add("open");
+    }
+    function closeDetail() {
+      document.getElementById("detail-modal").classList.remove("open");
+    }
+    function openNewsFor(ticker) {
+      closeDetail();
+      navTo("news");
+      populateNewsTickerSelect();
+      const sel = document.getElementById("news-ticker-select");
+      if (sel) sel.value = ticker;
+      loadMarketNews();
+      loadTickerNews();
+    }
+
+    // Settings / privacy
+    function isPublic() {
+      return localStorage.getItem("sip_public") === "1";
+    }
+    function getAccessPin() {
+      return localStorage.getItem("sip_access_pin") || "";
+    }
+    function saveAccessPin() {
+      const v = (document.getElementById("access-pin-input").value || "").trim();
+      if (!v) { alert("Enter a PIN first"); return; }
+      localStorage.setItem("sip_access_pin", v);
+      alert("PIN saved. Use Public OFF to require this PIN when the page loads.");
+      document.getElementById("access-pin-input").value = "";
+    }
+    function toggleSettings() {
+      document.getElementById("settings-panel").classList.toggle("open");
+    }
+    function applyPrivacyUI() {
+      const pub = isPublic();
+      const badge = document.getElementById("privacy-badge");
+      const toggle = document.getElementById("privacy-toggle");
+      const desc = document.getElementById("privacy-desc");
+      badge.textContent = pub ? "PUBLIC" : "PRIVATE";
+      badge.className = "privacy-badge" + (pub ? " public" : "");
+      if (toggle) toggle.className = "toggle" + (pub ? " on" : "");
+      if (desc) desc.textContent = pub
+        ? "On — anyone with the URL can open (no PIN)"
+        : "Off — PIN required to open the terminal";
+      const share = document.getElementById("share-link");
+      if (share) share.textContent = location.href || "Host this file to get a public URL";
+    }
+    function togglePrivacy() {
+      const turningPublic = !isPublic();
+      if (!turningPublic && !getAccessPin()) {
+        alert("Set an Access PIN in Settings before enabling Private mode.");
+        return;
+      }
+      localStorage.setItem("sip_public", turningPublic ? "1" : "0");
+      applyPrivacyUI();
+      if (!turningPublic) {
+        // session unlock cleared next load
+        sessionStorage.removeItem("sip_unlocked");
+      }
+    }
+    function enforceAccessGate() {
+      const gate = document.getElementById("access-gate");
+      if (!gate) return;
+      if (isPublic() || sessionStorage.getItem("sip_unlocked") === "1") {
+        gate.style.display = "none";
+        return;
+      }
+      if (!getAccessPin()) {
+        // private but no pin set — allow through, prompt to set pin
+        gate.style.display = "none";
+        return;
+      }
+      gate.style.display = "flex";
+    }
+    function unlockGate() {
+      const entered = (document.getElementById("gate-pin").value || "").trim();
+      const err = document.getElementById("gate-error");
+      if (entered && entered === getAccessPin()) {
+        sessionStorage.setItem("sip_unlocked", "1");
+        document.getElementById("access-gate").style.display = "none";
+        if (err) err.style.display = "none";
+      } else {
+        if (err) err.style.display = "block";
+      }
+    }
+    function exportData() {
+      const data = {
+        exportedAt: new Date().toISOString(),
+        public: isPublic(),
+        watchlist: getWatchlist(),
+        journal: getJournal()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "sip-terminal-export.json";
+      a.click();
+    }
+    function importData() {
+      document.getElementById("import-file").click();
+    }
+    function handleImport(ev) {
+      const file = ev.target.files && ev.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          if (data.watchlist) saveWatchlist(data.watchlist);
+          if (data.journal) saveJournal(data.journal);
+          if (typeof data.public !== "undefined") localStorage.setItem("sip_public", data.public ? "1" : "0");
+          renderWatchlist();
+          renderJournal();
+          updateExecRiskVisibility();
+          applyPrivacyUI();
+          alert("Import complete");
+        } catch (e) {
+          alert("Invalid JSON file");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function switchWatchSub(el) {
+      const sub = el.getAttribute("data-wl-sub");
+      document.querySelectorAll("#watchlist > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll(".wl-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
+      const panel = document.getElementById(sub);
+      if (panel) {
+        panel.style.display = "block";
+        panel.classList.add("active");
+      }
+      updateExecRiskVisibility();
+    }
+
+    function formatNewsTime(iso) {
+      if (!iso) return "";
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+      } catch (e) { return iso; }
+    }
+
+    function renderNewsList(containerId, results, emptyMsg) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      if (!results || !results.length) {
+        el.innerHTML = `<div class="wl-empty">${emptyMsg || "No headlines found."}</div>`;
+        return;
+      }
+      el.innerHTML = results.map(r => {
+        const title = r.title || "Untitled";
+        const url = r.url || "#";
+        const host = r.sitename || r.host || "";
+        const when = formatNewsTime(r.published_at);
+        const desc = r.description ? `<div class="news-desc">${r.description.slice(0, 160)}${r.description.length > 160 ? "…" : ""}</div>` : "";
+        return `<div class="news-item">
+          <a href="${url}" target="_blank" rel="noopener">${title}</a>
+          <div class="news-meta">${host}${when ? " · " + when : ""}</div>
+          ${desc}
+        </div>`;
+      }).join("");
+    }
+
+    async function fetchNews(query, size) {
+      const q = encodeURIComponent(query);
+      const url = `https://freenewsapi.ai/v1/search?q=${q}&size=${size || 12}&lang=en`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("News fetch failed " + res.status);
+      const data = await res.json();
+      return data.results || [];
+    }
+
+    async function loadMarketNews() {
+      const body = document.getElementById("market-news-body");
+      if (body) body.innerHTML = `<div class="wl-empty">Loading live headlines…</div>`;
+      try {
+        const results = await fetchNews("(stocks OR earnings OR premarket OR \"stock market\")", 15);
+        renderNewsList("market-news-body", results, "No market headlines right now.");
+      } catch (e) {
+        if (body) body.innerHTML = `<div class="wl-empty">Could not load live feed (${e.message}). Use the source links below.</div>`;
+      }
+    }
+
+    function populateNewsTickerSelect() {
+      const sel = document.getElementById("news-ticker-select");
+      if (!sel) return;
+      const prev = sel.value;
+      const opts = new Set();
+      candidates.forEach(c => opts.add(c.ticker));
+      getWatchlist().forEach(w => opts.add(w.ticker));
+      sel.innerHTML = '<option value="">— pick —</option>';
+      [...opts].sort().forEach(t => {
+        const o = document.createElement("option");
+        o.value = t;
+        o.textContent = t;
+        sel.appendChild(o);
+      });
+      if (prev && opts.has(prev)) sel.value = prev;
+    }
+
+    async function loadTickerNews() {
+      const sel = document.getElementById("news-ticker-select");
+      const ticker = sel && sel.value;
+      const body = document.getElementById("ticker-news-body");
+      if (!ticker) {
+        if (body) body.innerHTML = `<div class="wl-empty">Select a candidate or watchlist ticker for related headlines.</div>`;
+        return;
+      }
+      const c = candidates.find(x => x.ticker === ticker);
+      const name = c && c.name ? c.name.split(",")[0] : ticker;
+      if (body) body.innerHTML = `<div class="wl-empty">Loading ${ticker} news…</div>`;
+      try {
+        const results = await fetchNews(`${ticker} OR "${name}"`, 12);
+        renderNewsList("ticker-news-body", results, `No recent headlines for ${ticker}.`);
+      } catch (e) {
+        if (body) body.innerHTML = `<div class="wl-empty">Could not load ${ticker} news. Try Finviz or Google links under sources.</div>`;
+      }
+    }
+
+    function saveBaseline() {
+      const cap = parseFloat(document.getElementById("baseline-capital").value) || 0;
+      const date = document.getElementById("baseline-date").value || new Date().toISOString().slice(0, 10);
+      localStorage.setItem("tt_baseline", JSON.stringify({ capital: cap, date }));
+      const st = document.getElementById("baseline-status");
+      if (st) st.textContent = "Baseline $" + cap.toLocaleString() + " on " + date;
+      renderDashboard();
+    }
+    function loadBaselineUI() {
+      try {
+        const b = JSON.parse(localStorage.getItem("tt_baseline") || "null");
+        if (!b) return;
+        const c = document.getElementById("baseline-capital");
+        const d = document.getElementById("baseline-date");
+        const st = document.getElementById("baseline-status");
+        if (c) c.value = b.capital;
+        if (d) d.value = b.date;
+        if (st) st.textContent = "Baseline $" + Number(b.capital).toLocaleString() + " on " + b.date;
+      } catch (e) {}
+    }
+    // Open lots left over after FIFO matching (positions Schwab shows as still held)
+    function getOpenLots() {
+      try { return JSON.parse(localStorage.getItem("tt_open_lots") || "[]"); }
+      catch (e) { return []; }
+    }
+    function saveOpenLots(list) {
+      localStorage.setItem("tt_open_lots", JSON.stringify(list));
+    }
+
+    // Parses a real Charles Schwab "Transactions" export:
+    // "Date","Action","Symbol","Description","Quantity","Price","Fees & Comm","Amount"
+    // Handles $ / , in numeric fields, and FIFO-matches Buy/Sell legs per ticker into
+    // real round-trip closed trades instead of treating every leg as its own P&L.
+    function parseSchwabCsv(text) {
+      const lines = text.trim().split(/\r?\n/).filter(Boolean);
+      if (lines.length < 2) return { closed: [], openLots: [], optionsSkipped: 0, otherSkipped: 0 };
+      const split = (row) => {
+        const out = []; let cur = "", q = false;
+        for (let i = 0; i < row.length; i++) {
+          const ch = row[i];
+          if (ch === '"') { q = !q; continue; }
+          if (ch === "," && !q) { out.push(cur.trim()); cur = ""; continue; }
+          cur += ch;
+        }
+        out.push(cur.trim());
+        return out;
+      };
+      const headers = split(lines[0]).map(h => h.toLowerCase().replace(/[^a-z0-9]/g, ""));
+      const idx = (names) => {
+        for (const n of names) {
+          const i = headers.indexOf(n);
+          if (i >= 0) return i;
+        }
+        return -1;
+      };
+      const iDate = idx(["date", "tradedate", "transactiondate"]);
+      const iAction = idx(["action", "side", "transaction", "type"]);
+      const iSym = idx(["symbol", "ticker", "instrument"]);
+      const iQty = idx(["quantity", "qty", "shares"]);
+      const iPrice = idx(["price", "tradeprice", "executionprice"]);
+      const iAmount = idx(["amount"]);
+      const numClean = (s) => {
+        const n = parseFloat(String(s || "").replace(/[$,]/g, ""));
+        return isNaN(n) ? 0 : n;
+      };
+      const normalizeDate = (raw) => {
+        let date = raw || "";
+        if (date.includes("/")) {
+          const p = date.split(/[/\s]/);
+          if (p.length >= 3) date = p[2].slice(0, 4) + "-" + p[0].padStart(2, "0") + "-" + p[1].padStart(2, "0");
+        }
+        return date.slice(0, 10);
+      };
+
+      const rawRows = [];
+      let optionsSkipped = 0, otherSkipped = 0;
+      for (let r = 1; r < lines.length; r++) {
+        const cols = split(lines[r]);
+        const symbolRaw = (iSym >= 0 ? cols[iSym] : "").trim();
+        if (!symbolRaw || symbolRaw.toUpperCase() === "CASH") continue;
+        if (/\s/.test(symbolRaw)) { optionsSkipped++; continue; } // option contracts have spaces in symbol — not handled yet
+        const action = (iAction >= 0 ? cols[iAction] : "").trim();
+        const isBuy = /^buy/i.test(action);
+        const isSell = /^sell/i.test(action);
+        if (!isBuy && !isSell) { otherSkipped++; continue; } // dividends, interest, transfers, etc.
+        rawRows.push({
+          ticker: symbolRaw.toUpperCase(),
+          isBuy,
+          qty: Math.abs(numClean(iQty >= 0 ? cols[iQty] : 0)),
+          price: numClean(iPrice >= 0 ? cols[iPrice] : 0),
+          amount: numClean(iAmount >= 0 ? cols[iAmount] : 0), // net cash flow, fees already included
+          date: normalizeDate(iDate >= 0 ? cols[iDate] : "")
+        });
+      }
+      // Schwab exports newest-first; reverse to chronological order for FIFO matching
+      const chron = rawRows.slice().reverse();
+
+      const lotsByTicker = {};
+      const closed = [];
+      chron.forEach(r => {
+        if (!lotsByTicker[r.ticker]) lotsByTicker[r.ticker] = [];
+        const q = lotsByTicker[r.ticker];
+        if (r.isBuy) {
+          if (r.qty > 0) q.push({ qty: r.qty, amount: r.amount, date: r.date }); // amount is negative (cash out)
+          return;
+        }
+        // Sell — match FIFO against open buy lots
+        let remaining = r.qty;
+        let costBasis = 0; // sum of negative amounts for matched shares
+        let matchedQty = 0;
+        while (remaining > 0.0001 && q.length) {
+          const lot = q[0];
+          const take = Math.min(lot.qty, remaining);
+          const portion = lot.amount * (take / lot.qty);
+          costBasis += portion;
+          matchedQty += take;
+          lot.qty -= take;
+          lot.amount -= portion;
+          remaining -= take;
+          if (lot.qty <= 0.0001) q.shift();
+        }
+        const soldAmount = r.amount * (matchedQty / (r.qty || matchedQty || 1)); // portion of sell proceeds matched
+        const pnl = matchedQty > 0 ? (soldAmount + costBasis) : 0;
+        const avgEntry = matchedQty > 0 ? (-costBasis / matchedQty) : null;
+        if (matchedQty > 0) {
+          closed.push({
+            id: "schwab-" + r.ticker + "-" + r.date + "-" + Math.random().toString(36).slice(2, 8),
+            ticker: r.ticker, date: r.date, setup: "Other", side: "Long",
+            entry: avgEntry != null ? Number(avgEntry.toFixed(4)) : null,
+            exit: r.price, shares: Number(matchedQty.toFixed(4)),
+            pnl: Number(pnl.toFixed(2)),
+            notes: "Imported from Schwab" + (remaining > 0.0001 ? " · sold more than matched buys — position likely existed before this export window; P&L only reflects matched shares" : ""),
+            logged: new Date().toISOString(), source: "schwab"
+          });
+        }
+      });
+
+      const openLots = [];
+      Object.keys(lotsByTicker).forEach(t => {
+        lotsByTicker[t].forEach(lot => {
+          if (lot.qty > 0.0001) {
+            openLots.push({
+              ticker: t,
+              qty: Number(lot.qty.toFixed(4)),
+              avgEntry: Number((-lot.amount / lot.qty).toFixed(4)),
+              date: lot.date
+            });
+          }
+        });
+      });
+      return { closed, openLots, optionsSkipped, otherSkipped };
+    }
+    function importSchwabFile() {
+      const input = document.getElementById("schwab-file");
+      const out = document.getElementById("import-result");
+      if (!input || !input.files || !input.files[0]) {
+        alert("Choose a Schwab CSV export first");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const { closed, openLots, optionsSkipped, otherSkipped } = parseSchwabCsv(reader.result);
+          if (!closed.length && !openLots.length) {
+            if (out) out.textContent = "No stock buy/sell rows parsed — check the file is a Schwab Transactions export (Date, Action, Symbol, Quantity, Price, Amount columns).";
+            return;
+          }
+          const journal = getJournal();
+          closed.forEach(t => journal.unshift(t));
+          saveJournal(journal);
+          saveOpenLots(openLots);
+          renderJournal();
+          renderPositions();
+          renderDashboard();
+          let msg = "Imported " + closed.length + " closed trade(s)";
+          if (openLots.length) msg += ", " + openLots.length + " still-open position(s)";
+          if (optionsSkipped) msg += " · skipped " + optionsSkipped + " option row(s) (not supported yet)";
+          if (otherSkipped) msg += " · skipped " + otherSkipped + " non-trade row(s) (dividends/interest/etc.)";
+          if (out) out.textContent = msg + ".";
+        } catch (e) {
+          if (out) out.textContent = "Import error: " + e.message;
+        }
+      };
+      reader.readAsText(input.files[0]);
+    }
+    function runAIReview() {
+      const out = document.getElementById("ai-review-output");
+      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      if (!out) return;
+      if (list.length < 3) {
+        out.innerHTML = `<div class="wl-empty">Need at least a few closed trades (Journal or Schwab import) for a useful review.</div>`;
+        return;
+      }
+      const wins = list.filter(t => t.pnl > 0);
+      const losses = list.filter(t => t.pnl <= 0);
+      const sum = list.reduce((a, t) => a + t.pnl, 0);
+      const avgW = wins.length ? wins.reduce((a, t) => a + t.pnl, 0) / wins.length : 0;
+      const avgL = losses.length ? losses.reduce((a, t) => a + t.pnl, 0) / losses.length : 0;
+      const wr = (wins.length / list.length) * 100;
+      const bySetup = {};
+      list.forEach(t => {
+        const k = t.setup || "Other";
+        if (!bySetup[k]) bySetup[k] = { n: 0, pnl: 0, w: 0 };
+        bySetup[k].n++; bySetup[k].pnl += t.pnl; if (t.pnl > 0) bySetup[k].w++;
+      });
+      const bestSetup = Object.keys(bySetup).sort((a, b) => bySetup[b].pnl - bySetup[a].pnl)[0];
+      const worstSetup = Object.keys(bySetup).sort((a, b) => bySetup[a].pnl - bySetup[b].pnl)[0];
+      const strength = wr >= 50
+        ? "Win rate at or above 50% — process is producing more winners than losers."
+        : "Win rate under 50% — edge must come from larger avg wins vs avg losses (check expectancy).";
+      const weakness = Math.abs(avgL) > avgW
+        ? "Average loss exceeds average win — stop discipline or target scaling needs work."
+        : "Avg win exceeds avg loss — protect this asymmetry; avoid giving back winners.";
+      const opportunity = "Tag every trade with setup type (SIP / EP / EP9M / future setups) so Dashboard and AI review can isolate which playbook pays.";
+      const threat = "Import + journal without baseline capital makes drawdown hard to contextualize — keep baseline updated.";
+      out.innerHTML = `
+        <div class="grid-2">
+          <div class="panel" style="margin:0;">
+            <div class="panel-header">Snapshot</div>
+            <div class="checklist">
+              <div class="check-item"><span class="check-icon">N</span> ${list.length} closed trades · Net $${sum.toFixed(2)}</div>
+              <div class="check-item"><span class="check-icon">W</span> Win rate ${wr.toFixed(1)}% · Avg win $${avgW.toFixed(2)} · Avg loss $${avgL.toFixed(2)}</div>
+              <div class="check-item"><span class="check-icon">+</span> Best setup tag: <strong>${bestSetup}</strong></div>
+              <div class="check-item"><span class="check-icon">−</span> Weakest setup tag: <strong>${worstSetup}</strong></div>
+            </div>
+          </div>
+          <div class="panel" style="margin:0;">
+            <div class="panel-header">SWOT</div>
+            <div class="checklist">
+              <div class="check-item"><span class="check-icon">S</span> <strong>Strengths:</strong> ${strength}</div>
+              <div class="check-item"><span class="check-icon">W</span> <strong>Weaknesses:</strong> ${weakness}</div>
+              <div class="check-item"><span class="check-icon">O</span> <strong>Opportunities:</strong> ${opportunity}</div>
+              <div class="check-item"><span class="check-icon">T</span> <strong>Threats:</strong> ${threat}</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:12px;">
+          <div class="panel-header">Suggested improvements</div>
+          <div class="checklist">
+            <div class="check-item"><span class="check-icon">1</span> Pre-define setup type before entry — rules differ for SIP vs EP vs EP9M (and future setups).</div>
+            <div class="check-item"><span class="check-icon">2</span> Log open vs delayed entry mode so you can compare which timing works.</div>
+            <div class="check-item"><span class="check-icon">3</span> After Schwab import, tag setup type on large P&amp;L outliers for pattern mining.</div>
+            <div class="check-item"><span class="check-icon">4</span> Re-run this review monthly; paste stats to Grok for a deeper coaching session.</div>
+          </div>
+        </div>`;
+    }
+
+    function markPositionOpen(ticker) {
+      const list = getWatchlist();
+      const item = list.find(x => x.ticker === ticker);
+      if (!item) return;
+      if (!item.plan || item.plan.entry == null) {
+        alert("Set a plan (entry/stop) before marking position open.");
+        return;
+      }
+      item.position = {
+        status: "open",
+        openedAt: new Date().toISOString(),
+        setupType: item.setupType || "SIP",
+        entry: item.plan.entry,
+        stop: item.plan.stop,
+        target: item.plan.target,
+        entryMode: item.entryMode || "open"
+      };
+      saveWatchlist(list);
+      renderPositions();
+      navTo("positions");
+    }
+    function promptOpenPosition() {
+      const list = getWatchlist().filter(w => w.plan);
+      if (!list.length) { alert("No planned tickers on watchlist"); return; }
+      const t = prompt("Ticker to mark open:\n" + list.map(w => w.ticker).join(", "));
+      if (t) markPositionOpen(t.trim().toUpperCase());
+    }
+    function renderPositions() {
+      const openBody = document.getElementById("open-positions-body");
+      const closedBody = document.getElementById("closed-positions-body");
+      if (!openBody) return;
+      const open = getWatchlist().filter(w => w.position && w.position.status === "open");
+      const schwabOpen = getOpenLots();
+      if (!open.length && !schwabOpen.length) {
+        openBody.innerHTML = `<div class="wl-empty">No open positions. Use <strong>Open pos</strong> on Watchlist after you enter, or import Schwab history above.</div>`;
+      } else {
+        openBody.innerHTML = `<table><thead><tr><th>Ticker</th><th>Setup</th><th>Mode</th><th>Entry</th><th>Stop</th><th>Target</th><th>Opened</th><th></th></tr></thead><tbody>` +
+          open.map(w => {
+            const p = w.position;
+            return `<tr>
+              <td><span class="ticker">${w.ticker}</span></td>
+              <td>${p.setupType || w.setupType || "SIP"}</td>
+              <td>${p.entryMode || "open"}</td>
+              <td class="pos">$${p.entry}</td>
+              <td class="neg">$${p.stop != null ? p.stop : "—"}</td>
+              <td>$${p.target != null ? p.target : "—"}</td>
+              <td class="muted" style="font-size:10px;">${(p.openedAt || "").slice(0, 16).replace("T", " ")}</td>
+              <td><button class="btn btn-sm" onclick="closeOutTrade('${w.ticker}')">Close → Journal</button></td>
+            </tr>`;
+          }).join("") +
+          schwabOpen.map(l => `<tr>
+              <td><span class="ticker">${l.ticker}</span></td>
+              <td class="muted">Schwab import</td>
+              <td class="muted">—</td>
+              <td class="pos">$${l.avgEntry}</td>
+              <td class="muted">—</td>
+              <td class="muted">—</td>
+              <td class="muted" style="font-size:10px;">${l.date}</td>
+              <td class="muted" style="font-size:11px;">${l.qty} sh</td>
+            </tr>`).join("") + `</tbody></table>`;
+      }
+      const closed = getJournal();
+      if (!closedBody) return;
+      if (!closed.length) {
+        closedBody.innerHTML = `<div class="wl-empty">Closed trades sync from Journal.</div>`;
+      } else {
+        closedBody.innerHTML = `<table><thead><tr><th>Date</th><th>Ticker</th><th>Setup</th><th>Side</th><th>Entry</th><th>Exit</th><th>P&L</th></tr></thead><tbody>` +
+          closed.slice(0, 50).map(t => `<tr>
+            <td>${t.date}</td>
+            <td><span class="ticker">${t.ticker}</span></td>
+            <td>${t.setup || "—"}</td>
+            <td>${t.side}</td>
+            <td>${t.entry != null ? "$" + t.entry : "—"}</td>
+            <td>${t.exit != null ? "$" + t.exit : "—"}</td>
+            <td class="${(t.pnl || 0) >= 0 ? "pos" : "neg"}">${t.pnl != null ? "$" + t.pnl : "—"}</td>
+          </tr>`).join("") + `</tbody></table>`;
+      }
+    }
+    function getPortfolioSnapshot() {
+      try {
+        return JSON.parse(localStorage.getItem("tt_portfolio") || "null") || {
+          startDate: "2026-05-06",
+          startValue: 1794441,
+          currentValue: 4153681.50,
+          cash: 1188490,
+          unrealized: -217875,
+          heat: 0,
+          peak: 4153681.50,
+          realizedOverride: null
+        };
+      } catch (e) {
+        return {
+          startDate: "2026-05-06",
+          startValue: 1794441,
+          currentValue: 4153681.50,
+          cash: 1188490,
+          unrealized: -217875,
+          heat: 0,
+          peak: 4153681.50,
+          realizedOverride: null
+        };
+      }
+    }
+    function togglePortfolioEdit() {
+      const el = document.getElementById("portfolio-edit");
+      if (!el) return;
+      el.style.display = el.style.display === "none" ? "block" : "none";
+      if (el.style.display === "block") loadPortfolioForm();
+    }
+    function loadPortfolioForm() {
+      const p = getPortfolioSnapshot();
+      const set = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
+      set("pf-start-date", p.startDate || "");
+      set("pf-start-value", p.startValue);
+      set("pf-current-value", p.currentValue);
+      set("pf-cash", p.cash);
+      set("pf-unrealized", p.unrealized);
+      set("pf-heat", p.heat);
+      set("pf-peak", p.peak || p.currentValue);
+    }
+    function savePortfolioSnapshot() {
+      const num = (id) => parseFloat(document.getElementById(id).value) || 0;
+      const p = {
+        startDate: document.getElementById("pf-start-date").value || "2026-05-06",
+        startValue: num("pf-start-value"),
+        currentValue: num("pf-current-value"),
+        cash: num("pf-cash"),
+        unrealized: num("pf-unrealized"),
+        heat: num("pf-heat"),
+        peak: num("pf-peak") || num("pf-current-value"),
+        realizedOverride: null
+      };
+      // keep peak at least current
+      if (p.currentValue > p.peak) p.peak = p.currentValue;
+      localStorage.setItem("tt_portfolio", JSON.stringify(p));
+      // sync baseline for equity curve
+      localStorage.setItem("tt_baseline", JSON.stringify({ capital: p.startValue, date: p.startDate }));
+      renderDashboard();
+      alert("Portfolio snapshot saved");
+    }
+    function renderPortfolioKPIs(realizedFromJournal) {
+      const box = document.getElementById("portfolio-kpis");
+      if (!box) return;
+      const p = getPortfolioSnapshot();
+      const deployed = p.currentValue - p.cash;
+      const deployedPct = p.currentValue > 0 ? (deployed / p.currentValue) * 100 : 0;
+      const realized = realizedFromJournal != null ? realizedFromJournal : (p.realizedOverride || 0);
+      const peak = Math.max(p.peak || 0, p.currentValue);
+      const maxDdFromPeak = peak > 0 ? ((p.currentValue - peak) / peak) * 100 : 0;
+      // current drawdown: if we don't track intra-day peak path, use vs peak
+      const currentDd = maxDdFromPeak < 0 ? maxDdFromPeak : 0;
+      const kpi = (label, val, cls) =>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;">${label}</div>
+          <div style="font-size:16px;font-weight:700;margin-top:6px;" class="${cls || ""}">${val}</div>
+        </div>`;
+      const money = (n) => (n < 0 ? "-$" : "$") + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      box.innerHTML =
+        kpi("Starting Date", p.startDate || "—") +
+        kpi("Starting Portfolio Value", money(p.startValue)) +
+        kpi("Current Portfolio Value", money(p.currentValue), p.currentValue >= p.startValue ? "pos" : "neg") +
+        kpi("Current Cash Balance", money(p.cash)) +
+        kpi("$ Capital Deployed", money(deployed)) +
+        kpi("% Capital Deployed", deployedPct.toFixed(2) + "%") +
+        kpi("Realized PnL", money(realized), realized >= 0 ? "pos" : "neg") +
+        kpi("Unrealized PnL", money(p.unrealized), p.unrealized >= 0 ? "pos" : "neg") +
+        kpi("Total Heat", money(p.heat)) +
+        kpi("Current Drawdown %", currentDd.toFixed(2) + "%", currentDd < 0 ? "neg" : "") +
+        kpi("Max Drawdown from Peak %", maxDdFromPeak.toFixed(2) + "%", maxDdFromPeak < 0 ? "neg" : "");
+    }
+
+    function buildEquitySeries(trades, baseline) {
+      // Aggregate P&L by date, then cumulative equity
+      const byDate = {};
+      trades.forEach(t => {
+        const d = (t.date || (t.logged || "").slice(0, 10) || "unknown");
+        if (!byDate[d]) byDate[d] = 0;
+        byDate[d] += t.pnl;
+      });
+      const dates = Object.keys(byDate).filter(d => d !== "unknown").sort();
+      let cum = baseline != null ? baseline : 0;
+      const points = [];
+      if (baseline != null && dates.length) {
+        // start point day before first trade
+        points.push({ date: dates[0], equity: baseline, dayPnl: 0 });
+      }
+      dates.forEach(d => {
+        cum += byDate[d];
+        points.push({ date: d, equity: cum, dayPnl: byDate[d] });
+      });
+      return points;
+    }
+
+    function renderEquityCurve(points) {
+      const el = document.getElementById("equity-curve");
+      const note = document.getElementById("equity-curve-note");
+      if (!el) return;
+      if (!points.length) {
+        el.innerHTML = `<div class="wl-empty">No equity path yet — import Schwab or log closed trades.</div>`;
+        return;
+      }
+      const w = Math.max(el.clientWidth || 600, 400);
+      const h = 200;
+      const pad = { t: 12, r: 12, b: 28, l: 48 };
+      const xs = points.map((_, i) => i);
+      const ys = points.map(p => p.equity);
+      const minY = Math.min(...ys);
+      const maxY = Math.max(...ys);
+      const spanY = maxY - minY || 1;
+      const xScale = (i) => pad.l + (i / Math.max(points.length - 1, 1)) * (w - pad.l - pad.r);
+      const yScale = (v) => pad.t + (1 - (v - minY) / spanY) * (h - pad.t - pad.b);
+      const line = points.map((p, i) => (i === 0 ? "M" : "L") + xScale(i).toFixed(1) + "," + yScale(p.equity).toFixed(1)).join(" ");
+      const area = line + ` L${xScale(points.length - 1).toFixed(1)},${h - pad.b} L${xScale(0).toFixed(1)},${h - pad.b} Z`;
+      const last = points[points.length - 1];
+      const first = points[0];
+      const up = last.equity >= first.equity;
+      const labels = [];
+      const step = Math.max(1, Math.floor(points.length / 6));
+      for (let i = 0; i < points.length; i += step) {
+        labels.push(`<text x="${xScale(i)}" y="${h - 8}" fill="#9ca3af" font-size="9" text-anchor="middle">${points[i].date.slice(5)}</text>`);
+      }
+      el.innerHTML = `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+        <path d="${area}" fill="${up ? "rgba(34,197,94,0.12)" : "rgba(239,68,68,0.12)"}" />
+        <path d="${line}" fill="none" stroke="${up ? "#22c55e" : "#ef4444"}" stroke-width="2" />
+        ${points.map((p, i) => `<circle cx="${xScale(i)}" cy="${yScale(p.equity)}" r="2.5" fill="${p.dayPnl >= 0 ? "#22c55e" : "#ef4444"}"><title>${p.date}: equity $${p.equity.toFixed(0)} (day ${p.dayPnl >= 0 ? "+" : ""}${p.dayPnl.toFixed(0)})</title></circle>`).join("")}
+        <text x="4" y="${yScale(maxY) + 4}" fill="#9ca3af" font-size="9">$${maxY.toFixed(0)}</text>
+        <text x="4" y="${yScale(minY)}" fill="#9ca3af" font-size="9">$${minY.toFixed(0)}</text>
+        ${labels.join("")}
+      </svg>`;
+      if (note) {
+        note.textContent = "Daily equity · start $" + first.equity.toFixed(0) + " → $" + last.equity.toFixed(0) +
+          " · hover points for date / day P&L";
+      }
+    }
+
+    function renderCheatSheet() {
+      const el = document.getElementById("dash-cheat-sheet");
+      if (!el) return;
+      const setups = getSetups();
+      const keys = Object.keys(setups);
+      const rows = [
+        ["Category", k => setups[k].category === "pattern" ? "Pattern" : "Catalyst"],
+        ["Hold", k => setups[k].hold || "—"],
+        ["Risk %", k => (setups[k].riskPct != null ? setups[k].riskPct + "% ideal" : "—") + " · " + (setups[k].riskMax != null ? setups[k].riskMax + "% max" : "—")],
+        ["Open entry", k => setups[k].openEntry || "—"],
+        ["Delayed entry", k => setups[k].delayedEntry || "—"],
+        ["Stop", k => setups[k].stop || "—"],
+        ["Exit", k => setups[k].exit || "—"]
+      ];
+      el.innerHTML = `<table><thead><tr><th>Feature</th>${keys.map(k => `<th>${k}</th>`).join("")}</tr></thead><tbody>` +
+        rows.map(([label, fn]) => `<tr><td>${label}</td>${keys.map(k => `<td>${fn(k)}</td>`).join("")}</tr>`).join("") +
+        `</tbody></table>`;
+    }
+
+    function renderDashboard() {
+      const el = document.getElementById("dash-metrics");
+      const by = document.getElementById("dash-by-type");
+      const extra = document.getElementById("dash-extra");
+      renderCheatSheet();
+      if (!el) return;
+      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      const realizedSum = list.length ? list.reduce((a, t) => a + t.pnl, 0) : 0;
+      renderPortfolioKPIs(list.length ? realizedSum : null);
+      loadPortfolioForm();
+      if (!list.length) {
+        el.innerHTML = `<div class="wl-empty" style="grid-column:1/-1;">Import Schwab or log closed trades to populate closed-trade performance metrics.</div>`;
+        if (by) by.innerHTML = "";
+        if (extra) extra.innerHTML = "";
+        // still show equity from portfolio if available
+        const p = getPortfolioSnapshot();
+        renderEquityCurve([
+          { date: p.startDate, equity: p.startValue, dayPnl: 0 },
+          { date: new Date().toISOString().slice(0, 10), equity: p.currentValue, dayPnl: p.currentValue - p.startValue }
+        ]);
+        return;
+      }
+      const wins = list.filter(t => t.pnl > 0);
+      const losses = list.filter(t => t.pnl < 0);
+      const flats = list.filter(t => t.pnl === 0);
+      const sum = list.reduce((a, t) => a + t.pnl, 0);
+      const avgWin = wins.length ? wins.reduce((a, t) => a + t.pnl, 0) / wins.length : 0;
+      const avgLoss = losses.length ? losses.reduce((a, t) => a + t.pnl, 0) / losses.length : 0;
+      const avgTrade = sum / list.length;
+      const winRate = (wins.length / list.length) * 100;
+      const lossRate = (losses.length / list.length) * 100;
+      const expectancy = (winRate / 100) * avgWin + (lossRate / 100) * avgLoss;
+      const profitFactor = losses.length && avgLoss !== 0
+        ? Math.abs((wins.reduce((a, t) => a + t.pnl, 0)) / (losses.reduce((a, t) => a + t.pnl, 0)))
+        : (wins.length ? Infinity : 0);
+      const maxWin = wins.length ? Math.max(...wins.map(t => t.pnl)) : 0;
+      const maxLoss = losses.length ? Math.min(...losses.map(t => t.pnl)) : 0;
+      // max drawdown on equity path
+      let baselineCap = 0;
+      try {
+        const b = JSON.parse(localStorage.getItem("tt_baseline") || "null");
+        if (b && b.capital) baselineCap = Number(b.capital);
+      } catch (e) {}
+      const points = buildEquitySeries(list, baselineCap);
+      let peak = points.length ? points[0].equity : baselineCap;
+      let maxDd = 0;
+      points.forEach(p => {
+        if (p.equity > peak) peak = p.equity;
+        const dd = peak - p.equity;
+        if (dd > maxDd) maxDd = dd;
+      });
+      const metric = (label, val, cls) =>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">${label}</div>
+          <div style="font-size:18px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div>
+        </div>`;
+      const equity = points.length ? points[points.length - 1].equity : baselineCap + sum;
+      el.innerHTML =
+        metric("Trades", list.length) +
+        metric("Win rate", winRate.toFixed(1) + "%", winRate >= 50 ? "pos" : "neg") +
+        metric("Loss rate", lossRate.toFixed(1) + "%", "neg") +
+        metric("Expectancy $", expectancy.toFixed(2), expectancy >= 0 ? "pos" : "neg") +
+        metric("Avg win $", avgWin.toFixed(2), "pos") +
+        metric("Avg loss $", avgLoss.toFixed(2), "neg") +
+        metric("Avg trade $", avgTrade.toFixed(2), avgTrade >= 0 ? "pos" : "neg") +
+        metric("Net P&L $", sum.toFixed(2), sum >= 0 ? "pos" : "neg") +
+        metric("Profit factor", profitFactor === Infinity ? "∞" : profitFactor.toFixed(2), profitFactor >= 1 ? "pos" : "neg") +
+        metric("Max drawdown $", maxDd.toFixed(2), "neg") +
+        metric("Equity $", equity.toFixed(2), equity >= baselineCap ? "pos" : "neg") +
+        metric("Baseline $", baselineCap ? baselineCap.toLocaleString() : "Set in Positions", "");
+
+      renderEquityCurve(points);
+
+      if (by) {
+        const types = {};
+        list.forEach(t => {
+          const k = t.setup || "Other";
+          if (!types[k]) types[k] = { n: 0, pnl: 0, wins: 0 };
+          types[k].n++;
+          types[k].pnl += t.pnl;
+          if (t.pnl > 0) types[k].wins++;
+        });
+        by.innerHTML = `<table><thead><tr><th>Setup</th><th>N</th><th>Win %</th><th>Net P&L</th><th>Expect. $</th></tr></thead><tbody>` +
+          Object.keys(types).map(k => {
+            const x = types[k];
+            const wr = x.wins / x.n;
+            const exp = x.pnl / x.n;
+            return `<tr><td>${k}</td><td>${x.n}</td><td>${(wr * 100).toFixed(0)}%</td>
+              <td class="${x.pnl >= 0 ? "pos" : "neg"}">$${x.pnl.toFixed(2)}</td>
+              <td class="${exp >= 0 ? "pos" : "neg"}">$${exp.toFixed(2)}</td></tr>`;
+          }).join("") + `</tbody></table>`;
+      }
+      if (extra) {
+        extra.innerHTML = `<div class="checklist">
+          <div class="check-item"><span class="check-icon">W</span> Wins ${wins.length} · Losses ${losses.length} · Flat ${flats.length}</div>
+          <div class="check-item"><span class="check-icon">+</span> Best trade $${maxWin.toFixed(2)}</div>
+          <div class="check-item"><span class="check-icon">−</span> Worst trade $${maxLoss.toFixed(2)}</div>
+          <div class="check-item"><span class="check-icon">R</span> Win/Loss size ratio ${avgLoss !== 0 ? (Math.abs(avgWin / avgLoss)).toFixed(2) : "—"}</div>
+          <div class="check-item"><span class="check-icon">D</span> Max DD $${maxDd.toFixed(2)} (${baselineCap ? ((maxDd / baselineCap) * 100).toFixed(1) + "% of baseline" : "set baseline"})</div>
+        </div>`;
+      }
+    }
+
+    function navTo(section, el) {
+      document.querySelectorAll(".nav-item").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+      if (el) {
+        el.classList.add("active");
+      } else {
+        const items = document.querySelectorAll('.nav-item[data-section="' + section + '"]');
+        if (items.length) items[items.length - 1].classList.add("active");
+      }
+      const sec = document.getElementById(section);
+      if (sec) sec.classList.add("active");
+      if (section === "watchlist") updateExecRiskVisibility();
+      if (section === "news") {
+        populateNewsTickerSelect();
+        loadMarketNews();
+      }
+      if (section === "market-monitor") loadMarketMonitorData();
+      if (section === "positions") { loadBaselineUI(); renderPositions(); }
+      if (section === "dashboard") renderDashboard();
+      if (section === "ai-review") runAIReview();
+      const sp = document.getElementById("settings-panel");
+      if (sp) sp.classList.remove("open");
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeDetail();
+    });
+
+    function updateClock() {
+      const et = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+      document.getElementById("clock").textContent =
+        String(et.getHours()).padStart(2, "0") + ":" +
+        String(et.getMinutes()).padStart(2, "0") + ":" +
+        String(et.getSeconds()).padStart(2, "0") + " ET";
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    ensureSetupsSeeded();
+    document.getElementById("j-date").valueAsDate = new Date();
+    document.getElementById("j-setup").innerHTML = setupOptionsHtml();
+    document.getElementById("wl-manual-setup").innerHTML = setupOptionsHtml();
+    renderSetupLibrary();
+    renderSIPTable();
+    renderAvoidTable();
+    renderWatchlist();
+    renderJournal();
+    renderPositions();
+    renderDashboard();
+    loadLiveWatchlistData();
+    loadBaselineUI();
+    updateExecRiskVisibility();
+    updateRefreshLabel();
+    applyPrivacyUI();
+    enforceAccessGate();
+
+    // Auto-refresh candidate list every hour
+    setInterval(function() {
+      refreshCandidates();
+    }, 60 * 60 * 1000);
+
+    // ---- Market Monitor (auto-retrieved snapshot by frequency) ----
+    // Public breadth proxies as of 2026-09-04 close. TC2000-exact 4%/25%/50% counts
+    // require your scanner; this maps published A-D and MA breadth into the MM playbook.
+    const MM_SNAPSHOT = {
+      asOf: "2026-09-04 close",
+      rows: [
+        { freq: "Daily", name: "Advances", value: "2,419", signal: "Slight positive" },
+        { freq: "Daily", name: "Declines", value: "2,224", signal: "Net +195" },
+        { freq: "Daily", name: "% above 10-day MA", value: "47.0%", signal: "Soft short-term" },
+        { freq: "Daily", name: "% above 50-day MA", value: "47.5%", signal: "Below half market" },
+        { freq: "Primary", name: "% above 100-day MA", value: "50.4%", signal: "Borderline" },
+        { freq: "Primary", name: "% above 200-day MA", value: "52.9%", signal: "Mild primary support" },
+        { freq: "Primary", name: "Breadth structure", value: "Tail-contained", signal: "Liquid names hold; tail weak" },
+        { freq: "Secondary", name: "Sector health score", value: "60 / 100", signal: "Mixed, deteriorating" },
+        { freq: "Secondary", name: "Sectors > 50d MA", value: "6 / 11", signal: "Narrowing" },
+        { freq: "Secondary", name: "Sectors > 200d MA", value: "8 / 11", signal: "Still majority" },
+        { freq: "Longer-term", name: "S&P median YTD", value: "+9.8%", signal: "Broad-ish leadership" },
+        { freq: "Longer-term", name: "S&P % > 200d", value: "68%", signal: "Index members constructive" },
+        { freq: "Daily pulse", name: "Up ≥20% in 5 days", value: "28", signal: "Quiet vs summer peaks" },
+        { freq: "Daily pulse", name: "Down ≥20% in 5 days", value: "15", signal: "No washout spike" }
+      ],
+      // Internal flags for regime engine
+      adv: 2419, dec: 2224,
+      pct50: 47.5, pct200: 52.9,
+      sectorScore: 60,
+      note: "Sources: thetrading.tools A-D & MA breadth, sector health (2026-09-04). Exact MM 4%/25%/50%/34-13 scan counts update when you re-generate this terminal after a market session."
+    };
+
+    // Rolling series: stocks up/down ≥20% in 5 days (reconstructed from your chart shape through 2026-09-04)
+    // When we refresh Market Monitor after a session, append/update the last value and roll the window.
+    const SERIES_20UP_5D = [42,48,52,40,32,28,30,38,45,52,70,95,110,88,62,48,55,92,105,130,175,158,100,78,65,52,48,42,58,88,110,175,148,135,92,68,48,38,32,52,70,98,88,75,58,42,48,72,95,68,52,38,32,28,38,55,78,98,92,68,48,38,32,42,58,68,52,38,32,38,48,62,52,38,32,48,90,140,235,242,178,128,115,88,68,52,48,52,58,68,52,38,32,28,24,28,32,38,28,22,25,28];
+    const SERIES_20DN_5D = [18,22,25,30,32,28,22,20,16,14,18,24,20,16,14,18,28,42,55,65,68,52,38,32,22,18,20,26,28,32,38,48,68,100,105,48,38,28,22,26,30,34,38,42,48,28,24,28,32,38,52,68,82,38,32,28,32,38,62,48,38,32,28,22,18,24,28,32,52,68,38,32,28,22,58,118,98,38,32,28,32,38,52,68,78,38,32,28,22,18,24,28,48,52,38,28,22,18,16,14,15,15];
+
+    function tradingDatesEnding(endISO, n) {
+      // Walk back calendar days, skip weekends — approximate US session dates
+      const out = [];
+      const d = new Date(endISO + "T12:00:00");
+      while (out.length < n) {
+        const wd = d.getDay();
+        if (wd !== 0 && wd !== 6) {
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, "0");
+          const day = String(d.getDate()).padStart(2, "0");
+          out.push(y + "-" + m + "-" + day);
+        }
+        d.setDate(d.getDate() - 1);
+      }
+      return out.reverse();
+    }
+
+    function buildBarChart(el, series, colorClass, dates) {
+      if (!el || !series.length) return;
+      const max = Math.max(...series, 1);
+      el.innerHTML = `<div class="bar-chart" style="height:100%;">` +
+        series.map((v, i) => {
+          const h = Math.max(3, (v / max) * 100);
+          const isLast = i === series.length - 1;
+          const label = (dates && dates[i]) ? dates[i] : ("#" + (i + 1));
+          return `<div class="bar ${colorClass}" style="height:${h}%;${isLast ? "outline:1px solid #fff;opacity:1;" : ""}">
+            <span class="bar-tip">${label}<br><strong>${v}</strong> stocks</span>
+          </div>`;
+        }).join("") + `</div>`;
+    }
+
+    function render20Table(dates) {
+      const body = document.getElementById("mm-20-table-body");
+      if (!body) return;
+      const n = Math.min(SERIES_20UP_5D.length, SERIES_20DN_5D.length, dates.length);
+      let html = "";
+      for (let i = n - 1; i >= 0; i--) {
+        html += `<tr>
+          <td>${dates[i]}</td>
+          <td class="pos">${SERIES_20UP_5D[i]}</td>
+          <td class="neg">${SERIES_20DN_5D[i]}</td>
+        </tr>`;
+      }
+      body.innerHTML = html;
+    }
+
+    function toggle20Table() {
+      const w = document.getElementById("mm-20-table-wrap");
+      if (!w) return;
+      w.style.display = w.style.display === "none" || !w.style.display ? "block" : "none";
+    }
+
+    function render20pctCharts() {
+      const dates = tradingDatesEnding("2026-09-04", SERIES_20UP_5D.length);
+      buildBarChart(document.getElementById("chart-up20"), SERIES_20UP_5D, "up", dates);
+      buildBarChart(document.getElementById("chart-dn20"), SERIES_20DN_5D, "dn", dates);
+      render20Table(dates);
+      const upL = document.getElementById("mm-20up-latest");
+      const dnL = document.getElementById("mm-20dn-latest");
+      const asof = document.getElementById("mm-20-asof");
+      if (upL) upL.textContent = SERIES_20UP_5D[SERIES_20UP_5D.length - 1];
+      if (dnL) dnL.textContent = SERIES_20DN_5D[SERIES_20DN_5D.length - 1];
+      if (asof) asof.textContent = "Rolling · as of " + MM_SNAPSHOT.asOf;
+    }
+
+    function loadMarketMonitorData() {
+      const tbody = document.getElementById("mm-data-table");
+      const asof = document.getElementById("mm-asof");
+      const note = document.getElementById("mm-data-note");
+      if (asof) asof.textContent = "As of " + MM_SNAPSHOT.asOf;
+      if (note) note.textContent = MM_SNAPSHOT.note;
+      if (tbody) {
+        tbody.innerHTML = MM_SNAPSHOT.rows.map(r => `
+          <tr>
+            <td class="muted">${r.freq}</td>
+            <td>${r.name}</td>
+            <td><strong>${r.value}</strong></td>
+            <td class="muted">${r.signal}</td>
+          </tr>`).join("");
+      }
+      interpretMMFromSnapshot();
+      render20pctCharts();
+    }
+
+    function interpretMMFromSnapshot() {
+      const s = MM_SNAPSHOT;
+      const netPos = s.adv > s.dec;
+      const primaryMildBull = s.pct200 >= 50 && s.pct200 < 60;
+      const primaryStrong = s.pct200 >= 60;
+      const shortWeak = s.pct50 < 50;
+      const sectorMixed = s.sectorScore < 70 && s.sectorScore >= 45;
+      const sectorWeak = s.sectorScore < 45;
+
+      let regime = "CHOPPY / MIXED";
+      let cls = "regime-choppy";
+      let detail = "Short-term MA breadth is soft while longer-term still holds above 50%. Participation is mixed.";
+      let play = "<strong>Playbook: SELECTIVE</strong> — fewer SIPs, demand real catalysts, tighter size.";
+
+      if (primaryStrong && !shortWeak) {
+        regime = "OFFENSE · Primary bull";
+        cls = "regime-offense";
+        detail = "Primary MA breadth supports trend methods. Daily pressure not extreme.";
+        play = "<strong>Playbook: OFFENSE</strong> — SIPs allowed with normal risk.";
+      } else if (primaryMildBull && shortWeak) {
+        regime = "PROTECT · Soft near-term";
+        cls = "regime-protect";
+        detail = "200-day participation still >50%, but 50-day breadth is below half the market and sector health is mixed/deteriorating. Index can hold while internals lag.";
+        play = "<strong>Playbook: PROTECT</strong> — selective long SIPs only; smaller size, faster exits.";
+      } else if (sectorWeak || s.pct200 < 45) {
+        regime = "DEFENSE · Weak primary";
+        cls = "regime-defense";
+        detail = "Primary participation is weak. Avoid forcing breakout SIPs.";
+        play = "<strong>Playbook: DEFENSE</strong> — stand down or exceptional setups only.";
+      } else if (netPos && shortWeak) {
+        regime = "CHOPPY / MIXED";
+        cls = "regime-choppy";
+        detail = "Net advances positive but short-term MA breadth remains soft — classic chop / narrow leadership tape.";
+        play = "<strong>Playbook: SELECTIVE</strong> — quality over quantity for SIPs.";
+      }
+
+      if (netPos) detail += " Advances led declines on the last full session.";
+      detail += " Tail-contained structure: liquid names healthier than the broad tail.";
+
+      const title = document.getElementById("mm-regime-title");
+      const det = document.getElementById("mm-regime-detail");
+      const pb = document.getElementById("mm-playbook");
+      const badge = document.getElementById("mm-regime-badge");
+      if (title) { title.textContent = regime; title.className = cls; }
+      if (det) det.textContent = detail;
+      if (pb) pb.innerHTML = play + "<div style='margin-top:8px;color:var(--muted);font-size:11px;'>Next: open <strong>2 · SIPs · Qualify</strong> only if this regime supports your plan.</div>";
+      if (badge) {
+        badge.textContent = "REGIME: " + regime.split("·")[0].trim();
+        badge.className = "privacy-badge " + (cls.includes("offense") ? "public" : "");
+      }
+    }
+
+    function interpretMM() { loadMarketMonitorData(); }
+    function renderBreadthCharts() { render20pctCharts(); }
+
+    loadMarketMonitorData();
+  </script>
+</body>
+</html>
