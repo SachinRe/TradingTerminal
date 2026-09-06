@@ -2758,6 +2758,10 @@
     // — if it fails, that's almost certainly why, and manual entry is the
     // reliable fallback either way. This is also an undocumented endpoint,
     // not an official API, so field names could change without notice.
+    function setLivePriceStatus(text) {
+      const el = document.getElementById("live-price-status");
+      if (el) el.textContent = text;
+    }
     async function fetchLivePrice(ticker, source, btn) {
       const originalText = btn ? btn.textContent : "";
       if (btn) { btn.textContent = "…"; btn.disabled = true; }
@@ -2775,14 +2779,16 @@
         if (source === "plan") updateWatchlistPositionPrice(ticker, price);
         else updateOpenLotPrice(ticker, price);
         renderPositions();
+        setLivePriceStatus("Updated " + ticker + " · $" + Number(price).toFixed(2) + " · " + new Date().toLocaleTimeString());
       } catch (e) {
-        alert("Couldn't fetch a live price for " + ticker + " (" + e.message + "). This is likely your browser blocking the cross-origin request (CORS) — enter the price manually in the field instead.");
+        setLivePriceStatus("Couldn't fetch a live price for " + ticker + " (" + e.message + ") — likely a CORS block. Enter it manually instead.");
         if (btn) { btn.textContent = originalText; btn.disabled = false; }
       }
     }
-    async function fetchAllLivePrices() {
+    async function fetchAllLivePrices(silent) {
       const rows = getOpenPositionsWithUnrealized();
-      if (!rows.length) { alert("No open positions to fetch prices for."); return; }
+      if (!rows.length) { if (!silent) setLivePriceStatus("No open positions to fetch prices for."); return; }
+      if (!silent) setLivePriceStatus("Fetching live prices…");
       let ok = 0, failed = 0;
       for (const r of rows) {
         try {
@@ -2799,7 +2805,9 @@
         } catch (e) { failed++; }
       }
       renderPositions();
-      alert(ok + " price(s) updated" + (failed ? ", " + failed + " failed (likely CORS-blocked or an unrecognized ticker) — enter those manually." : "."));
+      setLivePriceStatus(ok + " of " + rows.length + " price(s) updated automatically" +
+        (failed ? " · " + failed + " blocked/unavailable — enter those manually" : "") +
+        " · " + new Date().toLocaleTimeString());
     }
     function getOpenPositionsWithUnrealized() {
       // Unified list combining watchlist "open" positions and Schwab open lots,
@@ -3137,8 +3145,10 @@
         const totalUnrealized = openRows.reduce((a, p) => a + (p.unrealized || 0), 0);
         const anyMissingPrice = openRows.some(p => p.currentPrice == null);
         openBody.innerHTML =
-          `<div style="margin-bottom:8px;"><button class="btn btn-sm" onclick="fetchAllLivePrices()">🔄 Try live prices for all rows</button>
-            <span class="muted" style="font-size:11px;margin-left:6px;">Best-effort — falls back to manual entry per row if blocked.</span></div>
+          `<div style="margin-bottom:8px;">
+            <button class="btn btn-sm" onclick="fetchAllLivePrices(false)">🔄 Try live prices for all rows</button>
+            <span class="muted" style="font-size:11px;margin-left:6px;" id="live-price-status">Best-effort — falls back to manual entry per row if blocked.</span>
+          </div>
           <table><thead><tr><th>Ticker</th><th>Setup</th><th>Qty</th><th>Entry</th><th>Current Price</th><th>Unrealized $</th><th>Opened</th><th></th></tr></thead><tbody>` +
           openRows.map(p => {
             const updateFn = p.source === "plan" ? "updateWatchlistPositionPrice" : "updateOpenLotPrice";
@@ -3739,7 +3749,7 @@
         loadMarketNews();
       }
       if (section === "market-monitor") loadMarketMonitorData();
-      if (section === "positions") { loadBaselineUI(); renderPositions(); }
+      if (section === "positions") { loadBaselineUI(); renderPositions(); fetchAllLivePrices(true); }
       if (section === "dashboard") renderDashboard();
       if (section === "ai-review") runAIReview();
       const sp = document.getElementById("settings-panel");
