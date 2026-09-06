@@ -553,16 +553,20 @@
       <div class="nav-item" data-section="watchlist" onclick="navTo('watchlist', this)">Watchlist &amp; Plans</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">5 · Live book</div>
-      <div class="nav-item" data-section="positions" onclick="navTo('positions', this)">Positions &amp; Schwab Import</div>
+      <div class="nav-group-title">5 · Trading Operations</div>
+      <div class="nav-item" data-section="trading-operations" onclick="navTo('trading-operations', this)">Schwab Import · Daily</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">6 · Live book</div>
+      <div class="nav-item" data-section="positions" onclick="navTo('positions', this)">Positions</div>
       <div class="nav-item" data-section="dashboard" onclick="navTo('dashboard', this)">Performance Dashboard</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">6 · Improve</div>
+      <div class="nav-group-title">7 · Improve</div>
       <div class="nav-item" data-section="ai-review" onclick="navTo('ai-review', this)">AI Trade Review</div>
       <div class="nav-item" data-section="journal" onclick="navTo('journal', this)">Manual Journal</div>
     </div>
-    <div class="nav-hint">Setups → Monitor → Discover/Qualify → Watchlist/Plans → Execute → Import Schwab → Dashboard → AI Review</div>
+    <div class="nav-hint">Setups → Monitor → Discover/Qualify → Watchlist/Plans → Import Schwab (daily) → Positions/Dashboard → AI Review</div>
   </nav>
 
   <div class="content">
@@ -1035,30 +1039,12 @@
       </div>
     </div>
 
-    <!-- POSITIONS -->
-    <div id="positions" class="section">
-      <div class="panel">
-        <div class="panel-header">Baseline capital &amp; account</div>
-        <div class="panel-body">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Starting capital $</label>
-              <input type="number" id="baseline-capital" value="50000" step="1000" style="width:140px" />
-            </div>
-            <div class="form-group">
-              <label>Baseline date</label>
-              <input type="date" id="baseline-date" style="width:150px" />
-            </div>
-            <button class="btn btn-accent" onclick="saveBaseline()">Save baseline</button>
-            <div style="font-size:12px;color:var(--muted);align-self:center;" id="baseline-status">Not set</div>
-          </div>
-          <div class="note">Set once when you start tracking. Dashboard uses this as the journey start for equity / drawdown context.</div>
-        </div>
-      </div>
+    <!-- TRADING OPERATIONS -->
+    <div id="trading-operations" class="section">
       <div class="panel">
         <div class="panel-header">
-          Import Charles Schwab history
-          <span class="tag">CSV / Excel export</span>
+          Import Charles Schwab History
+          <span class="tag">CSV export · safe to run daily, even multiple times a day</span>
         </div>
         <div class="panel-body">
           <div class="form-row">
@@ -1067,19 +1053,30 @@
           </div>
           <div class="note">
             Export trade history from Schwab as <strong>Transactions</strong> (CSV) — the file with Date, Action, Symbol, Quantity, Price, Fees &amp; Comm, Amount columns.
-            Buy/Sell rows are matched FIFO per ticker into real round-trip trades (correct realized P&amp;L), remaining unmatched shares become Open Positions below.
-            Options rows (spaces in the symbol) are currently skipped — dividends/interest rows are skipped too.
+            Buy/Sell rows are matched FIFO per ticker into real round-trip trades (correct realized P&amp;L), remaining unmatched shares become Open Positions.
+            <strong>Automatically de-duplicated</strong> — Schwab exports your full history every time, so re-importing the same file, or a file that overlaps with a previous import, will not double-count anything. Only genuinely new transactions get processed. Options rows (spaces in the symbol) are currently skipped — dividends/interest rows are skipped too.
           </div>
           <div id="import-result" style="font-size:12px;margin-top:8px;color:var(--muted);"></div>
         </div>
       </div>
+      <div class="panel">
+        <div class="panel-header">Baseline capital &amp; account</div>
+        <div class="panel-body">
+          <div style="font-size:13px;" id="baseline-status">Not set</div>
+          <div class="note">This is set in one place now — Performance Dashboard → Account Snapshot → Edit values → Starting Date / Starting Portfolio Value. Go there to set or change it; shown here read-only so there's a single source of truth instead of two forms that could disagree.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONS -->
+    <div id="positions" class="section">
       <div class="panel">
         <div class="panel-header">
           Open Positions
           <button class="btn btn-sm btn-accent" onclick="promptOpenPosition()">+ Open from plan</button>
         </div>
         <div class="panel-body" id="open-positions-body">
-          <div class="wl-empty">No open positions. Mark open from Watchlist after fill, or import open lots from Schwab.</div>
+          <div class="wl-empty">No open positions. Mark open from Watchlist after fill, or import open lots from Schwab (Trading Operations page).</div>
         </div>
       </div>
       <div class="panel">
@@ -1103,18 +1100,16 @@
             <div class="form-row" style="flex-wrap:wrap;">
               <div class="form-group"><label>Starting Date</label><input type="date" id="pf-start-date" style="width:150px" /></div>
               <div class="form-group"><label>Starting Portfolio Value $</label><input type="number" id="pf-start-value" step="0.01" style="width:160px" /></div>
-              <div class="form-group"><label>Current Portfolio Value $</label><input type="number" id="pf-current-value" step="0.01" style="width:160px" /></div>
               <div class="form-group"><label>Current Cash Balance $</label><input type="number" id="pf-cash" step="0.01" style="width:160px" /></div>
-              <div class="form-group"><label>Unrealized PnL $</label><input type="number" id="pf-unrealized" step="0.01" style="width:140px" /></div>
               <div class="form-group"><label>Total Heat $</label><input type="number" id="pf-heat" step="0.01" style="width:120px" value="0" /></div>
-              <div class="form-group"><label>Peak Portfolio Value $</label><input type="number" id="pf-peak" step="0.01" style="width:160px" /></div>
             </div>
-            <div class="note">Realized PnL can come from Journal/Schwab or be entered. Capital deployed = Current Value − Cash. Drawdowns use peak.</div>
+            <div class="note">Current Portfolio Value, Unrealized PnL, and Peak are calculated automatically now — Current Value = Starting Value + Realized PnL (since baseline, from Journal/Schwab) + Unrealized PnL (from Current Price on each open position in Positions). Update Cash Balance here whenever it changes in real life.</div>
           </div>
           <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;"></div>
         </div>
       </div>
 
+      <div id="dash-baseline-banner"></div>
       <div class="panel">
         <div class="panel-header">Trading Performance · Closed Trades</div>
         <div class="panel-body" id="dash-metrics" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;"></div>
@@ -2715,24 +2710,12 @@
       }
     }
 
-    function saveBaseline() {
-      const cap = parseFloat(document.getElementById("baseline-capital").value) || 0;
-      const date = document.getElementById("baseline-date").value || new Date().toISOString().slice(0, 10);
-      localStorage.setItem("tt_baseline", JSON.stringify({ capital: cap, date }));
-      const st = document.getElementById("baseline-status");
-      if (st) st.textContent = "Baseline $" + cap.toLocaleString() + " on " + date;
-      renderDashboard();
-    }
     function loadBaselineUI() {
       try {
         const b = JSON.parse(localStorage.getItem("tt_baseline") || "null");
-        if (!b) return;
-        const c = document.getElementById("baseline-capital");
-        const d = document.getElementById("baseline-date");
         const st = document.getElementById("baseline-status");
-        if (c) c.value = b.capital;
-        if (d) d.value = b.date;
-        if (st) st.textContent = "Baseline $" + Number(b.capital).toLocaleString() + " on " + b.date;
+        if (!st) return;
+        st.textContent = b ? "Baseline: $" + Number(b.capital).toLocaleString() + " on " + b.date : "Not set yet — go to Performance Dashboard → Account Snapshot.";
       } catch (e) {}
     }
     // Open lots left over after FIFO matching (positions Schwab shows as still held)
@@ -2744,13 +2727,118 @@
       localStorage.setItem("tt_open_lots", JSON.stringify(list));
     }
 
+    // ---- Current price on open positions -> unrealized P&L everywhere ----
+    // There's no live price feed wired into the browser (only the scheduled
+    // server-side Action has that), so this is a manual "type today's price"
+    // field per open position. It persists, and drives Unrealized PnL, Current
+    // Portfolio Value, and Peak automatically from here on.
+    function updateWatchlistPositionPrice(ticker, price) {
+      const p = parseFloat(price);
+      if (isNaN(p)) return;
+      const wl = getWatchlist();
+      const w = wl.find(x => x.ticker === ticker);
+      if (w && w.position) {
+        w.position.currentPrice = p;
+        saveWatchlist(wl);
+        renderDashboard();
+      }
+    }
+    function updateOpenLotPrice(ticker, price) {
+      const p = parseFloat(price);
+      if (isNaN(p)) return;
+      const lots = getOpenLots();
+      lots.forEach(l => { if (l.ticker === ticker) l.currentPrice = p; });
+      saveOpenLots(lots);
+      renderDashboard();
+    }
+    // Best-effort live price lookup. There's no server-side proxy here (this
+    // is a static site), so this calls stockanalysis.com's public per-ticker
+    // quote endpoint directly from the browser. It may or may not work
+    // depending on whether that endpoint allows cross-origin requests (CORS)
+    // — if it fails, that's almost certainly why, and manual entry is the
+    // reliable fallback either way. This is also an undocumented endpoint,
+    // not an official API, so field names could change without notice.
+    async function fetchLivePrice(ticker, source, btn) {
+      const originalText = btn ? btn.textContent : "";
+      if (btn) { btn.textContent = "…"; btn.disabled = true; }
+      try {
+        const res = await fetch(`https://stockanalysis.com/api/quotes/s/${ticker.toLowerCase()}`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const json = await res.json();
+        const d = json.data;
+        if (!d) throw new Error("Unexpected response shape");
+        // Prefer the extended-hours price if we're in pre-market/after-hours,
+        // otherwise the regular last price.
+        const isExtended = d.ms === "Pre-market" || d.ms === "After-hours" || d.fms === "pre" || d.fms === "post";
+        const price = isExtended && d.ep != null ? d.ep : d.p;
+        if (price == null || isNaN(price)) throw new Error("No price field found");
+        if (source === "plan") updateWatchlistPositionPrice(ticker, price);
+        else updateOpenLotPrice(ticker, price);
+        renderPositions();
+      } catch (e) {
+        alert("Couldn't fetch a live price for " + ticker + " (" + e.message + "). This is likely your browser blocking the cross-origin request (CORS) — enter the price manually in the field instead.");
+        if (btn) { btn.textContent = originalText; btn.disabled = false; }
+      }
+    }
+    async function fetchAllLivePrices() {
+      const rows = getOpenPositionsWithUnrealized();
+      if (!rows.length) { alert("No open positions to fetch prices for."); return; }
+      let ok = 0, failed = 0;
+      for (const r of rows) {
+        try {
+          const res = await fetch(`https://stockanalysis.com/api/quotes/s/${r.ticker.toLowerCase()}`);
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const json = await res.json();
+          const d = json.data;
+          const isExtended = d.ms === "Pre-market" || d.ms === "After-hours" || d.fms === "pre" || d.fms === "post";
+          const price = isExtended && d.ep != null ? d.ep : d.p;
+          if (price == null || isNaN(price)) throw new Error("no price");
+          if (r.source === "plan") updateWatchlistPositionPrice(r.ticker, price);
+          else updateOpenLotPrice(r.ticker, price);
+          ok++;
+        } catch (e) { failed++; }
+      }
+      renderPositions();
+      alert(ok + " price(s) updated" + (failed ? ", " + failed + " failed (likely CORS-blocked or an unrecognized ticker) — enter those manually." : "."));
+    }
+    function getOpenPositionsWithUnrealized() {
+      // Unified list combining watchlist "open" positions and Schwab open lots,
+      // each with qty, entry, currentPrice (if known), and computed unrealized $.
+      const fromPlans = getWatchlist().filter(w => w.position && w.position.status === "open").map(w => {
+        const p = w.position;
+        const qty = p.shares || 1;
+        const entry = p.entry || 0;
+        const cur = p.currentPrice != null ? p.currentPrice : null;
+        return {
+          ticker: w.ticker, source: "plan", qty, entry, currentPrice: cur,
+          unrealized: cur != null ? (cur - entry) * qty : null,
+          setup: p.setupType || w.setupType || "SIP", mode: p.entryMode || "open",
+          stop: p.stop, target: p.target, opened: p.openedAt
+        };
+      });
+      const fromSchwab = getOpenLots().map(l => {
+        const cur = l.currentPrice != null ? l.currentPrice : null;
+        return {
+          ticker: l.ticker, source: "schwab", qty: l.qty, entry: l.avgEntry, currentPrice: cur,
+          unrealized: cur != null ? (cur - l.avgEntry) * l.qty : null,
+          setup: null, mode: null, stop: null, target: null, opened: l.date
+        };
+      });
+      return [...fromPlans, ...fromSchwab];
+    }
+    function computeTotalUnrealized() {
+      return getOpenPositionsWithUnrealized().reduce((a, p) => a + (p.unrealized || 0), 0);
+    }
+
     // Parses a real Charles Schwab "Transactions" export:
     // "Date","Action","Symbol","Description","Quantity","Price","Fees & Comm","Amount"
     // Handles $ / , in numeric fields, and FIFO-matches Buy/Sell legs per ticker into
     // real round-trip closed trades instead of treating every leg as its own P&L.
-    function parseSchwabCsv(text) {
+    function parseSchwabCsv(text, existingOpenLots, seenCounts) {
+      existingOpenLots = existingOpenLots || [];
+      seenCounts = seenCounts || {};
       const lines = text.trim().split(/\r?\n/).filter(Boolean);
-      if (lines.length < 2) return { closed: [], openLots: [], optionsSkipped: 0, otherSkipped: 0 };
+      if (lines.length < 2) return { closed: [], openLots: existingOpenLots, optionsSkipped: 0, otherSkipped: 0, duplicatesSkipped: 0, updatedSeenCounts: seenCounts };
       const split = (row) => {
         const out = []; let cur = "", q = false;
         for (let i = 0; i < row.length; i++) {
@@ -2809,10 +2897,43 @@
           date: normalizeDate(iDate >= 0 ? cols[iDate] : "")
         });
       }
-      // Schwab exports newest-first; reverse to chronological order for FIFO matching
-      const chron = rawRows.slice().reverse();
 
+      // De-dupe: Schwab exports full history every time, and this runs daily
+      // (sometimes more than once). A row is a "duplicate" of one already
+      // imported if the SAME natural key (ticker+date+action+qty+price+amount)
+      // has already appeared at least this many times in a prior import.
+      // Counting occurrences (not just presence) correctly handles two
+      // genuinely separate identical fills on the same day, not just exact
+      // re-imports of the same file.
+      const runningCounts = {};
+      const newRows = [];
+      let duplicatesSkipped = 0;
+      rawRows.forEach(r => {
+        const key = [r.ticker, r.date, r.isBuy ? "BUY" : "SELL", r.qty, r.price, r.amount].join("|");
+        runningCounts[key] = (runningCounts[key] || 0) + 1;
+        if (runningCounts[key] <= (seenCounts[key] || 0)) {
+          duplicatesSkipped++; // already imported in a previous session
+        } else {
+          newRows.push(r);
+        }
+      });
+      const updatedSeenCounts = { ...seenCounts };
+      Object.keys(runningCounts).forEach(key => {
+        updatedSeenCounts[key] = Math.max(updatedSeenCounts[key] || 0, runningCounts[key]);
+      });
+
+      // Schwab exports newest-first; reverse remaining NEW rows to
+      // chronological order for FIFO matching.
+      const chron = newRows.slice().reverse();
+
+      // Seed FIFO state from lots still open from previous imports, so a new
+      // sell can correctly match against a buy that was already on the books.
       const lotsByTicker = {};
+      existingOpenLots.forEach(l => {
+        if (!lotsByTicker[l.ticker]) lotsByTicker[l.ticker] = [];
+        lotsByTicker[l.ticker].push({ qty: l.qty, amount: -l.avgEntry * l.qty, date: l.date, currentPrice: l.currentPrice });
+      });
+
       const closed = [];
       chron.forEach(r => {
         if (!lotsByTicker[r.ticker]) lotsByTicker[r.ticker] = [];
@@ -2864,12 +2985,20 @@
               ticker: t,
               qty: Number(lot.qty.toFixed(4)),
               avgEntry: Number((-lot.amount / lot.qty).toFixed(4)),
-              date: lot.date
+              date: lot.date,
+              currentPrice: lot.currentPrice != null ? lot.currentPrice : undefined
             });
           }
         });
       });
-      return { closed, openLots, optionsSkipped, otherSkipped };
+      return { closed, openLots, optionsSkipped, otherSkipped, duplicatesSkipped, updatedSeenCounts };
+    }
+    function getSeenTxnCounts() {
+      try { return JSON.parse(localStorage.getItem("tt_seen_txn_counts") || "{}"); }
+      catch (e) { return {}; }
+    }
+    function saveSeenTxnCounts(counts) {
+      localStorage.setItem("tt_seen_txn_counts", JSON.stringify(counts));
     }
     function importSchwabFile() {
       const input = document.getElementById("schwab-file");
@@ -2881,8 +3010,11 @@
       const reader = new FileReader();
       reader.onload = () => {
         try {
-          const { closed, openLots, optionsSkipped, otherSkipped } = parseSchwabCsv(reader.result);
-          if (!closed.length && !openLots.length) {
+          const existingOpenLots = getOpenLots();
+          const seenCounts = getSeenTxnCounts();
+          const { closed, openLots, optionsSkipped, otherSkipped, duplicatesSkipped, updatedSeenCounts } =
+            parseSchwabCsv(reader.result, existingOpenLots, seenCounts);
+          if (!closed.length && !openLots.length && duplicatesSkipped === 0) {
             if (out) out.textContent = "No stock buy/sell rows parsed — check the file is a Schwab Transactions export (Date, Action, Symbol, Quantity, Price, Amount columns).";
             return;
           }
@@ -2890,14 +3022,15 @@
           closed.forEach(t => journal.unshift(t));
           saveJournal(journal);
           saveOpenLots(openLots);
+          saveSeenTxnCounts(updatedSeenCounts);
           renderJournal();
           renderPositions();
           renderDashboard();
-          let msg = "Imported " + closed.length + " closed trade(s)";
-          if (openLots.length) msg += ", " + openLots.length + " still-open position(s)";
+          let msg = closed.length ? "Imported " + closed.length + " newly-closed trade(s)" : "No new closed trades";
+          if (duplicatesSkipped) msg += " · " + duplicatesSkipped + " already-imported row(s) skipped automatically";
           if (optionsSkipped) msg += " · skipped " + optionsSkipped + " option row(s) (not supported yet)";
           if (otherSkipped) msg += " · skipped " + otherSkipped + " non-trade row(s) (dividends/interest/etc.)";
-          if (out) out.textContent = msg + ".";
+          if (out) out.textContent = msg + ". Safe to import this file again — repeats won't double-count.";
         } catch (e) {
           if (out) out.textContent = "Import error: " + e.message;
         }
@@ -2997,42 +3130,52 @@
       const openBody = document.getElementById("open-positions-body");
       const closedBody = document.getElementById("closed-positions-body");
       if (!openBody) return;
-      const open = getWatchlist().filter(w => w.position && w.position.status === "open");
-      const schwabOpen = getOpenLots();
-      if (!open.length && !schwabOpen.length) {
+      const openRows = getOpenPositionsWithUnrealized();
+      if (!openRows.length) {
         openBody.innerHTML = `<div class="wl-empty">No open positions. Use <strong>Open pos</strong> on Watchlist after you enter, or import Schwab history above.</div>`;
       } else {
-        openBody.innerHTML = `<table><thead><tr><th>Ticker</th><th>Setup</th><th>Mode</th><th>Entry</th><th>Stop</th><th>Target</th><th>Opened</th><th></th></tr></thead><tbody>` +
-          open.map(w => {
-            const p = w.position;
+        const totalUnrealized = openRows.reduce((a, p) => a + (p.unrealized || 0), 0);
+        const anyMissingPrice = openRows.some(p => p.currentPrice == null);
+        openBody.innerHTML =
+          `<div style="margin-bottom:8px;"><button class="btn btn-sm" onclick="fetchAllLivePrices()">🔄 Try live prices for all rows</button>
+            <span class="muted" style="font-size:11px;margin-left:6px;">Best-effort — falls back to manual entry per row if blocked.</span></div>
+          <table><thead><tr><th>Ticker</th><th>Setup</th><th>Qty</th><th>Entry</th><th>Current Price</th><th>Unrealized $</th><th>Opened</th><th></th></tr></thead><tbody>` +
+          openRows.map(p => {
+            const updateFn = p.source === "plan" ? "updateWatchlistPositionPrice" : "updateOpenLotPrice";
+            const closeBtn = p.source === "plan"
+              ? `<button class="btn btn-sm" onclick="closeOutTrade('${p.ticker}')">Close → Journal</button>`
+              : `<span class="muted" style="font-size:11px;">Schwab</span>`;
             return `<tr>
-              <td><span class="ticker">${w.ticker}</span></td>
-              <td>${p.setupType || w.setupType || "SIP"}</td>
-              <td>${p.entryMode || "open"}</td>
-              <td class="pos">$${p.entry}</td>
-              <td class="neg">$${p.stop != null ? p.stop : "—"}</td>
-              <td>$${p.target != null ? p.target : "—"}</td>
-              <td class="muted" style="font-size:10px;">${(p.openedAt || "").slice(0, 16).replace("T", " ")}</td>
-              <td><button class="btn btn-sm" onclick="closeOutTrade('${w.ticker}')">Close → Journal</button></td>
+              <td><span class="ticker">${p.ticker}</span></td>
+              <td>${p.setup || "—"}</td>
+              <td>${p.qty}</td>
+              <td class="pos">$${Number(p.entry).toFixed(2)}</td>
+              <td>
+                <input type="number" step="0.01" value="${p.currentPrice != null ? p.currentPrice : ""}" placeholder="type price"
+                    style="width:80px;" onchange="${updateFn}('${p.ticker}', this.value)" />
+                <button class="btn btn-sm" style="padding:2px 6px;font-size:11px;" title="Try live price (best-effort)"
+                    onclick="fetchLivePrice('${p.ticker}', '${p.source}', this)">🔄</button>
+              </td>
+              <td class="${p.unrealized == null ? "muted" : p.unrealized >= 0 ? "pos" : "neg"}">
+                ${p.unrealized == null ? "enter price" : "$" + p.unrealized.toFixed(2)}
+              </td>
+              <td class="muted" style="font-size:10px;">${(p.opened || "").slice(0, 10)}</td>
+              <td>${closeBtn}</td>
             </tr>`;
           }).join("") +
-          schwabOpen.map(l => `<tr>
-              <td><span class="ticker">${l.ticker}</span></td>
-              <td class="muted">Schwab import</td>
-              <td class="muted">—</td>
-              <td class="pos">$${l.avgEntry}</td>
-              <td class="muted">—</td>
-              <td class="muted">—</td>
-              <td class="muted" style="font-size:10px;">${l.date}</td>
-              <td class="muted" style="font-size:11px;">${l.qty} sh</td>
-            </tr>`).join("") + `</tbody></table>`;
+          `</tbody></table>
+          <div class="note" style="margin-top:8px;">
+            Total unrealized: <strong class="${totalUnrealized >= 0 ? "pos" : "neg"}">$${totalUnrealized.toFixed(2)}</strong>
+            ${anyMissingPrice ? " · type a Current Price for every row above (or try 🔄) to make this (and Account Snapshot) accurate — rows without one aren't counted yet." : ""}
+          </div>`;
       }
       const closed = getJournal();
       if (!closedBody) return;
       if (!closed.length) {
         closedBody.innerHTML = `<div class="wl-empty">Closed trades sync from Journal.</div>`;
       } else {
-        closedBody.innerHTML = `<table><thead><tr><th>Date</th><th>Ticker</th><th>Setup</th><th>Side</th><th>Entry</th><th>Exit</th><th>P&L</th></tr></thead><tbody>` +
+        const totalRealized = closed.reduce((a, t) => a + (t.pnl || 0), 0);
+        closedBody.innerHTML = `<table><thead><tr><th>Date</th><th>Ticker</th><th>Setup</th><th>Side</th><th>Entry</th><th>Exit</th><th>Realized P&L</th></tr></thead><tbody>` +
           closed.slice(0, 50).map(t => `<tr>
             <td>${t.date}</td>
             <td><span class="ticker">${t.ticker}</span></td>
@@ -3040,33 +3183,25 @@
             <td>${t.side}</td>
             <td>${t.entry != null ? "$" + t.entry : "—"}</td>
             <td>${t.exit != null ? "$" + t.exit : "—"}</td>
-            <td class="${(t.pnl || 0) >= 0 ? "pos" : "neg"}">${t.pnl != null ? "$" + t.pnl : "—"}</td>
-          </tr>`).join("") + `</tbody></table>`;
+            <td class="${(t.pnl || 0) >= 0 ? "pos" : "neg"}">${t.pnl != null ? "$" + t.pnl.toFixed(2) : "—"}</td>
+          </tr>`).join("") + `</tbody></table>
+          <div class="note" style="margin-top:8px;">Total realized (all-time, unfiltered by baseline): <strong class="${totalRealized >= 0 ? "pos" : "neg"}">$${totalRealized.toFixed(2)}</strong></div>`;
       }
     }
     function getPortfolioSnapshot() {
+      // Only startDate, startValue, cash, and heat are ever stored as manual
+      // inputs now — currentValue, unrealized, and peak are all computed live
+      // in renderPortfolioKPIs from Journal + open positions, not read back
+      // from here as the source of truth. Kept here too for the equity-curve
+      // fallback when there are zero trades yet.
+      const defaults = {
+        startDate: "2026-05-06", startValue: 1794441, cash: 1188490, heat: 0, peak: 1794441
+      };
       try {
-        return JSON.parse(localStorage.getItem("tt_portfolio") || "null") || {
-          startDate: "2026-05-06",
-          startValue: 1794441,
-          currentValue: 4153681.50,
-          cash: 1188490,
-          unrealized: -217875,
-          heat: 0,
-          peak: 4153681.50,
-          realizedOverride: null
-        };
+        const stored = JSON.parse(localStorage.getItem("tt_portfolio") || "null");
+        return stored ? { ...defaults, ...stored } : defaults;
       } catch (e) {
-        return {
-          startDate: "2026-05-06",
-          startValue: 1794441,
-          currentValue: 4153681.50,
-          cash: 1188490,
-          unrealized: -217875,
-          heat: 0,
-          peak: 4153681.50,
-          realizedOverride: null
-        };
+        return defaults;
       }
     }
     function togglePortfolioEdit() {
@@ -3080,28 +3215,21 @@
       const set = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
       set("pf-start-date", p.startDate || "");
       set("pf-start-value", p.startValue);
-      set("pf-current-value", p.currentValue);
       set("pf-cash", p.cash);
-      set("pf-unrealized", p.unrealized);
       set("pf-heat", p.heat);
-      set("pf-peak", p.peak || p.currentValue);
     }
     function savePortfolioSnapshot() {
       const num = (id) => parseFloat(document.getElementById(id).value) || 0;
+      const existing = getPortfolioSnapshot();
       const p = {
         startDate: document.getElementById("pf-start-date").value || "2026-05-06",
         startValue: num("pf-start-value"),
-        currentValue: num("pf-current-value"),
         cash: num("pf-cash"),
-        unrealized: num("pf-unrealized"),
         heat: num("pf-heat"),
-        peak: num("pf-peak") || num("pf-current-value"),
-        realizedOverride: null
+        peak: existing.peak || num("pf-start-value") // preserved/ratcheted automatically elsewhere
       };
-      // keep peak at least current
-      if (p.currentValue > p.peak) p.peak = p.currentValue;
       localStorage.setItem("tt_portfolio", JSON.stringify(p));
-      // sync baseline for equity curve
+      // sync baseline for equity curve + baseline-date filtering on Dashboard
       localStorage.setItem("tt_baseline", JSON.stringify({ capital: p.startValue, date: p.startDate }));
       renderDashboard();
       alert("Portfolio snapshot saved");
@@ -3110,13 +3238,22 @@
       const box = document.getElementById("portfolio-kpis");
       if (!box) return;
       const p = getPortfolioSnapshot();
-      const deployed = p.currentValue - p.cash;
-      const deployedPct = p.currentValue > 0 ? (deployed / p.currentValue) * 100 : 0;
-      const realized = realizedFromJournal != null ? realizedFromJournal : (p.realizedOverride || 0);
-      const peak = Math.max(p.peak || 0, p.currentValue);
-      const maxDdFromPeak = peak > 0 ? ((p.currentValue - peak) / peak) * 100 : 0;
-      // current drawdown: if we don't track intra-day peak path, use vs peak
+      const realized = realizedFromJournal || 0;
+      const unrealized = computeTotalUnrealized();
+      const currentValue = p.startValue + realized + unrealized;
+      const deployed = currentValue - p.cash;
+      const deployedPct = currentValue > 0 ? (deployed / currentValue) * 100 : 0;
+
+      // Peak ratchets up automatically and persists — no manual field anymore.
+      let peak = Math.max(p.peak || 0, currentValue);
+      if (peak !== p.peak) {
+        const stored = getPortfolioSnapshot();
+        stored.peak = peak;
+        localStorage.setItem("tt_portfolio", JSON.stringify(stored));
+      }
+      const maxDdFromPeak = peak > 0 ? ((currentValue - peak) / peak) * 100 : 0;
       const currentDd = maxDdFromPeak < 0 ? maxDdFromPeak : 0;
+
       const kpi = (label, val, cls) =>
         `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;">
           <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;">${label}</div>
@@ -3126,14 +3263,15 @@
       box.innerHTML =
         kpi("Starting Date", p.startDate || "—") +
         kpi("Starting Portfolio Value", money(p.startValue)) +
-        kpi("Current Portfolio Value", money(p.currentValue), p.currentValue >= p.startValue ? "pos" : "neg") +
+        kpi("Current Portfolio Value (auto)", money(currentValue), currentValue >= p.startValue ? "pos" : "neg") +
         kpi("Current Cash Balance", money(p.cash)) +
         kpi("$ Capital Deployed", money(deployed)) +
         kpi("% Capital Deployed", deployedPct.toFixed(2) + "%") +
-        kpi("Realized PnL", money(realized), realized >= 0 ? "pos" : "neg") +
-        kpi("Unrealized PnL", money(p.unrealized), p.unrealized >= 0 ? "pos" : "neg") +
+        kpi("Realized PnL (since baseline)", money(realized), realized >= 0 ? "pos" : "neg") +
+        kpi("Unrealized PnL (auto)", money(unrealized), unrealized >= 0 ? "pos" : "neg") +
         kpi("Total Heat", money(p.heat)) +
         kpi("Current Drawdown %", currentDd.toFixed(2) + "%", currentDd < 0 ? "neg" : "") +
+        kpi("Peak Portfolio Value (auto)", money(peak), "") +
         kpi("Max Drawdown from Peak %", maxDdFromPeak.toFixed(2) + "%", maxDdFromPeak < 0 ? "neg" : "");
     }
 
@@ -3463,21 +3601,42 @@
       const by = document.getElementById("dash-by-type");
       const extra = document.getElementById("dash-extra");
       if (!el) return;
-      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      let baselineCap = 0, baselineDate = null;
+      try {
+        const b = JSON.parse(localStorage.getItem("tt_baseline") || "null");
+        if (b && b.capital) baselineCap = Number(b.capital);
+        if (b && b.date) baselineDate = b.date;
+      } catch (e) {}
+      const allClosed = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      // Only count trades on/after the baseline start date, if one is set — so
+      // performance tracking genuinely starts from "today" (or whatever date
+      // you picked) even if older Schwab history gets imported later.
+      const excludedByBaseline = baselineDate ? allClosed.filter(t => t.date && t.date < baselineDate).length : 0;
+      const list = baselineDate ? allClosed.filter(t => !t.date || t.date >= baselineDate) : allClosed;
       const realizedSum = list.length ? list.reduce((a, t) => a + t.pnl, 0) : 0;
       renderPortfolioKPIs(list.length ? realizedSum : null);
       loadPortfolioForm();
       renderSectorAllocation();
+      if (baselineDate && excludedByBaseline > 0) {
+        const banner = document.getElementById("dash-baseline-banner");
+        if (banner) banner.innerHTML = `<div class="note">Tracking performance from <strong>${baselineDate}</strong> forward · ${excludedByBaseline} earlier trade(s) excluded from these stats.</div>`;
+      } else {
+        const banner = document.getElementById("dash-baseline-banner");
+        if (banner) banner.innerHTML = baselineDate ? `<div class="note">Tracking performance from <strong>${baselineDate}</strong> forward.</div>` : "";
+      }
       if (!list.length) {
         el.innerHTML = `<div class="wl-empty" style="grid-column:1/-1;">Import Schwab or log closed trades to populate closed-trade performance metrics.</div>`;
         if (by) by.innerHTML = "";
         if (extra) extra.innerHTML = "";
         renderWeeklyHoldDaysChart([]);
-        // still show equity from portfolio if available
+        // still show equity from portfolio if available (no closed trades yet,
+        // so equity = starting value + whatever unrealized P&L is known)
         const p = getPortfolioSnapshot();
+        const unrealizedOnly = computeTotalUnrealized();
+        const currentValueOnly = p.startValue + unrealizedOnly;
         renderEquityCurve([
           { date: p.startDate, equity: p.startValue, dayPnl: 0 },
-          { date: new Date().toISOString().slice(0, 10), equity: p.currentValue, dayPnl: p.currentValue - p.startValue }
+          { date: new Date().toISOString().slice(0, 10), equity: currentValueOnly, dayPnl: unrealizedOnly }
         ]);
         return;
       }
@@ -3500,11 +3659,6 @@
       const withHold = list.filter(t => t.holdDays != null && !isNaN(t.holdDays));
       const avgHoldDays = withHold.length ? withHold.reduce((a, t) => a + t.holdDays, 0) / withHold.length : null;
       // max drawdown on equity path
-      let baselineCap = 0;
-      try {
-        const b = JSON.parse(localStorage.getItem("tt_baseline") || "null");
-        if (b && b.capital) baselineCap = Number(b.capital);
-      } catch (e) {}
       const points = buildEquitySeries(list, baselineCap);
       let peak = points.length ? points[0].equity : baselineCap;
       let maxDd = 0;
