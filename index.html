@@ -1094,7 +1094,7 @@
     <div id="dashboard" class="section">
       <div class="panel">
         <div class="panel-header">
-          Portfolio Dashboard
+          Account Snapshot
           <button class="btn btn-sm" onclick="togglePortfolioEdit()">Edit values</button>
           <button class="btn btn-sm btn-accent" onclick="savePortfolioSnapshot()">Save</button>
         </div>
@@ -1114,26 +1114,49 @@
           <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;"></div>
         </div>
       </div>
+
       <div class="panel">
-        <div class="panel-header">Trading performance (closed trades)</div>
+        <div class="panel-header">Trading Performance · Closed Trades</div>
         <div class="panel-body" id="dash-metrics" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;"></div>
-      </div>
-      <div class="panel">
-        <div class="panel-header">Daily equity curve</div>
-        <div class="panel-body">
-          <div id="equity-curve" style="height:220px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;"></div>
-          <div class="note" id="equity-curve-note">Equity path from baseline + cumulative closed P&amp;L (and portfolio snapshot when set).</div>
+        <div class="panel-body" style="padding-top:0;">
+          <div class="note">SQN here is computed from raw $ P&amp;L per trade, not true R-multiples (which need a consistent stop-loss/risk amount recorded per trade — not tracked yet). Treat it as a directional read on consistency, not the textbook Van Tharp number.</div>
         </div>
       </div>
+
       <div class="grid-2">
         <div class="panel">
-          <div class="panel-header">By setup type</div>
+          <div class="panel-header">Daily Equity Curve</div>
+          <div class="panel-body">
+            <div id="equity-curve" style="height:220px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;"></div>
+            <div class="note" id="equity-curve-note">Equity path from baseline + cumulative closed P&amp;L (and portfolio snapshot when set).</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">Weekly Avg Hold Days</div>
+          <div class="panel-body">
+            <div id="hold-days-chart" style="height:220px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;"></div>
+            <div class="note" id="hold-days-note">How long positions are typically held, by week closed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">By Setup Type</div>
           <div class="panel-body" id="dash-by-type"></div>
         </div>
         <div class="panel">
-          <div class="panel-header">More stats</div>
-          <div class="panel-body" id="dash-extra"></div>
+          <div class="panel-header">
+            Sector Allocation · Open Positions
+            <span class="tag">By cost basis</span>
+          </div>
+          <div class="panel-body" id="sector-allocation-body"></div>
         </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">More Stats</div>
+        <div class="panel-body" id="dash-extra"></div>
       </div>
     </div>
 
@@ -1159,7 +1182,8 @@
         <div class="form-row" style="flex-direction: column; align-items: stretch;">
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <div class="form-group"><label>Ticker</label><input type="text" id="j-ticker" style="width:90px" /></div>
-            <div class="form-group"><label>Date</label><input type="date" id="j-date" style="width:140px" /></div>
+            <div class="form-group"><label>Entry Date</label><input type="date" id="j-entrydate" style="width:140px" /></div>
+            <div class="form-group"><label>Exit Date</label><input type="date" id="j-date" style="width:140px" /></div>
             <div class="form-group"><label>Setup</label>
               <select id="j-setup" style="width:100px"><option>SIP</option><option>EP</option><option>EP9M</option><option>Other</option></select>
             </div>
@@ -2020,6 +2044,11 @@
 
       document.getElementById("j-ticker").value = ticker;
       document.getElementById("j-date").valueAsDate = new Date();
+      if (item && item.position && item.position.openedAt) {
+        document.getElementById("j-entrydate").value = item.position.openedAt.slice(0, 10);
+      } else if (item && item.added) {
+        document.getElementById("j-entrydate").value = item.added.slice(0, 10);
+      }
       document.getElementById("j-side").value = "Long";
       if (document.getElementById("j-setup") && item) {
         document.getElementById("j-setup").value = item.setupType || "SIP";
@@ -2327,6 +2356,7 @@
     }
     function addJournalEntry() {
       const ticker = document.getElementById("j-ticker").value.trim().toUpperCase();
+      const entryDate = document.getElementById("j-entrydate").value;
       const date = document.getElementById("j-date").value;
       const setup = document.getElementById("j-setup") ? document.getElementById("j-setup").value : "SIP";
       const side = document.getElementById("j-side").value;
@@ -2336,11 +2366,12 @@
       const pnl = parseFloat(document.getElementById("j-pnl").value);
       const notes = document.getElementById("j-notes").value.trim();
 
-      if (!ticker || !date) { alert("Ticker and Date required"); return; }
+      if (!ticker || !date) { alert("Ticker and Exit Date required"); return; }
+      const holdDays = entryDate ? Math.max(0, Math.round((new Date(date + "T00:00:00") - new Date(entryDate + "T00:00:00")) / 86400000)) : null;
 
       const list = getJournal();
       list.unshift({
-        id: Date.now(), ticker, date, setup, side, entry, exit: exitP, shares, pnl, notes,
+        id: Date.now(), ticker, date, entryDate: entryDate || null, holdDays, setup, side, entry, exit: exitP, shares, pnl, notes,
         logged: new Date().toISOString()
       });
       saveJournal(list);
@@ -2355,6 +2386,7 @@
       renderPositions();
       renderDashboard();
       document.getElementById("j-ticker").value = "";
+      document.getElementById("j-entrydate").value = "";
       document.getElementById("j-entry").value = "";
       document.getElementById("j-exit").value = "";
       document.getElementById("j-shares").value = "";
@@ -2793,12 +2825,14 @@
         let remaining = r.qty;
         let costBasis = 0; // sum of negative amounts for matched shares
         let matchedQty = 0;
+        let dateWeightSum = 0; // qty-weighted entry date (ms since epoch), for hold-days calc
         while (remaining > 0.0001 && q.length) {
           const lot = q[0];
           const take = Math.min(lot.qty, remaining);
           const portion = lot.amount * (take / lot.qty);
           costBasis += portion;
           matchedQty += take;
+          dateWeightSum += take * new Date(lot.date + "T00:00:00").getTime();
           lot.qty -= take;
           lot.amount -= portion;
           remaining -= take;
@@ -2807,10 +2841,12 @@
         const soldAmount = r.amount * (matchedQty / (r.qty || matchedQty || 1)); // portion of sell proceeds matched
         const pnl = matchedQty > 0 ? (soldAmount + costBasis) : 0;
         const avgEntry = matchedQty > 0 ? (-costBasis / matchedQty) : null;
+        const avgEntryDate = matchedQty > 0 ? new Date(dateWeightSum / matchedQty).toISOString().slice(0, 10) : null;
+        const holdDays = (avgEntryDate && r.date) ? Math.max(0, Math.round((new Date(r.date + "T00:00:00") - new Date(avgEntryDate + "T00:00:00")) / 86400000)) : null;
         if (matchedQty > 0) {
           closed.push({
             id: "schwab-" + r.ticker + "-" + r.date + "-" + Math.random().toString(36).slice(2, 8),
-            ticker: r.ticker, date: r.date, setup: "Other", side: "Long",
+            ticker: r.ticker, date: r.date, entryDate: avgEntryDate, holdDays, setup: "Other", side: "Long",
             entry: avgEntry != null ? Number(avgEntry.toFixed(4)) : null,
             exit: r.price, shares: Number(matchedQty.toFixed(4)),
             pnl: Number(pnl.toFixed(2)),
@@ -3123,6 +3159,205 @@
       return points;
     }
 
+    // ---- Sector map for open-position allocation — same extensible pattern
+    // as the Setup Library: seeded defaults, editable/expandable via localStorage,
+    // with an "Unclassified" fallback and inline assignment for unknown tickers.
+    const DEFAULT_SECTOR_MAP = {
+      AAPL: "Technology", MSFT: "Technology", NVDA: "Technology", GOOGL: "Technology", GOOG: "Technology",
+      META: "Technology", AMD: "Technology", AVGO: "Technology", CRM: "Technology", ORCL: "Technology",
+      ADBE: "Technology", INTC: "Technology", CSCO: "Technology", AEHR: "Technology", IBM: "Technology",
+      QCOM: "Technology", TXN: "Technology", MU: "Technology", NOW: "Technology", PLTR: "Technology",
+      AMZN: "Consumer Discretionary", TSLA: "Consumer Discretionary", HD: "Consumer Discretionary",
+      NKE: "Consumer Discretionary", SBUX: "Consumer Discretionary", MCD: "Consumer Discretionary",
+      BKNG: "Consumer Discretionary", TGT: "Consumer Discretionary", LOW: "Consumer Discretionary",
+      AFRM: "Consumer Discretionary",
+      WMT: "Consumer Staples", COST: "Consumer Staples", PG: "Consumer Staples", KO: "Consumer Staples",
+      PEP: "Consumer Staples", PM: "Consumer Staples", MO: "Consumer Staples",
+      JNJ: "Healthcare", UNH: "Healthcare", PFE: "Healthcare", MRK: "Healthcare", ABBV: "Healthcare",
+      LLY: "Healthcare", TMO: "Healthcare", MRNA: "Healthcare", TEM: "Healthcare", PSNL: "Healthcare",
+      AMGN: "Healthcare", ISRG: "Healthcare", GILD: "Healthcare", BE: "Industrials",
+      JPM: "Financials", BAC: "Financials", WFC: "Financials", GS: "Financials", MS: "Financials",
+      SCHW: "Financials", AXP: "Financials", V: "Financials", MA: "Financials", HOOD: "Financials",
+      AON: "Financials", TD: "Financials",
+      XOM: "Energy", CVX: "Energy", COP: "Energy", SLB: "Energy", OXY: "Energy",
+      BA: "Industrials", CAT: "Industrials", GE: "Industrials", HON: "Industrials", UPS: "Industrials",
+      RTX: "Industrials", LMT: "Industrials", DE: "Industrials",
+      NFLX: "Communication Services", DIS: "Communication Services", TMUS: "Communication Services",
+      VZ: "Communication Services", T: "Communication Services", CMCSA: "Communication Services",
+      LIN: "Materials", RIO: "Materials", BHP: "Materials", FCX: "Materials",
+      NEE: "Utilities", DUK: "Utilities", SO: "Utilities",
+      PLD: "Real Estate", AMT: "Real Estate", SPG: "Real Estate",
+      AMC: "Communication Services", LABU: "ETF / Leveraged", TQQQ: "ETF / Leveraged", SPY: "ETF / Index",
+      QQQ: "ETF / Index"
+    };
+    function getSectorMap() {
+      try {
+        const stored = JSON.parse(localStorage.getItem("tt_sector_map") || "null");
+        if (stored && Object.keys(stored).length) return { ...DEFAULT_SECTOR_MAP, ...stored };
+      } catch (e) {}
+      return { ...DEFAULT_SECTOR_MAP };
+    }
+    function assignSector(ticker, sector) {
+      let stored = {};
+      try { stored = JSON.parse(localStorage.getItem("tt_sector_map") || "{}"); } catch (e) {}
+      stored[ticker] = sector;
+      localStorage.setItem("tt_sector_map", JSON.stringify(stored));
+      renderDashboard();
+    }
+    const SECTOR_LIST = ["Technology", "Healthcare", "Financials", "Consumer Discretionary", "Consumer Staples",
+      "Energy", "Industrials", "Communication Services", "Materials", "Utilities", "Real Estate", "ETF / Index", "ETF / Leveraged", "Other"];
+
+    function computeSQN(pnlArr) {
+      const n = pnlArr.length;
+      if (n < 2) return null;
+      const mean = pnlArr.reduce((a, b) => a + b, 0) / n;
+      const variance = pnlArr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (n - 1);
+      const stdev = Math.sqrt(variance);
+      if (stdev === 0) return null;
+      return (mean / stdev) * Math.sqrt(n);
+    }
+    function sqnLabel(sqn) {
+      if (sqn == null) return "—";
+      if (sqn < 1.6) return "Poor";
+      if (sqn < 2.0) return "Below avg";
+      if (sqn < 2.5) return "Average";
+      if (sqn < 3.0) return "Good";
+      if (sqn < 5.0) return "Excellent";
+      if (sqn < 7.0) return "Superb";
+      return "Holy grail";
+    }
+
+    function renderSectorAllocation() {
+      const el = document.getElementById("sector-allocation-body");
+      if (!el) return;
+      const sectorMap = getSectorMap();
+      const openFromPlans = getWatchlist().filter(w => w.position && w.position.status === "open");
+      const openFromSchwab = getOpenLots();
+      const rows = [
+        ...openFromPlans.map(w => ({ ticker: w.ticker, qty: w.position.shares || 1, price: w.position.entry || 0 })),
+        ...openFromSchwab.map(l => ({ ticker: l.ticker, qty: l.qty, price: l.avgEntry }))
+      ].filter(r => r.qty && r.price);
+
+      if (!rows.length) {
+        el.innerHTML = `<div class="wl-empty">No open positions yet — allocation will populate once you have open positions (Watchlist \u2192 Open pos, or via Schwab import).</div>`;
+        return;
+      }
+      const bySector = {};
+      let total = 0;
+      const unclassified = new Set();
+      rows.forEach(r => {
+        const sector = sectorMap[r.ticker] || "Unclassified";
+        if (sector === "Unclassified") unclassified.add(r.ticker);
+        const value = r.qty * r.price;
+        bySector[sector] = (bySector[sector] || 0) + value;
+        total += value;
+      });
+      const sorted = Object.entries(bySector).sort((a, b) => b[1] - a[1]);
+      const maxVal = sorted.length ? sorted[0][1] : 1;
+      const colors = ["#0891b2", "#7c3aed", "#16a34a", "#ea580c", "#0284c7", "#c026d3", "#65a30d", "#dc2626", "#9333ea", "#0d9488", "#eab308", "#64748b"];
+      el.innerHTML = sorted.map(([sector, val], i) => {
+        const pct = total ? (val / total) * 100 : 0;
+        const barPct = maxVal ? (val / maxVal) * 100 : 0;
+        return `<div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;">
+            <span>${sector}</span>
+            <span class="muted">$${val.toFixed(0)} · ${pct.toFixed(1)}%</span>
+          </div>
+          <div style="background:#1f2937;border-radius:4px;height:8px;overflow:hidden;">
+            <div style="width:${barPct}%;height:100%;background:${colors[i % colors.length]};"></div>
+          </div>
+        </div>`;
+      }).join("") +
+      (unclassified.size ? `<div class="note" style="margin-top:8px;">
+        Unclassified: ${[...unclassified].map(t =>
+          `<span style="display:inline-flex;align-items:center;gap:4px;margin-right:8px;">
+            <span class="ticker">${t}</span>
+            <select onchange="assignSector('${t}', this.value)" style="font-size:11px;padding:1px;">
+              <option value="">Set sector…</option>
+              ${SECTOR_LIST.map(s => `<option value="${s}">${s}</option>`).join("")}
+            </select>
+          </span>`).join("")}
+      </div>` : "");
+    }
+
+    let holdDaysChartState = null;
+    function renderWeeklyHoldDaysChart(list) {
+      const el = document.getElementById("hold-days-chart");
+      const note = document.getElementById("hold-days-note");
+      if (!el) return;
+      el.style.position = "relative";
+      const withHold = list.filter(t => t.holdDays != null && !isNaN(t.holdDays));
+      if (!withHold.length) {
+        el.innerHTML = `<div class="wl-empty">No hold-time data yet — Schwab imports compute this automatically; manual Journal entries need an Entry Date filled in.</div>`;
+        holdDaysChartState = null;
+        return;
+      }
+      // group by ISO week (Mon-start) of the exit date
+      const weekKey = (dateStr) => {
+        const d = new Date(dateStr + "T00:00:00");
+        const day = (d.getDay() + 6) % 7; // 0=Mon
+        d.setDate(d.getDate() - day);
+        return d.toISOString().slice(0, 10);
+      };
+      const byWeek = {};
+      withHold.forEach(t => {
+        const wk = weekKey(t.date);
+        if (!byWeek[wk]) byWeek[wk] = [];
+        byWeek[wk].push(t.holdDays);
+      });
+      const weeks = Object.keys(byWeek).sort();
+      const points = weeks.map(wk => ({
+        week: wk,
+        avg: byWeek[wk].reduce((a, b) => a + b, 0) / byWeek[wk].length,
+        n: byWeek[wk].length
+      }));
+
+      const w = Math.max(el.clientWidth || 600, 400);
+      const h = 200;
+      const pad = { t: 12, r: 12, b: 28, l: 34 };
+      const maxAvg = Math.max(...points.map(p => p.avg), 1);
+      const bw = (w - pad.l - pad.r) / points.length;
+      const xScale = (i) => pad.l + i * bw;
+      const yScale = (v) => pad.t + (1 - v / maxAvg) * (h - pad.t - pad.b);
+      holdDaysChartState = { points, xScale, yScale, bw, w, h, pad, maxAvg };
+
+      const labels = [];
+      const step = Math.max(1, Math.floor(points.length / 6));
+      for (let i = 0; i < points.length; i += step) {
+        labels.push(`<text x="${xScale(i) + bw / 2}" y="${h - 8}" fill="#9ca3af" font-size="9" text-anchor="middle">${points[i].week.slice(5)}</text>`);
+      }
+      el.innerHTML = `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+        ${points.map((p, i) => `<rect data-i="${i}" x="${xScale(i) + 1.5}" y="${yScale(p.avg)}" width="${Math.max(bw - 3, 1)}" height="${h - pad.b - yScale(p.avg)}" fill="#0891b2" opacity="0.85" style="cursor:crosshair;" onmousemove="onHoldDaysHover(event, ${i})" onmouseleave="onHoldDaysLeave()" />`).join("")}
+        <text x="4" y="${yScale(maxAvg) + 4}" fill="#9ca3af" font-size="9">${maxAvg.toFixed(0)}d</text>
+        <text x="4" y="${h - pad.b}" fill="#9ca3af" font-size="9">0d</text>
+        ${labels.join("")}
+      </svg>
+      <div id="hold-days-tooltip" style="position:absolute;display:none;pointer-events:none;background:#111827;border:1px solid var(--border, #374151);padding:6px 9px;border-radius:6px;font-size:11px;color:#e5e7eb;white-space:nowrap;z-index:5;"></div>`;
+      const overallAvg = withHold.reduce((a, t) => a + t.holdDays, 0) / withHold.length;
+      if (note) note.textContent = "Overall avg hold: " + overallAvg.toFixed(1) + " days · hover a bar for that week's average";
+    }
+    function onHoldDaysHover(evt, i) {
+      if (!holdDaysChartState) return;
+      const { points, xScale, bw, w, pad } = holdDaysChartState;
+      const p = points[i];
+      const svg = evt.currentTarget.ownerSVGElement;
+      const rect = svg.getBoundingClientRect();
+      const scaleFactor = w / rect.width;
+      const tooltip = document.getElementById("hold-days-tooltip");
+      if (!tooltip) return;
+      tooltip.style.display = "block";
+      tooltip.innerHTML = `<strong>Week of ${p.week}</strong><br/>Avg hold: ${p.avg.toFixed(1)} days<br/>${p.n} trade${p.n === 1 ? "" : "s"}`;
+      const pxLeft = (xScale(i) + bw / 2) / scaleFactor;
+      let left = pxLeft + 10;
+      if (left + 150 > rect.width) left = pxLeft - 150;
+      tooltip.style.left = Math.max(0, left) + "px";
+      tooltip.style.top = "6px";
+    }
+    function onHoldDaysLeave() {
+      const tooltip = document.getElementById("hold-days-tooltip");
+      if (tooltip) tooltip.style.display = "none";
+    }
+
     let equityChartState = null;
 
     function renderEquityCurve(points) {
@@ -3232,10 +3467,12 @@
       const realizedSum = list.length ? list.reduce((a, t) => a + t.pnl, 0) : 0;
       renderPortfolioKPIs(list.length ? realizedSum : null);
       loadPortfolioForm();
+      renderSectorAllocation();
       if (!list.length) {
         el.innerHTML = `<div class="wl-empty" style="grid-column:1/-1;">Import Schwab or log closed trades to populate closed-trade performance metrics.</div>`;
         if (by) by.innerHTML = "";
         if (extra) extra.innerHTML = "";
+        renderWeeklyHoldDaysChart([]);
         // still show equity from portfolio if available
         const p = getPortfolioSnapshot();
         renderEquityCurve([
@@ -3259,6 +3496,9 @@
         : (wins.length ? Infinity : 0);
       const maxWin = wins.length ? Math.max(...wins.map(t => t.pnl)) : 0;
       const maxLoss = losses.length ? Math.min(...losses.map(t => t.pnl)) : 0;
+      const sqn = computeSQN(list.map(t => t.pnl));
+      const withHold = list.filter(t => t.holdDays != null && !isNaN(t.holdDays));
+      const avgHoldDays = withHold.length ? withHold.reduce((a, t) => a + t.holdDays, 0) / withHold.length : null;
       // max drawdown on equity path
       let baselineCap = 0;
       try {
@@ -3291,9 +3531,12 @@
         metric("Profit factor", profitFactor === Infinity ? "∞" : profitFactor.toFixed(2), profitFactor >= 1 ? "pos" : "neg") +
         metric("Max drawdown $", maxDd.toFixed(2), "neg") +
         metric("Equity $", equity.toFixed(2), equity >= baselineCap ? "pos" : "neg") +
-        metric("Baseline $", baselineCap ? baselineCap.toLocaleString() : "Set in Positions", "");
+        metric("Baseline $", baselineCap ? baselineCap.toLocaleString() : "Set in Positions", "") +
+        metric("SQN ($ P&L)", sqn != null ? sqn.toFixed(2) + " · " + sqnLabel(sqn) : "Need 2+ trades", sqn != null ? (sqn >= 2 ? "pos" : "neg") : "") +
+        metric("Avg hold days", avgHoldDays != null ? avgHoldDays.toFixed(1) + "d" : "No date data", "");
 
       renderEquityCurve(points);
+      renderWeeklyHoldDaysChart(list);
 
       if (by) {
         const types = {};
