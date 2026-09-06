@@ -1135,13 +1135,6 @@
           <div class="panel-body" id="dash-extra"></div>
         </div>
       </div>
-      <div class="panel">
-        <div class="panel-header">
-          Setup rules cheat-sheet
-          <span class="tag">Auto-generated from Setup Library · <a href="#" onclick="navTo('setup-library');return false;" style="color:var(--accent);">edit setups</a></span>
-        </div>
-        <div class="panel-body" style="overflow-x:auto;" id="dash-cheat-sheet"></div>
-      </div>
     </div>
 
     <!-- AI REVIEW -->
@@ -3130,12 +3123,16 @@
       return points;
     }
 
+    let equityChartState = null;
+
     function renderEquityCurve(points) {
       const el = document.getElementById("equity-curve");
       const note = document.getElementById("equity-curve-note");
       if (!el) return;
+      el.style.position = "relative";
       if (!points.length) {
         el.innerHTML = `<div class="wl-empty">No equity path yet — import Schwab or log closed trades.</div>`;
+        equityChartState = null;
         return;
       }
       const w = Math.max(el.clientWidth || 600, 400);
@@ -3148,6 +3145,7 @@
       const spanY = maxY - minY || 1;
       const xScale = (i) => pad.l + (i / Math.max(points.length - 1, 1)) * (w - pad.l - pad.r);
       const yScale = (v) => pad.t + (1 - (v - minY) / spanY) * (h - pad.t - pad.b);
+      equityChartState = { points, xScale, yScale, w, h, pad };
       const line = points.map((p, i) => (i === 0 ? "M" : "L") + xScale(i).toFixed(1) + "," + yScale(p.equity).toFixed(1)).join(" ");
       const area = line + ` L${xScale(points.length - 1).toFixed(1)},${h - pad.b} L${xScale(0).toFixed(1)},${h - pad.b} Z`;
       const last = points[points.length - 1];
@@ -3161,41 +3159,74 @@
       el.innerHTML = `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
         <path d="${area}" fill="${up ? "rgba(34,197,94,0.12)" : "rgba(239,68,68,0.12)"}" />
         <path d="${line}" fill="none" stroke="${up ? "#22c55e" : "#ef4444"}" stroke-width="2" />
-        ${points.map((p, i) => `<circle cx="${xScale(i)}" cy="${yScale(p.equity)}" r="2.5" fill="${p.dayPnl >= 0 ? "#22c55e" : "#ef4444"}"><title>${p.date}: equity $${p.equity.toFixed(0)} (day ${p.dayPnl >= 0 ? "+" : ""}${p.dayPnl.toFixed(0)})</title></circle>`).join("")}
+        ${points.map((p, i) => `<circle cx="${xScale(i)}" cy="${yScale(p.equity)}" r="2.5" fill="${p.dayPnl >= 0 ? "#22c55e" : "#ef4444"}" />`).join("")}
         <text x="4" y="${yScale(maxY) + 4}" fill="#9ca3af" font-size="9">$${maxY.toFixed(0)}</text>
         <text x="4" y="${yScale(minY)}" fill="#9ca3af" font-size="9">$${minY.toFixed(0)}</text>
         ${labels.join("")}
-      </svg>`;
+        <g id="equity-hover-indicator" style="display:none;">
+          <line id="equity-hover-line" x1="0" y1="${pad.t}" x2="0" y2="${h - pad.b}" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3" />
+          <circle id="equity-hover-dot" r="4" fill="#fff" stroke="#111827" stroke-width="1.5" />
+        </g>
+        <rect x="${pad.l}" y="0" width="${Math.max(w - pad.l - pad.r, 1)}" height="${h}" fill="transparent"
+          style="cursor:crosshair;" onmousemove="onEquityHover(event)" onmouseleave="onEquityLeave()" />
+      </svg>
+      <div id="equity-tooltip" style="position:absolute;display:none;pointer-events:none;background:#111827;border:1px solid var(--border, #374151);padding:6px 9px;border-radius:6px;font-size:11px;color:#e5e7eb;white-space:nowrap;z-index:5;"></div>`;
       if (note) {
         note.textContent = "Daily equity · start $" + first.equity.toFixed(0) + " → $" + last.equity.toFixed(0) +
-          " · hover points for date / day P&L";
+          " · hover the curve for that day's equity value";
       }
     }
 
-    function renderCheatSheet() {
-      const el = document.getElementById("dash-cheat-sheet");
-      if (!el) return;
-      const setups = getSetups();
-      const keys = Object.keys(setups);
-      const rows = [
-        ["Category", k => setups[k].category === "pattern" ? "Pattern" : "Catalyst"],
-        ["Hold", k => setups[k].hold || "—"],
-        ["Risk %", k => (setups[k].riskPct != null ? setups[k].riskPct + "% ideal" : "—") + " · " + (setups[k].riskMax != null ? setups[k].riskMax + "% max" : "—")],
-        ["Open entry", k => setups[k].openEntry || "—"],
-        ["Delayed entry", k => setups[k].delayedEntry || "—"],
-        ["Stop", k => setups[k].stop || "—"],
-        ["Exit", k => setups[k].exit || "—"]
-      ];
-      el.innerHTML = `<table><thead><tr><th>Feature</th>${keys.map(k => `<th>${k}</th>`).join("")}</tr></thead><tbody>` +
-        rows.map(([label, fn]) => `<tr><td>${label}</td>${keys.map(k => `<td>${fn(k)}</td>`).join("")}</tr>`).join("") +
-        `</tbody></table>`;
+    function onEquityHover(evt) {
+      if (!equityChartState) return;
+      const { points, xScale, yScale, w, h, pad } = equityChartState;
+      const svg = evt.currentTarget.ownerSVGElement;
+      const rect = svg.getBoundingClientRect();
+      if (!rect.width) return;
+      const scaleFactor = w / rect.width; // viewBox units per rendered pixel
+      const xUser = (evt.clientX - rect.left) * scaleFactor;
+
+      let nearest = 0, bestDist = Infinity;
+      points.forEach((p, i) => {
+        const d = Math.abs(xScale(i) - xUser);
+        if (d < bestDist) { bestDist = d; nearest = i; }
+      });
+      const p = points[nearest];
+      const cx = xScale(nearest);
+      const cy = yScale(p.equity);
+
+      const line = document.getElementById("equity-hover-line");
+      const dot = document.getElementById("equity-hover-dot");
+      const indicator = document.getElementById("equity-hover-indicator");
+      if (indicator) indicator.style.display = "block";
+      if (line) { line.setAttribute("x1", cx); line.setAttribute("x2", cx); }
+      if (dot) { dot.setAttribute("cx", cx); dot.setAttribute("cy", cy); }
+
+      const tooltip = document.getElementById("equity-tooltip");
+      if (tooltip) {
+        tooltip.style.display = "block";
+        const dayPnlTxt = (p.dayPnl >= 0 ? "+" : "") + "$" + p.dayPnl.toFixed(2);
+        tooltip.innerHTML = `<strong>${p.date}</strong><br/>Equity: $${p.equity.toFixed(2)}<br/>Day P&amp;L: <span style="color:${p.dayPnl >= 0 ? "#4ade80" : "#f87171"}">${dayPnlTxt}</span>`;
+        const pxLeft = cx / scaleFactor;
+        const pxTop = cy / scaleFactor;
+        let left = pxLeft + 14;
+        if (left + 150 > rect.width) left = pxLeft - 150;
+        tooltip.style.left = Math.max(0, left) + "px";
+        tooltip.style.top = Math.max(0, pxTop - 44) + "px";
+      }
+    }
+
+    function onEquityLeave() {
+      const indicator = document.getElementById("equity-hover-indicator");
+      const tooltip = document.getElementById("equity-tooltip");
+      if (indicator) indicator.style.display = "none";
+      if (tooltip) tooltip.style.display = "none";
     }
 
     function renderDashboard() {
       const el = document.getElementById("dash-metrics");
       const by = document.getElementById("dash-by-type");
       const extra = document.getElementById("dash-extra");
-      renderCheatSheet();
       if (!el) return;
       const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
       const realizedSum = list.length ? list.reduce((a, t) => a + t.pnl, 0) : 0;
