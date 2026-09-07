@@ -1,12 +1,33 @@
 {
-  "generatedAt": "2026-09-06T01:41:52.274Z",
-  "generatedSlot": "Manual run",
+  "generatedAt": "2026-09-07T17:32:08.884Z",
+  "generatedSlot": "10:30am PT",
   "wsjHeadlines": [
     {
-      "title": "Stock Market News, Sept. 4, 2026: Short-Term Treasury Yields Climb After Strong Jobs Report",
-      "description": "The U.S. economy added 162,000 jobs in August, boosting chances of a rate hike; stocks slip",
-      "link": "https://www.wsj.com/livecoverage/august-jobs-report-stock-market-09-04-2026?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 08:18:35 GMT",
+      "title": "Hunter Biden (and His Laptop) Enter the Cryptosphere With New Meme Coin",
+      "description": "The personal computer that launched a thousand memes will debut this week as a digital token.",
+      "link": "https://www.wsj.com/finance/currencies/hunter-biden-and-his-laptop-enter-the-cryptosphere-with-new-meme-coin-4d46fc9c?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 14:50:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Stock Funds Are Up 12.6% for Year So Far",
+      "description": "Despite pressures galore, August was another positive month. Plus: A Financial Flashback to 25 years ago, when markets shut down after 9/11.",
+      "link": "https://www.wsj.com/finance/investing/stock-funds-gains-august-925de91d?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Institutional Investors Move Markets. Here’s How to Read Their Signs.",
+      "description": "Tracking a stock’s price range and volume can give individuals clues on when to buy a stock that’s about to climb or bail out on a stock that’s primed to fall.",
+      "link": "https://www.wsj.com/finance/stocks/investors-move-markets-read-signs-b0f2cc95?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Herm&#xe8;s Has Big Watchmaking Ambitions. The Cult of the Birkin Is Getting in the Way.",
+      "description": "Many people only buy the brand’s watches to boost their chances of getting a handbag.",
+      "link": "https://www.wsj.com/business/hermes-has-big-watchmaking-ambitions-the-cult-of-the-birkin-is-getting-in-the-way-88ad17f9?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 09:30:00 GMT",
       "tickers": []
     },
     {
@@ -21,36 +42,6 @@
       "description": "From tornadoes to power cuts, artificial-intelligence hyperscale data centers are exposed to a dizzying array of potential threats during their construction and operation.",
       "link": "https://www.wsj.com/finance/the-next-big-opportunity-in-data-centers-insuring-them-f133f3cb?mod=rss_markets_main",
       "pubDate": "Sat, 05 Sep 2026 17:19:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "For Many Individual Traders, Prediction Markets Are Hot&#x2014;and Crypto Is Not",
-      "description": "As bitcoin loses its cool, traders are spending more time and money betting on sports, elections and Fed rate decisions.",
-      "link": "https://www.wsj.com/finance/currencies/for-many-individual-traders-prediction-markets-are-hotand-crypto-is-not-bef27e3d?mod=rss_markets_main",
-      "pubDate": "Sat, 05 Sep 2026 02:00:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Rates Climb, Stocks Dip After Strong U.S. Jobs Data",
-      "description": "Stocks and bonds fell Friday on concerns that benchmark interest rates are headed higher.",
-      "link": "https://www.wsj.com/finance/stocks/rates-climb-stocks-dip-after-strong-u-s-jobs-data-a71b1a23?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:54:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Stocks Fall After Hot Jobs Report",
-      "description": "Plus, Volkswagen rises on big job cuts, and a Chinese engineer returns home.",
-      "link": "https://www.wsj.com/finance/stocks/stocks-fall-after-hot-jobs-report-2298977c?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:07:00 GMT",
-      "tickers": [
-        "VWAGY"
-      ]
-    },
-    {
-      "title": "You’re Not Tough Enough to Earn These Huge Returns",
-      "description": "The latest defense of supercharged ETFs doesn’t hold water for most investors.",
-      "link": "https://www.wsj.com/finance/investing/youre-not-tough-enough-to-earn-these-huge-returns-3feaad7b?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 13:00:00 GMT",
       "tickers": []
     },
     {
@@ -138,77 +129,75 @@
       "tickers": []
     },
     {
-      "title": "The AI Shift Turning Everyday Investors Into Mini Quant Funds",
+      "title": "Health Care Roundup: Market Talk",
+      "description": "Find insight on Klinique Medical Clinic, Novartis, Daiichi Sankyo and more in the latest Market Talks covering Health Care.",
+      "link": "https://www.wsj.com/business/health-care-roundup-market-talk-c2a9855b?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 12:16:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Financial Services Roundup: Market Talk",
+      "description": "Find insight on Ashmore Group, Industrial & Commercial Bank of China and more in the latest Market Talks covering Financial Services.",
+      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-3d0f3342?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 11:58:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Tech, Media & Telecom Roundup: Market Talk",
+      "description": "Find insight on China Ruyi, SK Hynix, China Mobile and more in the latest Market Talks covering Technology, Media and Telecom.",
+      "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-867ac53d?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 11:46:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Rise in German Bund Yields Almost Entirely Due to ECB Rate-Hike Prospects",
+      "description": "The recent rise in German Bund yields reflects expectations of higher eurozone interest rates rather than demand for compensation for buying longer-dated debt, Generali said.",
+      "link": "https://www.wsj.com/finance/jgbs-edge-lower-amid-rising-oil-prices-b7e71276?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 11:16:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "He’s Letting AI Agents Invest His Money. They Even Have Names.",
       "description": "Americans are vibe-coding trading algorithms and handing over their stock portfolios to AI agents. Welcome to the world of the robot retail investor.",
       "link": "https://www.wsj.com/tech/ai/the-ai-shift-turning-everyday-investors-into-mini-quant-funds-ebe4d45f?mod=rss_markets_main",
       "pubDate": "Sun, 06 Sep 2026 00:00:00 GMT",
       "tickers": []
     },
     {
-      "title": "Young People See a Different America Than Older People. Where Do You Fit In?",
-      "description": "Take our quiz, based on 1,862 survey responses, to find the new fault lines in U.S. values.",
-      "link": "https://www.wsj.com/politics/young-people-see-a-different-america-than-older-people-where-do-you-fit-in-571f768c?mod=rss_markets_main",
-      "pubDate": "Sat, 05 Sep 2026 09:30:00 GMT",
+      "title": "Oil Higher on Hormuz Escalation, Weighing on Sentiment",
+      "description": "Rising oil prices weighed on market sentiment in afternoon European trade after the U.S. and Iran increased efforts to control the Strait of Hormuz.",
+      "link": "https://www.wsj.com/finance/stocks/oil-higher-on-hormuz-escalation-amid-quiet-markets-due-to-labor-day-6b5cc530?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 13:06:00 GMT",
       "tickers": []
     },
     {
-      "title": "U.S. Stocks Fall as Robust August Jobs Data Spurs Yields, Rate-Hike Bets",
-      "description": "U.S. stocks fell after surprisingly strong jobs data muddied the outlook for Federal Reserve policy.",
-      "link": "https://www.wsj.com/finance/investing/u-s-stocks-fall-as-robust-august-jobs-data-spurs-yields-rate-hike-bets-0adff908?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 21:18:00 GMT",
+      "title": "European Chip Stocks Rise, Buoyed By Asian Peers",
+      "description": "Shares of European semiconductor companies were in green territory following strong gains in Asia as investors continued to bet on stocks with exposure to artificial intelligence.",
+      "link": "https://www.wsj.com/finance/stocks/nikkei-rises-1-8-led-by-chip-related-stocks-37f5728d?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 08:50:00 GMT",
       "tickers": []
     },
     {
-      "title": "Energy & Utilities Roundup: Market Talk",
-      "description": "Find insight on U.S. diesel prices, crude futures, Keyera and more in the latest Market Talks covering energy and utilities.",
-      "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-5b4267ce?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:58:00 GMT",
+      "title": "Oil Rises as Escalating U.S.-Iran Conflict Stokes Supply Disruption Fears",
+      "description": "Oil prices climbed in Asia as escalating tensions in the U.S.-Iran conflict stoked concerns over potential supply disruptions in the Middle East.",
+      "link": "https://www.wsj.com/finance/stocks/oil-rises-as-escalating-u-s-iran-conflict-stokes-supply-disruption-fears-acdef1ab?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 05:30:00 GMT",
       "tickers": []
     },
     {
-      "title": "Auto & Transport Roundup: Market Talk",
-      "description": "Find insight on Volkswagen, BRP and more in the latest Market Talks covering auto and transport.",
-      "link": "https://www.wsj.com/business/auto-transport-roundup-market-talk-565f6704?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:55:00 GMT",
+      "title": "Rates Climb, Stocks Dip After Strong U.S. Jobs Data",
+      "description": "Stocks and bonds fell Friday on concerns that benchmark interest rates are headed higher.",
+      "link": "https://www.wsj.com/finance/stocks/rates-climb-stocks-dip-after-strong-u-s-jobs-data-a71b1a23?mod=rss_markets_main",
+      "pubDate": "Fri, 04 Sep 2026 20:54:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Stocks Fall After Hot Jobs Report",
+      "description": "Plus, Volkswagen rises on big job cuts, and a Chinese engineer returns home.",
+      "link": "https://www.wsj.com/finance/stocks/stocks-fall-after-hot-jobs-report-2298977c?mod=rss_markets_main",
+      "pubDate": "Fri, 04 Sep 2026 20:07:00 GMT",
       "tickers": [
         "VWAGY"
-      ]
-    },
-    {
-      "title": "U.S. Stocks Slip, Short-Term Treasury Yields Climb After Strong Jobs Report",
-      "description": "A hotter-than-expected jobs report is sending U.S. stocks and short-term bond prices lower, as traders boost bets on a rate hike from the Federal Reserve this month.",
-      "link": "https://www.wsj.com/finance/stocks/u-s-stock-futures-treasurys-little-moved-ahead-of-jobs-data-36dab277?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 18:23:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Health Care Roundup: Market Talk",
-      "description": "Find insight on Hutchmed and more in the latest Market Talks covering health care.",
-      "link": "https://www.wsj.com/business/health-care-roundup-market-talk-e96665b7?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 16:31:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Higher Bond Yields Have a Silver Lining",
-      "description": "Plus, diesel hits a new high and cancer vaccine picks and shovels.",
-      "link": "https://www.wsj.com/finance/investing/higher-bond-yields-have-a-silver-lining-044afb97?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 10:16:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "European Indexes Edge Higher in Early Trade",
-      "description": "European indexes edged higher in early trade, with AI-related stocks gaining, software stocks falling and the Europe-wide Stoxx 600 in positive territory.",
-      "link": "https://www.wsj.com/finance/stocks/nikkei-rises-0-5-led-by-tech-financial-stocks-83ddfeba?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 07:34:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Oura’s IPO Reveals High Growth for Smart-Ring Maker",
-      "description": "The fitness tracker recently turned profitable and posted 74% revenue growth in the nine months ended in June.",
-      "link": "https://www.wsj.com/finance/stocks/ouras-ipo-reveals-high-growth-for-smart-ring-maker-9ce3e4c9?mod=rss_markets_main",
-      "pubDate": "Thu, 03 Sep 2026 22:09:00 GMT",
-      "tickers": [
-        "OURA"
       ]
     },
     {
@@ -254,55 +243,59 @@
       "tickers": []
     },
     {
+      "title": "LME Copper Prices Hit Record on Supply Issues, U.S. Tariff Concerns",
+      "description": "Copper prices surged to a fresh record on the London Metal Exchange, as mounting concerns over mine supply and the prospect of potential U.S. tariffs sent buyers scrambling for the metal.",
+      "link": "https://www.wsj.com/finance/commodities-futures/lme-copper-prices-hit-record-on-supply-issues-u-s-tariff-concerns-89e6bbc6?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 16:42:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Oil Extends Gains on Middle East Attacks; U.S. Gas Prices at Record High for Labor Day",
+      "description": "Oil prices extend earlier gains, with Brent crude marching toward $100 a barrel as fresh exchanges of strikes between the U.S. and Iran keep the geopolitical risk premium high.",
+      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-escalation-in-u-s-iran-conflict-aab0d7fb?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 15:14:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Gold Under Pressure With This Week’s Inflation Data in Focus",
+      "description": "Gold prices remained under pressure and futures fell as investors wait  on the U.S. PPI report on Thursday and CPI data on Friday.",
+      "link": "https://www.wsj.com/finance/commodities-futures/gold-falls-on-rising-fed-rate-hike-expectations-6e77bf70?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 14:21:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "Basic Materials Roundup: Market Talk",
-      "description": "Find insight on gold futures, BHP, Rio Tinto and more in the latest Market Talks covering basic materials.",
-      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-90badd13?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:54:00 GMT",
-      "tickers": [
-        "RIO",
-        "BHP"
-      ]
-    },
-    {
-      "title": "Oil Futures Post Weekly Gains on Middle East Escalation",
-      "description": "Crude futures settled higher in a choppy session ahead of the U.S. Labor Day long weekend, closing out a week of gains that saw the resumption of U.S. strikes on Iranian targets and Iranian attacks on shipping.",
-      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-elevated-supply-disruption-concerns-fa01461e?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:02:00 GMT",
+      "description": "Find insight on Lynas Rare Earths, Zijin Mining, Westgold Resources and more in the latest Market Talks covering Basic Materials.",
+      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-5dc8baa7?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 12:05:00 GMT",
       "tickers": []
     },
     {
-      "title": "U.S. Natural Gas Futures Gain Ahead of Long Weekend",
-      "description": "U.S. natural gas futures rose as the weather outlook remains hot enough through Labor Day and next week, keeping up demand for cooling.",
-      "link": "https://www.wsj.com/finance/commodities-futures/u-s-natural-gas-futures-pick-up-in-early-trading-f3754d92?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 19:32:00 GMT",
+      "title": "European Gas Climbs on LNG Supply Concerns Ahead of Winter",
+      "description": "European natural-gas prices climbed more than 2%, trading just shy of 74 euros a megawatt-hour as supply flows from Qatar remained severely disrupted.",
+      "link": "https://www.wsj.com/finance/commodities-futures/european-gas-climbs-on-lng-supply-concerns-ahead-of-winter-95ffd976?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 08:25:00 GMT",
       "tickers": []
     },
     {
-      "title": "Record Fuel Prices Pose Fresh Challenge for Trump Ahead of Midterms",
-      "description": "Diesel hit an average $5.85 a gallon on Friday, an all-time high that surpassed the previous record from 2022.",
-      "link": "https://www.wsj.com/business/energy-oil/record-fuel-prices-pose-fresh-challenge-for-trump-ahead-of-midterms-fb433718?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 18:53:00 GMT",
+      "title": "Sterling Edges Higher After U.K. Treasury Chief Speech",
+      "description": "Sterling rose against the dollar and against the euro after U.K. Treasury Chief John Healey pledged government plans to drive economic growth.",
+      "link": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-may-be-weighed-by-fed-rate-hike-prospects-b9db2269?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 11:19:00 GMT",
       "tickers": []
     },
     {
-      "title": "Gold, Silver Futures Slip on Blowout Jobs Report",
-      "description": "Gold futures fell as U.S. payrolls increased well above expectations in August, pushing up short-term Treasury yields and raising expectations of a possible September Fed hike.",
-      "link": "https://www.wsj.com/finance/commodities-futures/gold-rises-on-weaker-u-s-dollar-821f948d?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 18:41:00 GMT",
+      "title": "Yen Climbs to Six-Month High as Rate Outlooks Shift",
+      "description": "The Japanese currency rose to its strongest intraday level since late February, extending a recovery that gathered momentum last week.",
+      "link": "https://www.wsj.com/finance/currencies/japanese-yen-climbs-to-six-month-high-as-rate-outlooks-shift-df3980be?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 10:34:00 GMT",
       "tickers": []
     },
     {
-      "title": "WSJ Dollar Index Falls 0.68% This Week to 95.24",
-      "description": "The WSJ Dollar Index edged up 0.1%, snapping a two-trading-day losing streak.",
-      "link": "https://www.wsj.com/finance/currencies/yen-consolidates-likely-buoyed-by-prospects-of-hawkish-boj-rate-hike-b1eb9c38?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 21:24:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "WSJ Dollar Index Falls 0.57% to 95.15",
-      "description": "The WSJ Dollar Index fell 0.6% &#x2014; down for two consecutive trading days.",
-      "link": "https://www.wsj.com/finance/currencies/yen-consolidates-may-be-supported-by-lingering-risks-of-fx-intervention-45c3cccb?mod=rss_markets_main",
-      "pubDate": "Thu, 03 Sep 2026 21:23:00 GMT",
+      "title": "China’s Foreign Exchange Reserves Continue to Climb",
+      "description": "China’s foreign-exchange reserves edged higher in August against the backdrop of a weaker dollar and a surging trade surplus, renewing concerns about the yuan’s appreciation.",
+      "link": "https://www.wsj.com/economy/chinas-foreign-exchange-reserves-continue-to-climb-def2bb7d?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 09:18:00 GMT",
       "tickers": []
     }
   ],
@@ -459,6 +452,33 @@
   },
   "buzz": [
     {
+      "ticker": "RAM",
+      "name": "T-REX 2X Long DRAM Daily Target ETF",
+      "price": 13.74,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/RAM"
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPMorgan Chase & Co",
+      "price": 358.7,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/JPM"
+    },
+    {
+      "ticker": "BAC",
+      "name": "Bank of America Corp",
+      "price": 62.68,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/BAC"
+    },
+    {
       "ticker": "NKE",
       "name": "Nike Inc",
       "price": 38.42,
@@ -468,40 +488,13 @@
       "sourceUrl": "https://stocktwits.com/symbol/NKE"
     },
     {
-      "ticker": "OXY",
-      "name": "Occidental Petroleum Corp.",
-      "price": 60.2,
+      "ticker": "LYFT",
+      "name": "Lyft Inc",
+      "price": 16.67,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/OXY"
-    },
-    {
-      "ticker": "PL",
-      "name": "Planet Labs PBC",
-      "price": 18.03,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/PL"
-    },
-    {
-      "ticker": "EGY",
-      "name": "VAALCO Energy, Inc.",
-      "price": 6,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/EGY"
-    },
-    {
-      "ticker": "BSX",
-      "name": "Boston Scientific Corp.",
-      "price": 47.19,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/BSX"
+      "sourceUrl": "https://stocktwits.com/symbol/LYFT"
     }
   ]
 }
