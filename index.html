@@ -2282,9 +2282,11 @@
         score: Math.max(0, Math.min(99, Math.round(30 + (lc.changePct || 0) * 2.5 + (lc.volume ? Math.min(lc.volume / 150000, 25) : 0)))),
         avoid: (lc.changePct || 0) < 0,
         shortInterest: "n/a",
-        catalyst: kind === "buzz"
-          ? "Trending on StockTwits right now — see Recent News below, or verify manually if nothing relevant turns up."
-          : "Live pre-market screener hit — see Recent News below, or verify manually if nothing relevant turns up.",
+        catalyst: lc.catalystHeadline
+          ? lc.catalystHeadline
+          : (kind === "buzz"
+            ? "Trending on StockTwits right now — see Recent News below, or verify manually if nothing relevant turns up."
+            : "Live pre-market screener hit — see Recent News below, or verify manually if nothing relevant turns up."),
         tags: [kind === "buzz" ? "BUZZ" : "LIVE"],
         qualifyGrade: "",
         checks: [],
@@ -2293,7 +2295,10 @@
         rationale: kind === "buzz"
           ? "Flagged by StockTwits trending feed (real substitute for X — see notes)."
           : "Flagged by scheduled pre-market screener: " + (lc.changePct || 0).toFixed(1) + "% move on " + (lc.volume || 0).toLocaleString() + " volume.",
-        sources: [{ name: lc.source || "Live source", url: lc.sourceUrl || null }],
+        sources: [
+          { name: lc.source || "Live source", url: lc.sourceUrl || null },
+          ...(lc.catalystHeadline ? [{ name: "News: " + lc.catalystHeadline, url: lc.catalystUrl || null }] : [])
+        ],
         _live: kind !== "buzz",
         _buzz: kind === "buzz"
       };
