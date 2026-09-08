@@ -38,7 +38,7 @@ function matchedSlot() {
 // ---- 2. WSJ Markets RSS (public feed, no auth) ----
 async function fetchWsjHeadlines() {
   const url = "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain";
-  const res = await fetch(url, { headers: { "User-Agent": "trading-terminal-watchlist-bot/1.0" } });
+  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" } });
   if (!res.ok) throw new Error("WSJ RSS fetch failed: " + res.status);
   const xml = await res.text();
 
@@ -91,7 +91,7 @@ function tagTickers(text) {
 // data, no login, no API key). We fetch the plain HTML and parse the table;
 // this is a normal public webpage, not an authenticated/paywalled endpoint. ----
 async function fetchPremarketTable(url) {
-  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (trading-terminal-watchlist-bot/1.0)" } });
+  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" } });
   if (!res.ok) throw new Error("stockanalysis.com fetch failed: " + res.status);
   const html = await res.text();
 
@@ -154,7 +154,7 @@ async function fetchScreener() {
 // free, no-auth substitute for X (X has no free read API as of 2026). ----
 async function fetchStockTwitsBuzz() {
   const url = "https://api.stocktwits.com/api/2/streams/trending.json";
-  const res = await fetch(url, { headers: { "User-Agent": "trading-terminal-watchlist-bot/1.0" } });
+  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" } });
   if (!res.ok) throw new Error("StockTwits fetch failed: " + res.status);
   const data = await res.json();
 
