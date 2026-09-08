@@ -779,6 +779,7 @@
           <span class="tag">Review category → Add to Watchlist for plans</span>
         </div>
         <div class="panel-body" style="max-height: 420px; overflow-y: auto;">
+          <div id="qualify-data-banner"></div>
           <table>
             <thead>
               <tr>
@@ -1158,14 +1159,29 @@
     <!-- AI REVIEW -->
     <div id="ai-review" class="section">
       <div class="panel">
-        <div class="panel-header">AI Trade Review · SWOT &amp; improvement</div>
+        <div class="panel-header">Computed Review · Real stats, deterministic</div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:12px;">
-            Uses your Journal + imported Schwab trades (local only). Click run to generate a structured review.
-            You can paste this into a chat with Grok for a deeper session.
+            Uses your Journal + imported Schwab trades (local only). Rule-based math, not AI — every number is real and recomputed each run.
           </div>
-          <button class="btn btn-accent" onclick="runAIReview()">Run AI review on my trades</button>
+          <button class="btn btn-accent" onclick="runAIReview()">Run computed review</button>
           <div id="ai-review-output" style="margin-top:14px;"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Gemini AI Analysis · Optional, needs your own API key</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">
+            <strong>This is a static site with no server</strong> — your key lives only in this browser's local storage and is sent directly from your browser to Google's API when you click Run. It is never written to the GitHub repo. That also means anyone with access to this exact browser/device could view it in DevTools — for real safety, restrict the key to your site's domain in Google AI Studio / Cloud Console (HTTP referrer restriction).
+          </div>
+          <div class="form-row">
+            <input type="password" id="gemini-key-input" placeholder="Paste your Gemini API key" style="width:280px;" />
+            <button class="btn btn-sm btn-accent" onclick="saveGeminiKey()">Save key</button>
+            <button class="btn btn-sm" onclick="clearGeminiKey()">Clear key</button>
+          </div>
+          <div class="muted" style="font-size:11px;margin:6px 0;" id="gemini-key-status">No key saved yet.</div>
+          <button class="btn btn-accent" onclick="runGeminiReview()">Run Gemini Analysis</button>
+          <div id="gemini-review-output" style="margin-top:14px;"></div>
         </div>
       </div>
     </div>
@@ -1489,8 +1505,16 @@
 
     function renderSIPTable() {
       const tbody = document.getElementById("sip-table");
+      const banner = document.getElementById("qualify-data-banner");
       tbody.innerHTML = "";
-      candidates.forEach((c, i) => {
+      const hasRealData = candidates.some(c => c._live || c._buzz);
+      const rows = hasRealData ? candidates.filter(c => !c._demo) : candidates;
+      if (banner) {
+        banner.innerHTML = hasRealData
+          ? ""
+          : `<div class="note">Showing example/demo rows only — live data hasn't loaded yet (first scheduled run pending, or this file was opened outside the deployed site). These will disappear automatically once real data arrives.</div>`;
+      }
+      rows.forEach((c, i) => {
         let scoreClass = "score-low";
         if (c.score >= 70) scoreClass = "score-high";
         else if (c.score >= 55) scoreClass = "score-med";
@@ -1551,7 +1575,9 @@
       const tbody = document.getElementById("avoid-table");
       if (!tbody) return;
       tbody.innerHTML = "";
-      candidates.filter(c => c.avoid).forEach(c => {
+      const hasRealData = candidates.some(c => c._live || c._buzz);
+      const pool = hasRealData ? candidates.filter(c => !c._demo) : candidates;
+      pool.filter(c => c.avoid).forEach(c => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
@@ -3091,6 +3117,67 @@
       };
       reader.readAsText(input.files[0]);
     }
+    function computeTradeStats(list) {
+      const wins = list.filter(t => t.pnl > 0);
+      const losses = list.filter(t => t.pnl <= 0);
+      const sum = list.reduce((a, t) => a + t.pnl, 0);
+      const avgW = wins.length ? wins.reduce((a, t) => a + t.pnl, 0) / wins.length : 0;
+      const avgL = losses.length ? losses.reduce((a, t) => a + t.pnl, 0) / losses.length : 0;
+      const wr = (wins.length / list.length) * 100;
+      const sqn = computeSQN(list.map(t => t.pnl));
+
+      const bySetup = {};
+      list.forEach(t => {
+        const k = t.setup || "Other";
+        if (!bySetup[k]) bySetup[k] = { n: 0, pnl: 0, w: 0 };
+        bySetup[k].n++; bySetup[k].pnl += t.pnl; if (t.pnl > 0) bySetup[k].w++;
+      });
+      const setupKeys = Object.keys(bySetup);
+      const bestSetup = setupKeys.sort((a, b) => bySetup[b].pnl - bySetup[a].pnl)[0];
+      const worstSetup = setupKeys.sort((a, b) => bySetup[a].pnl - bySetup[b].pnl)[0];
+      const bestSetupWR = bySetup[bestSetup] ? (bySetup[bestSetup].w / bySetup[bestSetup].n) * 100 : 0;
+      const worstSetupWR = bySetup[worstSetup] ? (bySetup[worstSetup].w / bySetup[worstSetup].n) * 100 : 0;
+
+      const biggestWin = wins.length ? Math.max(...wins.map(t => t.pnl)) : 0;
+      const biggestLoss = losses.length ? Math.min(...losses.map(t => t.pnl)) : 0;
+      const totalWinDollars = wins.reduce((a, t) => a + t.pnl, 0);
+      const totalLossDollars = Math.abs(losses.reduce((a, t) => a + t.pnl, 0));
+      const winConcentration = totalWinDollars > 0 ? (biggestWin / totalWinDollars) * 100 : 0;
+      const lossConcentration = totalLossDollars > 0 ? (Math.abs(biggestLoss) / totalLossDollars) * 100 : 0;
+
+      const withHold = list.filter(t => t.holdDays != null && !isNaN(t.holdDays));
+      const winsWithHold = withHold.filter(t => t.pnl > 0);
+      const lossesWithHold = withHold.filter(t => t.pnl <= 0);
+      const avgHoldWin = winsWithHold.length ? winsWithHold.reduce((a, t) => a + t.holdDays, 0) / winsWithHold.length : null;
+      const avgHoldLoss = lossesWithHold.length ? lossesWithHold.reduce((a, t) => a + t.holdDays, 0) / lossesWithHold.length : null;
+
+      const sized = list.filter(t => t.entry != null && t.shares != null && t.entry > 0 && t.shares > 0);
+      let sizeCV = null;
+      if (sized.length >= 3) {
+        const sizes = sized.map(t => t.entry * t.shares);
+        const meanSize = sizes.reduce((a, b) => a + b, 0) / sizes.length;
+        const varSize = sizes.reduce((a, b) => a + Math.pow(b - meanSize, 2), 0) / sizes.length;
+        sizeCV = meanSize > 0 ? (Math.sqrt(varSize) / meanSize) * 100 : null;
+      }
+
+      let trendNote = null;
+      if (list.length >= 8) {
+        const sorted = [...list].sort((a, b) => new Date(a.date) - new Date(b.date));
+        const recent = sorted.slice(-5);
+        const earlier = sorted.slice(0, -5);
+        const recentAvg = recent.reduce((a, t) => a + t.pnl, 0) / recent.length;
+        const earlierAvg = earlier.length ? earlier.reduce((a, t) => a + t.pnl, 0) / earlier.length : 0;
+        trendNote = { recentAvg, earlierAvg, improving: recentAvg > earlierAvg };
+      }
+
+      return {
+        n: list.length, wins, losses, sum, avgW, avgL, wr, sqn,
+        bySetup, setupKeys, bestSetup, worstSetup, bestSetupWR, worstSetupWR,
+        biggestWin, biggestLoss, winConcentration, lossConcentration,
+        avgHoldWin, avgHoldLoss, sizeCV, trendNote
+      };
+    }
+
     function runAIReview() {
       const out = document.getElementById("ai-review-output");
       const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
@@ -3099,28 +3186,70 @@
         out.innerHTML = `<div class="wl-empty">Need at least a few closed trades (Journal or Schwab import) for a useful review.</div>`;
         return;
       }
-      const wins = list.filter(t => t.pnl > 0);
-      const losses = list.filter(t => t.pnl <= 0);
-      const sum = list.reduce((a, t) => a + t.pnl, 0);
-      const avgW = wins.length ? wins.reduce((a, t) => a + t.pnl, 0) / wins.length : 0;
-      const avgL = losses.length ? losses.reduce((a, t) => a + t.pnl, 0) / losses.length : 0;
-      const wr = (wins.length / list.length) * 100;
-      const bySetup = {};
-      list.forEach(t => {
-        const k = t.setup || "Other";
-        if (!bySetup[k]) bySetup[k] = { n: 0, pnl: 0, w: 0 };
-        bySetup[k].n++; bySetup[k].pnl += t.pnl; if (t.pnl > 0) bySetup[k].w++;
-      });
-      const bestSetup = Object.keys(bySetup).sort((a, b) => bySetup[b].pnl - bySetup[a].pnl)[0];
-      const worstSetup = Object.keys(bySetup).sort((a, b) => bySetup[a].pnl - bySetup[b].pnl)[0];
-      const strength = wr >= 50
-        ? "Win rate at or above 50% — process is producing more winners than losers."
-        : "Win rate under 50% — edge must come from larger avg wins vs avg losses (check expectancy).";
-      const weakness = Math.abs(avgL) > avgW
-        ? "Average loss exceeds average win — stop discipline or target scaling needs work."
-        : "Avg win exceeds avg loss — protect this asymmetry; avoid giving back winners.";
-      const opportunity = "Tag every trade with setup type (SIP / EP / EP9M / future setups) so Dashboard and AI review can isolate which playbook pays.";
-      const threat = "Import + journal without baseline capital makes drawdown hard to contextualize — keep baseline updated.";
+      const s = computeTradeStats(list);
+      const { wins, losses, sum, avgW, avgL, wr, sqn, bySetup, setupKeys, bestSetup, worstSetup,
+        bestSetupWR, worstSetupWR, biggestWin, biggestLoss, winConcentration, lossConcentration,
+        avgHoldWin, avgHoldLoss, sizeCV, trendNote } = s;
+
+      // ---- Build SWOT bullets from what's actually true in the data ----
+      const strengths = [];
+      const weaknesses = [];
+      const opportunities = [];
+      const threats = [];
+
+      strengths.push(wr >= 50
+        ? `Win rate is ${wr.toFixed(1)}% across ${list.length} trades — more winners than losers.`
+        : `Win rate is ${wr.toFixed(1)}%, but avg win ($${avgW.toFixed(2)}) vs avg loss ($${avgL.toFixed(2)}) is what actually decides expectancy here.`);
+      if (setupKeys.length > 1 && bySetup[bestSetup].n >= 2) {
+        strengths.push(`"${bestSetup}" is your best-performing setup: ${bySetup[bestSetup].n} trades, $${bySetup[bestSetup].pnl.toFixed(2)} net, ${bestSetupWR.toFixed(0)}% win rate.`);
+      }
+      if (sqn != null && sqn >= 2) {
+        strengths.push(`SQN is ${sqn.toFixed(2)} (${sqnLabel(sqn)}) — your P&amp;L distribution shows real consistency, not just a few lucky trades.`);
+      }
+
+      if (Math.abs(avgL) > avgW && avgW > 0) {
+        weaknesses.push(`Average loss ($${Math.abs(avgL).toFixed(2)}) exceeds average win ($${avgW.toFixed(2)}) — stops or profit-taking need tightening.`);
+      }
+      if (setupKeys.length > 1 && bySetup[worstSetup].pnl < 0) {
+        weaknesses.push(`"${worstSetup}" is dragging results down: ${bySetup[worstSetup].n} trades, $${bySetup[worstSetup].pnl.toFixed(2)} net, ${worstSetupWR.toFixed(0)}% win rate.`);
+      }
+      if (lossConcentration > 40 && losses.length > 1) {
+        weaknesses.push(`One trade ($${biggestLoss.toFixed(2)}) accounts for ${lossConcentration.toFixed(0)}% of all losing $ — a single bad stop-out is doing outsized damage.`);
+      }
+      if (sizeCV != null && sizeCV > 60) {
+        weaknesses.push(`Position sizing is inconsistent — size varies ${sizeCV.toFixed(0)}% around your average, which makes expectancy hard to trust across trades.`);
+      }
+      if (!weaknesses.length) weaknesses.push(`Nothing structurally alarming in this sample — avg win/loss ratio and setup spread both look reasonable.`);
+
+      if (avgHoldWin != null && avgHoldLoss != null && Math.abs(avgHoldWin - avgHoldLoss) > 1) {
+        opportunities.push(avgHoldWin < avgHoldLoss
+          ? `Winners are held ${avgHoldWin.toFixed(1)}d on average vs ${avgHoldLoss.toFixed(1)}d for losers — you may be cutting winners early and hoping on losers. Worth reviewing exit discipline.`
+          : `Winners are held longer (${avgHoldWin.toFixed(1)}d) than losers (${avgHoldLoss.toFixed(1)}d) — that's the right shape (let winners run, cut losers fast); keep reinforcing it.`);
+      }
+      if (winConcentration > 40 && wins.length > 1) {
+        opportunities.push(`Your biggest win ($${biggestWin.toFixed(2)}) is ${winConcentration.toFixed(0)}% of total gains — study that trade specifically for what made it work and whether it's repeatable.`);
+      }
+      if (setupKeys.length <= 2) {
+        opportunities.push(`Only ${setupKeys.length} setup type(s) tagged so far — tagging every trade (SIP/EP/EP9M/pattern setups) as your sample grows will make this comparison much more reliable.`);
+      }
+      if (trendNote) {
+        opportunities.push(trendNote.improving
+          ? `Recent 5 trades avg $${trendNote.recentAvg.toFixed(2)} vs $${trendNote.earlierAvg.toFixed(2)} for earlier ones — performance is trending up.`
+          : `Recent 5 trades avg $${trendNote.recentAvg.toFixed(2)} vs $${trendNote.earlierAvg.toFixed(2)} for earlier ones — worth a closer look at what's changed.`);
+      }
+      if (!opportunities.length) opportunities.push(`Keep logging — several of these comparisons need more trades before they're statistically meaningful.`);
+
+      if (sqn != null && sqn < 1.6) {
+        threats.push(`SQN is ${sqn.toFixed(2)} (${sqnLabel(sqn)}) — P&amp;L is inconsistent enough that recent results may not reflect a repeatable edge yet.`);
+      }
+      if (lossConcentration > 50 && losses.length > 1) {
+        threats.push(`Loss concentration is high (${lossConcentration.toFixed(0)}% from one trade) — a repeat of that scenario would hurt disproportionately. Check what stop/size rule was skipped.`);
+      }
+      if (sizeCV != null && sizeCV > 80) {
+        threats.push(`Extreme size variance (${sizeCV.toFixed(0)}%) suggests position sizing isn't following a consistent rule — this is the fastest way to blow up an otherwise working edge.`);
+      }
+      if (!threats.length) threats.push(`No acute red flags in this sample — the main risk is sample size; keep validating as trade count grows.`);
+
       out.innerHTML = `
         <div class="grid-2">
           <div class="panel" style="margin:0;">
@@ -3128,29 +3257,104 @@
             <div class="checklist">
               <div class="check-item"><span class="check-icon">N</span> ${list.length} closed trades · Net $${sum.toFixed(2)}</div>
               <div class="check-item"><span class="check-icon">W</span> Win rate ${wr.toFixed(1)}% · Avg win $${avgW.toFixed(2)} · Avg loss $${avgL.toFixed(2)}</div>
-              <div class="check-item"><span class="check-icon">+</span> Best setup tag: <strong>${bestSetup}</strong></div>
-              <div class="check-item"><span class="check-icon">−</span> Weakest setup tag: <strong>${worstSetup}</strong></div>
+              <div class="check-item"><span class="check-icon">Q</span> SQN ${sqn != null ? sqn.toFixed(2) + " (" + sqnLabel(sqn) + ")" : "need 2+ trades"}</div>
+              <div class="check-item"><span class="check-icon">+</span> Best setup tag: <strong>${bestSetup || "—"}</strong></div>
+              <div class="check-item"><span class="check-icon">−</span> Weakest setup tag: <strong>${worstSetup || "—"}</strong></div>
             </div>
           </div>
           <div class="panel" style="margin:0;">
-            <div class="panel-header">SWOT</div>
+            <div class="panel-header">SWOT — computed from your actual trades</div>
             <div class="checklist">
-              <div class="check-item"><span class="check-icon">S</span> <strong>Strengths:</strong> ${strength}</div>
-              <div class="check-item"><span class="check-icon">W</span> <strong>Weaknesses:</strong> ${weakness}</div>
-              <div class="check-item"><span class="check-icon">O</span> <strong>Opportunities:</strong> ${opportunity}</div>
-              <div class="check-item"><span class="check-icon">T</span> <strong>Threats:</strong> ${threat}</div>
+              <div class="check-item"><span class="check-icon">S</span> <strong>Strengths:</strong> ${strengths.join(" ")}</div>
+              <div class="check-item"><span class="check-icon">W</span> <strong>Weaknesses:</strong> ${weaknesses.join(" ")}</div>
+              <div class="check-item"><span class="check-icon">O</span> <strong>Opportunities:</strong> ${opportunities.join(" ")}</div>
+              <div class="check-item"><span class="check-icon">T</span> <strong>Threats:</strong> ${threats.join(" ")}</div>
             </div>
           </div>
         </div>
-        <div class="panel" style="margin-top:12px;">
-          <div class="panel-header">Suggested improvements</div>
-          <div class="checklist">
-            <div class="check-item"><span class="check-icon">1</span> Pre-define setup type before entry — rules differ for SIP vs EP vs EP9M (and future setups).</div>
-            <div class="check-item"><span class="check-icon">2</span> Log open vs delayed entry mode so you can compare which timing works.</div>
-            <div class="check-item"><span class="check-icon">3</span> After Schwab import, tag setup type on large P&amp;L outliers for pattern mining.</div>
-            <div class="check-item"><span class="check-icon">4</span> Re-run this review monthly; paste stats to Grok for a deeper coaching session.</div>
-          </div>
+        <div class="note" style="margin-top:10px;">
+          This computed panel is rule-based math on your logged trades — deterministic, not an LLM. Use "Run Gemini Analysis" below for genuine AI-written qualitative commentary on top of these same real numbers.
         </div>`;
+    }
+
+    // ---- Gemini-powered qualitative analysis (optional, needs your own API key) ----
+    function getGeminiKey() {
+      return localStorage.getItem("tt_gemini_key") || "";
+    }
+    function saveGeminiKey() {
+      const input = document.getElementById("gemini-key-input");
+      const key = input ? input.value.trim() : "";
+      if (!key) { alert("Paste your Gemini API key first."); return; }
+      localStorage.setItem("tt_gemini_key", key);
+      renderGeminiKeyStatus();
+      alert("Key saved to this browser only (localStorage) — never written to the repo or sent anywhere except Google's API when you run an analysis.");
+    }
+    function clearGeminiKey() {
+      localStorage.removeItem("tt_gemini_key");
+      renderGeminiKeyStatus();
+    }
+    function renderGeminiKeyStatus() {
+      const el = document.getElementById("gemini-key-status");
+      if (!el) return;
+      const key = getGeminiKey();
+      el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No key saved yet.";
+    }
+    async function runGeminiReview() {
+      const out = document.getElementById("gemini-review-output");
+      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      if (!out) return;
+      const key = getGeminiKey();
+      if (!key) {
+        out.innerHTML = `<div class="wl-empty">Save your Gemini API key above first.</div>`;
+        return;
+      }
+      if (list.length < 3) {
+        out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
+        return;
+      }
+      out.innerHTML = `<div class="wl-empty">Asking Gemini… (this calls Google's API directly from your browser)</div>`;
+      const s = computeTradeStats(list);
+      const bySetupLines = s.setupKeys.map(k =>
+        `- ${k}: ${s.bySetup[k].n} trades, $${s.bySetup[k].pnl.toFixed(2)} net, ${((s.bySetup[k].w / s.bySetup[k].n) * 100).toFixed(0)}% win rate`
+      ).join("\n");
+      const prompt = `You are reviewing a swing/day trader's real closed-trade statistics from their personal trading journal. Be specific, direct, and reference the actual numbers below — no generic trading advice. Write a concise SWOT-style analysis (Strengths, Weaknesses, Opportunities, Threats — 2-3 sentences each) plus 3 concrete, numbered suggestions for improvement. Keep it under 400 words total.
+
+Stats:
+- ${s.n} closed trades, net P&L $${s.sum.toFixed(2)}
+- Win rate: ${s.wr.toFixed(1)}%, avg win $${s.avgW.toFixed(2)}, avg loss $${s.avgL.toFixed(2)}
+- SQN (based on $ P&L, not R-multiples): ${s.sqn != null ? s.sqn.toFixed(2) + " (" + sqnLabel(s.sqn) + ")" : "not enough trades"}
+- Best setup: ${s.bestSetup || "n/a"} (${s.bestSetupWR.toFixed(0)}% win rate)
+- Worst setup: ${s.worstSetup || "n/a"} (${s.worstSetupWR.toFixed(0)}% win rate)
+- Per-setup breakdown:
+${bySetupLines}
+- Win concentration: biggest win is ${s.winConcentration.toFixed(0)}% of total gains
+- Loss concentration: biggest loss is ${s.lossConcentration.toFixed(0)}% of total losses
+- Avg hold time: winners ${s.avgHoldWin != null ? s.avgHoldWin.toFixed(1) + "d" : "n/a"}, losers ${s.avgHoldLoss != null ? s.avgHoldLoss.toFixed(1) + "d" : "n/a"}
+- Position sizing variance (coefficient of variation): ${s.sizeCV != null ? s.sizeCV.toFixed(0) + "%" : "n/a"}
+${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs earlier trades avg $${s.trendNote.earlierAvg.toFixed(2)}` : ""}`;
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(key)}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        if (!res.ok) {
+          const errText = await res.text().catch(() => "");
+          throw new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
+        }
+        const data = await res.json();
+        const text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts
+          ? data.candidates[0].content.parts.map(p => p.text || "").join("")
+          : null;
+        if (!text) throw new Error("Unexpected response shape from Gemini");
+        out.innerHTML = `<div class="panel" style="margin:0;background:#0f172a;">
+          <div style="white-space:pre-wrap;font-size:13px;line-height:1.6;padding:4px;">${text.replace(/</g, "&lt;")}</div>
+        </div>
+        <div class="note" style="margin-top:8px;">Generated just now by Gemini (${new Date().toLocaleTimeString()}), called directly from your browser using your saved key.</div>`;
+      } catch (e) {
+        out.innerHTML = `<div class="wl-empty">Gemini call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Google's API.</div>`;
+      }
     }
 
     function markPositionOpen(ticker) {
@@ -3797,7 +4001,7 @@
       if (section === "market-monitor") loadMarketMonitorData();
       if (section === "positions") { loadBaselineUI(); renderPositions(); fetchAllLivePrices(true); }
       if (section === "dashboard") renderDashboard();
-      if (section === "ai-review") runAIReview();
+      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); }
       const sp = document.getElementById("settings-panel");
       if (sp) sp.classList.remove("open");
     }
