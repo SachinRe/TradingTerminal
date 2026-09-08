@@ -1424,8 +1424,16 @@
     candidates.sort((a, b) => b.score - a.score);
 
     function renderBullishBearish() {
+      // Once real (live/buzz) data exists, don't let placeholder demo rows
+      // compete with it for Top 5 — demo scores are illustrative and often
+      // higher than a freshly-computed live score, which would otherwise
+      // crowd out real opportunities even though they're correctly present
+      // in the full Qualify list above.
+      const hasRealData = candidates.some(c => c._live || c._buzz);
+      const pool = hasRealData ? candidates.filter(c => !c._demo) : candidates;
+
       // Top 5 Bullish: not avoid, positive gap preferred, highest score
-      const bullish = candidates
+      const bullish = pool
         .filter(c => !c.avoid && c.gap >= 0)
         .sort((a, b) => b.score - a.score)
         .slice(0, 5);
@@ -1452,7 +1460,7 @@
       }
 
       // Top 5 Bearish: avoid=true or negative gap, worst first (most negative gap or lowest score among avoids)
-      const bearish = candidates
+      const bearish = pool
         .filter(c => c.avoid || c.gap < 0)
         .sort((a, b) => {
           // Prefer gap-downs first, then by how negative / avoid strength
@@ -2228,7 +2236,10 @@
         price: lc.price || 0,
         gap: lc.changePct != null ? Number(lc.changePct.toFixed(1)) : 0,
         vol: lc.volume ? (lc.volume >= 1e6 ? (lc.volume / 1e6).toFixed(1) + "M" : (lc.volume / 1e3).toFixed(0) + "K") : "—",
-        score: Math.max(0, Math.min(99, Math.round((lc.changePct || 0) * 2 + (lc.volume ? Math.min(lc.volume / 200000, 30) : 0)))),
+        // Baseline of 30 + gap/volume factors, so a genuinely strong live
+        // mover lands in a meaningful score band instead of always reading
+        // as "low" purely because the raw formula skews low by default.
+        score: Math.max(0, Math.min(99, Math.round(30 + (lc.changePct || 0) * 2.5 + (lc.volume ? Math.min(lc.volume / 150000, 25) : 0)))),
         avoid: (lc.changePct || 0) < 0,
         shortInterest: "n/a",
         catalyst: kind === "buzz"
