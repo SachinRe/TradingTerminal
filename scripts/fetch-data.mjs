@@ -100,7 +100,10 @@ async function fetchPremarketTable(url) {
   const rows = [];
   const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
   let rm;
+  let totalTrCount = 0;
+  const cellCountsSeen = [];
   while ((rm = rowRegex.exec(html))) {
+    totalTrCount++;
     const rowHtml = rm[1];
     const cells = [];
     const cellRegex = /<td[^>]*>([\s\S]*?)<\/td>/g;
@@ -109,7 +112,23 @@ async function fetchPremarketTable(url) {
       const text = cm[1].replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").trim();
       cells.push(text);
     }
+    cellCountsSeen.push(cells.length);
     if (cells.length >= 7) rows.push(cells);
+  }
+  // Diagnostics: this tells us exactly what the parser is seeing on the real
+  // page, since we can't inspect stockanalysis.com's live markup directly —
+  // remove this block once the real row/cell shape is confirmed and stable.
+  console.log(`[diag] ${url} -> found ${totalTrCount} <tr> total, ${rows.length} with >=7 <td> cells`);
+  console.log(`[diag] cell counts per row (first 15): ${cellCountsSeen.slice(0, 15).join(", ")}`);
+  if (rows.length) {
+    console.log(`[diag] first parsed row: ${JSON.stringify(rows[0])}`);
+  }
+  if (totalTrCount > 0 && rows.length <= 1) {
+    // Something is off after row 1 — dump a raw snippet around the 2nd <tr> to see real structure
+    const secondTrIdx = html.indexOf("<tr", html.indexOf("<tr") + 3);
+    if (secondTrIdx >= 0) {
+      console.log(`[diag] raw HTML snippet from 2nd <tr>: ${html.slice(secondTrIdx, secondTrIdx + 500).replace(/\n/g, " ")}`);
+    }
   }
 
   return rows.map(cells => {
@@ -190,6 +209,34 @@ async function fetchStockTwitsBuzz() {
   return buzzList;
 }
 
+// ---- Real per-ticker catalyst headline (server-side, so no CORS issue and
+// no waiting on the client) — reuses the same free news API the News page
+// uses. Runs once per candidate ticker after the screener/buzz lists are
+// built, so the catalyst text is already real by the time the site loads it.
+async function fetchCatalystForTicker(ticker) {
+  try {
+    const url = `https://freenewsapi.ai/v1/search?q=${encodeURIComponent(ticker)}&size=1&lang=en`;
+    const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" } });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const top = data.results && data.results[0];
+    if (!top || !top.title) return null;
+    return { title: top.title, url: top.url || null };
+  } catch (e) {
+    return null;
+  }
+}
+async function attachCatalysts(candidates, label) {
+  for (const c of candidates) {
+    const hit = await fetchCatalystForTicker(c.ticker);
+    c.catalystHeadline = hit ? hit.title : null;
+    c.catalystUrl = hit ? hit.url : null;
+    // Be a reasonable citizen toward the free API — small stagger between calls.
+    await new Promise(r => setTimeout(r, 150));
+  }
+  console.log(`[diag] Attached catalysts for ${candidates.length} ${label} candidates (${candidates.filter(c => c.catalystHeadline).length} found real headlines)`);
+}
+
 async function main() {
   // A manual "Run workflow" click (workflow_dispatch) should always do real
   // work, regardless of the time of day — otherwise there's no way to test.
@@ -230,6 +277,15 @@ async function main() {
     buzz = await fetchStockTwitsBuzz();
   } catch (e) {
     console.error("StockTwits buzz fetch failed:", e.message);
+  }
+
+  // Attach a real per-ticker headline to each candidate so the app doesn't
+  // have to show a generic placeholder in the catalyst column.
+  try {
+    if (screener.candidates && screener.candidates.length) await attachCatalysts(screener.candidates, "screener");
+    if (buzz.length) await attachCatalysts(buzz, "buzz");
+  } catch (e) {
+    console.error("Catalyst attachment failed:", e.message);
   }
 
   const output = {
