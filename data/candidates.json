@@ -1,26 +1,54 @@
 {
-  "generatedAt": "2026-09-07T17:32:08.884Z",
-  "generatedSlot": "10:30am PT",
+  "generatedAt": "2026-09-08T12:42:59.741Z",
+  "generatedSlot": "5:30am PT",
   "wsjHeadlines": [
+    {
+      "title": "Stock Market Today: Oil Nears $100, Dow Futures Dip",
+      "description": "Brent crude climbs after reports of Houthi attacks on Saudi Arabia",
+      "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-08-2026?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 08:42:02 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Robinhood Strikes Deal With Crypto.com in Latest Prediction-Markets Push",
+      "description": "The brokerage will add yes-or-no contracts from Crypto.com’s prediction business, and take a stake in the digital-currency exchange.",
+      "link": "https://www.wsj.com/finance/currencies/robinhood-strikes-deal-with-crypto-com-in-latest-prediction-markets-push-901a32aa?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 12:00:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Does Your Portfolio Need an Inflation Tax Break?",
+      "description": "Plus, oil is back near triple digits",
+      "link": "https://www.wsj.com/finance/stocks/does-your-portfolio-need-an-inflation-tax-break-b65f4441?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 10:11:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Investors Brace for a Choppier Fall as the Fed, Inflation Return to Center Stage",
+      "description": "Plus, see how drones are infiltrating NATO territory in Europe and test whether you have what it takes to be a clue writer for &#x201c;Jeopardy!&#x201d;",
+      "link": "https://www.wsj.com/finance/investing/investors-brace-for-a-choppier-fall-as-the-fed-inflation-return-to-center-stage-81f6f11f?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 09:54:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "AI Is Disrupting Software Companies&#x2014;but Not as Fast as Many Feared",
+      "description": "Even as their shares got pummeled, companies like Salesforce and Workday have been showing financial strength.",
+      "link": "https://www.wsj.com/tech/ai/ai-is-disrupting-software-companiesbut-not-as-fast-as-many-feared-a380443a?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 09:30:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "The Stock Market’s Breezy Summer Is Over. Investors Beware.",
+      "description": "The Fed and inflation are back in focus as investors face down an often bumpy stretch for markets.",
+      "link": "https://www.wsj.com/finance/stocks/the-stock-markets-breezy-summer-is-over-investors-beware-fb110133?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 01:00:00 GMT",
+      "tickers": []
+    },
     {
       "title": "Hunter Biden (and His Laptop) Enter the Cryptosphere With New Meme Coin",
       "description": "The personal computer that launched a thousand memes will debut this week as a digital token.",
       "link": "https://www.wsj.com/finance/currencies/hunter-biden-and-his-laptop-enter-the-cryptosphere-with-new-meme-coin-4d46fc9c?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 14:50:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Stock Funds Are Up 12.6% for Year So Far",
-      "description": "Despite pressures galore, August was another positive month. Plus: A Financial Flashback to 25 years ago, when markets shut down after 9/11.",
-      "link": "https://www.wsj.com/finance/investing/stock-funds-gains-august-925de91d?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Institutional Investors Move Markets. Here’s How to Read Their Signs.",
-      "description": "Tracking a stock’s price range and volume can give individuals clues on when to buy a stock that’s about to climb or bail out on a stock that’s primed to fall.",
-      "link": "https://www.wsj.com/finance/stocks/investors-move-markets-read-signs-b0f2cc95?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
+      "pubDate": "Mon, 07 Sep 2026 23:13:00 GMT",
       "tickers": []
     },
     {
@@ -28,20 +56,6 @@
       "description": "Many people only buy the brand’s watches to boost their chances of getting a handbag.",
       "link": "https://www.wsj.com/business/hermes-has-big-watchmaking-ambitions-the-cult-of-the-birkin-is-getting-in-the-way-88ad17f9?mod=rss_markets_main",
       "pubDate": "Mon, 07 Sep 2026 09:30:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "How Billions in Iranian Money Passes Through U.S. Banks",
-      "description": "Illicit Iranian funds are flowing through U.S.-dollar clearing accounts, creating an enforcement dilemma for Washington.",
-      "link": "https://www.wsj.com/finance/regulation/how-billions-in-iranian-money-passes-through-u-s-banks-69106989?mod=rss_markets_main",
-      "pubDate": "Sun, 06 Sep 2026 01:00:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "The Next Big Opportunity in Data Centers: Insuring Them",
-      "description": "From tornadoes to power cuts, artificial-intelligence hyperscale data centers are exposed to a dizzying array of potential threats during their construction and operation.",
-      "link": "https://www.wsj.com/finance/the-next-big-opportunity-in-data-centers-insuring-them-f133f3cb?mod=rss_markets_main",
-      "pubDate": "Sat, 05 Sep 2026 17:19:00 GMT",
       "tickers": []
     },
     {
@@ -80,13 +94,18 @@
       "tickers": []
     },
     {
-      "title": "Jersey Mike’s Is Winning the Sandwich War. It Still Needs to Win Over Gen Z.",
-      "description": "The chain’s affluent, older base gives it an edge. But to grow it also needs young customers.",
-      "link": "https://www.wsj.com/business/hospitality/jersey-mikes-is-winning-the-sandwich-war-it-still-needs-to-win-over-gen-z-324b4e0b?mod=rss_markets_main",
-      "pubDate": "Tue, 01 Sep 2026 09:30:00 GMT",
-      "tickers": [
-        "N/A"
-      ]
+      "title": "EverBank to Combine With WaFd to Create $75 Billion Bank",
+      "description": "Florida-based EverBank Financial has reached a deal to pursue a reverse merger with the smaller bank in the Pacific Northwest.",
+      "link": "https://www.wsj.com/business/deals/everbank-to-combine-with-wafd-to-create-75-billion-bank-e71d023c?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 20:30:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "How Billions in Iranian Money Passes Through U.S. Banks",
+      "description": "Illicit Iranian funds are flowing through U.S.-dollar clearing accounts, creating an enforcement dilemma for Washington.",
+      "link": "https://www.wsj.com/finance/regulation/how-billions-in-iranian-money-passes-through-u-s-banks-69106989?mod=rss_markets_main",
+      "pubDate": "Sun, 06 Sep 2026 01:00:00 GMT",
+      "tickers": []
     },
     {
       "title": "These Banks Are Banding Together to Launch a Stablecoin",
@@ -112,93 +131,78 @@
       "tickers": []
     },
     {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on TD Bank, EQB’s acquisition of PC Financial,  Affirm’s results and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-319c8fd4?mod=rss_markets_main",
-      "pubDate": "Fri, 28 Aug 2026 21:35:00 GMT",
-      "tickers": [
-        "TD",
-        "AFRM"
-      ]
-    },
-    {
-      "title": "A Core Egyptian Bank Gets Caught Up in Treasury’s Iran Crackdown",
-      "description": "The U.A.E. branch of Banque Misr, Egypt’s second largest bank, faces penalties for alleged dealings with Tehran.",
-      "link": "https://www.wsj.com/world/middle-east/a-core-egyptian-bank-gets-caught-up-in-treasurys-iran-crackdown-bb867772?mod=rss_markets_main",
-      "pubDate": "Fri, 28 Aug 2026 19:56:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Health Care Roundup: Market Talk",
-      "description": "Find insight on Klinique Medical Clinic, Novartis, Daiichi Sankyo and more in the latest Market Talks covering Health Care.",
-      "link": "https://www.wsj.com/business/health-care-roundup-market-talk-c2a9855b?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 12:16:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on Ashmore Group, Industrial & Commercial Bank of China and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-3d0f3342?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 11:58:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Tech, Media & Telecom Roundup: Market Talk",
-      "description": "Find insight on China Ruyi, SK Hynix, China Mobile and more in the latest Market Talks covering Technology, Media and Telecom.",
-      "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-867ac53d?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 11:46:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Rise in German Bund Yields Almost Entirely Due to ECB Rate-Hike Prospects",
-      "description": "The recent rise in German Bund yields reflects expectations of higher eurozone interest rates rather than demand for compensation for buying longer-dated debt, Generali said.",
-      "link": "https://www.wsj.com/finance/jgbs-edge-lower-amid-rising-oil-prices-b7e71276?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 11:16:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "He’s Letting AI Agents Invest His Money. They Even Have Names.",
-      "description": "Americans are vibe-coding trading algorithms and handing over their stock portfolios to AI agents. Welcome to the world of the robot retail investor.",
-      "link": "https://www.wsj.com/tech/ai/the-ai-shift-turning-everyday-investors-into-mini-quant-funds-ebe4d45f?mod=rss_markets_main",
-      "pubDate": "Sun, 06 Sep 2026 00:00:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Oil Higher on Hormuz Escalation, Weighing on Sentiment",
-      "description": "Rising oil prices weighed on market sentiment in afternoon European trade after the U.S. and Iran increased efforts to control the Strait of Hormuz.",
-      "link": "https://www.wsj.com/finance/stocks/oil-higher-on-hormuz-escalation-amid-quiet-markets-due-to-labor-day-6b5cc530?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 13:06:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "European Chip Stocks Rise, Buoyed By Asian Peers",
-      "description": "Shares of European semiconductor companies were in green territory following strong gains in Asia as investors continued to bet on stocks with exposure to artificial intelligence.",
-      "link": "https://www.wsj.com/finance/stocks/nikkei-rises-1-8-led-by-chip-related-stocks-37f5728d?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 08:50:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Oil Rises as Escalating U.S.-Iran Conflict Stokes Supply Disruption Fears",
-      "description": "Oil prices climbed in Asia as escalating tensions in the U.S.-Iran conflict stoked concerns over potential supply disruptions in the Middle East.",
-      "link": "https://www.wsj.com/finance/stocks/oil-rises-as-escalating-u-s-iran-conflict-stokes-supply-disruption-fears-acdef1ab?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 05:30:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Rates Climb, Stocks Dip After Strong U.S. Jobs Data",
-      "description": "Stocks and bonds fell Friday on concerns that benchmark interest rates are headed higher.",
-      "link": "https://www.wsj.com/finance/stocks/rates-climb-stocks-dip-after-strong-u-s-jobs-data-a71b1a23?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:54:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Stocks Fall After Hot Jobs Report",
-      "description": "Plus, Volkswagen rises on big job cuts, and a Chinese engineer returns home.",
-      "link": "https://www.wsj.com/finance/stocks/stocks-fall-after-hot-jobs-report-2298977c?mod=rss_markets_main",
-      "pubDate": "Fri, 04 Sep 2026 20:07:00 GMT",
+      "title": "Auto & Transport Roundup: Market Talk",
+      "description": "Find insight on Mobico, Volkswagen, BYD and more in the latest Market Talks covering Auto and Transport.",
+      "link": "https://www.wsj.com/business/auto-transport-roundup-market-talk-92e8216f?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 12:41:00 GMT",
       "tickers": [
         "VWAGY"
       ]
+    },
+    {
+      "title": "GE Aerospace to Buy Consolidated Precision Products for $11.75 Billion",
+      "description": "GE Aerospace has struck a deal to buy engineered castings maker Consolidated Precision Products from private investment firms Warburg Pincus and Berkshire Partners for $11.75 billion.",
+      "link": "https://www.wsj.com/business/deals/ge-aerospace-to-buy-consolidated-precision-products-for-11-75-billion-ed7c8fc8?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 12:29:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Financial Services Roundup: Market Talk",
+      "description": "Find insight on  Ingenia Communities, Standard Life and more in the latest Market Talks covering Financial Services.",
+      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-2d369bf1?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 12:17:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Energy & Utilities Roundup: Market Talk",
+      "description": "Find insight on BP, Santos and more in the latest Market Talks covering energy and utilities.",
+      "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-38f2c04d?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 12:01:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "SEC Proposal Could Unlock PE Political Spending",
+      "description": "Plus, PE-backed EverBank agrees to a reverse merger and investors rediscover love for backing companies that focus on live experiences.",
+      "link": "https://www.wsj.com/pro/private-equity/sec-proposal-could-unlock-pe-political-spending-cbf263bd?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 11:37:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "European Indexes Edge Lower as Inflation Concerns Loom",
+      "description": "European stock indexes, including the Stoxx 600, mostly edged lower in early trade, with higher oil prices weighing on sentiment.",
+      "link": "https://www.wsj.com/finance/stocks/nikkei-falls-0-6-dragged-by-electronics-machinery-stocks-97139a76?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 08:08:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Asian Stock Markets Mixed, Investors Await U.S. CPI Data",
+      "description": "Regional markets lacked cues given Monday’s Labor Day holiday, and investors are now looking to U.S. consumer inflation data.",
+      "link": "https://www.wsj.com/finance/stocks/asian-stock-markets-mixed-as-investors-look-to-u-s-cpi-data-f41bca9f?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 05:09:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Robinhood Wins a New Role in the Oura IPO: Underwriter",
+      "description": "Playing an official part in the IPO process could give Robinhood more influence over the number of shares allocated to its customers.",
+      "link": "https://www.wsj.com/finance/robinhood-wins-a-new-role-in-the-oura-ipo-underwriter-9a76c632?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 20:08:00 GMT",
+      "tickers": [
+        "OURA"
+      ]
+    },
+    {
+      "title": "Stock Funds Are Up 12.6% for Year So Far",
+      "description": "Despite pressures galore, August was another positive month. Plus: A Financial Flashback to 25 years ago, when markets shut down after 9/11.",
+      "link": "https://www.wsj.com/finance/investing/stock-funds-gains-august-925de91d?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Institutional Investors Move Markets. Here’s How to Read Their Signs.",
+      "description": "Tracking a stock’s price range and volume can give individuals clues on when to buy a stock that’s about to climb or bail out on a stock that’s primed to fall.",
+      "link": "https://www.wsj.com/finance/stocks/investors-move-markets-read-signs-b0f2cc95?mod=rss_markets_main",
+      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
+      "tickers": []
     },
     {
       "title": "Opinion | BlackRock Casts a Vote of Confidence in Texas",
@@ -243,59 +247,54 @@
       "tickers": []
     },
     {
-      "title": "LME Copper Prices Hit Record on Supply Issues, U.S. Tariff Concerns",
-      "description": "Copper prices surged to a fresh record on the London Metal Exchange, as mounting concerns over mine supply and the prospect of potential U.S. tariffs sent buyers scrambling for the metal.",
-      "link": "https://www.wsj.com/finance/commodities-futures/lme-copper-prices-hit-record-on-supply-issues-u-s-tariff-concerns-89e6bbc6?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 16:42:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Oil Extends Gains on Middle East Attacks; U.S. Gas Prices at Record High for Labor Day",
-      "description": "Oil prices extend earlier gains, with Brent crude marching toward $100 a barrel as fresh exchanges of strikes between the U.S. and Iran keep the geopolitical risk premium high.",
-      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-escalation-in-u-s-iran-conflict-aab0d7fb?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 15:14:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Gold Under Pressure With This Week’s Inflation Data in Focus",
-      "description": "Gold prices remained under pressure and futures fell as investors wait  on the U.S. PPI report on Thursday and CPI data on Friday.",
-      "link": "https://www.wsj.com/finance/commodities-futures/gold-falls-on-rising-fed-rate-hike-expectations-6e77bf70?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 14:21:00 GMT",
-      "tickers": []
-    },
-    {
       "title": "Basic Materials Roundup: Market Talk",
-      "description": "Find insight on Lynas Rare Earths, Zijin Mining, Westgold Resources and more in the latest Market Talks covering Basic Materials.",
-      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-5dc8baa7?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 12:05:00 GMT",
+      "description": "Find insight on Hyundai Steel, Solar Industries, BHP and more in the latest Market Talks covering Basic Materials.",
+      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-f5a5d4be?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 12:33:00 GMT",
+      "tickers": [
+        "BHP"
+      ]
+    },
+    {
+      "title": "Copper Reaches New Highs on U.S. Tariff Fears, Supply Challenges",
+      "description": "Copper prices climbed to a fresh record on the London Metal Exchange as distortions to trade flows due to concerns over potential U.S. tariffs collided with supply challenges at key mines worldwide.",
+      "link": "https://www.wsj.com/finance/commodities-futures/copper-reaches-new-highs-on-u-s-tariff-fears-supply-challenges-93a99fb0?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 09:35:00 GMT",
       "tickers": []
     },
     {
-      "title": "European Gas Climbs on LNG Supply Concerns Ahead of Winter",
-      "description": "European natural-gas prices climbed more than 2%, trading just shy of 74 euros a megawatt-hour as supply flows from Qatar remained severely disrupted.",
-      "link": "https://www.wsj.com/finance/commodities-futures/european-gas-climbs-on-lng-supply-concerns-ahead-of-winter-95ffd976?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 08:25:00 GMT",
+      "title": "Oil’s Risk Premium Seems Exceptionally Bloated",
+      "description": "The risk premium embedded in oil prices appears to be exceptionally bloated, paving the way for prices to deflate, Julius Baer said.",
+      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-fears-of-more-supply-disruptions-in-middle-east-97f4225b?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 09:08:00 GMT",
       "tickers": []
     },
     {
-      "title": "Sterling Edges Higher After U.K. Treasury Chief Speech",
-      "description": "Sterling rose against the dollar and against the euro after U.K. Treasury Chief John Healey pledged government plans to drive economic growth.",
-      "link": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-may-be-weighed-by-fed-rate-hike-prospects-b9db2269?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 11:19:00 GMT",
+      "title": "Gold Falls as Investors Await U.S. Inflation Data",
+      "description": "Gold prices fell despite a weaker dollar as investors waited for U.S. inflation data for more cues on the Federal Reserve’s decision on interest rates.",
+      "link": "https://www.wsj.com/finance/commodities-futures/in-gold-the-bulls-are-everywhere-8ee642ee?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 08:41:00 GMT",
       "tickers": []
     },
     {
-      "title": "Yen Climbs to Six-Month High as Rate Outlooks Shift",
-      "description": "The Japanese currency rose to its strongest intraday level since late February, extending a recovery that gathered momentum last week.",
-      "link": "https://www.wsj.com/finance/currencies/japanese-yen-climbs-to-six-month-high-as-rate-outlooks-shift-df3980be?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 10:34:00 GMT",
+      "title": "U.S Stock Futures, Treasurys Weaken as Brent Nears $100",
+      "description": "U.S. markets wobbled as higher oil prices dragged sentiment before investors return from the Labor Day weekend.",
+      "link": "https://www.wsj.com/finance/commodities-futures/u-s-stock-futures-treasurys-weaken-as-brent-nears-100-c29efc2f?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 08:39:00 GMT",
       "tickers": []
     },
     {
-      "title": "China’s Foreign Exchange Reserves Continue to Climb",
-      "description": "China’s foreign-exchange reserves edged higher in August against the backdrop of a weaker dollar and a surging trade surplus, renewing concerns about the yuan’s appreciation.",
-      "link": "https://www.wsj.com/economy/chinas-foreign-exchange-reserves-continue-to-climb-def2bb7d?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 09:18:00 GMT",
+      "title": "U.S. Treasury Yields Rise, Dollar Falls in European Trade",
+      "description": "The dollar eased against a basket of currencies due to further gains in the Japanese yen.",
+      "link": "https://www.wsj.com/finance/currencies/yen-strengthens-further-sentiment-toward-currency-has-materially-shifted-72af55be?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 10:41:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Bessent’s Yen Bet Is Paying Off&#x2014;for Now",
+      "description": "The Japanese currency touched an almost seven-month high against the U.S. dollar, a sharp turnaround from its seemingly inexorable slide this summer.",
+      "link": "https://www.wsj.com/finance/currencies/yen-hits-six-month-high-against-dollar-on-boj-rate-hike-bets-c065be1e?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 07:43:00 GMT",
       "tickers": []
     }
   ],
@@ -305,196 +304,123 @@
     "source": "stockanalysis.com/markets/premarket (public, no login)",
     "candidates": [
       {
-        "ticker": "PATH",
-        "name": "UiPath, Inc.",
-        "price": 15.9,
-        "changePct": -12.73,
-        "volume": 2094239,
+        "ticker": "BNC",
+        "name": "CEA Industries Inc.",
+        "price": 5.07,
+        "changePct": 45.27,
+        "volume": 27960767,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/path/"
+        "sourceUrl": "https://stockanalysis.com/stocks/bnc/"
       },
       {
-        "ticker": "LULU",
-        "name": "lululemon athletica inc.",
-        "price": 97.99,
-        "changePct": -19.53,
-        "volume": 715896,
+        "ticker": "WYHG",
+        "name": "Wing Yip Food Holdings Group Limited",
+        "price": 5.21,
+        "changePct": 28.33,
+        "volume": 10735262,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/lulu/"
+        "sourceUrl": "https://stockanalysis.com/stocks/wyhg/"
       },
       {
-        "ticker": "IOT",
-        "name": "Samsara Inc.",
-        "price": 44.3,
-        "changePct": 14.32,
-        "volume": 234900,
+        "ticker": "DYN",
+        "name": "Dyne Therapeutics, Inc.",
+        "price": 17.7,
+        "changePct": -27.1,
+        "volume": 640302,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/iot/"
+        "sourceUrl": "https://stockanalysis.com/stocks/dyn/"
       },
       {
-        "ticker": "EFX",
-        "name": "Equifax Inc.",
-        "price": 168,
-        "changePct": -11.15,
-        "volume": 81436,
+        "ticker": "ROIV",
+        "name": "Roivant Sciences Ltd.",
+        "price": 41.46,
+        "changePct": 18.7,
+        "volume": 599736,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/efx/"
+        "sourceUrl": "https://stockanalysis.com/stocks/roiv/"
       },
       {
-        "ticker": "ASAN",
-        "name": "Asana, Inc.",
-        "price": 8.89,
-        "changePct": -11.89,
-        "volume": 61739,
+        "ticker": "NVS",
+        "name": "Novartis AG",
+        "price": 139.3,
+        "changePct": -12.93,
+        "volume": 498960,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/asan/"
+        "sourceUrl": "https://stockanalysis.com/stocks/nvs/"
       },
       {
-        "ticker": "EGAN",
-        "name": "eGain Corporation",
-        "price": 5.53,
-        "changePct": -22.22,
-        "volume": 57958,
+        "ticker": "PHVS",
+        "name": "Pharvaris N.V.",
+        "price": 41.01,
+        "changePct": 16.34,
+        "volume": 435620,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/egan/"
+        "sourceUrl": "https://stockanalysis.com/stocks/phvs/"
       },
       {
-        "ticker": "GWRE",
-        "name": "Guidewire Software, Inc.",
-        "price": 167,
-        "changePct": -17.68,
-        "volume": 46357,
+        "ticker": "SGML",
+        "name": "Sigma Lithium Corporation",
+        "price": 10.95,
+        "changePct": -11.62,
+        "volume": 397429,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/gwre/"
+        "sourceUrl": "https://stockanalysis.com/stocks/sgml/"
+      },
+      {
+        "ticker": "BIAF",
+        "name": "bioAffinity Technologies, Inc.",
+        "price": 10.5,
+        "changePct": -31.24,
+        "volume": 181137,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/biaf/"
+      },
+      {
+        "ticker": "FCUV",
+        "name": "Focus Universal Inc.",
+        "price": 8.05,
+        "changePct": -52.65,
+        "volume": 89645,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/fcuv/"
       },
       {
         "ticker": "TRBG",
         "name": "TurboGen Ltd.",
-        "price": 7.85,
-        "changePct": -33.7,
-        "volume": 39906,
+        "price": 5.85,
+        "changePct": -20.3,
+        "volume": 68455,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/trbg/"
       },
       {
-        "ticker": "SWBI",
-        "name": "Smith & Wesson Brands, Inc.",
-        "price": 14.15,
-        "changePct": 15.32,
-        "volume": 33614,
+        "ticker": "LEXX",
+        "name": "Lexaria Bioscience Corp.",
+        "price": 11.61,
+        "changePct": -17.95,
+        "volume": 5035,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/swbi/"
+        "sourceUrl": "https://stockanalysis.com/stocks/lexx/"
       },
       {
-        "ticker": "FICO",
-        "name": "Fair Isaac Corporation",
-        "price": 950,
-        "changePct": -15.1,
-        "volume": 31504,
+        "ticker": "ATRA",
+        "name": "Atara Biotherapeutics, Inc.",
+        "price": 10.71,
+        "changePct": 9.73,
+        "volume": 1851,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/fico/"
+        "sourceUrl": "https://stockanalysis.com/stocks/atra/"
       },
       {
-        "ticker": "OXM",
-        "name": "Oxford Industries, Inc.",
-        "price": 29.88,
-        "changePct": -18.43,
-        "volume": 21493,
+        "ticker": "PTN",
+        "name": "Palatin Technologies, Inc.",
+        "price": 11,
+        "changePct": -13.39,
+        "volume": 203,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/oxm/"
-      },
-      {
-        "ticker": "AOUT",
-        "name": "American Outdoor Brands, Inc.",
-        "price": 12.74,
-        "changePct": 27.22,
-        "volume": 17971,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/aout/"
-      },
-      {
-        "ticker": "BBCP",
-        "name": "Concrete Pumping Holdings, Inc.",
-        "price": 10.27,
-        "changePct": 13.48,
-        "volume": 5454,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/bbcp/"
-      },
-      {
-        "ticker": "OVLY",
-        "name": "Oak Valley Bancorp",
-        "price": 39.99,
-        "changePct": 15.88,
-        "volume": 1058,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/ovly/"
-      },
-      {
-        "ticker": "SAH",
-        "name": "Sonic Automotive, Inc.",
-        "price": 70.75,
-        "changePct": -10.92,
-        "volume": 620,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/sah/"
-      },
-      {
-        "ticker": "PDEX",
-        "name": "Pro-Dex, Inc.",
-        "price": 69.23,
-        "changePct": 12.11,
-        "volume": 0,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/pdex/"
+        "sourceUrl": "https://stockanalysis.com/stocks/ptn/"
       }
     ]
   },
-  "buzz": [
-    {
-      "ticker": "RAM",
-      "name": "T-REX 2X Long DRAM Daily Target ETF",
-      "price": 13.74,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/RAM"
-    },
-    {
-      "ticker": "JPM",
-      "name": "JPMorgan Chase & Co",
-      "price": 358.7,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/JPM"
-    },
-    {
-      "ticker": "BAC",
-      "name": "Bank of America Corp",
-      "price": 62.68,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/BAC"
-    },
-    {
-      "ticker": "NKE",
-      "name": "Nike Inc",
-      "price": 38.42,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/NKE"
-    },
-    {
-      "ticker": "LYFT",
-      "name": "Lyft Inc",
-      "price": 16.67,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/LYFT"
-    }
-  ]
+  "buzz": []
 }
