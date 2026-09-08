@@ -1441,7 +1441,7 @@
       if (bullBody) {
         bullBody.innerHTML = bullish.map((c, i) => {
           const t = c.targets;
-          const tgt = t ? `<span class="pos">$${Number(t.bull).toFixed(2)}</span> / $${Number(t.base).toFixed(2)}` : "—";
+          const tgt = t ? `<span class="pos">$${Number(t.bull).toFixed(2)}</span> / $${Number(t.base).toFixed(2)}${t.indicative ? ` <span class="muted" style="font-size:9px;">(indicative)</span>` : ""}` : "—";
           const a = assessSetup(c);
           const tag = c.userSetup || a.type;
           return `
@@ -1508,7 +1508,7 @@
 
         const t = c.targets;
         const tgtHtml = t
-          ? `<span class="pos">$${Number(t.bull).toFixed(2)}</span> / $${Number(t.base).toFixed(2)} / <span class="neg">$${Number(t.bear).toFixed(2)}</span>`
+          ? `<span class="pos">$${Number(t.bull).toFixed(2)}</span> / $${Number(t.base).toFixed(2)} / <span class="neg">$${Number(t.bear).toFixed(2)}</span>${t.indicative ? ` <span class="muted" style="font-size:9px;">(indicative)</span>` : ""}`
           : "—";
         const a = assessSetup(c);
         const chosen = c.userSetup || a.type;
@@ -2230,11 +2230,25 @@
     function mapLiveCandidate(lc, kind) {
       // Maps a screener/buzz row from data/candidates.json into the same shape
       // renderSIPTable/renderBullishBearish/showDetail already expect.
+      const price = lc.price || 0;
+      const gapPct = lc.changePct != null ? Number(lc.changePct.toFixed(1)) : 0;
+      // No analyst price targets exist in any free source — these are simple
+      // indicative levels projected from today's own move (a common momentum-
+      // continuation heuristic: assume up to another gap-sized move if it
+      // keeps running, half that for a base case, a pullback for the bear
+      // case). Clearly not a prediction — labeled as "Indicative" in the UI.
+      const moveAmount = Math.abs(price * (gapPct / 100));
+      const targets = price > 0 ? {
+        bull: Number((price + moveAmount * 1.0).toFixed(2)),
+        base: Number((price + moveAmount * 0.5).toFixed(2)),
+        bear: Number((price - moveAmount * 0.5).toFixed(2)),
+        indicative: true
+      } : null;
       return {
         ticker: lc.ticker,
         name: lc.name || lc.ticker,
-        price: lc.price || 0,
-        gap: lc.changePct != null ? Number(lc.changePct.toFixed(1)) : 0,
+        price,
+        gap: gapPct,
         vol: lc.volume ? (lc.volume >= 1e6 ? (lc.volume / 1e6).toFixed(1) + "M" : (lc.volume / 1e3).toFixed(0) + "K") : "—",
         // Baseline of 30 + gap/volume factors, so a genuinely strong live
         // mover lands in a meaningful score band instead of always reading
@@ -2249,7 +2263,7 @@
         qualifyGrade: "",
         checks: [],
         bull: [], bear: [],
-        targets: null,
+        targets,
         rationale: kind === "buzz"
           ? "Flagged by StockTwits trending feed (real substitute for X — see notes)."
           : "Flagged by scheduled pre-market screener: " + (lc.changePct || 0).toFixed(1) + "% move on " + (lc.volume || 0).toLocaleString() + " volume.",
