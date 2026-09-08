@@ -2257,8 +2257,8 @@
         avoid: (lc.changePct || 0) < 0,
         shortInterest: "n/a",
         catalyst: kind === "buzz"
-          ? "Trending on StockTwits right now — verify why manually, no catalyst text attached."
-          : "Live pre-market screener hit — verify catalyst manually (no news attached).",
+          ? "Trending on StockTwits right now — see Recent News below, or verify manually if nothing relevant turns up."
+          : "Live pre-market screener hit — see Recent News below, or verify manually if nothing relevant turns up.",
         tags: [kind === "buzz" ? "BUZZ" : "LIVE"],
         qualifyGrade: "",
         checks: [],
@@ -2514,8 +2514,29 @@
           <h4>Qualify <span class="${c.avoid ? "neg" : "pos"}">${c.qualifyGrade || (c.avoid ? "AVOID" : "—")}</span></h4>
           ${checks || "<div class='muted'>No checklist data</div>"}
         </div>
+        <div class="qualify-panel" style="margin-top:10px;">
+          <h4>Recent News <span class="muted" id="modal-news-badge" style="font-size:10px;">loading…</span></h4>
+          <div id="modal-news-body" style="max-height:220px;overflow-y:auto;">
+            <div class="wl-empty">Loading news for ${c.ticker}…</div>
+          </div>
+        </div>
       `;
       document.getElementById("detail-modal").classList.add("open");
+      loadModalNews(c.ticker, c.name);
+    }
+    async function loadModalNews(ticker, name) {
+      const badge = document.getElementById("modal-news-badge");
+      try {
+        const query = name && name !== ticker ? `${ticker} OR "${name.split(",")[0]}"` : ticker;
+        const results = await fetchNews(query, 8);
+        if (badge) badge.textContent = results && results.length ? results.length + " found" : "none found";
+        renderNewsList("modal-news-body", results,
+          `No recent headlines found for ${ticker}. This is common for smaller/thinly-covered tickers, or ones flagged purely on price/volume/buzz rather than a news event — worth checking manually before treating it as catalyst-driven.`);
+      } catch (e) {
+        if (badge) badge.textContent = "error";
+        const body = document.getElementById("modal-news-body");
+        if (body) body.innerHTML = `<div class="wl-empty">Could not load news for ${ticker} right now.</div>`;
+      }
     }
     function closeDetail() {
       document.getElementById("detail-modal").classList.remove("open");
@@ -3230,7 +3251,7 @@
       // from here as the source of truth. Kept here too for the equity-curve
       // fallback when there are zero trades yet.
       const defaults = {
-        startDate: "2026-05-06", startValue: 1794441, cash: 1188490, heat: 0, peak: 1794441
+        startDate: new Date().toISOString().slice(0, 10), startValue: 0, cash: 0, heat: 0, peak: 0
       };
       try {
         const stored = JSON.parse(localStorage.getItem("tt_portfolio") || "null");
@@ -3257,7 +3278,7 @@
       const num = (id) => parseFloat(document.getElementById(id).value) || 0;
       const existing = getPortfolioSnapshot();
       const p = {
-        startDate: document.getElementById("pf-start-date").value || "2026-05-06",
+        startDate: document.getElementById("pf-start-date").value || new Date().toISOString().slice(0, 10),
         startValue: num("pf-start-value"),
         cash: num("pf-cash"),
         heat: num("pf-heat"),
