@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-08T12:42:59.741Z",
-  "generatedSlot": "5:30am PT",
+  "generatedAt": "2026-09-08T17:18:25.965Z",
+  "generatedSlot": "10:30am PT",
   "wsjHeadlines": [
     {
-      "title": "Stock Market Today: Oil Nears $100, Dow Futures Dip",
-      "description": "Brent crude climbs after reports of Houthi attacks on Saudi Arabia",
+      "title": "Stock Market Today: Dow Drops, Oil Pares Gains",
+      "description": "Amgen fall hurts health-care sector; Brent crude climbs after Houthi attacks",
       "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-08-2026?mod=rss_markets_main",
       "pubDate": "Tue, 08 Sep 2026 08:42:02 GMT",
       "tickers": []
@@ -131,40 +131,38 @@
       "tickers": []
     },
     {
-      "title": "Auto & Transport Roundup: Market Talk",
-      "description": "Find insight on Mobico, Volkswagen, BYD and more in the latest Market Talks covering Auto and Transport.",
-      "link": "https://www.wsj.com/business/auto-transport-roundup-market-talk-92e8216f?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 12:41:00 GMT",
-      "tickers": [
-        "VWAGY"
-      ]
-    },
-    {
-      "title": "GE Aerospace to Buy Consolidated Precision Products for $11.75 Billion",
-      "description": "GE Aerospace has struck a deal to buy engineered castings maker Consolidated Precision Products from private investment firms Warburg Pincus and Berkshire Partners for $11.75 billion.",
-      "link": "https://www.wsj.com/business/deals/ge-aerospace-to-buy-consolidated-precision-products-for-11-75-billion-ed7c8fc8?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 12:29:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on  Ingenia Communities, Standard Life and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-2d369bf1?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 12:17:00 GMT",
+      "title": "Dow Drops, Oil Nears $100",
+      "description": "U.S. stock indexes fell to start the week as rising oil prices added to investor anxiety.",
+      "link": "https://www.wsj.com/finance/commodities-futures/u-s-stock-futures-treasurys-weaken-as-brent-nears-100-c29efc2f?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 16:34:00 GMT",
       "tickers": []
     },
     {
       "title": "Energy & Utilities Roundup: Market Talk",
-      "description": "Find insight on BP, Santos and more in the latest Market Talks covering energy and utilities.",
+      "description": "Find insight on oil futures, BP, Santos and more in the latest Market Talks covering energy and utilities.",
       "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-38f2c04d?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 12:01:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 16:31:00 GMT",
       "tickers": []
     },
     {
-      "title": "SEC Proposal Could Unlock PE Political Spending",
-      "description": "Plus, PE-backed EverBank agrees to a reverse merger and investors rediscover love for backing companies that focus on live experiences.",
-      "link": "https://www.wsj.com/pro/private-equity/sec-proposal-could-unlock-pe-political-spending-cbf263bd?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 11:37:00 GMT",
+      "title": "Financial Services Roundup: Market Talk",
+      "description": "Find insight on home sales, Ingenia Communities, Standard Life and more in the latest Market Talks covering Financial Services.",
+      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-2d369bf1?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 16:31:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Tech, Media & Telecom Roundup: Market Talk",
+      "description": "Find insight on Zcash, ASML Holdings, Bloomsbury Publishing and more in the latest Market Talks covering Technology, Media and Telecom.",
+      "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-dfa40493?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 16:27:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "U.S. Gets Minority Stakes in Some Quantum Computing Companies in $300 Million CHIPS Act Funding Deal",
+      "description": "The U.S. government is taking minority equity stakes in D-Wave Quantum, Rigetti Computing, and Quantinuum with a combined $300 million CHIPS Act deal that funds the three companies to scale quantum-computing research.",
+      "link": "https://www.wsj.com/tech/u-s-gets-minority-stakes-in-d-wave-rigetti-quantinuum-in-300-million-chips-act-funding-deal-a7bad600?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 15:34:00 GMT",
       "tickers": []
     },
     {
@@ -205,6 +203,13 @@
       "tickers": []
     },
     {
+      "title": "Opinion | What if California Becomes a ‘Failed State’?",
+      "description": "‘Political risk,’ usually the precinct of Third World despotisms, could soon be a concern for U.S. locales.",
+      "link": "https://www.wsj.com/opinion/what-if-california-becomes-a-failed-state-3aaf5059?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 16:26:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "Opinion | BlackRock Casts a Vote of Confidence in Texas",
       "description": "The former champion of ESG now backs corporate proposals to reincorporate in the Lone Star State.",
       "link": "https://www.wsj.com/opinion/blackrock-casts-a-vote-of-confidence-in-texas-d95ed3bd?mod=rss_markets_main",
@@ -240,47 +245,38 @@
       "tickers": []
     },
     {
-      "title": "Opinion | The Dollar’s Global Dominance Keeps America First",
-      "description": "The loss of its status as the global reserve currency would hurt the U.S. economy and national security.",
-      "link": "https://www.wsj.com/opinion/the-dollars-global-dominance-keeps-america-first-8e9030c4?mod=rss_markets_main",
-      "pubDate": "Sun, 30 Aug 2026 19:38:00 GMT",
+      "title": "Basic Materials Roundup: Market Talk",
+      "description": "Find insight on gold futures, iron ore prices, Hyundai Steel and more in the latest Market Talks covering Basic Materials.",
+      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-f5a5d4be?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 16:27:00 GMT",
       "tickers": []
     },
     {
-      "title": "Basic Materials Roundup: Market Talk",
-      "description": "Find insight on Hyundai Steel, Solar Industries, BHP and more in the latest Market Talks covering Basic Materials.",
-      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-f5a5d4be?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 12:33:00 GMT",
-      "tickers": [
-        "BHP"
-      ]
+      "title": "Gold Futures Slip With Market of Two Minds",
+      "description": "Gold futures were lower with the market watching a rise in oil prices and for U.S. inflation data later this week.",
+      "link": "https://www.wsj.com/finance/commodities-futures/in-gold-the-bulls-are-everywhere-8ee642ee?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 14:45:00 GMT",
+      "tickers": []
     },
     {
-      "title": "Copper Reaches New Highs on U.S. Tariff Fears, Supply Challenges",
+      "title": "Copper Scales New Heights on U.S. Tariff Fears, Supply Challenges",
       "description": "Copper prices climbed to a fresh record on the London Metal Exchange as distortions to trade flows due to concerns over potential U.S. tariffs collided with supply challenges at key mines worldwide.",
       "link": "https://www.wsj.com/finance/commodities-futures/copper-reaches-new-highs-on-u-s-tariff-fears-supply-challenges-93a99fb0?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 09:35:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 14:38:00 GMT",
       "tickers": []
     },
     {
-      "title": "Oil’s Risk Premium Seems Exceptionally Bloated",
-      "description": "The risk premium embedded in oil prices appears to be exceptionally bloated, paving the way for prices to deflate, Julius Baer said.",
+      "title": "U.S. Natural Gas Futures Slip in Early Trading",
+      "description": "U.S. natural gas futures were slightly lower as traders returned from the Labor Day holiday and looked toward the gradual loss of cooling demand.",
+      "link": "https://www.wsj.com/finance/commodities-futures/u-s-natural-gas-futures-slip-in-early-trading-6f84e425?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 14:11:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Oil Gains As Houthis Attack Saudi Energy Infrastructure",
+      "description": "Oil futures rose as Iran-backed Houthis launched attacks on Saudi energy infrastructure.",
       "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-fears-of-more-supply-disruptions-in-middle-east-97f4225b?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 09:08:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Gold Falls as Investors Await U.S. Inflation Data",
-      "description": "Gold prices fell despite a weaker dollar as investors waited for U.S. inflation data for more cues on the Federal Reserve’s decision on interest rates.",
-      "link": "https://www.wsj.com/finance/commodities-futures/in-gold-the-bulls-are-everywhere-8ee642ee?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 08:41:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "U.S Stock Futures, Treasurys Weaken as Brent Nears $100",
-      "description": "U.S. markets wobbled as higher oil prices dragged sentiment before investors return from the Labor Day weekend.",
-      "link": "https://www.wsj.com/finance/commodities-futures/u-s-stock-futures-treasurys-weaken-as-brent-nears-100-c29efc2f?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 08:39:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 13:25:00 GMT",
       "tickers": []
     },
     {
@@ -306,110 +302,128 @@
       {
         "ticker": "BNC",
         "name": "CEA Industries Inc.",
-        "price": 5.07,
-        "changePct": 45.27,
-        "volume": 27960767,
+        "price": 5.43,
+        "changePct": 55.59,
+        "volume": 33832937,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/bnc/"
       },
       {
         "ticker": "WYHG",
         "name": "Wing Yip Food Holdings Group Limited",
-        "price": 5.21,
-        "changePct": 28.33,
-        "volume": 10735262,
+        "price": 5.52,
+        "changePct": 35.96,
+        "volume": 12424568,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/wyhg/"
       },
       {
         "ticker": "DYN",
         "name": "Dyne Therapeutics, Inc.",
-        "price": 17.7,
-        "changePct": -27.1,
-        "volume": 640302,
+        "price": 17.06,
+        "changePct": -29.74,
+        "volume": 915970,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/dyn/"
       },
       {
         "ticker": "ROIV",
         "name": "Roivant Sciences Ltd.",
-        "price": 41.46,
-        "changePct": 18.7,
-        "volume": 599736,
+        "price": 40.04,
+        "changePct": 14.63,
+        "volume": 878365,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/roiv/"
       },
       {
-        "ticker": "NVS",
-        "name": "Novartis AG",
-        "price": 139.3,
-        "changePct": -12.93,
-        "volume": 498960,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/nvs/"
-      },
-      {
         "ticker": "PHVS",
         "name": "Pharvaris N.V.",
-        "price": 41.01,
-        "changePct": 16.34,
-        "volume": 435620,
+        "price": 41.05,
+        "changePct": 16.45,
+        "volume": 609638,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/phvs/"
       },
       {
         "ticker": "SGML",
         "name": "Sigma Lithium Corporation",
-        "price": 10.95,
-        "changePct": -11.62,
-        "volume": 397429,
+        "price": 10.7,
+        "changePct": -13.64,
+        "volume": 456339,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/sgml/"
       },
       {
         "ticker": "BIAF",
         "name": "bioAffinity Technologies, Inc.",
-        "price": 10.5,
-        "changePct": -31.24,
-        "volume": 181137,
+        "price": 10.79,
+        "changePct": -29.34,
+        "volume": 239239,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/biaf/"
       },
       {
         "ticker": "FCUV",
         "name": "Focus Universal Inc.",
-        "price": 8.05,
-        "changePct": -52.65,
-        "volume": 89645,
+        "price": 8.59,
+        "changePct": -49.47,
+        "volume": 126686,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/fcuv/"
       },
       {
         "ticker": "TRBG",
         "name": "TurboGen Ltd.",
-        "price": 5.85,
-        "changePct": -20.3,
-        "volume": 68455,
+        "price": 5.8,
+        "changePct": -20.98,
+        "volume": 73438,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/trbg/"
       },
       {
+        "ticker": "SEI",
+        "name": "Solaris Energy Infrastructure, Inc.",
+        "price": 61.4,
+        "changePct": 11.64,
+        "volume": 59149,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/sei/"
+      },
+      {
+        "ticker": "EAF",
+        "name": "GrafTech International Ltd.",
+        "price": 6.95,
+        "changePct": 12.1,
+        "volume": 43060,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/eaf/"
+      },
+      {
         "ticker": "LEXX",
         "name": "Lexaria Bioscience Corp.",
-        "price": 11.61,
-        "changePct": -17.95,
+        "price": 11.1,
+        "changePct": -21.56,
         "volume": 5035,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/lexx/"
       },
       {
-        "ticker": "ATRA",
-        "name": "Atara Biotherapeutics, Inc.",
-        "price": 10.71,
-        "changePct": 9.73,
-        "volume": 1851,
+        "ticker": "SFWL",
+        "name": "Shengfeng Development Limited",
+        "price": 12.2,
+        "changePct": -14.36,
+        "volume": 1376,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/atra/"
+        "sourceUrl": "https://stockanalysis.com/stocks/sfwl/"
+      },
+      {
+        "ticker": "WSBK",
+        "name": "Winchester Bancorp, Inc.",
+        "price": 14.49,
+        "changePct": 11.55,
+        "volume": 203,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/wsbk/"
       },
       {
         "ticker": "PTN",
@@ -422,5 +436,51 @@
       }
     ]
   },
-  "buzz": []
+  "buzz": [
+    {
+      "ticker": "INTC",
+      "name": "Intel Corp",
+      "price": 105.85,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/INTC"
+    },
+    {
+      "ticker": "CRWV",
+      "name": "CoreWeave Inc",
+      "price": 103.48,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/CRWV"
+    },
+    {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices Inc",
+      "price": 511.46,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/AMD"
+    },
+    {
+      "ticker": "IONQ",
+      "name": "IonQ Inc",
+      "price": 42.87,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/IONQ"
+    },
+    {
+      "ticker": "VKTX",
+      "name": "Viking Therapeutics Inc",
+      "price": 33.95,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/VKTX"
+    }
+  ]
 }
