@@ -1,12 +1,33 @@
 {
-  "generatedAt": "2026-09-08T17:18:25.965Z",
-  "generatedSlot": "10:30am PT",
+  "generatedAt": "2026-09-08T21:57:35.081Z",
+  "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
-      "title": "Stock Market Today: Dow Drops, Oil Pares Gains",
-      "description": "Amgen fall hurts health-care sector; Brent crude climbs after Houthi attacks",
+      "title": "Stock Market Today: Dow Drops 628 Points, Oil Marches Toward $100",
+      "description": "Amgen fall hurts health-care sector; Brent crude climbs after fresh Mideast attacks",
       "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-08-2026?mod=rss_markets_main",
       "pubDate": "Tue, 08 Sep 2026 08:42:02 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Oil Near $100 Threatens U.S. Stocks’ Stellar Run",
+      "description": "Brent crude spiked above $99 a barrel before paring gains.",
+      "link": "https://www.wsj.com/finance/stocks/oil-near-100-threatens-u-s-stocks-stellar-run-cabbaf0c?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 21:09:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Canada’s Tariffs Take Effect",
+      "description": "Plus, oil rises after Houthis strike energy infrastructure, and stocks fall.",
+      "link": "https://www.wsj.com/finance/stocks/canadas-tariffs-take-effect-c3d61304?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 20:31:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "What to Know About Anthropic’s Planned IPO",
+      "description": "The artificial-intelligence giant has yet to officially launch its listing.",
+      "link": "https://www.wsj.com/finance/stocks/what-to-know-about-anthropics-planned-ipo-c2f58908?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 19:13:00 GMT",
       "tickers": []
     },
     {
@@ -35,20 +56,6 @@
       "description": "Even as their shares got pummeled, companies like Salesforce and Workday have been showing financial strength.",
       "link": "https://www.wsj.com/tech/ai/ai-is-disrupting-software-companiesbut-not-as-fast-as-many-feared-a380443a?mod=rss_markets_main",
       "pubDate": "Tue, 08 Sep 2026 09:30:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "The Stock Market’s Breezy Summer Is Over. Investors Beware.",
-      "description": "The Fed and inflation are back in focus as investors face down an often bumpy stretch for markets.",
-      "link": "https://www.wsj.com/finance/stocks/the-stock-markets-breezy-summer-is-over-investors-beware-fb110133?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 01:00:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Hunter Biden (and His Laptop) Enter the Cryptosphere With New Meme Coin",
-      "description": "The personal computer that launched a thousand memes will debut this week as a digital token.",
-      "link": "https://www.wsj.com/finance/currencies/hunter-biden-and-his-laptop-enter-the-cryptosphere-with-new-meme-coin-4d46fc9c?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 23:13:00 GMT",
       "tickers": []
     },
     {
@@ -87,10 +94,10 @@
       "tickers": []
     },
     {
-      "title": "Oil Prices Push Global Bond Market Closer to the Edge",
-      "description": "Many factors are sending yields higher, but rising energy costs are the inflationary trigger",
-      "link": "https://www.wsj.com/finance/investing/oil-prices-push-global-bond-market-closer-to-the-edge-13135ed4?mod=rss_markets_main",
-      "pubDate": "Tue, 01 Sep 2026 19:51:00 GMT",
+      "title": "Block Applies to Establish Builders Bank & Trust",
+      "description": "The financial technology company is seeking to establish a federally regulated, uninsured national trust bank called Builders Bank & Trust.",
+      "link": "https://www.wsj.com/finance/banking/block-applies-to-establish-builders-bank-trust-3c6c9556?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 21:06:00 GMT",
       "tickers": []
     },
     {
@@ -124,45 +131,47 @@
       ]
     },
     {
-      "title": "High-End Credit Cardholders Find It’s Harder to Get Their Money’s Worth",
-      "description": "Rising annual fees have intensified the cat-and-mouse game over rewards between card companies and customers.",
-      "link": "https://www.wsj.com/personal-finance/high-end-credit-cardholders-find-its-harder-to-get-their-moneys-worth-b10d3bc7?mod=rss_markets_main",
-      "pubDate": "Mon, 31 Aug 2026 01:00:00 GMT",
-      "tickers": []
+      "title": "Auto & Transport Roundup: Market Talk",
+      "description": "Find insight on Volkswagen, HD Korea Shipbuilding & Offshore Engineering, Mobico and more in the latest Market Talks covering Auto and Transport.",
+      "link": "https://www.wsj.com/business/auto-transport-roundup-market-talk-92e8216f?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 21:25:00 GMT",
+      "tickers": [
+        "VWAGY"
+      ]
     },
     {
-      "title": "Dow Drops, Oil Nears $100",
-      "description": "U.S. stock indexes fell to start the week as rising oil prices added to investor anxiety.",
-      "link": "https://www.wsj.com/finance/commodities-futures/u-s-stock-futures-treasurys-weaken-as-brent-nears-100-c29efc2f?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 16:34:00 GMT",
+      "title": "Financial Services Roundup: Market Talk",
+      "description": "Find insight on bitcoin, home sales, Kalshi and more in the latest Market Talks covering Financial Services.",
+      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-2d369bf1?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 21:23:00 GMT",
       "tickers": []
     },
     {
       "title": "Energy & Utilities Roundup: Market Talk",
       "description": "Find insight on oil futures, BP, Santos and more in the latest Market Talks covering energy and utilities.",
       "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-38f2c04d?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 16:31:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on home sales, Ingenia Communities, Standard Life and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-2d369bf1?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 16:31:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 21:19:00 GMT",
       "tickers": []
     },
     {
       "title": "Tech, Media & Telecom Roundup: Market Talk",
-      "description": "Find insight on Zcash, ASML Holdings, Bloomsbury Publishing and more in the latest Market Talks covering Technology, Media and Telecom.",
+      "description": "Find insight on ASML Holdings, Adobe, EchoStar and more in the latest Market Talks covering Technology, Media and Telecom.",
       "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-dfa40493?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 16:27:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 21:18:00 GMT",
       "tickers": []
     },
     {
-      "title": "U.S. Gets Minority Stakes in Some Quantum Computing Companies in $300 Million CHIPS Act Funding Deal",
-      "description": "The U.S. government is taking minority equity stakes in D-Wave Quantum, Rigetti Computing, and Quantinuum with a combined $300 million CHIPS Act deal that funds the three companies to scale quantum-computing research.",
-      "link": "https://www.wsj.com/tech/u-s-gets-minority-stakes-in-d-wave-rigetti-quantinuum-in-300-million-chips-act-funding-deal-a7bad600?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 15:34:00 GMT",
+      "title": "U.S. Stocks Fall After Saudi Oil Facilities Hit",
+      "description": "U.S. stocks fell and Treasury yields hit multiyear highs after Yemeni rebels attacked Saudi Arabian energy facilities, pushing oil prices to their highest levels of the summer.",
+      "link": "https://www.wsj.com/finance/investing/u-s-stocks-fall-after-saudi-oil-facilities-hit-d86a6c27?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 21:13:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Stocks Slip as Oil Pares Gains",
+      "description": "U.S. stock indexes fell to start the week as rising oil prices added to investor anxiety.",
+      "link": "https://www.wsj.com/finance/commodities-futures/u-s-stock-futures-treasurys-weaken-as-brent-nears-100-c29efc2f?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 18:09:00 GMT",
       "tickers": []
     },
     {
@@ -180,6 +189,13 @@
       "tickers": []
     },
     {
+      "title": "The Stock Market’s Breezy Summer Is Over. Investors Beware.",
+      "description": "The Fed and inflation are back in focus as investors face down an often bumpy stretch for markets.",
+      "link": "https://www.wsj.com/finance/stocks/the-stock-markets-breezy-summer-is-over-investors-beware-fb110133?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 01:00:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "Robinhood Wins a New Role in the Oura IPO: Underwriter",
       "description": "Playing an official part in the IPO process could give Robinhood more influence over the number of shares allocated to its customers.",
       "link": "https://www.wsj.com/finance/robinhood-wins-a-new-role-in-the-oura-ipo-underwriter-9a76c632?mod=rss_markets_main",
@@ -189,17 +205,10 @@
       ]
     },
     {
-      "title": "Stock Funds Are Up 12.6% for Year So Far",
-      "description": "Despite pressures galore, August was another positive month. Plus: A Financial Flashback to 25 years ago, when markets shut down after 9/11.",
-      "link": "https://www.wsj.com/finance/investing/stock-funds-gains-august-925de91d?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Institutional Investors Move Markets. Here’s How to Read Their Signs.",
-      "description": "Tracking a stock’s price range and volume can give individuals clues on when to buy a stock that’s about to climb or bail out on a stock that’s primed to fall.",
-      "link": "https://www.wsj.com/finance/stocks/investors-move-markets-read-signs-b0f2cc95?mod=rss_markets_main",
-      "pubDate": "Mon, 07 Sep 2026 14:00:00 GMT",
+      "title": "Opinion | How to Make Life Hard for Small Banks",
+      "description": "The CECL accounting standard is costly and counterproductive.",
+      "link": "https://www.wsj.com/opinion/how-to-make-life-hard-for-small-banks-0a9c5a19?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 20:56:00 GMT",
       "tickers": []
     },
     {
@@ -238,52 +247,45 @@
       "tickers": []
     },
     {
-      "title": "Opinion | The Quiet Bond Risk of Bloated State Spending",
-      "description": "Turns out that voters, if you tax them too much, will leave.",
-      "link": "https://www.wsj.com/opinion/the-quiet-bond-risk-of-bloated-state-spending-7a8b89a2?mod=rss_markets_main",
-      "pubDate": "Mon, 31 Aug 2026 14:30:00 GMT",
-      "tickers": []
-    },
-    {
       "title": "Basic Materials Roundup: Market Talk",
       "description": "Find insight on gold futures, iron ore prices, Hyundai Steel and more in the latest Market Talks covering Basic Materials.",
       "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-f5a5d4be?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 16:27:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Gold Futures Slip With Market of Two Minds",
-      "description": "Gold futures were lower with the market watching a rise in oil prices and for U.S. inflation data later this week.",
-      "link": "https://www.wsj.com/finance/commodities-futures/in-gold-the-bulls-are-everywhere-8ee642ee?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 14:45:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 21:22:00 GMT",
       "tickers": []
     },
     {
       "title": "Copper Scales New Heights on U.S. Tariff Fears, Supply Challenges",
-      "description": "Copper prices climbed to a fresh record on the London Metal Exchange as distortions to trade flows due to concerns over potential U.S. tariffs collided with supply challenges at key mines worldwide.",
+      "description": "Copper prices climbed to fresh records on U.S. and UK exchanges as distortions to trade flows due to concerns over potential U.S. tariffs collided with supply challenges at key mines worldwide.",
       "link": "https://www.wsj.com/finance/commodities-futures/copper-reaches-new-highs-on-u-s-tariff-fears-supply-challenges-93a99fb0?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 14:38:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 20:17:00 GMT",
       "tickers": []
     },
     {
-      "title": "U.S. Natural Gas Futures Slip in Early Trading",
-      "description": "U.S. natural gas futures were slightly lower as traders returned from the Labor Day holiday and looked toward the gradual loss of cooling demand.",
+      "title": "U.S. Natural Gas Retreats as Weather Set to Cool Down",
+      "description": "U.S. natural gas futures started the week lower with the market bracing for cooler late-September weather that will reduce power-sector demand.",
       "link": "https://www.wsj.com/finance/commodities-futures/u-s-natural-gas-futures-slip-in-early-trading-6f84e425?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 14:11:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 19:22:00 GMT",
       "tickers": []
     },
     {
-      "title": "Oil Gains As Houthis Attack Saudi Energy Infrastructure",
-      "description": "Oil futures rose as Iran-backed Houthis launched attacks on Saudi energy infrastructure.",
+      "title": "Oil Rises to Multimonth Highs on Middle East Escalation",
+      "description": "Oil futures extended their gains as the Middle East conflict escalated with Houthi attacks on Saudi infrastructure and continuing strikes in the Strait of Hormuz.",
       "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-fears-of-more-supply-disruptions-in-middle-east-97f4225b?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 13:25:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 19:14:00 GMT",
       "tickers": []
     },
     {
-      "title": "U.S. Treasury Yields Rise, Dollar Falls in European Trade",
-      "description": "The dollar eased against a basket of currencies due to further gains in the Japanese yen.",
+      "title": "Gold Settles Lower Awaiting This Week’s Inflation Data",
+      "description": "Gold futures settled lower as the market watches an escalation in the Middle East conflict while looking to this week’s U.S. inflation data for clues on the Fed’s possible interest-rate moves.",
+      "link": "https://www.wsj.com/finance/commodities-futures/in-gold-the-bulls-are-everywhere-8ee642ee?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 18:33:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "WSJ Dollar Index Falls 0.08% to 94.91",
+      "description": "The WSJ Dollar Index declined 0.1% &#x2014; down four of the past five trading days.",
       "link": "https://www.wsj.com/finance/currencies/yen-strengthens-further-sentiment-toward-currency-has-materially-shifted-72af55be?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 10:41:00 GMT",
+      "pubDate": "Tue, 08 Sep 2026 21:29:00 GMT",
       "tickers": []
     },
     {
@@ -306,7 +308,9 @@
         "changePct": 55.59,
         "volume": 33832937,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/bnc/"
+        "sourceUrl": "https://stockanalysis.com/stocks/bnc/",
+        "catalystHeadline": "The premium of BNC4 crypto stock over the underlying BNC share has narrowed sharply to 12%.",
+        "catalystUrl": "https://www.lookonchain.com/feeds/72063"
       },
       {
         "ticker": "WYHG",
@@ -315,7 +319,9 @@
         "changePct": 35.96,
         "volume": 12424568,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/wyhg/"
+        "sourceUrl": "https://stockanalysis.com/stocks/wyhg/",
+        "catalystHeadline": "WYHG Stock Pulls Back As Traders Watch Key Support",
+        "catalystUrl": "https://stockstotrade.com/news/wing-yip-food-holdings-group-limited-wyhg-news-2026_09_08-3/"
       },
       {
         "ticker": "DYN",
@@ -324,7 +330,9 @@
         "changePct": -29.74,
         "volume": 915970,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/dyn/"
+        "sourceUrl": "https://stockanalysis.com/stocks/dyn/",
+        "catalystHeadline": "Morning Market Movers: FCUV, BNC, BIAF, DYN See Big Swings",
+        "catalystUrl": "https://www.finanznachrichten.de/nachrichten-2026-09/69522736-morning-market-movers-fcuv-bnc-biaf-dyn-see-big-swings-020.htm"
       },
       {
         "ticker": "ROIV",
@@ -333,7 +341,9 @@
         "changePct": 14.63,
         "volume": 878365,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/roiv/"
+        "sourceUrl": "https://stockanalysis.com/stocks/roiv/",
+        "catalystHeadline": "Roivant Sciences Ltd. (ROIV) Presents at Wells Fargo 21st Annual Healthcare Conference Transcript",
+        "catalystUrl": "https://seekingalpha.com/article/4943945-roivant-sciences-ltd-roiv-presents-at-wells-fargo-21st-annual-healthcare-conference"
       },
       {
         "ticker": "PHVS",
@@ -342,7 +352,9 @@
         "changePct": 16.45,
         "volume": 609638,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/phvs/"
+        "sourceUrl": "https://stockanalysis.com/stocks/phvs/",
+        "catalystHeadline": "Pharvaris Announces Positive Topline Data from CHAPTER-3 Pivotal Study of Deucrictibant XR for Prophylaxis of HAE Attacks",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/08/tmt-newswire/globenewswire/pharvaris-announces-positive-topline-data-from-chapter-3-pivotal-study-of-deucrictibant-xr-for-prophylaxis-of-hae-attacks/2420385"
       },
       {
         "ticker": "SGML",
@@ -351,7 +363,9 @@
         "changePct": -13.64,
         "volume": 456339,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/sgml/"
+        "sourceUrl": "https://stockanalysis.com/stocks/sgml/",
+        "catalystHeadline": "Dow, S&P 500, Nasdaq Futures Slide As Iran Conflict Sends Oil Back Toward $100: TSLA, NVDA, ORCL, INTC, BIDU, BABA, BE In Focus",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/dow-s-p-500-nasdaq-futures-slide-as-iran-conflict-sends-oil-back-toward-100-tsla-nvda-orcl-intc-bidu-baba-be-in-focus-articleshow-lrtzy2f"
       },
       {
         "ticker": "BIAF",
@@ -360,7 +374,9 @@
         "changePct": -29.34,
         "volume": 239239,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/biaf/"
+        "sourceUrl": "https://stockanalysis.com/stocks/biaf/",
+        "catalystHeadline": "Morning Market Movers: FCUV, BNC, BIAF, DYN See Big Swings",
+        "catalystUrl": "https://www.finanznachrichten.de/nachrichten-2026-09/69522736-morning-market-movers-fcuv-bnc-biaf-dyn-see-big-swings-020.htm"
       },
       {
         "ticker": "FCUV",
@@ -369,16 +385,20 @@
         "changePct": -49.47,
         "volume": 126686,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/fcuv/"
+        "sourceUrl": "https://stockanalysis.com/stocks/fcuv/",
+        "catalystHeadline": "Morning Market Movers: FCUV, BNC, BIAF, DYN See Big Swings",
+        "catalystUrl": "https://www.finanznachrichten.de/nachrichten-2026-09/69522736-morning-market-movers-fcuv-bnc-biaf-dyn-see-big-swings-020.htm"
       },
       {
         "ticker": "TRBG",
-        "name": "TurboGen Ltd.",
+        "name": "Turbogen Ltd",
         "price": 5.8,
         "changePct": -20.98,
         "volume": 73438,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/trbg/"
+        "sourceUrl": "https://stockanalysis.com/stocks/trbg/",
+        "catalystHeadline": "Why TRBG Stock is Down 36.8% Today - Analysis In Progress",
+        "catalystUrl": "https://tradestie.com/stocks/TRBG/why-moving-today/"
       },
       {
         "ticker": "SEI",
@@ -387,7 +407,9 @@
         "changePct": 11.64,
         "volume": 59149,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/sei/"
+        "sourceUrl": "https://stockanalysis.com/stocks/sei/",
+        "catalystHeadline": "Burg Bodenstein sei reichlich 900 Jahre antik und unser am besten erhaltene Burg inoffizieller mitarbeiter Eichsfeld.… Worbis Ein staatlich anerkannte Erholungsort blickt auf eine mit 850-jährige Krimi retro. Unser Gemäuer „Zur Insel“ wird das Geburtsstadt durch Johann Carl Fuhlrott, einem E",
+        "catalystUrl": "https://tattoopainrelief.com/uncategorized/burg-bodenstein-sei-reichlich-900-jahre-antik-und-unser-am-besten-erhaltene-burg-inoffizieller-mitarbeiter-eichsfeld-worbis-ein-staatlich-anerkannte-erholungsort-blickt-auf-eine-mit-850-jahr/"
       },
       {
         "ticker": "EAF",
@@ -396,7 +418,9 @@
         "changePct": 12.1,
         "volume": 43060,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/eaf/"
+        "sourceUrl": "https://stockanalysis.com/stocks/eaf/",
+        "catalystHeadline": "BoI grants registration to P19.82-B SteelAsia Batangas plant",
+        "catalystUrl": "https://bworldonline.com/corporate/2026/09/09/775418/boi-grants-registration-to-p19-82-b-steelasia-batangas-plant/"
       },
       {
         "ticker": "LEXX",
@@ -405,7 +429,9 @@
         "changePct": -21.56,
         "volume": 5035,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/lexx/"
+        "sourceUrl": "https://stockanalysis.com/stocks/lexx/",
+        "catalystHeadline": "Marcus Rosario’s Mid-Year Music Favorites",
+        "catalystUrl": "https://www.kalw.org/2026-09-01/marcus-rosarios-mid-year-music-favorites-2026"
       },
       {
         "ticker": "SFWL",
@@ -414,7 +440,9 @@
         "changePct": -14.36,
         "volume": 1376,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/sfwl/"
+        "sourceUrl": "https://stockanalysis.com/stocks/sfwl/",
+        "catalystHeadline": null,
+        "catalystUrl": null
       },
       {
         "ticker": "WSBK",
@@ -423,7 +451,9 @@
         "changePct": 11.55,
         "volume": 203,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/wsbk/"
+        "sourceUrl": "https://stockanalysis.com/stocks/wsbk/",
+        "catalystHeadline": "Five things to look out for at MotoGP Aragon GP",
+        "catalystUrl": "https://au.motorsport.com/motogp/news/five-things-to-look-out-for-at-motogp-aragon-gp/10849347/"
       },
       {
         "ticker": "PTN",
@@ -432,55 +462,67 @@
         "changePct": -13.39,
         "volume": 203,
         "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/ptn/"
+        "sourceUrl": "https://stockanalysis.com/stocks/ptn/",
+        "catalystHeadline": "created the site How To Open .PTN File Format With FileViewPro",
+        "catalystUrl": "https://reviewer4you.com/activity/p/516989/"
       }
     ]
   },
   "buzz": [
     {
+      "ticker": "GME",
+      "name": "GameStop Corp",
+      "price": 18.64,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/GME",
+      "catalystHeadline": "Gme set for Q2 report after close as GuruFocus flags valuation gap",
+      "catalystUrl": "https://www.mogazmasr.com/145718"
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle Corp.",
+      "price": 163.44,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/ORCL",
+      "catalystHeadline": "Cloud infrastructure revenue up 93% year-over-year: ORCL resistance levels in focus",
+      "catalystUrl": "https://tradersunion.com/news/stocks/show/3264664-oracle-rises-2-79percent-to-usd163-02/"
+    },
+    {
+      "ticker": "CASY",
+      "name": "Casey`s General Stores, Inc.",
+      "price": 661,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/CASY",
+      "catalystHeadline": "‘Company’ review: Casy Affleck directs, co-writes and stars in atmospheric but convoluted slice of American Gothic",
+      "catalystUrl": "https://www.newslocker.com/en-uk/news/movies/company-review-casy-affleck-directs-co-writes-and-stars-in-atmospheric-but-convoluted-slice-of-american-gothic/"
+    },
+    {
       "ticker": "INTC",
       "name": "Intel Corp",
-      "price": 105.85,
+      "price": 104.22,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/INTC"
+      "sourceUrl": "https://stocktwits.com/symbol/INTC",
+      "catalystHeadline": "Intel Stock Jumps 9% on Chip Price Hike Report, US Stake Gains $36 Billion",
+      "catalystUrl": "https://beincrypto.com/intel-stock-washington-stake-gain/"
     },
     {
-      "ticker": "CRWV",
-      "name": "CoreWeave Inc",
-      "price": 103.48,
+      "ticker": "BSX",
+      "name": "Boston Scientific Corp.",
+      "price": 45.08,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/CRWV"
-    },
-    {
-      "ticker": "AMD",
-      "name": "Advanced Micro Devices Inc",
-      "price": 511.46,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/AMD"
-    },
-    {
-      "ticker": "IONQ",
-      "name": "IonQ Inc",
-      "price": 42.87,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/IONQ"
-    },
-    {
-      "ticker": "VKTX",
-      "name": "Viking Therapeutics Inc",
-      "price": 33.95,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/VKTX"
+      "sourceUrl": "https://stocktwits.com/symbol/BSX",
+      "catalystHeadline": "Boston Scientific (BSX) Stock Tumbles as Cyberattack Forces Earnings Warning",
+      "catalystUrl": "https://bitcoinethereumnews.com/tech/boston-scientific-bsx-stock-tumbles-as-cyberattack-forces-earnings-warning/"
     }
   ]
 }
