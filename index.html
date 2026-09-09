@@ -721,6 +721,24 @@
         <div class="panel-body" id="live-data-status-body" style="font-size:12px;color:var(--muted);">
           Loading data/candidates.json…
         </div>
+        <div class="panel-body" style="padding-top:0;">
+          <button class="btn btn-sm btn-accent" onclick="refreshDataNow()">🔄 Refresh Data Now</button>
+          <button class="btn btn-sm" onclick="toggleGithubTokenSetup()">One-click setup…</button>
+          <span class="muted" id="refresh-now-status" style="font-size:11px;margin-left:8px;"></span>
+          <div id="github-token-setup" style="display:none;margin-top:10px;padding:12px;background:#0f172a;border:1px solid var(--border);border-radius:8px;">
+            <div class="note" style="margin-bottom:8px;">
+              <strong>Optional — true one-click refresh, no new tab.</strong> Without a token, "Refresh Data Now" opens GitHub's Run-workflow page for you to click once — completely safe, no credential needed. To skip that extra click, you can save a GitHub token here instead, but read this first:
+              this is a static site with no server, so like the Gemini key, this token lives only in your browser's local storage and is sent directly to GitHub's API from here — never written to the repo, but visible to anyone with access to this exact browser via DevTools.
+              <strong>Only use a fine-grained personal access token</strong> (github.com → Settings → Developer settings → Fine-grained tokens) scoped to <em>only this one repository</em> and <em>only the "Actions: Read and write" permission</em> — nothing else. That way, even in a worst case, a leaked token can only trigger workflow runs here, not touch your code or any other repo.
+            </div>
+            <div class="form-row">
+              <input type="password" id="github-token-input" placeholder="Paste fine-grained token" style="width:280px;" />
+              <button class="btn btn-sm btn-accent" onclick="saveGithubToken()">Save token</button>
+              <button class="btn btn-sm" onclick="clearGithubToken()">Clear token</button>
+            </div>
+            <div class="muted" style="font-size:11px;margin-top:6px;" id="github-token-status">No token saved — refresh button opens GitHub's page instead.</div>
+          </div>
+        </div>
       </div>
       <div class="grid-2">
         <div class="panel">
@@ -2302,6 +2320,81 @@
         _live: kind !== "buzz",
         _buzz: kind === "buzz"
       };
+    }
+
+    // ---- On-demand data refresh ----
+    // Specific to this deployment — update these if the repo is ever renamed/forked.
+    const GITHUB_OWNER = "SachinRe";
+    const GITHUB_REPO = "TradingTerminal";
+    const GITHUB_BRANCH = "main";
+    const GITHUB_WORKFLOW_FILE = "refresh-watchlist.yml";
+
+    function getGithubToken() {
+      return localStorage.getItem("tt_github_token") || "";
+    }
+    function toggleGithubTokenSetup() {
+      const el = document.getElementById("github-token-setup");
+      if (!el) return;
+      el.style.display = el.style.display === "none" ? "block" : "none";
+      if (el.style.display === "block") renderGithubTokenStatus();
+    }
+    function saveGithubToken() {
+      const input = document.getElementById("github-token-input");
+      const token = input ? input.value.trim() : "";
+      if (!token) { alert("Paste your fine-grained token first."); return; }
+      localStorage.setItem("tt_github_token", token);
+      renderGithubTokenStatus();
+      alert("Token saved to this browser only. Make sure it's a fine-grained token scoped to ONLY this repo and ONLY Actions: Read and write — nothing broader.");
+    }
+    function clearGithubToken() {
+      localStorage.removeItem("tt_github_token");
+      renderGithubTokenStatus();
+    }
+    function renderGithubTokenStatus() {
+      const el = document.getElementById("github-token-status");
+      if (!el) return;
+      const token = getGithubToken();
+      el.textContent = token
+        ? "Token saved (" + token.slice(0, 4) + "…" + token.slice(-4) + ") — Refresh Data Now will trigger runs directly."
+        : "No token saved — refresh button opens GitHub's page instead.";
+    }
+    async function refreshDataNow() {
+      const status = document.getElementById("refresh-now-status");
+      const token = getGithubToken();
+      const workflowUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW_FILE}`;
+
+      if (!token) {
+        window.open(workflowUrl, "_blank");
+        if (status) status.textContent = "Opened GitHub's Run-workflow page in a new tab — click \"Run workflow\" there.";
+        return;
+      }
+
+      if (status) status.textContent = "Triggering…";
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW_FILE}/dispatches`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + token,
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ ref: GITHUB_BRANCH })
+          }
+        );
+        if (res.status === 204) {
+          if (status) status.textContent = "Triggered! Usually takes 30-90 seconds. Auto-checking for new data…";
+          // Give the Action time to run and commit, then re-check the data file.
+          setTimeout(() => { loadLiveWatchlistData(); if (status) status.textContent = "Checked for fresh data — if it's not updated yet, wait a bit and try again, or check the Actions tab."; }, 75000);
+        } else {
+          const errText = await res.text().catch(() => "");
+          throw new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
+        }
+      } catch (e) {
+        if (status) status.textContent = "Trigger failed (" + e.message + "). Falling back to opening GitHub's page.";
+        window.open(workflowUrl, "_blank");
+      }
     }
 
     async function loadLiveWatchlistData() {
@@ -4037,6 +4130,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     renderPositions();
     renderDashboard();
     loadLiveWatchlistData();
+    renderGithubTokenStatus();
     loadBaselineUI();
     updateExecRiskVisibility();
     updateRefreshLabel();
