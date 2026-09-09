@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-09T11:32:49.870Z",
-  "generatedSlot": "Manual run",
+  "generatedAt": "2026-09-09T21:02:09.115Z",
+  "generatedSlot": "2:00pm PT",
   "wsjHeadlines": [
     {
-      "title": "Stock Market Today: Oil Hits $100 for First Time Since July",
-      "description": "Escalating conflict in Middle East stokes fears of supply disruptions",
+      "title": "Stock Market Today: 10-Year Yield Jumps as Treasury Buyback Plan Disappoints Investors",
+      "description": "Yield hits highest level since 2023; Dow drops 405 points",
       "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-09-2026?mod=rss_markets_main",
       "pubDate": "Wed, 09 Sep 2026 07:38:00 GMT",
       "tickers": []
@@ -14,6 +14,34 @@
       "description": "The artificial-intelligence giant has yet to officially launch its listing.",
       "link": "https://www.wsj.com/finance/stocks/what-to-know-about-anthropics-planned-ipo-c2f58908?mod=rss_markets_main",
       "pubDate": "Tue, 08 Sep 2026 19:13:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Bessent’s Latest Buyback Move Leaves Investors Wanting More",
+      "description": "Yields climb to fresh multiyear highs after the Treasury Department said it would buy back $6 billion of longer-term debt.",
+      "link": "https://www.wsj.com/finance/investing/bessents-latest-buyback-move-leaves-investors-wanting-more-82d0268b?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:55:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Texas Stock Exchange Is Close to Winning Its First Major Listing From New York",
+      "description": "Kelcy Warren’s Energy Transfer is preparing to move its primary listing to the nascent exchange.",
+      "link": "https://www.wsj.com/finance/stocks/texas-stock-exchange-is-close-to-winning-its-first-major-listing-from-new-york-569c0339?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:51:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Steve Witkoff Earned More Than $100 Million From Entity Tied to Trump Crypto",
+      "description": "The Trump envoy’s income surged in 2025, lifted by gains from World Liberty Financial.",
+      "link": "https://www.wsj.com/politics/policy/steve-witkoff-earned-more-than-100-million-from-entity-tied-to-trump-crypto-9798b03d?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:27:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Apple Introduces Foldable iPhone",
+      "description": "",
+      "link": "https://www.wsj.com/finance/stocks/apple-introduces-foldable-iphone-5fa68218?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:25:00 GMT",
       "tickers": []
     },
     {
@@ -28,27 +56,6 @@
       "description": "Europe has stockpiled only enough natural gas to get through a mild winter.",
       "link": "https://www.wsj.com/finance/commodities-futures/the-high-stakes-gamble-playing-out-in-the-natural-gas-market-334f774b?mod=rss_markets_main",
       "pubDate": "Wed, 09 Sep 2026 09:30:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Oil Near $100 Threatens U.S. Stocks’ Stellar Run",
-      "description": "Brent crude spiked above $99 a barrel before paring gains.",
-      "link": "https://www.wsj.com/finance/stocks/oil-near-100-threatens-u-s-stocks-stellar-run-cabbaf0c?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 21:09:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Canada’s Tariffs Take Effect",
-      "description": "Plus, oil rises after Houthis strike energy infrastructure, and stocks fall.",
-      "link": "https://www.wsj.com/finance/stocks/canadas-tariffs-take-effect-c3d61304?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 20:31:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Robinhood Strikes Deal With Crypto.com in Latest Prediction-Markets Push",
-      "description": "The brokerage will add yes-or-no contracts from Crypto.com’s prediction business, and take a stake in the digital-currency exchange.",
-      "link": "https://www.wsj.com/finance/currencies/robinhood-strikes-deal-with-crypto-com-in-latest-prediction-markets-push-901a32aa?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 12:00:00 GMT",
       "tickers": []
     },
     {
@@ -87,10 +94,10 @@
       ]
     },
     {
-      "title": "Elon Musk Wants to Make Power-Turbine Components. It Won’t Be Easy.",
-      "description": "Stocks of blade-and-vane manufacturers fell in response, but the threat to them is still remote.",
-      "link": "https://www.wsj.com/business/elon-musk-wants-to-make-power-turbine-components-it-wont-be-easy-6821757b?mod=rss_markets_main",
-      "pubDate": "Wed, 02 Sep 2026 09:30:00 GMT",
+      "title": "Financial Services Roundup: Market Talk",
+      "description": "Find insight on digital banks, Chime Financial, Robinhood and more in the latest Market Talks covering Financial Services.",
+      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-20f3a4c1?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:55:00 GMT",
       "tickers": []
     },
     {
@@ -122,26 +129,31 @@
       "tickers": []
     },
     {
-      "title": "FDIC Beats Investor Claim to $1.71 Billion Silicon Valley Bank Deposit",
-      "description": "A federal judge ruled that creditors of SVB Financial aren’t entitled to the claim against the regulator, wiping out a bet by distressed-debt investors.",
-      "link": "https://www.wsj.com/pro/bankruptcy/fdic-beats-investor-claim-to-1-71-billion-silicon-valley-bank-deposit-fdff001a?mod=rss_markets_main",
-      "pubDate": "Mon, 31 Aug 2026 18:38:00 GMT",
-      "tickers": [
-        "SIVBQ"
-      ]
-    },
-    {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on Bank of Japan, Public Bank and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-20f3a4c1?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 11:30:00 GMT",
+      "title": "Basic Materials Roundup: Market Talk",
+      "description": "Find insight on gold futures and more in the latest Market Talks covering Basic Materials.",
+      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-92d7a6b8?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:56:00 GMT",
       "tickers": []
     },
     {
-      "title": "U.S. Stock Futures Steady, Treasury Yields Rise Weaken After Oil Tops $100",
-      "description": "U.S. stock futures were steady and Treasury yields ticked higher after Brent briefly topped the $100 a barrel mark for the first time since July.",
-      "link": "https://www.wsj.com/finance/investing/u-s-stock-futures-steady-treasurys-weaken-after-oil-tops-100-42f4c05a?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 08:25:00 GMT",
+      "title": "Tech, Media & Telecom Roundup: Market Talk",
+      "description": "Find insight on Apple, digital banks, Braze and more in the latest Market Talks covering Technology, Media and Telecom.",
+      "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-1307ac74?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:54:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "U.S. Treasury Plans $6 Billion Buyback, Yields Rise",
+      "description": "The U.S. Treasury raised the size of its planned buyback operation for Treasurys maturing in 10 to 20 years to $6 billion, triple the typical amount, but not enough to send yields lower.",
+      "link": "https://www.wsj.com/finance/investing/u-s-treasury-plans-6-billion-10-to-20-year-bond-buyback-d12d3647?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:28:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "U.S. Stocks Fall as War Escalation, Oil Spike Continues",
+      "description": "U.S. stocks extended their recent decline as the war in the Middle East continued to escalate and to drive up oil prices.",
+      "link": "https://www.wsj.com/finance/stocks/u-s-stocks-fall-as-war-escalation-oil-spike-continues-8e83817c?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 20:25:00 GMT",
       "tickers": []
     },
     {
@@ -149,27 +161,6 @@
       "description": "European indexes fell at the open as an escalation in U.S.-Iran tensions lifted oil and weighed on sentiment.",
       "link": "https://www.wsj.com/finance/stocks/nikkei-rises-0-1-led-by-chip-related-stocks-c8902c64?mod=rss_markets_main",
       "pubDate": "Wed, 09 Sep 2026 07:39:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Richemont Names Chairman Johann Rupert’s Son as Nonexecutive Co-Deputy Chairman",
-      "description": "Anton Rupert will oversee the strategic product and communications committee and serve alongside fellow nonexecutive co-deputy chairman Bram Schot.",
-      "link": "https://www.wsj.com/finance/investing/richemont-names-chairman-johann-ruperts-son-as-nonexecutive-co-deputy-chairman-ad38cb41?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 07:21:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "CVC Names TPG’s Todd Sisitsky as Co-CEO",
-      "description": "The buyout group named TPG executive Todd Sisitsky and company insider Peter Rutland as co-chiefs as it outlined its leadership succession plan.",
-      "link": "https://www.wsj.com/finance/investing/cvc-names-tpgs-todd-sisitsky-as-co-ceo-83d95aef?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 06:27:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Health Care Roundup: Market Talk",
-      "description": "Find insight on Novartis, Kyowa Kirin, Echo IQ and more in the latest Market Talks covering Health Care.",
-      "link": "https://www.wsj.com/business/health-care-roundup-market-talk-8392578d?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 11:06:00 GMT",
       "tickers": []
     },
     {
@@ -194,10 +185,17 @@
       "tickers": []
     },
     {
-      "title": "Stocks Slip as Oil Pares Gains",
-      "description": "U.S. stock indexes fell to start the week as rising oil prices added to investor anxiety.",
-      "link": "https://www.wsj.com/finance/commodities-futures/u-s-stock-futures-treasurys-weaken-as-brent-nears-100-c29efc2f?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 18:09:00 GMT",
+      "title": "Oil Near $100 Threatens U.S. Stocks’ Stellar Run",
+      "description": "Brent crude spiked above $99 a barrel before paring gains.",
+      "link": "https://www.wsj.com/finance/stocks/oil-near-100-threatens-u-s-stocks-stellar-run-cabbaf0c?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 21:09:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Canada’s Tariffs Take Effect",
+      "description": "Plus, oil rises after Houthis strike energy infrastructure, and stocks fall.",
+      "link": "https://www.wsj.com/finance/stocks/canadas-tariffs-take-effect-c3d61304?mod=rss_markets_main",
+      "pubDate": "Tue, 08 Sep 2026 20:31:00 GMT",
       "tickers": []
     },
     {
@@ -243,10 +241,24 @@
       "tickers": []
     },
     {
-      "title": "Basic Materials Roundup: Market Talk",
-      "description": "Find insight on Coronado Global, Westgold Resources and more in the latest Market Talks covering Basic Materials.",
-      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-92d7a6b8?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 11:18:00 GMT",
+      "title": "U.S. Natural Gas Futures Fall As Weather Set to Turn",
+      "description": "U.S. natural gas futures fell for a second consecutive session as the market looked beyond this week’s inventory report to cooler weather that’s likely to cut demand heading into the shoulder season.",
+      "link": "https://www.wsj.com/finance/commodities-futures/u-s-natural-gas-futures-decline-as-weather-cools-bbbc4b22?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 19:50:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Brent Crude Tops $100 A Barrel on Middle East Escalation",
+      "description": "Oil futures settled at their highest level since May 22 as strikes between the U.S. and Iran escalated and Houthis stepped up attacks on Saudi oil facilities.",
+      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-as-houthi-militants-attack-amplifies-supply-disruption-fears-f0d68a35?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 19:29:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Gold Futures Edge Up Despite Higher U.S. Yields",
+      "description": "Gold futures made small gains despite a rise in Treasury yields. The dollar weakened, however, which tends to support gold.",
+      "link": "https://www.wsj.com/finance/commodities-futures/gold-slips-traders-eye-inflation-data-a5ad1d66?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 18:48:00 GMT",
       "tickers": []
     },
     {
@@ -264,24 +276,10 @@
       "tickers": []
     },
     {
-      "title": "Gold Rises, With Middle East and Fed Policy in Focus",
-      "description": "Gold prices rose as escalating attacks in the Middle East pushed oil higher, raising concerns over inflation and interest-rate hikes.",
-      "link": "https://www.wsj.com/finance/commodities-futures/gold-slips-traders-eye-inflation-data-a5ad1d66?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 07:34:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Brent Marches Toward $100 As U.S.-Iran Attacks Escalate",
-      "description": "Brent crude prices traded close to $100 a barrel as attacks in the Middle East escalated as markets saw no credible path to de-escalation.",
-      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-as-houthi-militants-attack-amplifies-supply-disruption-fears-f0d68a35?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 07:29:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Sterling Rises as Markets Raise BOE Rate Hike Expectations",
-      "description": "Sterling edged higher as markets raised their bets on the possibility of the Bank of England increasing interest rates in the coming months.",
+      "title": "ECB, Fed Policy Differentials to Be Key for Euro, Dollar in Coming Months",
+      "description": "The dollar weakened and difference between ECB and Fed policy will be a key determinant for the euro and dollar in the coming months, Marex FX said.",
       "link": "https://www.wsj.com/finance/currencies/yen-strengthens-on-prospects-of-two-boj-rate-hikes-by-year-end-c56a9483?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 10:15:00 GMT",
+      "pubDate": "Wed, 09 Sep 2026 13:43:00 GMT",
       "tickers": []
     },
     {
@@ -300,8 +298,8 @@
       {
         "ticker": "WYHG",
         "name": "Wing Yip Food Holdings Group Limited",
-        "price": 5.18,
-        "changePct": -11.91,
+        "price": 5.02,
+        "changePct": -14.63,
         "volume": 12424568,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/wyhg/",
@@ -309,15 +307,37 @@
         "catalystUrl": "https://stockstotrade.com/news/wing-yip-food-holdings-group-limited-wyhg-news-2026_09_08-3/"
       },
       {
+        "ticker": "BIAF",
+        "name": "bioAffinity Technologies, Inc.",
+        "price": 10.84,
+        "changePct": 21.39,
+        "volume": 239239,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/biaf/",
+        "catalystHeadline": "bioAffinity Technologies Regains Compliance with Nasdaq Listing Requirements - September 9, 2026",
+        "catalystUrl": "https://www.biospace.com/press-releases/bioaffinity-technologies-regains-compliance-with-nasdaq-listing-requirements-september-9-2026"
+      },
+      {
+        "ticker": "FSLY",
+        "name": "Fastly, Inc.",
+        "price": 23.2,
+        "changePct": 7.96,
+        "volume": 16907,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/fsly/",
+        "catalystHeadline": "Fastly, Inc. (FSLY) Presents at Citi's 2026 Global TMT Conference Transcript",
+        "catalystUrl": "https://seekingalpha.com/article/4944484-fastly-inc-fsly-presents-at-citis-2026-global-tmt-conference-transcript"
+      },
+      {
         "ticker": "BRZE",
         "name": "Braze, Inc.",
-        "price": 26.93,
-        "changePct": -11.15,
+        "price": 26.49,
+        "changePct": -12.6,
         "volume": 11479,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/brze/",
-        "catalystHeadline": "Braze, Inc. (BRZE) Q2 2027 Earnings Call Transcript",
-        "catalystUrl": "https://seekingalpha.com/article/4944085-braze-inc-brze-q2-2027-earnings-call-transcript"
+        "catalystHeadline": "Braze (BRZE) Stock Drops 11% Even After Beating Earnings. Here’s Why",
+        "catalystUrl": "https://cryptocurrency.com.tr/braze-brze-stock-drops-11-even-after-beating-earnings-heres-why-371386"
       },
       {
         "ticker": "TTAN",
@@ -327,36 +347,14 @@
         "volume": 11171,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/ttan/",
-        "catalystHeadline": "Stock Market Today: Dow Jones, S&amp;P 500 Futures Fall, Brent Jumps Over $100 Amid Middle East Tensioms — CASY, TTAN, RKLB in Focus",
-        "catalystUrl": "https://www.benzinga.com/markets/equities/26/09/61678860/stock-market-today-dow-jones-sp-500-futures-fall-brent-jumps-over-100-amid-middle-east-tensioms-casy-ttan-rklb-in-focus"
-      },
-      {
-        "ticker": "OCC",
-        "name": "Optical Cable Corporation",
-        "price": 15.21,
-        "changePct": 11.02,
-        "volume": 10406,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/occ/",
-        "catalystHeadline": "Block Applies for OCC Charter for Builders Bank",
-        "catalystUrl": "https://bitcoinethereumnews.com/tech/block-applies-for-occ-charter-for-builders-bank/"
-      },
-      {
-        "ticker": "SSL",
-        "name": "Sasol Limited",
-        "price": 14.14,
-        "changePct": 6.32,
-        "volume": 9930,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/ssl/",
-        "catalystHeadline": "CroreBet Review and Expert Ratings for India (2026) | Goal.com India",
-        "catalystUrl": "https://www.goal.com/en-in/betting/crorebet-review/bltf6ca7f043ee198d7"
+        "catalystHeadline": "ServiceTitan (TTAN) Stock Plummets 17% After Q3 Revenue Forecast Falls Short",
+        "catalystUrl": "https://bitcoinethereumnews.com/tech/servicetitan-ttan-stock-plummets-17-after-q3-revenue-forecast-falls-short/"
       },
       {
         "ticker": "KFFB",
         "name": "Kentucky First Federal Bancorp",
-        "price": 6.19,
-        "changePct": 8.98,
+        "price": 6.14,
+        "changePct": 8.1,
         "volume": 7184,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/kffb/",
@@ -364,54 +362,65 @@
         "catalystUrl": "https://wtop.com/news/2026/08/kentucky-first-federal-fiscal-q4-earnings-snapshot/"
       },
       {
+        "ticker": "IRD",
+        "name": "Opus Genetics, Inc.",
+        "price": 5.24,
+        "changePct": 20.74,
+        "volume": 5205,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/ird/",
+        "catalystHeadline": "IRD Stock Hits Over 5-Year Highs – Opus Genetics Experimental Therapy Shows Early Promise In Retinal Diseases Trial",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/ird-stock-hits-over-5-year-highs-opus-genetics-experimental-therapy-shows-early-promise-in-retinal-diseases-trial-articleshow-bzk8p1h"
+      },
+      {
+        "ticker": "TBBK",
+        "name": "The Bancorp, Inc.",
+        "price": 53.85,
+        "changePct": -16.4,
+        "volume": 4631,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/tbbk/",
+        "catalystHeadline": "TBBK stock hits 52-week low at 50.2 USD",
+        "catalystUrl": "https://www.investing.com/news/company-news/tbbk-stock-hits-52week-low-at-502-usd-93CH-4893880"
+      },
+      {
         "ticker": "TYRA",
         "name": "Tyra Biosciences, Inc.",
-        "price": 21,
-        "changePct": -21.44,
+        "price": 19.26,
+        "changePct": -27.95,
         "volume": 4027,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/tyra/",
-        "catalystHeadline": "Tyra Biosciences Reports Initial Phase 2 SURF302 Results Supporting the First Potential Oral Innovation in LG IR NMIBC with Dabogratinib",
-        "catalystUrl": "https://www.finanznachrichten.de/nachrichten-2026-09/69532722-tyra-biosciences-reports-initial-phase-2-surf302-results-supporting-the-first-potential-oral-innovation-in-lg-ir-nmibc-with-dabogratinib-008.htm"
+        "catalystHeadline": "Why Is Tyra Biosciences Stock Sinking Wednesday?",
+        "catalystUrl": "https://www.benzinga.com/markets/biotech/26/09/61693811/why-is-tyra-biosciences-stock-sinking-wednesday"
       },
       {
         "ticker": "CHYM",
         "name": "Chime Financial, Inc.",
-        "price": 35.28,
-        "changePct": 9.19,
+        "price": 35.2,
+        "changePct": 8.95,
         "volume": 3458,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/chym/",
-        "catalystHeadline": "Chime Financial, Inc. (CHYM) Stock: Surge as $590M Stride Bank Acquisition Fuels Rally",
-        "catalystUrl": "https://bitcoinethereumnews.com/tech/chime-financial-inc-chym-stock-surge-as-590m-stride-bank-acquisition-fuels-rally/"
-      },
-      {
-        "ticker": "AVO",
-        "name": "Mission Produce, Inc.",
-        "price": 13.6,
-        "changePct": 5.67,
-        "volume": 2461,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/avo/",
-        "catalystHeadline": "Mission Produce® Announces Fiscal 2026 Third Quarter Financial Results",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/09/tmt-newswire/globenewswire/mission-produce-announces-fiscal-2026-third-quarter-financial-results/2421045"
+        "catalystHeadline": "Chime Financial, Inc. (CHYM) Presents at Goldman Sachs Communacopia + Technology Conference 2026 Transcript",
+        "catalystUrl": "https://seekingalpha.com/article/4944615-chime-financial-inc-chym-presents-at-goldman-sachs-communacopia-technology-conference-2026"
       },
       {
         "ticker": "CASY",
         "name": "Casey's General Stores, Inc.",
-        "price": 652.5,
-        "changePct": -11.04,
+        "price": 645,
+        "changePct": -12.06,
         "volume": 1566,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/casy/",
-        "catalystHeadline": "Stock Market Today: Dow Jones, S&amp;P 500 Futures Fall, Brent Jumps Over $100 Amid Middle East Tensioms — CASY, TTAN, RKLB in Focus",
-        "catalystUrl": "https://www.benzinga.com/markets/equities/26/09/61678860/stock-market-today-dow-jones-sp-500-futures-fall-brent-jumps-over-100-amid-middle-east-tensioms-casy-ttan-rklb-in-focus"
+        "catalystHeadline": "Services and Utilities Lead Sector Declines Wednesday as CASY and VRT Weigh on Performance",
+        "catalystUrl": "https://www.dividendchannel.com/article/202609/services-and-utilities-lead-sector-declines-wednesday-as-casy-and-vrt-weigh-IYC09092026spxldr.htm/"
       },
       {
         "ticker": "INNV",
         "name": "InnovAge Holding Corp.",
-        "price": 11.87,
-        "changePct": 12.79,
+        "price": 11.55,
+        "changePct": 9.79,
         "volume": 1380,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/innv/",
@@ -419,95 +428,106 @@
         "catalystUrl": "https://www.benzinga.com/markets/equities/26/09/61677922/innovage-shares-climb-after-hours-q4-earnings-revenue-beat"
       },
       {
+        "ticker": "ASO",
+        "name": "Academy Sports and Outdoors, Inc.",
+        "price": 48.53,
+        "changePct": 8.54,
+        "volume": 781,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/aso/",
+        "catalystHeadline": "Brennan rules Seville sprint as Visma claim seventh Vuelta stage win",
+        "catalystUrl": "https://world.newsx.com/sports/brennan-rules-seville-sprint-as-visma-claim-seventh-vuelta-stage-win-232676/"
+      },
+      {
+        "ticker": "RTB",
+        "name": "RTB Digital, Inc.",
+        "price": 9.69,
+        "changePct": 9.03,
+        "volume": 480,
+        "source": "stockanalysis.com pre-market movers",
+        "sourceUrl": "https://stockanalysis.com/stocks/rtb/",
+        "catalystHeadline": "Alienware AW2726DM review: A sub-£400 QD-OLED gaming bargain | Expert Reviews",
+        "catalystUrl": "https://www.expertreviews.co.uk/technology/monitors/alienware-aw2726dm-review"
+      },
+      {
         "ticker": "ODD",
         "name": "Oddity Tech Ltd.",
-        "price": 16.32,
-        "changePct": 25.3,
+        "price": 17.67,
+        "changePct": 35.66,
         "volume": 458,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/odd/",
-        "catalystHeadline": "ODDITY Tech Reports Second Quarter 2026 Results, Expects Sequential Revenue Improvement in the Third Quarter",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/09/tmt-newswire/globenewswire/oddity-tech-reports-second-quarter-2026-results-expects-sequential-revenue-improvement-in-the-third-quarter/2421388"
-      },
-      {
-        "ticker": "BKV",
-        "name": "BKV Corporation",
-        "price": 25,
-        "changePct": -6.58,
-        "volume": 390,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/bkv/",
-        "catalystHeadline": "BKV plans $400 million convertible notes offering due 2031",
-        "catalystUrl": "https://www.investing.com/news/company-news/bkv-plans-400-million-convertible-notes-offering-due-2031-93CH-4893260"
+        "catalystHeadline": "Wizards Mailbag: Which Young Player is the Odd Man Out",
+        "catalystUrl": "https://www.si.com/nba/wizards/onsi/wizards-mailbag-which-young-player-is-the-odd-man-out-01m23yhkg7ed"
       },
       {
         "ticker": "CSR",
         "name": "Centerspace",
-        "price": 56.68,
-        "changePct": 7.53,
+        "price": 57.5,
+        "changePct": 9.09,
         "volume": 205,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/csr/",
-        "catalystHeadline": "11 AC bus shelters to come up in Chennai",
-        "catalystUrl": "https://www.thehindu.com/news/cities/chennai/11-ac-bus-shelters-to-come-up-in-chennai/article71424397.ece"
+        "catalystHeadline": "$HAREHOLDER ALERT: The M&amp;amp;amp;A Class Action Firm Announces An Investigation of Centerspace (NYSE: CSR)",
+        "catalystUrl": "https://www.newslocker.com/en-us/profession/pr-public-relations/hareholder-alert-the-mampampa-class-action-firm-announces-an-investigation-of-centerspace-nyse-csr/"
       }
     ]
   },
   "buzz": [
     {
+      "ticker": "AVAV",
+      "name": "AeroVironment Inc.",
+      "price": 144.06,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/AVAV",
+      "catalystHeadline": "AeroVironment (AVAV) Stock Faces Earnings Test Amid Declining Analyst Expectations",
+      "catalystUrl": "https://bitcoinethereumnews.com/tech/aerovironment-avav-stock-faces-earnings-test-amid-declining-analyst-expectations/"
+    },
+    {
+      "ticker": "GME",
+      "name": "GameStop Corp",
+      "price": 20.01,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/GME",
+      "catalystHeadline": "Charles Gasparino: GME holds above $19 despite weak core earnings and eBay gains",
+      "catalystUrl": "https://tradersunion.com/news/market-voices/show/3280857-gme-earnings-ebay-gains/"
+    },
+    {
       "ticker": "META",
       "name": "Meta Platforms Inc",
-      "price": 643.22,
+      "price": 651.42,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
       "sourceUrl": "https://stocktwits.com/symbol/META",
-      "catalystHeadline": "META Price Prediction: Smart Money Is Loading Into $628 Resistance — A Brief Shakeout Before the $650 Push",
-      "catalystUrl": "https://blockchain.news/news/20260909-price-prediction-meta-smart-money-is-loading-into-628"
+      "catalystHeadline": "Meta Buys Stilla.ai to Expand Business Agent",
+      "catalystUrl": "https://kivodaily.com/technology/meta-buys-stilla-ai-business-agent-commerce/"
     },
     {
-      "ticker": "SPY",
-      "name": "SPDR S&P 500 ETF Trust",
-      "price": 763.84,
+      "ticker": "RKLB",
+      "name": "Rocket Lab USA Inc",
+      "price": 63.27,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/SPY",
-      "catalystHeadline": "‘Udta Teer’: Ayushmann Khurrana and Sara Ali Khan’s spy-comedy gets new release date",
-      "catalystUrl": "https://www.thehindu.com/entertainment/movies/udta-teer-ayushmann-khurrana-and-sara-ali-khans-spy-comedy-gets-new-release-date/article71447002.ece"
+      "sourceUrl": "https://stocktwits.com/symbol/RKLB",
+      "catalystHeadline": "RKLB Stock Jumps as Rocket Lab Debuts New Solar Cell for Space - Barchart.com",
+      "catalystUrl": "https://now.solar/2026/09/10/rklb-stock-jumps-as-rocket-lab-debuts-new-solar-cell-for-space-barchart-com/"
     },
     {
-      "ticker": "QQQ",
-      "name": "Invesco QQQ Trust Series 1",
-      "price": 715.67,
+      "ticker": "AEO",
+      "name": "American Eagle Outfitters, Inc.",
+      "price": 15.06,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/QQQ",
-      "catalystHeadline": "QQQ Price Prediction: $757 Target in Sight — But the Fed&apos;s September 16 Decision Is the Only Trade That Matters",
-      "catalystUrl": "https://blockchain.news/news/20260909-price-prediction-target-qqq-757-in-sight-but-the-feds"
-    },
-    {
-      "ticker": "CMPS",
-      "name": "COMPASS Pathways",
-      "price": 14.36,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/CMPS",
-      "catalystHeadline": "CMPS Stock Rallies On Launch-Prep Push Ahead Of FDA Psychedelics Hearing",
-      "catalystUrl": "https://newsable.asianetnews.com/markets/cmps-stock-rallies-on-launch-prep-push-ahead-of-fda-psychedelics-hearing-articleshow-4pwgn33"
-    },
-    {
-      "ticker": "GOOGL",
-      "name": "Alphabet Inc Class A",
-      "price": 331.74,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/GOOGL",
-      "catalystHeadline": "[MARKET ANALYSIS] European bourses under pressure as renewed US-Iran strikes drive energy higher; ITX SM hit despite mixed earnings while FORTUM FH surges on GOOGL deal",
-      "catalystUrl": "https://www.newsquawk.com/headlines/market-analysis-european-bourses-under-pressure-as-renewed-us-iran-strikes-drive-energy-higher-itx-sm-hit-despite-mixed-earnings-while-fortum-fh-surges-on-googl-deal"
+      "sourceUrl": "https://stocktwits.com/symbol/AEO",
+      "catalystHeadline": "YouTube AEO Playbook Boost Rankings Reach and AI Discovery",
+      "catalystUrl": "https://www.provenroi.com/blog/youtube-aeo-playbook-boost-rankings-reach-and-ai-discovery"
     }
   ]
 }
