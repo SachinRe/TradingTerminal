@@ -103,28 +103,27 @@ async function fetchFmpList(endpoint, key) {
   const data = await res.json();
   return Array.isArray(data) ? data : [];
 }
-async function fetchFmpQuotesBatch(symbols, key) {
-  if (!symbols.length) return {};
-  // FMP supports comma-separated multi-symbol quotes in one call.
-  const url = `https://financialmodelingprep.com/stable/quote?symbol=${symbols.join(",")}&apikey=${key}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`FMP batch quote failed: ${res.status}`);
-  const data = await res.json();
-  const byTicker = {};
-  (Array.isArray(data) ? data : []).forEach(q => { byTicker[q.symbol] = q; });
-  return byTicker;
-}
-async function fetchFmpAverageVolume(ticker, key) {
-  // Average volume is NOT on /stable/quote — confirmed via FMP's own docs
-  // and changelog ("Volume + Average Volume Fields Added: Profile", Oct 2024).
-  // It lives on /stable/profile instead, one ticker at a time.
+// CONFIRMED (from an actual run's log, HTTP 402 = Payment Required) that both
+// /stable/quote (batch quotes) and /stable/company-screener require a paid
+// FMP plan — despite what several third-party articles suggested. They are
+// NOT usable here. The only two endpoints that have actually returned real
+// data on the free tier are the gainers/losers/actives lists and
+// /stable/profile (per-ticker only, no batching, but it does work and
+// conveniently returns price, volume, averageVolume, sector, and industry
+// all in one call).
+async function fetchFmpProfile(ticker, key) {
   try {
     const res = await fetch(`https://financialmodelingprep.com/stable/profile?symbol=${ticker}&apikey=${key}`);
     if (!res.ok) return null;
     const data = await res.json();
     const p = Array.isArray(data) ? data[0] : null;
-    const avg = p && p.averageVolume != null ? Number(p.averageVolume) : null;
-    return avg && avg > 0 ? avg : null;
+    if (!p) return null;
+    return {
+      volume: p.volume != null ? Number(p.volume) : null,
+      avgVolume: p.averageVolume != null ? Number(p.averageVolume) : null,
+      sector: p.sector || null,
+      industry: p.industry || null
+    };
   } catch (e) {
     return null;
   }
@@ -161,48 +160,38 @@ async function fetchScreener() {
   });
 
   const tickers = Object.keys(byTicker);
-  let quotes = {};
-  try {
-    // Batch in chunks of 50 to stay well within reasonable URL/response size.
-    for (let i = 0; i < tickers.length; i += 50) {
-      const chunk = tickers.slice(i, i + 50);
-      const batch = await fetchFmpQuotesBatch(chunk, key);
-      quotes = { ...quotes, ...batch };
-    }
-  } catch (e) {
-    note.push("quote batch: " + e.message);
-  }
 
-  // Average volume needs a separate per-ticker call (profile endpoint), and
-  // FMP's free tier caps at 250 requests/day total across all 4 scheduled
-  // runs — one call per ticker for ~68 tickers would burn most of that in a
-  // single run. Only fetch it for the top 10 by raw volume, since that's
-  // already the pool the Top-5-by-Volume/RVOL panels pick from anyway.
-  const topByVolumeForAvg = tickers
-    .map(t => ({ t, v: Number((quotes[t] || {}).volume) || 0 }))
-    .sort((a, b) => b.v - a.v)
-    .slice(0, 10)
-    .map(x => x.t);
-  const avgVolumes = {};
-  let avgVolFound = 0;
-  for (const ticker of topByVolumeForAvg) {
-    const avg = await fetchFmpAverageVolume(ticker, key);
-    if (avg != null) { avgVolumes[ticker] = avg; avgVolFound++; }
+  // Rank by |% change| first — the biggest movers are the most decision-
+  // relevant — then only fetch the expensive per-ticker profile data (volume,
+  // avgVolume, sector, industry) for a capped subset, to stay well within
+  // FMP's 250-requests/day free-tier limit across all 4 scheduled runs/day.
+  const rankedTickers = [...tickers].sort((a, b) => Math.abs(byTicker[b].changePct) - Math.abs(byTicker[a].changePct));
+  const PROFILE_LIMIT = 25;
+  const profileTargets = rankedTickers.slice(0, PROFILE_LIMIT);
+
+  const profiles = {};
+  let profileFound = 0;
+  for (const ticker of profileTargets) {
+    const p = await fetchFmpProfile(ticker, key);
+    if (p) { profiles[ticker] = p; profileFound++; }
     await new Promise(r => setTimeout(r, 120)); // be a reasonable citizen toward the API
   }
-  console.log(`[diag] Average volume found for ${avgVolFound} of ${topByVolumeForAvg.length} top-volume tickers (RVOL limited to top 10 to stay within FMP's 250/day free-tier cap)`);
+  console.log(`[diag] Profile data (volume/avgVolume/sector) found for ${profileFound} of ${profileTargets.length} top-movers checked`);
 
   const candidates = tickers.map(ticker => {
     const base = byTicker[ticker];
-    const q = quotes[ticker] || {};
-    const volume = Number(q.volume) || 0;
-    const avgVolume = avgVolumes[ticker] || null;
+    const p = profiles[ticker] || {};
+    const volume = p.volume || 0;
+    const avgVolume = p.avgVolume || null;
     const rvol = avgVolume ? volume / avgVolume : null;
     return {
       ...base,
       volume,
       avgVolume,
       rvol, // e.g. 2.5 means trading at 2.5x its average volume
+      sector: p.sector || null,
+      industry: p.industry || null,
+      hasProfileData: !!profiles[ticker],
       source: "Financial Modeling Prep (free tier, licensed API)",
       sourceUrl: `https://financialmodelingprep.com/quote/${ticker}`
     };
@@ -214,48 +203,6 @@ async function fetchScreener() {
     source: "Financial Modeling Prep (licensed free-tier API)",
     candidates
   };
-}
-
-// ---- 3b. Dedicated ≥9M-volume screener — direct query, not derived from
-// gainers/losers/actives. Those lists skew toward small/cheap high-%-move
-// names that don't reliably cross a 9M raw-share-volume threshold, especially
-// once combined with a $5+ price filter (cheap stocks trade more raw shares
-// per dollar, so the price filter excludes exactly the names most likely to
-// hit 9M shares). FMP's screener also returns real sector/industry directly —
-// more reliable than our own hand-maintained ticker→sector map. ----
-async function fetchVolumeMovers(key) {
-  const url = `https://financialmodelingprep.com/stable/company-screener?volumeMoreThan=9000000&priceMoreThan=5&limit=100&apikey=${key}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`FMP volume screener failed: ${res.status}`);
-  const rows = await res.json();
-  if (!Array.isArray(rows) || !rows.length) return { available: false, note: "No stocks returned at this volume/price threshold right now.", movers: [] };
-
-  const symbols = rows.map(r => r.symbol).filter(Boolean);
-  let quotes = {};
-  for (let i = 0; i < symbols.length; i += 50) {
-    const chunk = symbols.slice(i, i + 50);
-    try {
-      const batch = await fetchFmpQuotesBatch(chunk, key);
-      quotes = { ...quotes, ...batch };
-    } catch (e) { /* keep going with whatever we have */ }
-  }
-
-  const movers = rows.map(r => {
-    const q = quotes[r.symbol] || {};
-    return {
-      ticker: r.symbol,
-      name: r.companyName || r.symbol,
-      price: Number(r.price) || Number(q.price) || 0,
-      changePct: Number(q.changePercentage) || 0,
-      volume: Number(r.volume) || Number(q.volume) || 0,
-      sector: r.sector || null,
-      industry: r.industry || null,
-      source: "Financial Modeling Prep company-screener (licensed API)",
-      sourceUrl: `https://financialmodelingprep.com/quote/${r.symbol}`
-    };
-  }).filter(m => m.volume >= 9000000); // re-confirm after merging in case quote volume differs from screener's cached volume
-
-  return { available: movers.length > 0, note: "", movers };
 }
 
 // ---- 4. "Buzz among traders" — StockTwits public trending API is a real,
@@ -361,17 +308,22 @@ async function main() {
     console.error("Screener fetch failed:", e.message);
   }
 
-  let volumeMovers = { available: false, note: "FMP_API_KEY not set", movers: [] };
-  const fmpKey = process.env.FMP_API_KEY;
-  if (fmpKey) {
-    try {
-      volumeMovers = await fetchVolumeMovers(fmpKey);
-      console.log(`[diag] Dedicated volume screener: ${volumeMovers.movers.length} stocks at >=9M volume, priced above $5`);
-    } catch (e) {
-      console.error("Volume movers fetch failed:", e.message);
-      volumeMovers = { available: false, note: e.message, movers: [] };
-    }
+  // No extra API calls needed — /stable/company-screener turned out to
+  // require a paid FMP plan (confirmed via a real 402 response), so instead
+  // of a dedicated query, the ≥9M-volume list is just the subset of the
+  // screener candidates above that got real profile data (volume/avgVolume)
+  // AND actually cleared 9M shares. Smaller pool than a true market-wide
+  // scan would give, but it's real data instead of an endpoint we can't use.
+  const volumeMovers = {
+    available: false,
+    note: "",
+    movers: screener.candidates.filter(c => c.hasProfileData && c.volume >= 9000000)
+  };
+  volumeMovers.available = volumeMovers.movers.length > 0;
+  if (!volumeMovers.available) {
+    volumeMovers.note = "None of the top movers checked this run cleared 9M shares — this is limited to gainers/losers/actives constituents that got profile data, not a full market scan (FMP's dedicated volume screener requires a paid plan).";
   }
+  console.log(`[diag] Volume >=9M movers (derived from already-fetched profile data, no extra calls): ${volumeMovers.movers.length}`);
 
   let buzz = [];
   try {
