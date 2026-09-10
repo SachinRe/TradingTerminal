@@ -700,6 +700,7 @@
       </div><!-- end mm-breadth -->
 
       <div id="mm-sector" class="mm-sub" style="display:none;">
+      <div class="note" id="mm-sector-freshness" style="margin-bottom:10px;">Checking data freshness…</div>
       <div class="grid-2">
         <div class="panel">
           <div class="panel-header">
@@ -1721,6 +1722,19 @@
           <td><button class="btn btn-sm btn-accent" onclick="addToWatchlist('${c.ticker}')">Add</button></td>
         </tr>`;
       }).join("");
+    }
+
+    function renderDataFreshnessBanners() {
+      const el = document.getElementById("mm-sector-freshness");
+      if (!el) return;
+      if (!lastDataGeneratedAt) {
+        el.innerHTML = `No scheduled run has completed yet — this data will populate at the next 4:00am/5:30am/10:30am/2:00pm Pacific run, or trigger one manually from Qualify's "Refresh Data Now" button.`;
+        return;
+      }
+      const d = new Date(lastDataGeneratedAt);
+      const ageMin = Math.round((Date.now() - d.getTime()) / 60000);
+      const ageText = ageMin < 1 ? "just now" : ageMin < 60 ? ageMin + " min ago" : (ageMin / 60).toFixed(1) + " hr ago";
+      el.innerHTML = `Data as of <strong>${d.toLocaleString()}</strong> (${ageText}) · slot: ${lastDataGeneratedSlot || "—"}`;
     }
 
     function renderSectorStrength(pool) {
@@ -2871,6 +2885,8 @@
       }
     }
 
+    let lastDataGeneratedAt = null;
+    let lastDataGeneratedSlot = null;
     async function loadLiveWatchlistData() {
       const badge = document.getElementById("live-data-badge");
       const statusBody = document.getElementById("live-data-status-body");
@@ -2878,6 +2894,8 @@
         const res = await fetch("./data/candidates.json", { cache: "no-store" });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
+        lastDataGeneratedAt = data.generatedAt || null;
+        lastDataGeneratedSlot = data.generatedSlot || null;
 
         renderWsjFeed(data.wsjHeadlines);
 
@@ -2894,13 +2912,14 @@
           renderSIPTable();
           renderBullishBearish();
         }
+        renderDataFreshnessBanners();
 
         if (badge) badge.textContent = data.generatedAt ? "Live · updated" : "Waiting for first run";
         if (statusBody) {
           if (data.generatedAt) {
             const d = new Date(data.generatedAt);
             const bits = [`Last scheduled refresh: <strong>${d.toLocaleString()}</strong> (slot: ${data.generatedSlot || "—"}).`];
-            bits.push(`Pre-market screener: ${screener.available ? screener.candidates.length + " candidates (stockanalysis.com)" : "<span class='neg'>" + (screener.note || "no data") + "</span>"}.`);
+            bits.push(`Pre-market screener: ${screener.available ? screener.candidates.length + " candidates (Financial Modeling Prep)" : "<span class='neg'>" + (screener.note || "no data") + "</span>"}.`);
             bits.push(`Trader buzz: ${buzz.length ? buzz.length + " tickers (StockTwits trending)" : "<span class='neg'>no data this run</span>"}.`);
             statusBody.innerHTML = bits.join(" ");
           } else {
@@ -3280,6 +3299,7 @@
         panel.style.display = "block";
         panel.classList.add("active");
       }
+      if (sub === "mm-sector") renderDataFreshnessBanners();
     }
 
     function formatNewsTime(iso) {
