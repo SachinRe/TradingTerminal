@@ -90,82 +90,120 @@ function tagTickers(text) {
 // ---- 3. Pre-market movers (stockanalysis.com public pages — real pre-market
 // data, no login, no API key). We fetch the plain HTML and parse the table;
 // this is a normal public webpage, not an authenticated/paywalled endpoint. ----
-async function fetchPremarketTable(url) {
-  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" } });
-  if (!res.ok) throw new Error("stockanalysis.com fetch failed: " + res.status);
-  const html = await res.text();
-
-  // Generic, dependency-free HTML table row parser. Column order on these
-  // pages is: No. | Symbol | Company Name | % Change | Premkt. Price | Pre. Volume | Market Cap
-  const rows = [];
-  const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
-  let rm;
-  let totalTrCount = 0;
-  const cellCountsSeen = [];
-  while ((rm = rowRegex.exec(html))) {
-    totalTrCount++;
-    const rowHtml = rm[1];
-    const cells = [];
-    const cellRegex = /<td[^>]*>([\s\S]*?)<\/td>/g;
-    let cm;
-    while ((cm = cellRegex.exec(rowHtml))) {
-      const text = cm[1].replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").trim();
-      cells.push(text);
-    }
-    cellCountsSeen.push(cells.length);
-    if (cells.length >= 7) rows.push(cells);
+// ---- 3. Pre-market/session movers via Financial Modeling Prep (FMP) — a
+// real, properly-licensed developer API with a free tier (unlike the
+// stockanalysis.com scraping this replaces: their own help page explicitly
+// states "no API access... data license covers display, not programmatic
+// access" — confirmed directly, not assumed). Needs a free FMP_API_KEY
+// secret; degrades gracefully with a clear note if it's not set. ----
+async function fetchFmpList(endpoint, key) {
+  const url = `https://financialmodelingprep.com/stable/${endpoint}?apikey=${key}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`FMP ${endpoint} failed: ${res.status}`);
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
+}
+async function fetchFmpQuotesBatch(symbols, key) {
+  if (!symbols.length) return {};
+  // FMP supports comma-separated multi-symbol quotes in one call.
+  const url = `https://financialmodelingprep.com/stable/quote?symbol=${symbols.join(",")}&apikey=${key}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`FMP batch quote failed: ${res.status}`);
+  const data = await res.json();
+  const byTicker = {};
+  (Array.isArray(data) ? data : []).forEach(q => { byTicker[q.symbol] = q; });
+  return byTicker;
+}
+async function fetchFmpAverageVolume(ticker, key) {
+  // Average volume is NOT on /stable/quote — confirmed via FMP's own docs
+  // and changelog ("Volume + Average Volume Fields Added: Profile", Oct 2024).
+  // It lives on /stable/profile instead, one ticker at a time.
+  try {
+    const res = await fetch(`https://financialmodelingprep.com/stable/profile?symbol=${ticker}&apikey=${key}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const p = Array.isArray(data) ? data[0] : null;
+    const avg = p && p.averageVolume != null ? Number(p.averageVolume) : null;
+    return avg && avg > 0 ? avg : null;
+  } catch (e) {
+    return null;
   }
-  // Diagnostics: this tells us exactly what the parser is seeing on the real
-  // page, since we can't inspect stockanalysis.com's live markup directly —
-  // remove this block once the real row/cell shape is confirmed and stable.
-  console.log(`[diag] ${url} -> found ${totalTrCount} <tr> total, ${rows.length} with >=7 <td> cells`);
-  console.log(`[diag] cell counts per row (first 15): ${cellCountsSeen.slice(0, 15).join(", ")}`);
-  if (rows.length) {
-    console.log(`[diag] first parsed row: ${JSON.stringify(rows[0])}`);
-  }
-  if (totalTrCount > 0 && rows.length <= 1) {
-    // Something is off after row 1 — dump a raw snippet around the 2nd <tr> to see real structure
-    const secondTrIdx = html.indexOf("<tr", html.indexOf("<tr") + 3);
-    if (secondTrIdx >= 0) {
-      console.log(`[diag] raw HTML snippet from 2nd <tr>: ${html.slice(secondTrIdx, secondTrIdx + 500).replace(/\n/g, " ")}`);
-    }
-  }
-
-  return rows.map(cells => {
-    const [, symbol, name, changePctStr, price, volumeStr] = cells;
-    return {
-      ticker: (symbol || "").toUpperCase(),
-      name: name || symbol,
-      price: parseFloat(String(price).replace(/[$,]/g, "")) || 0,
-      changePct: parseFloat(String(changePctStr).replace(/[%,]/g, "")) || 0,
-      volume: parseInt(String(volumeStr).replace(/[,\-]/g, ""), 10) || 0
-    };
-  }).filter(r => r.ticker);
 }
 
 async function fetchScreener() {
-  const note = [];
-  let gainers = [], losers = [];
-  try {
-    gainers = await fetchPremarketTable("https://stockanalysis.com/markets/premarket/gainers/");
-  } catch (e) { note.push("gainers fetch failed: " + e.message); }
-  try {
-    losers = await fetchPremarketTable("https://stockanalysis.com/markets/premarket/losers/");
-  } catch (e) { note.push("losers fetch failed: " + e.message); }
+  const key = process.env.FMP_API_KEY;
+  if (!key) {
+    return {
+      available: false,
+      note: "FMP_API_KEY secret not set — add a free key from financialmodelingprep.com as a repo secret to enable this.",
+      candidates: []
+    };
+  }
 
-  const all = [...gainers, ...losers]
-    .filter(r => r.price > 5) // user's own filter: priced above $5
-    .sort((a, b) => b.volume - a.volume);
+  const note = [];
+  let gainers = [], losers = [], actives = [];
+  try { gainers = await fetchFmpList("biggest-gainers", key); } catch (e) { note.push("gainers: " + e.message); }
+  try { losers = await fetchFmpList("biggest-losers", key); } catch (e) { note.push("losers: " + e.message); }
+  try { actives = await fetchFmpList("most-actives", key); } catch (e) { note.push("actives: " + e.message); }
+
+  const byTicker = {};
+  [...gainers, ...losers, ...actives].forEach(r => {
+    const price = Number(r.price) || 0;
+    if (price <= 5) return; // user's own filter: priced above $5
+    const ticker = r.symbol;
+    if (!ticker || byTicker[ticker]) return;
+    byTicker[ticker] = {
+      ticker,
+      name: r.name || ticker,
+      price,
+      changePct: Number(r.changesPercentage) || 0
+    };
+  });
+
+  const tickers = Object.keys(byTicker);
+  let quotes = {};
+  try {
+    // Batch in chunks of 50 to stay well within reasonable URL/response size.
+    for (let i = 0; i < tickers.length; i += 50) {
+      const chunk = tickers.slice(i, i + 50);
+      const batch = await fetchFmpQuotesBatch(chunk, key);
+      quotes = { ...quotes, ...batch };
+    }
+  } catch (e) {
+    note.push("quote batch: " + e.message);
+  }
+
+  // Average volume needs a separate per-ticker call (profile endpoint).
+  const avgVolumes = {};
+  let avgVolFound = 0;
+  for (const ticker of tickers) {
+    const avg = await fetchFmpAverageVolume(ticker, key);
+    if (avg != null) { avgVolumes[ticker] = avg; avgVolFound++; }
+    await new Promise(r => setTimeout(r, 120)); // be a reasonable citizen toward the API
+  }
+  console.log(`[diag] Average volume found for ${avgVolFound} of ${tickers.length} screener tickers`);
+
+  const candidates = tickers.map(ticker => {
+    const base = byTicker[ticker];
+    const q = quotes[ticker] || {};
+    const volume = Number(q.volume) || 0;
+    const avgVolume = avgVolumes[ticker] || null;
+    const rvol = avgVolume ? volume / avgVolume : null;
+    return {
+      ...base,
+      volume,
+      avgVolume,
+      rvol, // e.g. 2.5 means trading at 2.5x its average volume
+      source: "Financial Modeling Prep (free tier, licensed API)",
+      sourceUrl: `https://financialmodelingprep.com/quote/${ticker}`
+    };
+  }).sort((a, b) => b.volume - a.volume);
 
   return {
-    available: all.length > 0,
-    note: note.join("; ") || (all.length ? "" : "No rows parsed — stockanalysis.com's page structure may have changed."),
-    source: "stockanalysis.com/markets/premarket (public, no login)",
-    candidates: all.map(r => ({
-      ...r,
-      source: "stockanalysis.com pre-market movers",
-      sourceUrl: "https://stockanalysis.com/stocks/" + r.ticker.toLowerCase() + "/"
-    }))
+    available: candidates.length > 0,
+    note: note.join("; ") || (candidates.length ? "" : "No candidates returned — check FMP_API_KEY is valid and has remaining free-tier quota."),
+    source: "Financial Modeling Prep (licensed free-tier API)",
+    candidates
   };
 }
 
