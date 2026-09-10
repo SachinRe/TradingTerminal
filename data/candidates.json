@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T15:46:38.465Z",
+  "generatedAt": "2026-09-10T15:55:32.156Z",
   "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
@@ -291,149 +291,15 @@
     }
   ],
   "screener": {
-    "available": true,
-    "note": "",
-    "source": "stockanalysis.com/markets/premarket (public, no login)",
-    "candidates": [
-      {
-        "ticker": "PCLA",
-        "name": "PicoCELA Inc.",
-        "price": 9.22,
-        "changePct": 24.26,
-        "volume": 1596642,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/pcla/",
-        "catalystHeadline": "PCLA Stock Climbs As Traders Zero In On Volatility",
-        "catalystUrl": "https://stockstotrade.com/news/picocela-inc-pcla-news-2026_09_10-2/"
-      },
-      {
-        "ticker": "AEO",
-        "name": "American Eagle Outfitters, Inc.",
-        "price": 14.15,
-        "changePct": -16.22,
-        "volume": 1220774,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/aeo/",
-        "catalystHeadline": "American Eagle (AEO) Shares Plunge 12% After Comparable Sales Disappoint",
-        "catalystUrl": "https://bitcoinethereumnews.com/tech/american-eagle-aeo-shares-plunge-12-after-comparable-sales-disappoint/"
-      },
-      {
-        "ticker": "SHOE",
-        "name": "Shoe Station Group Inc.",
-        "price": 10.18,
-        "changePct": -21.31,
-        "volume": 868067,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/shoe/",
-        "catalystHeadline": "Shoe Carnival Q2 Earnings Call Highlights",
-        "catalystUrl": "https://soz6.com/news/shoe-carnival-q2-earnings-call-highlights"
-      },
-      {
-        "ticker": "BHVN",
-        "name": "Biohaven Ltd.",
-        "price": 13.33,
-        "changePct": -11.13,
-        "volume": 676283,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/bhvn/",
-        "catalystHeadline": "Biohaven (BHVN) Cashes In On Its Biggest Epilepsy Bet",
-        "catalystUrl": "https://www.newslocker.com/en-us/profession/analyst/biohaven-bhvn-cashes-in-on-its-biggest-epilepsy-bet/"
-      },
-      {
-        "ticker": "COO",
-        "name": "The Cooper Companies, Inc.",
-        "price": 51.99,
-        "changePct": -18.1,
-        "volume": 323023,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/coo/",
-        "catalystHeadline": "Tinuiti Names Wes Harris Global Chief Operating Officer as Agency Scales for Next Phase of Enterprise Growth",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/10/tmt-newswire/globenewswire/tinuiti-names-wes-harris-global-chief-operating-officer-as-agency-scales-for-next-phase-of-enterprise-growth/2422831"
-      },
-      {
-        "ticker": "NAVN",
-        "name": "Navan, Inc.",
-        "price": 21.07,
-        "changePct": -18.62,
-        "volume": 249344,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/navn/",
-        "catalystHeadline": "Navan (NAVN) Stock Drops Sharply After Hours: Here&apos;s Why",
-        "catalystUrl": "https://www.benzinga.com/markets/equities/26/09/61704943/navan-navn-stock-drops-sharply-after-hours-heres-why"
-      },
-      {
-        "ticker": "ALMS",
-        "name": "Alumis Inc.",
-        "price": 10.61,
-        "changePct": 8.27,
-        "volume": 86408,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/alms/",
-        "catalystHeadline": "WATCH: 2 Transgender Groups Clash At Pune's Alandi Ghat Over Alms Collection; Knuckle-Duster Used In Attack, Police Case Registered",
-        "catalystUrl": "https://www.freepressjournal.in/pune/watch-2-transgender-groups-clash-at-punes-alandi-ghat-over-alms-collection-knuckle-duster-used-in-attack-police-case-registered"
-      },
-      {
-        "ticker": "FGL",
-        "name": "Founder Group Limited",
-        "price": 5.92,
-        "changePct": -12.89,
-        "volume": 55977,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/fgl/",
-        "catalystHeadline": "FGL Stock Surges As EV Charging Bet Ignites Trading",
-        "catalystUrl": "https://www.timothysykes.com/news/founder-group-limited-fgl-news-2026_09_09-3/"
-      },
-      {
-        "ticker": "LOVE",
-        "name": "The Lovesac Company",
-        "price": 13.55,
-        "changePct": -15.47,
-        "volume": 27244,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/love/",
-        "catalystHeadline": "Exclusive| Is Isha Rikhi ready to find love again after separation with Badshah? The Bigg Boss 20 contestant reveals",
-        "catalystUrl": "https://www.hindustantimes.com/htcity/cinema/exclusive-is-isha-rikhi-ready-to-find-love-again-after-separation-with-badshah-the-bigg-boss-20-contestant-reveals-101789054017368.html"
-      },
-      {
-        "ticker": "RGEN",
-        "name": "Repligen Corporation",
-        "price": 139.83,
-        "changePct": -15.28,
-        "volume": 2944,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/rgen/",
-        "catalystHeadline": "Repligen Corporation (RGEN) Presents at Wells Fargo 21st Annual Healthcare Conference Transcript",
-        "catalystUrl": "https://seekingalpha.com/article/4944610-repligen-corporation-rgen-presents-at-wells-fargo-21st-annual-healthcare-conference"
-      },
-      {
-        "ticker": "BVFL",
-        "name": "BV Financial, Inc.",
-        "price": 24,
-        "changePct": 11.99,
-        "volume": 1033,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/bvfl/",
-        "catalystHeadline": "BV Financial's Q2 Earnings Rise Y/Y on Lower Funding Costs",
-        "catalystUrl": "https://www.nasdaq.com/articles/bv-financials-q2-earnings-rise-y-y-lower-funding-costs"
-      },
-      {
-        "ticker": "AMPH",
-        "name": "Amphastar Pharmaceuticals, Inc.",
-        "price": 20,
-        "changePct": -13.19,
-        "volume": 675,
-        "source": "stockanalysis.com pre-market movers",
-        "sourceUrl": "https://stockanalysis.com/stocks/amph/",
-        "catalystHeadline": "Insider Sale: SENIOR EVP of $AMPH Sells 3,187 Shares",
-        "catalystUrl": "https://www.quiverquant.com/news/Insider+Sale%3A+SENIOR+EVP+of+%24AMPH+Sells+3%2C187+Shares"
-      }
-    ]
+    "available": false,
+    "note": "FMP_API_KEY secret not set — add a free key from financialmodelingprep.com as a repo secret to enable this.",
+    "candidates": []
   },
   "buzz": [
     {
       "ticker": "SPY",
       "name": "SPDR S&P 500 ETF Trust",
-      "price": 759.43,
+      "price": 758.82,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -442,20 +308,20 @@
       "catalystUrl": "https://www.manilatimes.net/2026/09/10/world/south-korea-trying-to-learn-if-kim-jong-un-has-a-son-but-daughters-status-as-heir-appears-solid/2422478"
     },
     {
-      "ticker": "IOVA",
-      "name": "Iovance Biotherapeutics Inc",
-      "price": 8.14,
+      "ticker": "QQQ",
+      "name": "Invesco QQQ Trust Series 1",
+      "price": 710.55,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/IOVA",
-      "catalystHeadline": "Iovance Biotherapeutics to Present at Upcoming Conferences",
-      "catalystUrl": "https://www.manilatimes.net/2026/09/04/tmt-newswire/globenewswire/iovance-biotherapeutics-to-present-at-upcoming-conferences/2418732"
+      "sourceUrl": "https://stocktwits.com/symbol/QQQ",
+      "catalystHeadline": "QQQ Price Prediction: Bulls Are Over-Positioned and the Tape Is Warning — $710 Test Before $722 Breakout",
+      "catalystUrl": "https://blockchain.news/news/20260910-price-prediction-qqq-bulls-are-over-positioned-and-the"
     },
     {
       "ticker": "AAPL",
       "name": "Apple Inc",
-      "price": 322.52,
+      "price": 319.57,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -464,26 +330,26 @@
       "catalystUrl": "https://bitcoinethereumnews.com/tech/apple-aapl-stock-analysis-foldable-iphone-duo-and-premium-strategy-impact/"
     },
     {
+      "ticker": "IOVA",
+      "name": "Iovance Biotherapeutics Inc",
+      "price": 8.15,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/IOVA",
+      "catalystHeadline": "Iovance Biotherapeutics to Present at Upcoming Conferences",
+      "catalystUrl": "https://www.manilatimes.net/2026/09/04/tmt-newswire/globenewswire/iovance-biotherapeutics-to-present-at-upcoming-conferences/2418732"
+    },
+    {
       "ticker": "USO",
       "name": "United States Oil Fund",
-      "price": 155.39,
+      "price": 156.4,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
       "sourceUrl": "https://stocktwits.com/symbol/USO",
       "catalystHeadline": "Tendências, crescimento e previsão do mercado global de equipamentos de ginástica para uso doméstico (2026–2035)",
       "catalystUrl": "https://fnonline.com.br/ciencia-e-tecnologia/tendencias-crescimento-e-previsao-do-mercado-global-de-equipamentos-de-ginastica-para-uso-domestico-2026-2035/2105388/"
-    },
-    {
-      "ticker": "BCRX",
-      "name": "Biocryst Pharmaceuticals Inc.",
-      "price": 8.12,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/BCRX",
-      "catalystHeadline": "BioCryst Pharma (BCRX): ORLADEYO Growth And Pipeline Catalysts Shape The Long-Term Outlook",
-      "catalystUrl": "https://www.rttnews.com/3689481/biocryst-pharma-bcrx-orladeyo-growth-and-pipeline-catalysts-shape-the-long-term-outlook.aspx"
     }
   ]
 }
