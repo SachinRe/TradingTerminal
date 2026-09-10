@@ -688,6 +688,29 @@
         </div>
       </div>
 
+      <div class="panel">
+        <div class="panel-header">
+          Sector Strength · Today's ≥9M-Volume Movers
+          <span class="tag">Inferred from live screener</span>
+        </div>
+        <div class="panel-body" id="sector-strength-body"></div>
+        <div class="note">Rolls up every live screener hit trading ≥9M shares today by sector — average gap%, up vs down count, and total volume. Sorted strongest to weakest by average gap%. Based only on today's ≥9M-volume movers, not the whole market, so treat it as a directional read, not a full sector breadth study.</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          Volume ≥ 9M Movers · Up or Down · By Sector
+          <span class="tag">EP9M-style filter</span>
+        </div>
+        <div class="panel-body" style="max-height: 320px; overflow-y: auto;">
+          <table>
+            <thead><tr><th>Ticker</th><th>Price</th><th>Gap</th><th>Direction</th><th>Volume</th><th>Sector</th><th>Action</th></tr></thead>
+            <tbody id="vol9m-table"></tbody>
+          </table>
+        </div>
+        <div class="note">Any stock (up or down) trading at least 9,000,000 shares today — matches your EP9M setup's volume floor. Sector comes from the same map used on the Dashboard's Sector Allocation; unclassified tickers get an inline dropdown to fix that once.</div>
+      </div>
+
       <div class="grid-2">
         <div class="panel">
           <div class="panel-header">Decision Tree (from guide)</div>
@@ -1600,6 +1623,8 @@
       }
 
       renderTopVolumeRvol(pool);
+      renderVolume9MMovers(pool);
+      renderSectorStrength(pool);
     }
 
     function renderTopVolumeRvol(pool) {
@@ -1639,6 +1664,102 @@
             <td><button class="btn btn-sm btn-accent" onclick="addToWatchlist('${c.ticker}')">Add</button></td>
           </tr>`).join("") || `<tr><td colspan="7" class="muted">No RVOL data yet — average-volume figures weren't available for these tickers this run.</td></tr>`;
       }
+    }
+
+    function renderVolume9MMovers(pool) {
+      const VOL_THRESHOLD = 9000000;
+      const body = document.getElementById("vol9m-table");
+      if (!body) return;
+      const sectorMap = getSectorMap();
+      const hits = pool.filter(c => c._live && c.volumeRaw != null && c.volumeRaw >= VOL_THRESHOLD);
+      const volFmt = (v) => v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
+
+      if (!hits.length) {
+        body.innerHTML = `<tr><td colspan="7" class="muted">No live candidates at ≥9M volume this run — check FMP_API_KEY is set, or wait for the next scheduled refresh.</td></tr>`;
+        return;
+      }
+      body.innerHTML = [...hits].sort((a, b) => b.volumeRaw - a.volumeRaw).map(c => {
+        const sector = sectorMap[c.ticker] || "Unclassified";
+        const sectorCell = sector === "Unclassified"
+          ? `<span class="muted">Unclassified</span>
+             <select onchange="assignSector('${c.ticker}', this.value); renderBullishBearish();" style="font-size:11px;padding:1px;margin-left:4px;">
+               <option value="">Set…</option>
+               ${SECTOR_LIST.map(s => `<option value="${s}">${s}</option>`).join("")}
+             </select>`
+          : sector;
+        return `<tr>
+          <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+          <td>$${c.price.toFixed(2)}</td>
+          <td class="${c.gap >= 0 ? "pos" : "neg"}">${c.gap > 0 ? "+" : ""}${c.gap}%</td>
+          <td>${c.gap >= 0 ? `<span class="pos">Up</span>` : `<span class="neg">Down</span>`}</td>
+          <td>${volFmt(c.volumeRaw)}</td>
+          <td style="font-size:11px;">${sectorCell}</td>
+          <td><button class="btn btn-sm btn-accent" onclick="addToWatchlist('${c.ticker}')">Add</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    function renderSectorStrength(pool) {
+      const VOL_THRESHOLD = 9000000;
+      const el = document.getElementById("sector-strength-body");
+      if (!el) return;
+      const sectorMap = getSectorMap();
+      const hits = pool.filter(c => c._live && c.volumeRaw != null && c.volumeRaw >= VOL_THRESHOLD);
+
+      if (!hits.length) {
+        el.innerHTML = `<div class="wl-empty">No live ≥9M-volume movers this run yet — nothing to roll up by sector.</div>`;
+        return;
+      }
+
+      const bySector = {};
+      hits.forEach(c => {
+        const sector = sectorMap[c.ticker] || "Unclassified";
+        if (!bySector[sector]) bySector[sector] = { tickers: [], gapSum: 0, up: 0, down: 0, volumeSum: 0 };
+        const s = bySector[sector];
+        s.tickers.push(c.ticker);
+        s.gapSum += c.gap;
+        if (c.gap >= 0) s.up++; else s.down++;
+        s.volumeSum += c.volumeRaw;
+      });
+
+      const rows = Object.entries(bySector).map(([sector, s]) => ({
+        sector,
+        n: s.tickers.length,
+        avgGap: s.gapSum / s.tickers.length,
+        up: s.up,
+        down: s.down,
+        volumeSum: s.volumeSum,
+        tickers: s.tickers
+      })).sort((a, b) => b.avgGap - a.avgGap);
+
+      const volFmt = (v) => v >= 1e6 ? (v / 1e6).toFixed(0) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
+      const maxAbsGap = Math.max(...rows.map(r => Math.abs(r.avgGap)), 1);
+
+      el.innerHTML = `<table>
+        <thead><tr><th>Sector</th><th># Tickers</th><th>Up / Down</th><th>Avg Gap%</th><th>Total Volume</th><th></th></tr></thead>
+        <tbody>
+          ${rows.map(r => {
+            const barPct = (Math.abs(r.avgGap) / maxAbsGap) * 100;
+            const barColor = r.avgGap >= 0 ? "#22c55e" : "#ef4444";
+            return `<tr>
+              <td><strong>${r.sector}</strong></td>
+              <td>${r.n}</td>
+              <td><span class="pos">${r.up}</span> / <span class="neg">${r.down}</span></td>
+              <td class="${r.avgGap >= 0 ? "pos" : "neg"}">${r.avgGap >= 0 ? "+" : ""}${r.avgGap.toFixed(1)}%</td>
+              <td>${volFmt(r.volumeSum)}</td>
+              <td style="width:100px;">
+                <div style="background:#1f2937;border-radius:4px;height:8px;overflow:hidden;">
+                  <div style="width:${barPct}%;height:100%;background:${barColor};"></div>
+                </div>
+              </td>
+            </tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:8px;">
+        Strongest: <strong class="pos">${rows[0].sector}</strong> (${rows[0].avgGap >= 0 ? "+" : ""}${rows[0].avgGap.toFixed(1)}% avg) ·
+        Weakest: <strong class="neg">${rows[rows.length - 1].sector}</strong> (${rows[rows.length - 1].avgGap >= 0 ? "+" : ""}${rows[rows.length - 1].avgGap.toFixed(1)}% avg)
+      </div>`;
     }
 
     function renderSIPTable() {
