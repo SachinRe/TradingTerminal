@@ -688,14 +688,23 @@
         </div>
       </div>
 
-      <div class="panel">
-        <div class="panel-header">
-          Sector Strength · Today's ≥9M-Volume Movers
-          <span class="tag">Inferred from live screener</span>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">
+            Top 5 Bullish Sectors
+            <span class="tag" style="background:#14532d;color:#86efac;">≥9M-Volume Movers</span>
+          </div>
+          <div class="panel-body" id="sector-strength-bullish"></div>
         </div>
-        <div class="panel-body" id="sector-strength-body"></div>
-        <div class="note">Rolls up every live screener hit trading ≥9M shares today by sector — average gap%, up vs down count, and total volume. Sorted strongest to weakest by average gap%. Based only on today's ≥9M-volume movers, not the whole market, so treat it as a directional read, not a full sector breadth study.</div>
+        <div class="panel">
+          <div class="panel-header">
+            Top 5 Bearish Sectors
+            <span class="tag" style="background:#7f1d1d;color:#fecaca;">≥9M-Volume Movers</span>
+          </div>
+          <div class="panel-body" id="sector-strength-bearish"></div>
+        </div>
       </div>
+      <div class="note" style="margin-top:-8px;margin-bottom:12px;">Bullish ranks sectors by how many stocks are up at ≥9M volume today; Bearish ranks by how many are down. A sector can appear in both if it has both up and down movers — each table only lists that direction's tickers. Based only on today's ≥9M-volume movers, not the whole market.</div>
 
       <div class="panel">
         <div class="panel-header">
@@ -1701,65 +1710,66 @@
 
     function renderSectorStrength(pool) {
       const VOL_THRESHOLD = 9000000;
-      const el = document.getElementById("sector-strength-body");
-      if (!el) return;
+      const bullBody = document.getElementById("sector-strength-bullish");
+      const bearBody = document.getElementById("sector-strength-bearish");
+      if (!bullBody || !bearBody) return;
       const sectorMap = getSectorMap();
       const hits = pool.filter(c => c._live && c.volumeRaw != null && c.volumeRaw >= VOL_THRESHOLD);
 
       if (!hits.length) {
-        el.innerHTML = `<div class="wl-empty">No live ≥9M-volume movers this run yet — nothing to roll up by sector.</div>`;
+        const emptyMsg = `<div class="wl-empty">No live ≥9M-volume movers this run yet — nothing to roll up by sector.</div>`;
+        bullBody.innerHTML = emptyMsg;
+        bearBody.innerHTML = emptyMsg;
         return;
       }
 
-      const bySector = {};
-      hits.forEach(c => {
-        const sector = sectorMap[c.ticker] || "Unclassified";
-        if (!bySector[sector]) bySector[sector] = { tickers: [], gapSum: 0, up: 0, down: 0, volumeSum: 0 };
-        const s = bySector[sector];
-        s.tickers.push(c.ticker);
-        s.gapSum += c.gap;
-        if (c.gap >= 0) s.up++; else s.down++;
-        s.volumeSum += c.volumeRaw;
-      });
-
-      const rows = Object.entries(bySector).map(([sector, s]) => ({
-        sector,
-        n: s.tickers.length,
-        avgGap: s.gapSum / s.tickers.length,
-        up: s.up,
-        down: s.down,
-        volumeSum: s.volumeSum,
-        tickers: s.tickers
-      })).sort((a, b) => b.avgGap - a.avgGap);
-
-      const volFmt = (v) => v >= 1e6 ? (v / 1e6).toFixed(0) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
-      const maxAbsGap = Math.max(...rows.map(r => Math.abs(r.avgGap)), 1);
-
-      el.innerHTML = `<table>
-        <thead><tr><th>Sector</th><th># Tickers</th><th>Up / Down</th><th>Avg Gap%</th><th>Total Volume</th><th></th></tr></thead>
+      const volFmt = (v) => v >= 1e6 ? (v / 1e6).toFixed(1) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
+      const renderTickerTable = (rows) => `<table>
+        <thead><tr><th>Ticker</th><th>Price</th><th>Gap%</th><th>Volume</th></tr></thead>
         <tbody>
-          ${rows.map(r => {
-            const barPct = (Math.abs(r.avgGap) / maxAbsGap) * 100;
-            const barColor = r.avgGap >= 0 ? "#22c55e" : "#ef4444";
-            return `<tr>
-              <td><strong>${r.sector}</strong></td>
-              <td>${r.n}</td>
-              <td><span class="pos">${r.up}</span> / <span class="neg">${r.down}</span></td>
-              <td class="${r.avgGap >= 0 ? "pos" : "neg"}">${r.avgGap >= 0 ? "+" : ""}${r.avgGap.toFixed(1)}%</td>
-              <td>${volFmt(r.volumeSum)}</td>
-              <td style="width:100px;">
-                <div style="background:#1f2937;border-radius:4px;height:8px;overflow:hidden;">
-                  <div style="width:${barPct}%;height:100%;background:${barColor};"></div>
-                </div>
-              </td>
-            </tr>`;
-          }).join("")}
+          ${rows.map(c => `<tr>
+            <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+            <td>$${c.price.toFixed(2)}</td>
+            <td class="${c.gap >= 0 ? "pos" : "neg"}">${c.gap >= 0 ? "+" : ""}${c.gap}%</td>
+            <td>${volFmt(c.volumeRaw)}</td>
+          </tr>`).join("")}
         </tbody>
-      </table>
-      <div class="note" style="margin-top:8px;">
-        Strongest: <strong class="pos">${rows[0].sector}</strong> (${rows[0].avgGap >= 0 ? "+" : ""}${rows[0].avgGap.toFixed(1)}% avg) ·
-        Weakest: <strong class="neg">${rows[rows.length - 1].sector}</strong> (${rows[rows.length - 1].avgGap >= 0 ? "+" : ""}${rows[rows.length - 1].avgGap.toFixed(1)}% avg)
-      </div>`;
+      </table>`;
+      const renderSectorGroups = (list, cls) => list.map(s => `
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+            <strong style="font-size:13px;">${s.sector}</strong>
+            <span class="muted" style="font-size:11px;"><span class="${cls}">${s.n}</span> stock${s.n === 1 ? "" : "s"} ≥9M volume</span>
+          </div>
+          ${renderTickerTable(s.rows)}
+        </div>`).join("");
+
+      // Bullish: sectors ranked by COUNT of stocks up (gap >= 0) at ≥9M volume.
+      const upBySector = {};
+      hits.filter(c => c.gap >= 0).forEach(c => {
+        const sector = sectorMap[c.ticker] || "Unclassified";
+        if (!upBySector[sector]) upBySector[sector] = [];
+        upBySector[sector].push(c);
+      });
+      const bullish = Object.entries(upBySector)
+        .map(([sector, rows]) => ({ sector, n: rows.length, rows: [...rows].sort((a, b) => b.volumeRaw - a.volumeRaw) }))
+        .sort((a, b) => b.n - a.n)
+        .slice(0, 5);
+
+      // Bearish: sectors ranked by COUNT of stocks down (gap < 0) at ≥9M volume.
+      const downBySector = {};
+      hits.filter(c => c.gap < 0).forEach(c => {
+        const sector = sectorMap[c.ticker] || "Unclassified";
+        if (!downBySector[sector]) downBySector[sector] = [];
+        downBySector[sector].push(c);
+      });
+      const bearish = Object.entries(downBySector)
+        .map(([sector, rows]) => ({ sector, n: rows.length, rows: [...rows].sort((a, b) => b.volumeRaw - a.volumeRaw) }))
+        .sort((a, b) => b.n - a.n)
+        .slice(0, 5);
+
+      bullBody.innerHTML = bullish.length ? renderSectorGroups(bullish, "pos") : `<div class="wl-empty">No sectors with up-moving ≥9M-volume stocks today.</div>`;
+      bearBody.innerHTML = bearish.length ? renderSectorGroups(bearish, "neg") : `<div class="wl-empty">No sectors with down-moving ≥9M-volume stocks today.</div>`;
     }
 
     function renderSIPTable() {
