@@ -791,6 +791,35 @@
         </div>
       </div>
 
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">
+            Top 5 Pre-Market Movers · By Volume
+            <span class="tag">Financial Modeling Prep</span>
+          </div>
+          <div class="panel-body" style="max-height: 260px; overflow-y: auto;">
+            <table>
+              <thead><tr><th>#</th><th>Ticker</th><th>Price</th><th>Gap</th><th>Volume</th><th>RVOL</th><th>Action</th></tr></thead>
+              <tbody id="top-volume-table"></tbody>
+            </table>
+          </div>
+          <div class="note">Highest raw share volume among today's price/gainer/loser/active screener hits (priced above $5).</div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            Top 5 Pre-Market Movers · By RVOL%
+            <span class="tag">Financial Modeling Prep</span>
+          </div>
+          <div class="panel-body" style="max-height: 260px; overflow-y: auto;">
+            <table>
+              <thead><tr><th>#</th><th>Ticker</th><th>Price</th><th>Gap</th><th>Volume</th><th>RVOL</th><th>Action</th></tr></thead>
+              <tbody id="top-rvol-table"></tbody>
+            </table>
+          </div>
+          <div class="note">RVOL = today's volume ÷ average volume. 3.0x means trading at 3x its normal pace — a real signal of unusual activity, not just a big raw number.</div>
+        </div>
+      </div>
+
       <div class="panel">
         <div class="panel-header">
           NTRT Discover · Qualify list
@@ -897,9 +926,43 @@
     <!-- WATCHLIST (with Execute + Manage Risk as sub-menus) -->
     <div id="watchlist" class="section">
       <div class="steps" style="border:1px solid var(--border);border-radius:6px 6px 0 0;margin-bottom:0;background:#0f172a;">
+        <div class="step-tab" data-wl-sub="wl-tradeplan" onclick="switchWatchSub(this)">Weekly Trade Plan</div>
         <div class="step-tab active" data-wl-sub="wl-list" onclick="switchWatchSub(this)">Saved Plans</div>
         <div class="step-tab" data-wl-sub="wl-execute" onclick="switchWatchSub(this)">4 · Execute</div>
         <div class="step-tab" data-wl-sub="wl-risk" onclick="switchWatchSub(this)">5 · Manage Risk</div>
+      </div>
+
+      <!-- Sub: Weekly Trade Plan (plan the day before, grouped by week) -->
+      <div id="wl-tradeplan" class="wl-sub" style="display:none;">
+        <div class="panel" style="border-top:none;">
+          <div class="panel-header" id="tradeplan-form-header">Add / Update a Planned Trade</div>
+          <div class="panel-body">
+            <div class="form-row" style="flex-wrap:wrap;">
+              <div class="form-group"><label>Ticker</label><input type="text" id="tp-ticker" style="width:90px" /></div>
+              <div class="form-group"><label>Strategy</label><select id="tp-strategy" style="width:150px"></select></div>
+              <div class="form-group"><label>Entry Price</label><input type="number" id="tp-entry" step="0.01" style="width:100px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Stop Loss</label><input type="number" id="tp-stop" step="0.01" style="width:100px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Equity Risk %</label><input type="number" id="tp-riskpct" step="0.1" value="1" style="width:90px" oninput="updateTradePlanSharesPreview()" /></div>
+            </div>
+            <div class="form-group" style="margin-top:6px;"><label>Comments</label><textarea id="tp-comments" rows="2" style="width:100%"></textarea></div>
+            <div id="tp-shares-preview" class="note" style="margin-top:6px;">Enter entry, stop, and risk % to see the calculated share count.</div>
+            <div style="margin-top:10px;">
+              <button class="btn btn-accent" onclick="saveTradePlan()">Save to Plan</button>
+              <button class="btn btn-sm" onclick="resetTradePlanForm()">Clear form</button>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            Performance of Watchlist-Origin Trades
+            <span class="tag">How tickers you planned actually performed</span>
+          </div>
+          <div class="panel-body" id="tradeplan-report-body"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">Planned Trades · Grouped by Week</div>
+          <div class="panel-body" id="tradeplan-weeks-body"></div>
+        </div>
       </div>
 
       <!-- Sub: Saved Plans (market-open view) -->
@@ -1089,6 +1152,20 @@
 
     <!-- POSITIONS -->
     <div id="positions" class="section">
+      <div class="panel">
+        <div class="panel-header">Live Price Source · FMP API Key</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:8px;">
+            Live price lookups use Financial Modeling Prep's free-tier API — a real, properly-licensed developer API, not a scraped endpoint. Your key lives only in this browser's local storage and is sent directly to FMP when fetching prices, never written to the repo. Same key you set up for the scheduled screener works here too.
+          </div>
+          <div class="form-row">
+            <input type="password" id="fmp-client-key-input" placeholder="Paste your FMP API key" style="width:280px;" />
+            <button class="btn btn-sm btn-accent" onclick="saveFmpClientKey()">Save key</button>
+            <button class="btn btn-sm" onclick="clearFmpClientKey()">Clear key</button>
+          </div>
+          <div class="muted" style="font-size:11px;margin-top:6px;" id="fmp-client-key-status">No FMP key saved yet — live price fetch will fail until you add one.</div>
+        </div>
+      </div>
       <div class="panel">
         <div class="panel-header">
           Open Positions
@@ -1519,6 +1596,47 @@
           </tr>`;
         }).join("") || `<tr><td colspan="7" class="muted">No bearish candidates</td></tr>`;
       }
+
+      renderTopVolumeRvol(pool);
+    }
+
+    function renderTopVolumeRvol(pool) {
+      // Only real screener candidates have genuine volume/RVOL data (demo
+      // rows and StockTwits buzz rows don't carry these fields).
+      const withVolume = pool.filter(c => c._live && c.volumeRaw != null && c.volumeRaw > 0);
+      const volFmt = (v) => v >= 1e6 ? (v / 1e6).toFixed(1) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
+      const rvolFmt = (r) => r == null ? "—" : r.toFixed(2) + "x";
+
+      const topVolume = [...withVolume].sort((a, b) => b.volumeRaw - a.volumeRaw).slice(0, 5);
+      const volBody = document.getElementById("top-volume-table");
+      if (volBody) {
+        volBody.innerHTML = topVolume.map((c, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+            <td>$${c.price.toFixed(2)}</td>
+            <td class="${c.gap >= 0 ? "pos" : "neg"}">${c.gap > 0 ? "+" : ""}${c.gap}%</td>
+            <td>${volFmt(c.volumeRaw)}</td>
+            <td>${rvolFmt(c.rvol)}</td>
+            <td><button class="btn btn-sm btn-accent" onclick="addToWatchlist('${c.ticker}')">Add</button></td>
+          </tr>`).join("") || `<tr><td colspan="7" class="muted">No live volume data yet — check FMP_API_KEY is set, or wait for the next scheduled run.</td></tr>`;
+      }
+
+      const withRvol = withVolume.filter(c => c.rvol != null);
+      const topRvol = [...withRvol].sort((a, b) => b.rvol - a.rvol).slice(0, 5);
+      const rvolBody = document.getElementById("top-rvol-table");
+      if (rvolBody) {
+        rvolBody.innerHTML = topRvol.map((c, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+            <td>$${c.price.toFixed(2)}</td>
+            <td class="${c.gap >= 0 ? "pos" : "neg"}">${c.gap > 0 ? "+" : ""}${c.gap}%</td>
+            <td>${volFmt(c.volumeRaw)}</td>
+            <td><strong>${rvolFmt(c.rvol)}</strong></td>
+            <td><button class="btn btn-sm btn-accent" onclick="addToWatchlist('${c.ticker}')">Add</button></td>
+          </tr>`).join("") || `<tr><td colspan="7" class="muted">No RVOL data yet — average-volume figures weren't available for these tickers this run.</td></tr>`;
+      }
     }
 
     function renderSIPTable() {
@@ -1614,6 +1732,207 @@
     function saveWatchlist(list) {
       localStorage.setItem("sip_watchlist", JSON.stringify(list));
     }
+
+    // ---- Weekly Trade Plan: plan trades the day before, grouped by week ----
+    function getTradePlans() {
+      try { return JSON.parse(localStorage.getItem("tt_trade_plans") || "[]"); }
+      catch (e) { return []; }
+    }
+    function saveTradePlans(list) {
+      localStorage.setItem("tt_trade_plans", JSON.stringify(list));
+    }
+    function weekStartOf(dateStr) {
+      const d = new Date(dateStr + "T00:00:00");
+      const day = (d.getDay() + 6) % 7; // 0 = Monday
+      d.setDate(d.getDate() - day);
+      return d.toISOString().slice(0, 10);
+    }
+    function computeTradePlanShares(entry, stop, riskPct) {
+      const equity = getCurrentPortfolioValueComputed();
+      const perShareRisk = Math.abs(entry - stop);
+      if (!equity || !perShareRisk || perShareRisk <= 0) return null;
+      const riskDollars = equity * (riskPct / 100);
+      return Math.floor(riskDollars / perShareRisk);
+    }
+    function updateTradePlanSharesPreview() {
+      const entry = parseFloat(document.getElementById("tp-entry").value);
+      const stop = parseFloat(document.getElementById("tp-stop").value);
+      const riskPct = parseFloat(document.getElementById("tp-riskpct").value);
+      const el = document.getElementById("tp-shares-preview");
+      if (!el) return;
+      if (isNaN(entry) || isNaN(stop) || isNaN(riskPct) || entry === stop) {
+        el.textContent = "Enter entry, stop, and risk % to see the calculated share count.";
+        return;
+      }
+      const equity = getCurrentPortfolioValueComputed();
+      const shares = computeTradePlanShares(entry, stop, riskPct);
+      if (shares == null || shares <= 0) {
+        el.textContent = "Can't calculate shares yet — set a Starting Portfolio Value in Account Snapshot first.";
+        return;
+      }
+      el.innerHTML = `<strong>${shares} shares</strong> · risking ${riskPct}% of $${equity.toLocaleString(undefined, { maximumFractionDigits: 0 })} = $${(equity * riskPct / 100).toFixed(2)} on a $${Math.abs(entry - stop).toFixed(2)}/share stop distance.`;
+    }
+    let editingTradePlanId = null;
+    function saveTradePlan() {
+      const ticker = document.getElementById("tp-ticker").value.trim().toUpperCase();
+      const strategy = document.getElementById("tp-strategy").value;
+      const entry = parseFloat(document.getElementById("tp-entry").value);
+      const stop = parseFloat(document.getElementById("tp-stop").value);
+      const riskPct = parseFloat(document.getElementById("tp-riskpct").value);
+      const comments = document.getElementById("tp-comments").value.trim();
+      if (!ticker) { alert("Enter a ticker"); return; }
+      if (isNaN(entry) || isNaN(stop)) { alert("Enter both Entry Price and Stop Loss"); return; }
+      const shares = computeTradePlanShares(entry, stop, riskPct);
+
+      const list = getTradePlans();
+      if (editingTradePlanId) {
+        const idx = list.findIndex(p => p.id === editingTradePlanId);
+        if (idx >= 0) {
+          list[idx] = { ...list[idx], ticker, strategy, entry, stop, riskPct, comments, shares };
+        }
+      } else {
+        list.unshift({
+          id: "tp-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
+          dateAdded: new Date().toISOString().slice(0, 10),
+          ticker, strategy, entry, stop, riskPct, comments, shares
+        });
+      }
+      saveTradePlans(list);
+      resetTradePlanForm();
+      renderTradePlans();
+    }
+    function editTradePlan(id) {
+      const plan = getTradePlans().find(p => p.id === id);
+      if (!plan) return;
+      editingTradePlanId = id;
+      document.getElementById("tradeplan-form-header").textContent = "Editing " + plan.ticker + " (added " + plan.dateAdded + ")";
+      document.getElementById("tp-ticker").value = plan.ticker;
+      document.getElementById("tp-strategy").value = plan.strategy;
+      document.getElementById("tp-entry").value = plan.entry;
+      document.getElementById("tp-stop").value = plan.stop;
+      document.getElementById("tp-riskpct").value = plan.riskPct;
+      document.getElementById("tp-comments").value = plan.comments || "";
+      updateTradePlanSharesPreview();
+      document.getElementById("tp-ticker").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    function deleteTradePlan(id) {
+      const plan = getTradePlans().find(p => p.id === id);
+      if (!plan) return;
+      if (!confirm("Delete planned trade for " + plan.ticker + "?")) return;
+      saveTradePlans(getTradePlans().filter(p => p.id !== id));
+      renderTradePlans();
+    }
+    function resetTradePlanForm() {
+      editingTradePlanId = null;
+      document.getElementById("tradeplan-form-header").textContent = "Add / Update a Planned Trade";
+      ["tp-ticker", "tp-entry", "tp-stop", "tp-comments"].forEach(id => document.getElementById(id).value = "");
+      document.getElementById("tp-riskpct").value = 1;
+      document.getElementById("tp-strategy").innerHTML = setupOptionsHtml();
+      document.getElementById("tp-shares-preview").textContent = "Enter entry, stop, and risk % to see the calculated share count.";
+    }
+    function renderTradePlans() {
+      const body = document.getElementById("tradeplan-weeks-body");
+      if (!body) return;
+      const strategySel = document.getElementById("tp-strategy");
+      if (strategySel && !strategySel.innerHTML) strategySel.innerHTML = setupOptionsHtml();
+
+      const plans = getTradePlans();
+      if (!plans.length) {
+        body.innerHTML = `<div class="wl-empty">No planned trades yet — add one above. This is where you plan the day before and come back to focus on it.</div>`;
+      } else {
+        const byWeek = {};
+        plans.forEach(p => {
+          const wk = weekStartOf(p.dateAdded);
+          if (!byWeek[wk]) byWeek[wk] = [];
+          byWeek[wk].push(p);
+        });
+        const weeks = Object.keys(byWeek).sort().reverse(); // most recent week first
+        body.innerHTML = weeks.map(wk => {
+          const rows = byWeek[wk].sort((a, b) => b.dateAdded.localeCompare(a.dateAdded));
+          return `<div style="margin-bottom:18px;">
+            <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px;">Week of ${wk}</div>
+            <table>
+              <thead><tr><th>Date</th><th>Ticker</th><th>Strategy</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Comments</th><th></th></tr></thead>
+              <tbody>
+                ${rows.map(p => `<tr>
+                  <td class="muted" style="font-size:11px;">${p.dateAdded}</td>
+                  <td><span class="ticker-link" onclick="showDetail('${p.ticker}')">${p.ticker}</span></td>
+                  <td><span class="tag" style="background:#0e7490;color:#a5f3fc;">${p.strategy}</span></td>
+                  <td class="pos">$${Number(p.entry).toFixed(2)}</td>
+                  <td class="neg">$${Number(p.stop).toFixed(2)}</td>
+                  <td>${p.riskPct}%</td>
+                  <td>${p.shares != null ? p.shares : "—"}</td>
+                  <td style="font-size:11px;max-width:220px;white-space:normal;">${p.comments || "—"}</td>
+                  <td style="white-space:nowrap;">
+                    <button class="btn btn-sm" onclick="editTradePlan('${p.id}')">Edit</button>
+                    <button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deleteTradePlan('${p.id}')">Delete</button>
+                  </td>
+                </tr>`).join("")}
+              </tbody>
+            </table>
+          </div>`;
+        }).join("");
+      }
+      renderTradePlanReport(plans);
+    }
+    function tradeMatchesAPlan(trade, plans) {
+      // Match by ticker AND proximity in time — the trade's entry date (when
+      // available, since planning happens before entry, not before exit) or
+      // its exit date as a fallback, within 7 days of when the plan was made.
+      const ticker = (trade.ticker || "").toUpperCase();
+      const refDateStr = trade.entryDate || trade.date;
+      if (!refDateStr) return false;
+      const refDate = new Date(refDateStr + "T00:00:00");
+      return plans.some(p => {
+        if (p.ticker !== ticker) return false;
+        const planDate = new Date(p.dateAdded + "T00:00:00");
+        const diffDays = Math.abs((refDate - planDate) / 86400000);
+        return diffDays <= 7;
+      });
+    }
+    function renderTradePlanReport(plans) {
+      const el = document.getElementById("tradeplan-report-body");
+      if (!el) return;
+      plans = plans || getTradePlans();
+      if (!plans.length) {
+        el.innerHTML = `<div class="wl-empty">Add planned trades above to see how they performed.</div>`;
+        return;
+      }
+      const plannedTickers = new Set(plans.map(p => p.ticker));
+      const allClosed = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      const matched = allClosed.filter(t => tradeMatchesAPlan(t, plans));
+      if (!matched.length) {
+        el.innerHTML = `<div class="wl-empty">${plannedTickers.size} planned ticker(s) so far, but no closed trades within 7 days of a plan date yet. Log or import trades near when you planned them to see performance here.</div>`;
+        return;
+      }
+      const s = computeTradeStats(matched);
+      const money = (n) => (n < 0 ? "-$" : "$") + Math.abs(n).toFixed(2);
+      el.innerHTML = `
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;">
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Watchlist Trades</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;">${s.n} of ${allClosed.length}</div>
+          </div>
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Net P&amp;L</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;" class="${s.sum >= 0 ? "pos" : "neg"}">${money(s.sum)}</div>
+          </div>
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Win Rate</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;">${s.wr.toFixed(1)}%</div>
+          </div>
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Avg Win / Loss</div>
+            <div style="font-size:14px;font-weight:700;margin-top:4px;">${money(s.avgW)} / ${money(s.avgL)}</div>
+          </div>
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">SQN</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;">${s.sqn != null ? s.sqn.toFixed(2) : "—"}</div>
+          </div>
+        </div>
+        <div class="note" style="margin-top:8px;">Trades within 7 days of a plan date on the same ticker (${plannedTickers.size} unique tickers planned), compared against your overall trade count of ${allClosed.length} — useful for seeing whether planned trades outperform impulsive/unplanned ones.</div>`;
+    }
+
     function assessSetup(c) {
       if (!c) return { type: "SIP", reason: "Default — insufficient data" };
       if (c.avoid) return { type: "SIP", reason: "AVOID for long — if traded at all, treat as tactical SIP only" };
@@ -1997,6 +2316,8 @@
       if (jSel) jSel.innerHTML = setupOptionsHtml();
       const manualSel = document.getElementById("wl-manual-setup");
       if (manualSel) manualSel.innerHTML = setupOptionsHtml();
+      const tpSel = document.getElementById("tp-strategy");
+      if (tpSel) tpSel.innerHTML = setupOptionsHtml();
       renderDashboard();
       alert("Setup \"" + key + "\" saved. It's now available everywhere setups are selected.");
     }
@@ -2009,6 +2330,8 @@
       if (jSel) jSel.innerHTML = setupOptionsHtml();
       const manualSel = document.getElementById("wl-manual-setup");
       if (manualSel) manualSel.innerHTML = setupOptionsHtml();
+      const tpSel = document.getElementById("tp-strategy");
+      if (tpSel) tpSel.innerHTML = setupOptionsHtml();
     }
 
     function renderWatchlist() {
@@ -2294,6 +2617,8 @@
         price,
         gap: gapPct,
         vol: lc.volume ? (lc.volume >= 1e6 ? (lc.volume / 1e6).toFixed(1) + "M" : (lc.volume / 1e3).toFixed(0) + "K") : "—",
+        volumeRaw: lc.volume || 0,
+        rvol: lc.rvol != null ? Number(lc.rvol.toFixed(2)) : null,
         // Baseline of 30 + gap/volume factors, so a genuinely strong live
         // mover lands in a meaningful score band instead of always reading
         // as "low" purely because the raw formula skews low by default.
@@ -2312,7 +2637,8 @@
         targets,
         rationale: kind === "buzz"
           ? "Flagged by StockTwits trending feed (real substitute for X — see notes)."
-          : "Flagged by scheduled pre-market screener: " + (lc.changePct || 0).toFixed(1) + "% move on " + (lc.volume || 0).toLocaleString() + " volume.",
+          : "Flagged by scheduled pre-market screener: " + (lc.changePct || 0).toFixed(1) + "% move on " + (lc.volume || 0).toLocaleString() + " volume" +
+            (lc.rvol != null ? " (" + lc.rvol.toFixed(2) + "x average volume)" : "") + ".",
         sources: [
           { name: lc.source || "Live source", url: lc.sourceUrl || null },
           ...(lc.catalystHeadline ? [{ name: "News: " + lc.catalystHeadline, url: lc.catalystUrl || null }] : [])
@@ -2792,6 +3118,7 @@
         panel.style.display = "block";
         panel.classList.add("active");
       }
+      if (sub === "wl-tradeplan") renderTradePlans();
       updateExecRiskVisibility();
     }
 
@@ -2927,48 +3254,77 @@
     // depending on whether that endpoint allows cross-origin requests (CORS)
     // — if it fails, that's almost certainly why, and manual entry is the
     // reliable fallback either way. This is also an undocumented endpoint,
-    // not an official API, so field names could change without notice.
+    // Client-side live price lookup via FMP (properly licensed free-tier API,
+    // unlike the stockanalysis.com endpoint this replaces — their own help
+    // page explicitly says no programmatic access is authorized). Needs your
+    // own FMP key entered below, same local-storage-only pattern as the
+    // Gemini key.
     function setLivePriceStatus(text) {
       const el = document.getElementById("live-price-status");
       if (el) el.textContent = text;
     }
+    function getFmpClientKey() {
+      return localStorage.getItem("tt_fmp_client_key") || "";
+    }
+    function saveFmpClientKey() {
+      const input = document.getElementById("fmp-client-key-input");
+      const key = input ? input.value.trim() : "";
+      if (!key) { alert("Paste your FMP API key first."); return; }
+      localStorage.setItem("tt_fmp_client_key", key);
+      renderFmpClientKeyStatus();
+      alert("Key saved to this browser only — sent directly to FMP's API when fetching prices, never written to the repo.");
+    }
+    function clearFmpClientKey() {
+      localStorage.removeItem("tt_fmp_client_key");
+      renderFmpClientKeyStatus();
+    }
+    function renderFmpClientKeyStatus() {
+      const el = document.getElementById("fmp-client-key-status");
+      if (!el) return;
+      const key = getFmpClientKey();
+      el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No FMP key saved yet — live price fetch will fail until you add one.";
+    }
+    async function fmpQuotePrice(ticker, key) {
+      const res = await fetch(`https://financialmodelingprep.com/stable/quote?symbol=${encodeURIComponent(ticker)}&apikey=${encodeURIComponent(key)}`);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      const q = Array.isArray(data) ? data[0] : null;
+      if (!q || q.price == null) throw new Error("No price in response");
+      return q.price;
+    }
     async function fetchLivePrice(ticker, source, btn) {
       const originalText = btn ? btn.textContent : "";
       if (btn) { btn.textContent = "…"; btn.disabled = true; }
+      const key = getFmpClientKey();
+      if (!key) {
+        setLivePriceStatus("No FMP key saved — add one below, or enter the price manually.");
+        if (btn) { btn.textContent = originalText; btn.disabled = false; }
+        return;
+      }
       try {
-        const res = await fetch(`https://stockanalysis.com/api/quotes/s/${ticker.toLowerCase()}`);
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const json = await res.json();
-        const d = json.data;
-        if (!d) throw new Error("Unexpected response shape");
-        // Prefer the extended-hours price if we're in pre-market/after-hours,
-        // otherwise the regular last price.
-        const isExtended = d.ms === "Pre-market" || d.ms === "After-hours" || d.fms === "pre" || d.fms === "post";
-        const price = isExtended && d.ep != null ? d.ep : d.p;
-        if (price == null || isNaN(price)) throw new Error("No price field found");
+        const price = await fmpQuotePrice(ticker, key);
         if (source === "plan") updateWatchlistPositionPrice(ticker, price);
         else updateOpenLotPrice(ticker, price);
         renderPositions();
         setLivePriceStatus("Updated " + ticker + " · $" + Number(price).toFixed(2) + " · " + new Date().toLocaleTimeString());
       } catch (e) {
-        setLivePriceStatus("Couldn't fetch a live price for " + ticker + " (" + e.message + ") — likely a CORS block. Enter it manually instead.");
+        setLivePriceStatus("Couldn't fetch a live price for " + ticker + " (" + e.message + "). Enter it manually instead.");
         if (btn) { btn.textContent = originalText; btn.disabled = false; }
       }
     }
     async function fetchAllLivePrices(silent) {
       const rows = getOpenPositionsWithUnrealized();
       if (!rows.length) { if (!silent) setLivePriceStatus("No open positions to fetch prices for."); return; }
+      const key = getFmpClientKey();
+      if (!key) {
+        if (!silent) setLivePriceStatus("No FMP key saved — add one below to enable live price fetch.");
+        return;
+      }
       if (!silent) setLivePriceStatus("Fetching live prices…");
       let ok = 0, failed = 0;
       for (const r of rows) {
         try {
-          const res = await fetch(`https://stockanalysis.com/api/quotes/s/${r.ticker.toLowerCase()}`);
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          const json = await res.json();
-          const d = json.data;
-          const isExtended = d.ms === "Pre-market" || d.ms === "After-hours" || d.fms === "pre" || d.fms === "post";
-          const price = isExtended && d.ep != null ? d.ep : d.p;
-          if (price == null || isNaN(price)) throw new Error("no price");
+          const price = await fmpQuotePrice(r.ticker, key);
           if (r.source === "plan") updateWatchlistPositionPrice(r.ticker, price);
           else updateOpenLotPrice(r.ticker, price);
           ok++;
@@ -2976,7 +3332,7 @@
       }
       renderPositions();
       setLivePriceStatus(ok + " of " + rows.length + " price(s) updated automatically" +
-        (failed ? " · " + failed + " blocked/unavailable — enter those manually" : "") +
+        (failed ? " · " + failed + " unavailable — enter those manually" : "") +
         " · " + new Date().toLocaleTimeString());
     }
     function getOpenPositionsWithUnrealized() {
@@ -3592,6 +3948,24 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       renderDashboard();
       alert("Portfolio snapshot saved");
     }
+    function getCurrentPortfolioValueComputed() {
+      // Same formula used on the Dashboard: Starting Value + Realized P&L
+      // (since baseline date) + Unrealized P&L (from Current Price on open
+      // positions). Reusable anywhere a "what's my equity right now" number
+      // is needed — e.g. the Weekly Trade Plan's share-size calculator.
+      let baselineDate = null;
+      try {
+        const b = JSON.parse(localStorage.getItem("tt_baseline") || "null");
+        if (b && b.date) baselineDate = b.date;
+      } catch (e) {}
+      const allClosed = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      const list = baselineDate ? allClosed.filter(t => !t.date || t.date >= baselineDate) : allClosed;
+      const realized = list.reduce((a, t) => a + t.pnl, 0);
+      const p = getPortfolioSnapshot();
+      const unrealized = computeTotalUnrealized();
+      return p.startValue + realized + unrealized;
+    }
+
     function renderPortfolioKPIs(realizedFromJournal) {
       const box = document.getElementById("portfolio-kpis");
       if (!box) return;
@@ -4097,7 +4471,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         loadMarketNews();
       }
       if (section === "market-monitor") loadMarketMonitorData();
-      if (section === "positions") { loadBaselineUI(); renderPositions(); fetchAllLivePrices(true); }
+      if (section === "positions") { loadBaselineUI(); renderFmpClientKeyStatus(); renderPositions(); fetchAllLivePrices(true); }
       if (section === "dashboard") renderDashboard();
       if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); }
       const sp = document.getElementById("settings-panel");
@@ -4122,6 +4496,8 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     document.getElementById("j-date").valueAsDate = new Date();
     document.getElementById("j-setup").innerHTML = setupOptionsHtml();
     document.getElementById("wl-manual-setup").innerHTML = setupOptionsHtml();
+    document.getElementById("tp-strategy").innerHTML = setupOptionsHtml();
+    renderTradePlans();
     renderSetupLibrary();
     renderSIPTable();
     renderAvoidTable();
@@ -4131,6 +4507,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     renderDashboard();
     loadLiveWatchlistData();
     renderGithubTokenStatus();
+    renderFmpClientKeyStatus();
     loadBaselineUI();
     updateExecRiskVisibility();
     updateRefreshLabel();
