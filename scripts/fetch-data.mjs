@@ -173,15 +173,24 @@ async function fetchScreener() {
     note.push("quote batch: " + e.message);
   }
 
-  // Average volume needs a separate per-ticker call (profile endpoint).
+  // Average volume needs a separate per-ticker call (profile endpoint), and
+  // FMP's free tier caps at 250 requests/day total across all 4 scheduled
+  // runs — one call per ticker for ~68 tickers would burn most of that in a
+  // single run. Only fetch it for the top 10 by raw volume, since that's
+  // already the pool the Top-5-by-Volume/RVOL panels pick from anyway.
+  const topByVolumeForAvg = tickers
+    .map(t => ({ t, v: Number((quotes[t] || {}).volume) || 0 }))
+    .sort((a, b) => b.v - a.v)
+    .slice(0, 10)
+    .map(x => x.t);
   const avgVolumes = {};
   let avgVolFound = 0;
-  for (const ticker of tickers) {
+  for (const ticker of topByVolumeForAvg) {
     const avg = await fetchFmpAverageVolume(ticker, key);
     if (avg != null) { avgVolumes[ticker] = avg; avgVolFound++; }
     await new Promise(r => setTimeout(r, 120)); // be a reasonable citizen toward the API
   }
-  console.log(`[diag] Average volume found for ${avgVolFound} of ${tickers.length} screener tickers`);
+  console.log(`[diag] Average volume found for ${avgVolFound} of ${topByVolumeForAvg.length} top-volume tickers (RVOL limited to top 10 to stay within FMP's 250/day free-tier cap)`);
 
   const candidates = tickers.map(ticker => {
     const base = byTicker[ticker];
@@ -205,6 +214,48 @@ async function fetchScreener() {
     source: "Financial Modeling Prep (licensed free-tier API)",
     candidates
   };
+}
+
+// ---- 3b. Dedicated ≥9M-volume screener — direct query, not derived from
+// gainers/losers/actives. Those lists skew toward small/cheap high-%-move
+// names that don't reliably cross a 9M raw-share-volume threshold, especially
+// once combined with a $5+ price filter (cheap stocks trade more raw shares
+// per dollar, so the price filter excludes exactly the names most likely to
+// hit 9M shares). FMP's screener also returns real sector/industry directly —
+// more reliable than our own hand-maintained ticker→sector map. ----
+async function fetchVolumeMovers(key) {
+  const url = `https://financialmodelingprep.com/stable/company-screener?volumeMoreThan=9000000&priceMoreThan=5&limit=100&apikey=${key}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`FMP volume screener failed: ${res.status}`);
+  const rows = await res.json();
+  if (!Array.isArray(rows) || !rows.length) return { available: false, note: "No stocks returned at this volume/price threshold right now.", movers: [] };
+
+  const symbols = rows.map(r => r.symbol).filter(Boolean);
+  let quotes = {};
+  for (let i = 0; i < symbols.length; i += 50) {
+    const chunk = symbols.slice(i, i + 50);
+    try {
+      const batch = await fetchFmpQuotesBatch(chunk, key);
+      quotes = { ...quotes, ...batch };
+    } catch (e) { /* keep going with whatever we have */ }
+  }
+
+  const movers = rows.map(r => {
+    const q = quotes[r.symbol] || {};
+    return {
+      ticker: r.symbol,
+      name: r.companyName || r.symbol,
+      price: Number(r.price) || Number(q.price) || 0,
+      changePct: Number(q.changePercentage) || 0,
+      volume: Number(r.volume) || Number(q.volume) || 0,
+      sector: r.sector || null,
+      industry: r.industry || null,
+      source: "Financial Modeling Prep company-screener (licensed API)",
+      sourceUrl: `https://financialmodelingprep.com/quote/${r.symbol}`
+    };
+  }).filter(m => m.volume >= 9000000); // re-confirm after merging in case quote volume differs from screener's cached volume
+
+  return { available: movers.length > 0, note: "", movers };
 }
 
 // ---- 4. "Buzz among traders" — StockTwits public trending API is a real,
@@ -310,6 +361,18 @@ async function main() {
     console.error("Screener fetch failed:", e.message);
   }
 
+  let volumeMovers = { available: false, note: "FMP_API_KEY not set", movers: [] };
+  const fmpKey = process.env.FMP_API_KEY;
+  if (fmpKey) {
+    try {
+      volumeMovers = await fetchVolumeMovers(fmpKey);
+      console.log(`[diag] Dedicated volume screener: ${volumeMovers.movers.length} stocks at >=9M volume, priced above $5`);
+    } catch (e) {
+      console.error("Volume movers fetch failed:", e.message);
+      volumeMovers = { available: false, note: e.message, movers: [] };
+    }
+  }
+
   let buzz = [];
   try {
     buzz = await fetchStockTwitsBuzz();
@@ -321,6 +384,7 @@ async function main() {
   // have to show a generic placeholder in the catalyst column.
   try {
     if (screener.candidates && screener.candidates.length) await attachCatalysts(screener.candidates, "screener");
+    if (volumeMovers.movers && volumeMovers.movers.length) await attachCatalysts(volumeMovers.movers, "volume-screener");
     if (buzz.length) await attachCatalysts(buzz, "buzz");
   } catch (e) {
     console.error("Catalyst attachment failed:", e.message);
@@ -331,6 +395,7 @@ async function main() {
     generatedSlot: slot ? slot.label : "Manual run",
     wsjHeadlines,
     screener,
+    volumeMovers,
     buzz
   };
 
