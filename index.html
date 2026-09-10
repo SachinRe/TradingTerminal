@@ -730,7 +730,7 @@
             <tbody id="vol9m-table"></tbody>
           </table>
         </div>
-        <div class="note">Any stock (up or down) trading at least 9,000,000 shares today — matches your EP9M setup's volume floor. Sector comes from the same map used on the Dashboard's Sector Allocation; unclassified tickers get an inline dropdown to fix that once.</div>
+        <div class="note">Any stock (up or down) trading at least 9,000,000 shares today, priced above $5 — matches your EP9M setup's volume floor. Sourced from a dedicated FMP volume screener (not derived from gainers/losers), so it reliably surfaces real ≥9M-share names. Sector comes from FMP directly when available, falling back to the map used on Dashboard's Sector Allocation; unclassified tickers get an inline dropdown to fix that once.</div>
       </div>
       </div><!-- end mm-sector -->
 
@@ -866,7 +866,7 @@
               <tbody id="top-rvol-table"></tbody>
             </table>
           </div>
-          <div class="note">RVOL = today's volume ÷ average volume. 3.0x means trading at 3x its normal pace — a real signal of unusual activity, not just a big raw number.</div>
+          <div class="note">RVOL = today's volume ÷ average volume. 3.0x means trading at 3x its normal pace — a real signal of unusual activity, not just a big raw number. Limited to the top 10 tickers by volume each run to stay within FMP's free-tier daily request cap — not every screener candidate gets an RVOL figure. FMP's free tier is documented as an end-of-day plan, so treat "today's volume" as the latest available snapshot rather than guaranteed live intraday data.</div>
         </div>
       </div>
 
@@ -1691,20 +1691,23 @@
       }
     }
 
+    function getEffectiveSector(c) {
+      // FMP's dedicated volume-screener returns real sector/industry directly —
+      // more reliable than our hand-maintained map, so prefer it when present.
+      return c.fmpSector || getSectorMap()[c.ticker] || "Unclassified";
+    }
     function renderVolume9MMovers(pool) {
-      const VOL_THRESHOLD = 9000000;
       const body = document.getElementById("vol9m-table");
       if (!body) return;
-      const sectorMap = getSectorMap();
-      const hits = pool.filter(c => c._live && c.volumeRaw != null && c.volumeRaw >= VOL_THRESHOLD);
+      const hits = pool.filter(c => c._volscreener);
       const volFmt = (v) => v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
 
       if (!hits.length) {
-        body.innerHTML = `<tr><td colspan="7" class="muted">No live candidates at ≥9M volume this run — check FMP_API_KEY is set, or wait for the next scheduled refresh.</td></tr>`;
+        body.innerHTML = `<tr><td colspan="7" class="muted">No stocks at ≥9M volume / above $5 this run — check FMP_API_KEY is set, or wait for the next scheduled refresh.</td></tr>`;
         return;
       }
       body.innerHTML = [...hits].sort((a, b) => b.volumeRaw - a.volumeRaw).map(c => {
-        const sector = sectorMap[c.ticker] || "Unclassified";
+        const sector = getEffectiveSector(c);
         const sectorCell = sector === "Unclassified"
           ? `<span class="muted">Unclassified</span>
              <select onchange="assignSector('${c.ticker}', this.value); renderBullishBearish();" style="font-size:11px;padding:1px;margin-left:4px;">
@@ -1738,12 +1741,10 @@
     }
 
     function renderSectorStrength(pool) {
-      const VOL_THRESHOLD = 9000000;
       const bullBody = document.getElementById("sector-strength-bullish");
       const bearBody = document.getElementById("sector-strength-bearish");
       if (!bullBody || !bearBody) return;
-      const sectorMap = getSectorMap();
-      const hits = pool.filter(c => c._live && c.volumeRaw != null && c.volumeRaw >= VOL_THRESHOLD);
+      const hits = pool.filter(c => c._volscreener);
 
       if (!hits.length) {
         const emptyMsg = `<div class="wl-empty">No live ≥9M-volume movers this run yet — nothing to roll up by sector.</div>`;
@@ -1776,7 +1777,7 @@
       // Bullish: sectors ranked by COUNT of stocks up (gap >= 0) at ≥9M volume.
       const upBySector = {};
       hits.filter(c => c.gap >= 0).forEach(c => {
-        const sector = sectorMap[c.ticker] || "Unclassified";
+        const sector = getEffectiveSector(c);
         if (!upBySector[sector]) upBySector[sector] = [];
         upBySector[sector].push(c);
       });
@@ -1788,7 +1789,7 @@
       // Bearish: sectors ranked by COUNT of stocks down (gap < 0) at ≥9M volume.
       const downBySector = {};
       hits.filter(c => c.gap < 0).forEach(c => {
-        const sector = sectorMap[c.ticker] || "Unclassified";
+        const sector = getEffectiveSector(c);
         if (!downBySector[sector]) downBySector[sector] = [];
         downBySector[sector].push(c);
       });
@@ -2781,6 +2782,8 @@
         vol: lc.volume ? (lc.volume >= 1e6 ? (lc.volume / 1e6).toFixed(1) + "M" : (lc.volume / 1e3).toFixed(0) + "K") : "—",
         volumeRaw: lc.volume || 0,
         rvol: lc.rvol != null ? Number(lc.rvol.toFixed(2)) : null,
+        fmpSector: lc.sector || null,
+        fmpIndustry: lc.industry || null,
         // Baseline of 30 + gap/volume factors, so a genuinely strong live
         // mover lands in a meaningful score band instead of always reading
         // as "low" purely because the raw formula skews low by default.
@@ -2792,21 +2795,24 @@
           : (kind === "buzz"
             ? "Trending on StockTwits right now — see Recent News below, or verify manually if nothing relevant turns up."
             : "Live pre-market screener hit — see Recent News below, or verify manually if nothing relevant turns up."),
-        tags: [kind === "buzz" ? "BUZZ" : "LIVE"],
+        tags: [kind === "buzz" ? "BUZZ" : kind === "volume-screener" ? "VOL9M" : "LIVE"],
         qualifyGrade: "",
         checks: [],
         bull: [], bear: [],
         targets,
         rationale: kind === "buzz"
           ? "Flagged by StockTwits trending feed (real substitute for X — see notes)."
+          : kind === "volume-screener"
+          ? "Flagged by dedicated ≥9M-volume screener: " + (lc.changePct || 0).toFixed(1) + "% move on " + (lc.volume || 0).toLocaleString() + " volume."
           : "Flagged by scheduled pre-market screener: " + (lc.changePct || 0).toFixed(1) + "% move on " + (lc.volume || 0).toLocaleString() + " volume" +
             (lc.rvol != null ? " (" + lc.rvol.toFixed(2) + "x average volume)" : "") + ".",
         sources: [
           { name: lc.source || "Live source", url: lc.sourceUrl || null },
           ...(lc.catalystHeadline ? [{ name: "News: " + lc.catalystHeadline, url: lc.catalystUrl || null }] : [])
         ],
-        _live: kind !== "buzz",
-        _buzz: kind === "buzz"
+        _live: kind !== "buzz" && kind !== "volume-screener",
+        _buzz: kind === "buzz",
+        _volscreener: kind === "volume-screener"
       };
     }
 
@@ -2901,14 +2907,16 @@
 
         const screener = data.screener || { available: false, candidates: [] };
         const buzz = data.buzz || [];
-        const hasLive = (screener.available && screener.candidates && screener.candidates.length) || buzz.length;
+        const volumeMovers = data.volumeMovers || { available: false, movers: [] };
+        const hasLive = (screener.available && screener.candidates && screener.candidates.length) || buzz.length || (volumeMovers.available && volumeMovers.movers.length);
         if (hasLive) {
           // Tag existing demo rows so they're clearly distinguishable, then
           // prepend real live rows tagged with their actual source.
-          candidates.forEach(c => { if (!("_live" in c) && !("_buzz" in c)) c._demo = true; });
+          candidates.forEach(c => { if (!("_live" in c) && !("_buzz" in c) && !("_volscreener" in c)) c._demo = true; });
           const liveMapped = (screener.candidates || []).map(c => mapLiveCandidate(c, "screener"));
           const buzzMapped = buzz.map(c => mapLiveCandidate(c, "buzz"));
-          candidates.unshift(...buzzMapped, ...liveMapped);
+          const volMapped = (volumeMovers.movers || []).map(c => mapLiveCandidate(c, "volume-screener"));
+          candidates.unshift(...buzzMapped, ...volMapped, ...liveMapped);
           renderSIPTable();
           renderBullishBearish();
         }
