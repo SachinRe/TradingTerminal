@@ -40,6 +40,8 @@ jobs:
           node-version: '20'
 
       - name: Fetch and build watchlist data
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
         run: node scripts/fetch-data.mjs
 
       - name: Commit updated data (only if it changed)
