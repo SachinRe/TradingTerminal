@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-09T21:02:09.115Z",
-  "generatedSlot": "2:00pm PT",
+  "generatedAt": "2026-09-10T04:30:36.462Z",
+  "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
-      "title": "Stock Market Today: 10-Year Yield Jumps as Treasury Buyback Plan Disappoints Investors",
+      "title": "Stock Market News, Sept. 9, 2026: 10-Year Yield Jumps as Treasury Buyback Plan Disappoints Investors",
       "description": "Yield hits highest level since 2023; Dow drops 405 points",
       "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-09-2026?mod=rss_markets_main",
       "pubDate": "Wed, 09 Sep 2026 07:38:00 GMT",
@@ -14,6 +14,13 @@
       "description": "The artificial-intelligence giant has yet to officially launch its listing.",
       "link": "https://www.wsj.com/finance/stocks/what-to-know-about-anthropics-planned-ipo-c2f58908?mod=rss_markets_main",
       "pubDate": "Tue, 08 Sep 2026 19:13:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "They Lost Their Money to Scammers&#x2014;and Now Battle the U.S. Government to Recover It",
+      "description": "The U.S. seized $225 million in crypto for scam victims in Operation Big Tuna. Returning the funds has proved harder.",
+      "link": "https://www.wsj.com/finance/currencies/crypto-investment-scam-victims-big-tuna-a489ece6?mod=rss_markets_main",
+      "pubDate": "Thu, 10 Sep 2026 01:00:00 GMT",
       "tickers": []
     },
     {
@@ -42,13 +49,6 @@
       "description": "",
       "link": "https://www.wsj.com/finance/stocks/apple-introduces-foldable-iphone-5fa68218?mod=rss_markets_main",
       "pubDate": "Wed, 09 Sep 2026 20:25:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Watch the AI Boom’s Weakest Link",
-      "description": "Plus, Happy iPhone Day",
-      "link": "https://www.wsj.com/finance/stocks/watch-the-ai-booms-weakest-link-0e946648?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 10:16:00 GMT",
       "tickers": []
     },
     {
@@ -129,6 +129,20 @@
       "tickers": []
     },
     {
+      "title": "Republicans Kick Off Midterm Rally in Texas",
+      "description": "Plus, Steve Witkoff discloses his finances and John Deere introduces a farmer-friendly chatbot.",
+      "link": "https://www.wsj.com/tech/ai/republicans-kick-off-midterm-rally-in-texas-1e7ec07b?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 21:48:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "U.S. Stocks Fall as War Escalation, Oil Spike Continue",
+      "description": "U.S. stocks extended their recent decline as the war in the Middle East continued to escalate and drive up oil prices.",
+      "link": "https://www.wsj.com/finance/stocks/u-s-stocks-fall-as-war-escalation-oil-spike-continues-8e83817c?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 21:10:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "Basic Materials Roundup: Market Talk",
       "description": "Find insight on gold futures and more in the latest Market Talks covering Basic Materials.",
       "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-92d7a6b8?mod=rss_markets_main",
@@ -150,17 +164,17 @@
       "tickers": []
     },
     {
-      "title": "U.S. Stocks Fall as War Escalation, Oil Spike Continues",
-      "description": "U.S. stocks extended their recent decline as the war in the Middle East continued to escalate and to drive up oil prices.",
-      "link": "https://www.wsj.com/finance/stocks/u-s-stocks-fall-as-war-escalation-oil-spike-continues-8e83817c?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 20:25:00 GMT",
+      "title": "Nikkei Falls 0.6%, Dragged by Construction, Retail Stocks",
+      "description": "Japanese stocks were lower in early trade on rising concerns over the Iran war and higher energy costs.",
+      "link": "https://www.wsj.com/finance/stocks/nikkei-falls-0-6-dragged-by-construction-retail-stocks-e97b178d?mod=rss_markets_main",
+      "pubDate": "Thu, 10 Sep 2026 00:18:00 GMT",
       "tickers": []
     },
     {
-      "title": "European Indexes Slide as Higher Oil Weighs on Defense Stocks, Banks",
-      "description": "European indexes fell at the open as an escalation in U.S.-Iran tensions lifted oil and weighed on sentiment.",
-      "link": "https://www.wsj.com/finance/stocks/nikkei-rises-0-1-led-by-chip-related-stocks-c8902c64?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 07:39:00 GMT",
+      "title": "Watch the AI Boom’s Weakest Link",
+      "description": "Plus, Happy iPhone Day",
+      "link": "https://www.wsj.com/finance/stocks/watch-the-ai-booms-weakest-link-0e946648?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 10:16:00 GMT",
       "tickers": []
     },
     {
@@ -171,31 +185,17 @@
       "tickers": []
     },
     {
+      "title": "European Indexes Slide as Higher Oil Weighs on Defense Stocks, Banks",
+      "description": "European indexes fell at the open as an escalation in U.S.-Iran tensions lifted oil and weighed on sentiment.",
+      "link": "https://www.wsj.com/finance/stocks/nikkei-rises-0-1-led-by-chip-related-stocks-c8902c64?mod=rss_markets_main",
+      "pubDate": "Wed, 09 Sep 2026 07:39:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "Financial Services Roundup: Market Talk",
       "description": "Find insight on bitcoin, home sales, Kalshi and more in the latest Market Talks covering Financial Services.",
       "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-2d369bf1?mod=rss_markets_main",
       "pubDate": "Tue, 08 Sep 2026 21:23:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "U.S. Stocks Fall After Saudi Oil Facilities Hit",
-      "description": "U.S. stocks fell and Treasury yields hit multiyear highs after Yemeni rebels attacked Saudi Arabian energy facilities, pushing oil prices to their highest levels of the summer.",
-      "link": "https://www.wsj.com/finance/investing/u-s-stocks-fall-after-saudi-oil-facilities-hit-d86a6c27?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 21:13:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Oil Near $100 Threatens U.S. Stocks’ Stellar Run",
-      "description": "Brent crude spiked above $99 a barrel before paring gains.",
-      "link": "https://www.wsj.com/finance/stocks/oil-near-100-threatens-u-s-stocks-stellar-run-cabbaf0c?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 21:09:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Canada’s Tariffs Take Effect",
-      "description": "Plus, oil rises after Houthis strike energy infrastructure, and stocks fall.",
-      "link": "https://www.wsj.com/finance/stocks/canadas-tariffs-take-effect-c3d61304?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 20:31:00 GMT",
       "tickers": []
     },
     {
@@ -241,6 +241,27 @@
       "tickers": []
     },
     {
+      "title": "Data Centers Light Fire Under Uranium Prices",
+      "description": "With a wary public already raising concerns about data centers drawing on local electricity supply, some hyperscalers have talked up the opportunity to run the facilities using nuclear power.",
+      "link": "https://www.wsj.com/finance/commodities-futures/data-centers-light-fire-under-uranium-prices-9220990e?mod=rss_markets_main",
+      "pubDate": "Thu, 10 Sep 2026 04:11:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Gold Steady Ahead of U.S. Inflation Data",
+      "description": "Gold was steady in early Asian trade, as investors await U.S. PPI and CPI data.",
+      "link": "https://www.wsj.com/finance/commodities-futures/gold-steady-ahead-of-u-s-inflation-data-ac8bcde7?mod=rss_markets_main",
+      "pubDate": "Thu, 10 Sep 2026 00:54:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Oil Rises Amid Escalation in Mideast Conflict",
+      "description": "Oil rose amid the escalation in Middle East conflict that could exacerbate supply disruptions in the region.",
+      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-escalation-in-mideast-conflict-1394ff07?mod=rss_markets_main",
+      "pubDate": "Thu, 10 Sep 2026 00:12:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "U.S. Natural Gas Futures Fall As Weather Set to Turn",
       "description": "U.S. natural gas futures fell for a second consecutive session as the market looked beyond this week’s inventory report to cooler weather that’s likely to cut demand heading into the shoulder season.",
       "link": "https://www.wsj.com/finance/commodities-futures/u-s-natural-gas-futures-decline-as-weather-cools-bbbc4b22?mod=rss_markets_main",
@@ -255,38 +276,17 @@
       "tickers": []
     },
     {
-      "title": "Gold Futures Edge Up Despite Higher U.S. Yields",
-      "description": "Gold futures made small gains despite a rise in Treasury yields. The dollar weakened, however, which tends to support gold.",
-      "link": "https://www.wsj.com/finance/commodities-futures/gold-slips-traders-eye-inflation-data-a5ad1d66?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 18:48:00 GMT",
+      "title": "Singapore Dollar Consolidates But May Be Weighed by Rising Oil",
+      "description": "The Singapore dollar consolidated against its U.S. counterpart, but may be weighed by rising oil prices.",
+      "link": "https://www.wsj.com/finance/currencies/australian-dollar-touches-fresh-mid-may-highs-c61ab082?mod=rss_markets_main",
+      "pubDate": "Thu, 10 Sep 2026 03:26:00 GMT",
       "tickers": []
     },
     {
-      "title": "Platinum Set for Surplus in 2026 After Three Years of Deficit",
-      "description": "Supplies will be in surplus this year as investors turn their back on the metal and Chinese jewelry demand weakens, the World Platinum Investment Council said.",
-      "link": "https://www.wsj.com/finance/commodities-futures/platinum-set-for-surplus-in-2026-after-three-years-of-deficit-3270dd0c?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 10:35:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "European Gas Prices Hit Highest Since 2023 as Market Braces for Prolonged LNG Squeeze",
-      "description": "Extended disruption could leave Europe competing with Asia for a shrinking pool of available cargoes as winter approaches.",
-      "link": "https://www.wsj.com/finance/commodities-futures/european-gas-prices-hit-highest-since-2023-as-market-braces-for-prolonged-lng-squeeze-799356de?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 09:15:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "ECB, Fed Policy Differentials to Be Key for Euro, Dollar in Coming Months",
-      "description": "The dollar weakened and difference between ECB and Fed policy will be a key determinant for the euro and dollar in the coming months, Marex FX said.",
+      "title": "WSJ Dollar Index Falls 0.06% to 94.85",
+      "description": "The WSJ Dollar Index declined 0.1% &#x2014; down for three consecutive trading days.",
       "link": "https://www.wsj.com/finance/currencies/yen-strengthens-on-prospects-of-two-boj-rate-hikes-by-year-end-c56a9483?mod=rss_markets_main",
-      "pubDate": "Wed, 09 Sep 2026 13:43:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "WSJ Dollar Index Falls 0.08% to 94.91",
-      "description": "The WSJ Dollar Index declined 0.1% &#x2014; down four of the past five trading days.",
-      "link": "https://www.wsj.com/finance/currencies/yen-strengthens-further-sentiment-toward-currency-has-materially-shifted-72af55be?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 21:29:00 GMT",
+      "pubDate": "Wed, 09 Sep 2026 21:20:00 GMT",
       "tickers": []
     }
   ],
@@ -325,8 +325,8 @@
         "volume": 16907,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/fsly/",
-        "catalystHeadline": "Fastly, Inc. (FSLY) Presents at Citi's 2026 Global TMT Conference Transcript",
-        "catalystUrl": "https://seekingalpha.com/article/4944484-fastly-inc-fsly-presents-at-citis-2026-global-tmt-conference-transcript"
+        "catalystHeadline": "FSLY",
+        "catalystUrl": "https://stockstory.org/us/stocks/nasdaq/fsly/news/why-up-down/fastly-fsly-shares-skyrocket-what-you-need-to-know-2?utm_source=newsSitemap&amp;utm_medium=googleNews&amp;utm_campaign=distribution"
       },
       {
         "ticker": "BRZE",
@@ -336,8 +336,8 @@
         "volume": 11479,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/brze/",
-        "catalystHeadline": "Braze (BRZE) Stock Drops 11% Even After Beating Earnings. Here’s Why",
-        "catalystUrl": "https://cryptocurrency.com.tr/braze-brze-stock-drops-11-even-after-beating-earnings-heres-why-371386"
+        "catalystHeadline": "Wall Street Sounds Positive On BRZE Stock Despite Post-Earnings Decline – These Analysts See Buying Opportunity",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/wall-street-sounds-positive-on-brze-stock-despite-post-earnings-decline-these-analysts-see-buying-opportunity-articleshow-m9ckqss"
       },
       {
         "ticker": "TTAN",
@@ -369,8 +369,8 @@
         "volume": 5205,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/ird/",
-        "catalystHeadline": "IRD Stock Hits Over 5-Year Highs – Opus Genetics Experimental Therapy Shows Early Promise In Retinal Diseases Trial",
-        "catalystUrl": "https://newsable.asianetnews.com/markets/ird-stock-hits-over-5-year-highs-opus-genetics-experimental-therapy-shows-early-promise-in-retinal-diseases-trial-articleshow-bzk8p1h"
+        "catalystHeadline": "LULU, LOW Stocks Hit Multi-Year Lows – Here’s What Wall Street Is Saying",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/lulu-low-stocks-hit-multi-year-lows-here-s-what-wall-street-is-saying-articleshow-4pg70dq"
       },
       {
         "ticker": "TBBK",
@@ -380,8 +380,8 @@
         "volume": 4631,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/tbbk/",
-        "catalystHeadline": "TBBK stock hits 52-week low at 50.2 USD",
-        "catalystUrl": "https://www.investing.com/news/company-news/tbbk-stock-hits-52week-low-at-502-usd-93CH-4893880"
+        "catalystHeadline": "TBBK",
+        "catalystUrl": "https://stockstory.org/us/stocks/nasdaq/tbbk/news/why-up-down/why-the-bancorp-tbbk-stock-is-falling-today-2?utm_source=newsSitemap&amp;utm_medium=googleNews&amp;utm_campaign=distribution"
       },
       {
         "ticker": "TYRA",
@@ -391,8 +391,8 @@
         "volume": 4027,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/tyra/",
-        "catalystHeadline": "Why Is Tyra Biosciences Stock Sinking Wednesday?",
-        "catalystUrl": "https://www.benzinga.com/markets/biotech/26/09/61693811/why-is-tyra-biosciences-stock-sinking-wednesday"
+        "catalystHeadline": "Tyra Biosciences Reports 79% Response Rate for Dabogratinib in Phase 2 Bladder Cancer Study",
+        "catalystUrl": "https://www.panabee.com/news/tyra-biosciences-reports-79-response-rate-for-dabogratinib-in-phase-2-bladder-cancer-stu"
       },
       {
         "ticker": "CHYM",
@@ -424,8 +424,8 @@
         "volume": 1380,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/innv/",
-        "catalystHeadline": "InnovAge Holding (INNV) Stock Jumps Over 10% After-Hours: Why is it Moving?",
-        "catalystUrl": "https://www.benzinga.com/markets/equities/26/09/61677922/innovage-shares-climb-after-hours-q4-earnings-revenue-beat"
+        "catalystHeadline": "InnovAge Holding Corp. (INNV) Presents at Wells Fargo 21st Annual Healthcare Conference - Slideshow",
+        "catalystUrl": "https://seekingalpha.com/article/4944781-innovage-holding-corp-innv-presents-at-wells-fargo-21st-annual-healthcare-conference"
       },
       {
         "ticker": "ASO",
@@ -435,8 +435,8 @@
         "volume": 781,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/aso/",
-        "catalystHeadline": "Brennan rules Seville sprint as Visma claim seventh Vuelta stage win",
-        "catalystUrl": "https://world.newsx.com/sports/brennan-rules-seville-sprint-as-visma-claim-seventh-vuelta-stage-win-232676/"
+        "catalystHeadline": "Is Takaichi under the thumb of LDP elder Aso?",
+        "catalystUrl": "https://soz6.com/news/is-takaichi-under-the-thumb-of-ldp-elder-aso"
       },
       {
         "ticker": "RTB",
@@ -446,8 +446,8 @@
         "volume": 480,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/rtb/",
-        "catalystHeadline": "Alienware AW2726DM review: A sub-£400 QD-OLED gaming bargain | Expert Reviews",
-        "catalystUrl": "https://www.expertreviews.co.uk/technology/monitors/alienware-aw2726dm-review"
+        "catalystHeadline": "RTB Digital Closes $5.1 Million Private Placement, Updates Strategic Partnership Status",
+        "catalystUrl": "https://www.panabee.com/news/rtb-digital-closes-5-1-million-private-placement-updates-strategic-partnership-status"
       },
       {
         "ticker": "ODD",
@@ -457,8 +457,8 @@
         "volume": 458,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/odd/",
-        "catalystHeadline": "Wizards Mailbag: Which Young Player is the Odd Man Out",
-        "catalystUrl": "https://www.si.com/nba/wizards/onsi/wizards-mailbag-which-young-player-is-the-odd-man-out-01m23yhkg7ed"
+        "catalystHeadline": "Chandigarh: HC for regularisation of 40-odd faculty of PU, colleges working on contract basis",
+        "catalystUrl": "https://www.hindustantimes.com/cities/chandigarh-news/chandigarh-hc-for-regularisation-of-40-odd-faculty-of-pu-colleges-working-on-contract-basis-101788983168785.html"
       },
       {
         "ticker": "CSR",
@@ -468,66 +468,66 @@
         "volume": 205,
         "source": "stockanalysis.com pre-market movers",
         "sourceUrl": "https://stockanalysis.com/stocks/csr/",
-        "catalystHeadline": "$HAREHOLDER ALERT: The M&amp;amp;amp;A Class Action Firm Announces An Investigation of Centerspace (NYSE: CSR)",
-        "catalystUrl": "https://www.newslocker.com/en-us/profession/pr-public-relations/hareholder-alert-the-mampampa-class-action-firm-announces-an-investigation-of-centerspace-nyse-csr/"
+        "catalystHeadline": "How India’s next hardware heroes may come from Dehradun or Mandi, not Bengaluru",
+        "catalystUrl": "https://www.financialexpress.com/business/industry-how-india-next-hardware-heroes-may-come-from-dehradun-mandi-not-bengaluru-rs-47-crore-electropreneur-2-0-backing-innovators-4335859/"
       }
     ]
   },
   "buzz": [
     {
-      "ticker": "AVAV",
-      "name": "AeroVironment Inc.",
-      "price": 144.06,
+      "ticker": "AAPL",
+      "name": "Apple Inc",
+      "price": 318,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/AVAV",
-      "catalystHeadline": "AeroVironment (AVAV) Stock Faces Earnings Test Amid Declining Analyst Expectations",
-      "catalystUrl": "https://bitcoinethereumnews.com/tech/aerovironment-avav-stock-faces-earnings-test-amid-declining-analyst-expectations/"
+      "sourceUrl": "https://stocktwits.com/symbol/AAPL",
+      "catalystHeadline": "iPhone Switchers Flock to Samsung Foldables: Will Apple's Duo Change That?",
+      "catalystUrl": "https://beincrypto.com/samsung-foldable-iphone-switchers-apple-duo/"
     },
     {
-      "ticker": "GME",
-      "name": "GameStop Corp",
-      "price": 20.01,
+      "ticker": "ORCL",
+      "name": "Oracle Corp.",
+      "price": 161.89,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/GME",
-      "catalystHeadline": "Charles Gasparino: GME holds above $19 despite weak core earnings and eBay gains",
-      "catalystUrl": "https://tradersunion.com/news/market-voices/show/3280857-gme-earnings-ebay-gains/"
+      "sourceUrl": "https://stocktwits.com/symbol/ORCL",
+      "catalystHeadline": "ORCL Stock Sees Price Target Cut Ahead Of Earnings: Analyst Says Bad News Is Priced In",
+      "catalystUrl": "https://newsable.asianetnews.com/markets/orcl-stock-sees-price-target-cut-ahead-of-earnings-analyst-says-bad-news-is-priced-in-articleshow-79l0pyi"
     },
     {
-      "ticker": "META",
-      "name": "Meta Platforms Inc",
-      "price": 651.42,
+      "ticker": "DJT",
+      "name": "Trump Media & Technology Group Corp.",
+      "price": 8.73,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/META",
-      "catalystHeadline": "Meta Buys Stilla.ai to Expand Business Agent",
-      "catalystUrl": "https://kivodaily.com/technology/meta-buys-stilla-ai-business-agent-commerce/"
+      "sourceUrl": "https://stocktwits.com/symbol/DJT",
+      "catalystHeadline": "Palm Beach County leaders urge FAA to slow down proposed permanent flight restrictions around Mar-a-Lago",
+      "catalystUrl": "https://www.wptv.com/news/palm-beach-county/region-c-palm-beach-county/palm-beach-county-leaders-urge-faa-to-slow-down-proposed-permanent-flight-restrictions-around-mar-a-lago"
     },
     {
-      "ticker": "RKLB",
-      "name": "Rocket Lab USA Inc",
-      "price": 63.27,
+      "ticker": "SPY",
+      "name": "SPDR S&P 500 ETF Trust",
+      "price": 763.14,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/RKLB",
-      "catalystHeadline": "RKLB Stock Jumps as Rocket Lab Debuts New Solar Cell for Space - Barchart.com",
-      "catalystUrl": "https://now.solar/2026/09/10/rklb-stock-jumps-as-rocket-lab-debuts-new-solar-cell-for-space-barchart-com/"
+      "sourceUrl": "https://stocktwits.com/symbol/SPY",
+      "catalystHeadline": "Sardar 2 X Review: What Audiences Are Saying About Karthi And S J Suryah's Spy Action Thriller Film",
+      "catalystUrl": "https://www.filmibeat.com/tamil/news/2026/sardar-2-x-review-what-audiences-are-saying-about-karthi-s-j-suryah-spy-action-thriller-film-530603.html"
     },
     {
-      "ticker": "AEO",
-      "name": "American Eagle Outfitters, Inc.",
-      "price": 15.06,
+      "ticker": "QQQ",
+      "name": "Invesco QQQ Trust Series 1",
+      "price": 716.51,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/AEO",
-      "catalystHeadline": "YouTube AEO Playbook Boost Rankings Reach and AI Discovery",
-      "catalystUrl": "https://www.provenroi.com/blog/youtube-aeo-playbook-boost-rankings-reach-and-ai-discovery"
+      "sourceUrl": "https://stocktwits.com/symbol/QQQ",
+      "catalystHeadline": "QQQ Price Prediction: $757 Target in Sight — But the Fed&#8217;s September 16 Decision Is the Only Trade That Matters",
+      "catalystUrl": "https://bitcoinethereumnews.com/tech/qqq-price-prediction-757-target-in-sight-but-the-feds-september-16-decision-is-the-only-trade-that-matters/"
     }
   ]
 }
