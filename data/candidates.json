@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T22:43:49.595Z",
+  "generatedAt": "2026-09-10T22:45:59.776Z",
   "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
@@ -1238,20 +1238,9 @@
   },
   "buzz": [
     {
-      "ticker": "GME",
-      "name": "GameStop Corp",
-      "price": 21.09,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/GME",
-      "catalystHeadline": "GME Stock Rises After Earnings—The $650 Million EBITDA Test",
-      "catalystUrl": "https://ts2.tech/en/gme-stock-rises-after-earnings-the-650-million-ebitda-test/"
-    },
-    {
       "ticker": "ORCL",
       "name": "Oracle Corp.",
-      "price": 159.35,
+      "price": 158.98,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -1260,9 +1249,31 @@
       "catalystUrl": "https://www.newsquawk.com/headlines/oracle-orcl-cfo-says-roughly-half-of-the-companys-remaining-performance-obligations-are-expected-to-convert-into-sales-over-the-next-36-months"
     },
     {
+      "ticker": "GME",
+      "name": "GameStop Corp",
+      "price": 21.01,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/GME",
+      "catalystHeadline": "GME Stock Rises After Earnings—The $650 Million EBITDA Test",
+      "catalystUrl": "https://ts2.tech/en/gme-stock-rises-after-earnings-the-650-million-ebitda-test/"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon.com Inc",
+      "price": 251.92,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/AMZN",
+      "catalystHeadline": "AMZN Price Prediction: Smart Money Is 70% Long at the Lower Band — $258 Bounce or $248 Flush Decides the Next 30 Days",
+      "catalystUrl": "https://bitcoinethereumnews.com/tech/amzn-price-prediction-smart-money-is-70-long-at-the-lower-band-258-bounce-or-248-flush-decides-the-next-30-days/"
+    },
+    {
       "ticker": "QQQ",
       "name": "Invesco QQQ Trust Series 1",
-      "price": 708.13,
+      "price": 707.97,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -1271,26 +1282,15 @@
       "catalystUrl": "https://bitcoinethereumnews.com/tech/qqq-price-prediction-bulls-are-over-positioned-and-the-tape-is-warning-710-test-before-722-breakout/"
     },
     {
-      "ticker": "ADBE",
-      "name": "Adobe Inc",
-      "price": 244.41,
+      "ticker": "NKE",
+      "name": "Nike Inc",
+      "price": 36.62,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/ADBE",
-      "catalystHeadline": "ADBE",
-      "catalystUrl": "https://stockstory.org/us/stocks/nasdaq/adbe/news/earnings/adobe-nasdaqadbe-beats-q3-cy2026-sales-expectations?utm_source=newsSitemap&amp;utm_medium=googleNews&amp;utm_campaign=distribution"
-    },
-    {
-      "ticker": "TSLA",
-      "name": "Tesla Inc",
-      "price": 363.38,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/TSLA",
-      "catalystHeadline": "Zoomex Stock Perpetuals Bring TSLA and NVDA Within Reach Through Fair, Rule-Based Derivatives Trading",
-      "catalystUrl": "https://www.manilatimes.net/2026/09/10/tmt-newswire/globenewswire/zoomex-stock-perpetuals-bring-tsla-and-nvda-within-reach-through-fair-rule-based-derivatives-trading/2422856"
+      "sourceUrl": "https://stocktwits.com/symbol/NKE",
+      "catalystHeadline": "NKE Stock Is Down Over 40% This Year – Morgan Stanley Says The Pain May Not Be Over Yet",
+      "catalystUrl": "https://newsable.asianetnews.com/markets/nke-stock-is-down-over-40-this-year-morgan-stanley-says-the-pain-may-not-be-over-yet-articleshow-kdta6ni"
     }
   ]
 }
