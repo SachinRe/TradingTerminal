@@ -557,6 +557,8 @@
     <div class="nav-group">
       <div class="nav-group-title">5 · Trading Operations</div>
       <div class="nav-item" data-section="trading-operations" onclick="navTo('trading-operations', this)">Schwab Import · Daily</div>
+      <div class="nav-item" data-section="fund-ownership" onclick="navTo('fund-ownership', this)">Fund Ownership</div>
+      <div class="nav-item" data-section="sugar-babies" onclick="navTo('sugar-babies', this)">Sugar Babies</div>
     </div>
     <div class="nav-group">
       <div class="nav-group-title">6 · Live book</div>
@@ -730,7 +732,7 @@
             <tbody id="vol9m-table"></tbody>
           </table>
         </div>
-        <div class="note">Any stock (up or down) trading at least 9,000,000 shares today, priced above $5 — matches your EP9M setup's volume floor. Sourced from a dedicated FMP volume screener (not derived from gainers/losers), so it reliably surfaces real ≥9M-share names. Sector comes from FMP directly when available, falling back to the map used on Dashboard's Sector Allocation; unclassified tickers get an inline dropdown to fix that once.</div>
+        <div class="note">Any stock (up or down) trading at least 9,000,000 shares today, priced above $5. FMP's dedicated volume-screener endpoint requires a paid plan (confirmed), so this is derived from the top ~25 biggest movers by % change each run that actually cleared 9M shares — a real but partial view, not a full market-wide scan. Sector comes from FMP directly when available, falling back to the map used on Dashboard's Sector Allocation; unclassified tickers get an inline dropdown to fix that once.</div>
       </div>
       </div><!-- end mm-sector -->
 
@@ -866,7 +868,7 @@
               <tbody id="top-rvol-table"></tbody>
             </table>
           </div>
-          <div class="note">RVOL = today's volume ÷ average volume. 3.0x means trading at 3x its normal pace — a real signal of unusual activity, not just a big raw number. Limited to the top 10 tickers by volume each run to stay within FMP's free-tier daily request cap — not every screener candidate gets an RVOL figure. FMP's free tier is documented as an end-of-day plan, so treat "today's volume" as the latest available snapshot rather than guaranteed live intraday data.</div>
+          <div class="note">RVOL = today's volume ÷ average volume. 3.0x means trading at 3x its normal pace — a real signal of unusual activity, not just a big raw number. Limited to the ~25 biggest movers by % change each run to stay within FMP's free-tier daily request cap — not every screener candidate gets a volume/RVOL figure (the ones without it fall back to showing "—"). FMP's free tier is documented as an end-of-day plan, so treat "today's volume" as the latest available snapshot rather than guaranteed live intraday data.</div>
         </div>
       </div>
 
@@ -1197,6 +1199,76 @@
           <div style="font-size:13px;" id="baseline-status">Not set</div>
           <div class="note">This is set in one place now — Performance Dashboard → Account Snapshot → Edit values → Starting Date / Starting Portfolio Value. Go there to set or change it; shown here read-only so there's a single source of truth instead of two forms that could disagree.</div>
         </div>
+      </div>
+    </div>
+
+    <!-- FUND OWNERSHIP -->
+    <div id="fund-ownership" class="section">
+      <div class="panel">
+        <div class="panel-header">Add / Update Entry</div>
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="form-group"><label>Ticker</label><input type="text" id="fo-ticker" style="width:100px" /></div>
+            <div class="form-group" style="flex:1;"><label>Comment</label><input type="text" id="fo-comment" style="width:100%" /></div>
+          </div>
+          <div style="margin-top:10px;">
+            <button class="btn btn-accent" onclick="saveCustomListItem('fundownership')">Save</button>
+            <button class="btn btn-sm" onclick="resetCustomListForm('fundownership')">Clear form</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Bulk Upload via Excel (CSV)</div>
+        <div class="panel-body">
+          <div class="form-row">
+            <input type="file" id="fo-import-file" accept=".csv,.txt,text/csv" style="font-size:12px;color:var(--muted);" />
+            <button class="btn btn-accent" onclick="importCustomListCSV('fundownership')">Import</button>
+          </div>
+          <div class="note">Needs a "Ticker" column and a "Comment" column (a "Date Added" column is optional) — headers matched by name, any order. Existing tickers get their comment updated; new ones get added with today's date. This is the same format the Download button produces, so export → edit in Excel → re-import works too.</div>
+          <div id="fo-import-result" style="font-size:12px;margin-top:8px;color:var(--muted);"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Fund Ownership List
+          <button class="btn btn-sm btn-accent" onclick="exportCustomListCSV('fundownership', 'Fund Ownership')">⬇ Download as Excel (CSV)</button>
+        </div>
+        <div class="panel-body" id="fundownership-table-body"></div>
+      </div>
+    </div>
+
+    <!-- SUGAR BABIES -->
+    <div id="sugar-babies" class="section">
+      <div class="panel">
+        <div class="panel-header">Add / Update Entry</div>
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="form-group"><label>Ticker</label><input type="text" id="sb-ticker" style="width:100px" /></div>
+            <div class="form-group" style="flex:1;"><label>Comment</label><input type="text" id="sb-comment" style="width:100%" /></div>
+          </div>
+          <div style="margin-top:10px;">
+            <button class="btn btn-accent" onclick="saveCustomListItem('sugarbabies')">Save</button>
+            <button class="btn btn-sm" onclick="resetCustomListForm('sugarbabies')">Clear form</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Bulk Upload via Excel (CSV)</div>
+        <div class="panel-body">
+          <div class="form-row">
+            <input type="file" id="sb-import-file" accept=".csv,.txt,text/csv" style="font-size:12px;color:var(--muted);" />
+            <button class="btn btn-accent" onclick="importCustomListCSV('sugarbabies')">Import</button>
+          </div>
+          <div class="note">Needs a "Ticker" column and a "Comment" column (a "Date Added" column is optional) — headers matched by name, any order. Existing tickers get their comment updated; new ones get added with today's date. This is the same format the Download button produces, so export → edit in Excel → re-import works too.</div>
+          <div id="sb-import-result" style="font-size:12px;margin-top:8px;color:var(--muted);"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Sugar Babies List
+          <button class="btn btn-sm btn-accent" onclick="exportCustomListCSV('sugarbabies', 'Sugar Babies')">⬇ Download as Excel (CSV)</button>
+        </div>
+        <div class="panel-body" id="sugarbabies-table-body"></div>
       </div>
     </div>
 
@@ -1703,7 +1775,7 @@
       const volFmt = (v) => v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
 
       if (!hits.length) {
-        body.innerHTML = `<tr><td colspan="7" class="muted">No stocks at ≥9M volume / above $5 this run — check FMP_API_KEY is set, or wait for the next scheduled refresh.</td></tr>`;
+        body.innerHTML = `<tr><td colspan="7" class="muted">None of this run's biggest movers cleared 9M shares — check FMP_API_KEY is set, or wait for the next scheduled refresh. Note this only checks the top ~25 movers by % change, not the whole market.</td></tr>`;
         return;
       }
       body.innerHTML = [...hits].sort((a, b) => b.volumeRaw - a.volumeRaw).map(c => {
@@ -1897,6 +1969,240 @@
     }
 
     // ---- Weekly Trade Plan: plan trades the day before, grouped by week ----
+    // ---- Generic ticker+comment CRUD lists (Fund Ownership, Sugar Babies) ----
+    // Both screens are identical, so this is one shared implementation
+    // parameterized by a key rather than duplicated code.
+    const CUSTOM_LIST_CONFIG = {
+      fundownership: { prefix: "fo", storageKey: "tt_list_fundownership", tableBodyId: "fundownership-table-body" },
+      sugarbabies: { prefix: "sb", storageKey: "tt_list_sugarbabies", tableBodyId: "sugarbabies-table-body" }
+    };
+    function getCustomList(key) {
+      const cfg = CUSTOM_LIST_CONFIG[key];
+      if (!cfg) return [];
+      try { return JSON.parse(localStorage.getItem(cfg.storageKey) || "[]"); }
+      catch (e) { return []; }
+    }
+    function saveCustomList(key, list) {
+      const cfg = CUSTOM_LIST_CONFIG[key];
+      if (!cfg) return;
+      localStorage.setItem(cfg.storageKey, JSON.stringify(list));
+    }
+    let editingCustomListId = { fundownership: null, sugarbabies: null };
+    function saveCustomListItem(key) {
+      const cfg = CUSTOM_LIST_CONFIG[key];
+      if (!cfg) return;
+      const ticker = document.getElementById(cfg.prefix + "-ticker").value.trim().toUpperCase();
+      const comment = document.getElementById(cfg.prefix + "-comment").value.trim();
+      if (!ticker) { alert("Enter a ticker"); return; }
+      const list = getCustomList(key);
+      const editId = editingCustomListId[key];
+      if (editId) {
+        const idx = list.findIndex(x => x.id === editId);
+        if (idx >= 0) list[idx] = { ...list[idx], ticker, comment };
+      } else {
+        list.unshift({
+          id: key + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
+          ticker, comment, dateAdded: new Date().toISOString().slice(0, 10)
+        });
+      }
+      saveCustomList(key, list);
+      resetCustomListForm(key);
+      renderCustomList(key);
+      refreshTickerBadgesNow();
+    }
+    function editCustomListItem(key, id) {
+      const item = getCustomList(key).find(x => x.id === id);
+      if (!item) return;
+      const cfg = CUSTOM_LIST_CONFIG[key];
+      editingCustomListId[key] = id;
+      document.getElementById(cfg.prefix + "-ticker").value = item.ticker;
+      document.getElementById(cfg.prefix + "-comment").value = item.comment || "";
+      document.getElementById(cfg.prefix + "-ticker").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    function deleteCustomListItem(key, id) {
+      const item = getCustomList(key).find(x => x.id === id);
+      if (!item) return;
+      if (!confirm("Delete entry for " + item.ticker + "?")) return;
+      saveCustomList(key, getCustomList(key).filter(x => x.id !== id));
+      renderCustomList(key);
+      refreshTickerBadgesNow();
+    }
+    function resetCustomListForm(key) {
+      const cfg = CUSTOM_LIST_CONFIG[key];
+      editingCustomListId[key] = null;
+      document.getElementById(cfg.prefix + "-ticker").value = "";
+      document.getElementById(cfg.prefix + "-comment").value = "";
+    }
+    function renderCustomList(key) {
+      const cfg = CUSTOM_LIST_CONFIG[key];
+      const body = document.getElementById(cfg.tableBodyId);
+      if (!body) return;
+      const list = getCustomList(key);
+      if (!list.length) {
+        body.innerHTML = `<div class="wl-empty">No entries yet — add one above.</div>`;
+        return;
+      }
+      body.innerHTML = `<table>
+        <thead><tr><th>Date Added</th><th>Ticker</th><th>Comment</th><th></th></tr></thead>
+        <tbody>
+          ${list.map(item => `<tr>
+            <td class="muted" style="font-size:11px;">${item.dateAdded}</td>
+            <td><span class="ticker">${item.ticker}</span></td>
+            <td style="font-size:12px;white-space:normal;">${item.comment || "—"}</td>
+            <td style="white-space:nowrap;">
+              <button class="btn btn-sm" onclick="editCustomListItem('${key}','${item.id}')">Edit</button>
+              <button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deleteCustomListItem('${key}','${item.id}')">Delete</button>
+            </td>
+          </tr>`).join("")}
+        </tbody>
+      </table>`;
+    }
+    function exportCustomListCSV(key, label) {
+      const list = getCustomList(key);
+      if (!list.length) { alert("Nothing to export yet — add some entries first."); return; }
+      const escapeCsv = (v) => {
+        const s = String(v == null ? "" : v);
+        return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+      };
+      const rows = [["Date Added", "Ticker", "Comment"]];
+      list.forEach(item => rows.push([item.dateAdded, item.ticker, item.comment || ""]));
+      const csv = rows.map(r => r.map(escapeCsv).join(",")).join("\r\n");
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" }); // BOM so Excel reads it cleanly
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = label.replace(/\s+/g, "_") + "_" + new Date().toISOString().slice(0, 10) + ".csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function parseSimpleCsv(text) {
+      // Quote-aware CSV line splitter, same approach as the Schwab importer.
+      const lines = text.replace(/^\uFEFF/, "").trim().split(/\r?\n/).filter(Boolean);
+      const split = (row) => {
+        const out = []; let cur = "", q = false;
+        for (let i = 0; i < row.length; i++) {
+          const ch = row[i];
+          if (ch === '"') { q = !q; continue; }
+          if (ch === "," && !q) { out.push(cur.trim()); cur = ""; continue; }
+          cur += ch;
+        }
+        out.push(cur.trim());
+        return out;
+      };
+      return lines.map(split);
+    }
+
+    function importCustomListCSV(key) {
+      const cfg = CUSTOM_LIST_CONFIG[key];
+      if (!cfg) return;
+      const input = document.getElementById(cfg.prefix + "-import-file");
+      const out = document.getElementById(cfg.prefix + "-import-result");
+      if (!input || !input.files || !input.files[0]) {
+        alert("Choose a CSV file first");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const rows = parseSimpleCsv(reader.result);
+          if (rows.length < 2) {
+            if (out) out.textContent = "No data rows found in that file.";
+            return;
+          }
+          const headers = rows[0].map(h => h.toLowerCase().trim());
+          const iTicker = headers.findIndex(h => h.includes("ticker") || h.includes("symbol"));
+          const iComment = headers.findIndex(h => h.includes("comment") || h.includes("note"));
+          const iDate = headers.findIndex(h => h.includes("date"));
+          if (iTicker < 0) {
+            if (out) out.textContent = 'Could not find a "Ticker" column — check the file has a header row with a Ticker column.';
+            return;
+          }
+
+          const list = getCustomList(key);
+          const byTicker = {};
+          list.forEach(item => { byTicker[item.ticker] = item; });
+          let added = 0, updated = 0, skipped = 0;
+
+          for (let r = 1; r < rows.length; r++) {
+            const cols = rows[r];
+            const ticker = (cols[iTicker] || "").trim().toUpperCase();
+            if (!ticker) { skipped++; continue; }
+            const comment = iComment >= 0 ? (cols[iComment] || "").trim() : "";
+            const dateAdded = iDate >= 0 && cols[iDate] ? cols[iDate].trim() : null;
+
+            if (byTicker[ticker]) {
+              byTicker[ticker].comment = comment;
+              updated++;
+            } else {
+              const item = {
+                id: key + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
+                ticker, comment,
+                dateAdded: dateAdded || new Date().toISOString().slice(0, 10)
+              };
+              byTicker[ticker] = item;
+              list.unshift(item);
+              added++;
+            }
+          }
+
+          saveCustomList(key, list);
+          renderCustomList(key);
+          refreshTickerBadgesNow();
+          if (out) out.textContent = `Imported: ${added} added, ${updated} updated${skipped ? ", " + skipped + " row(s) skipped (no ticker)" : ""}.`;
+        } catch (e) {
+          if (out) out.textContent = "Import error: " + e.message;
+        }
+      };
+      reader.readAsText(input.files[0]);
+    }
+
+    // ---- Ticker badges (SB / 2500) — applied automatically to every ticker
+    // shown anywhere in the app via a MutationObserver, rather than editing
+    // every individual render function. Whenever a ticker matching the Sugar
+    // Babies or Fund Ownership lists appears in a .ticker or .ticker-link
+    // element, a small badge gets appended right after it.
+    function applyTickerBadges(root) {
+      const sb = new Set(getCustomList("sugarbabies").map(x => x.ticker));
+      const fo = new Set(getCustomList("fundownership").map(x => x.ticker));
+      if (!sb.size && !fo.size) return;
+      const scope = root && root.querySelectorAll ? root : document;
+      scope.querySelectorAll(".ticker-link:not([data-badged]), .ticker:not([data-badged])").forEach(el => {
+        const t = (el.textContent || "").trim().toUpperCase();
+        el.setAttribute("data-badged", "1");
+        let badges = "";
+        if (sb.has(t)) badges += ` <span class="tag" style="background:#831843;color:#fbcfe8;font-size:9px;padding:1px 4px;" title="On your Sugar Babies list">SB</span>`;
+        if (fo.has(t)) badges += ` <span class="tag" style="background:#1e3a8a;color:#bfdbfe;font-size:9px;padding:1px 4px;" title="On your Fund Ownership (2500) list">2500</span>`;
+        if (badges) el.insertAdjacentHTML("afterend", badges);
+      });
+    }
+    let tickerBadgeObserver = null;
+    let tickerBadgeScheduled = false;
+    function initTickerBadgeObserver() {
+      if (tickerBadgeObserver) return;
+      tickerBadgeObserver = new MutationObserver(() => {
+        if (tickerBadgeScheduled) return;
+        tickerBadgeScheduled = true;
+        requestAnimationFrame(() => {
+          tickerBadgeScheduled = false;
+          applyTickerBadges(document);
+        });
+      });
+      tickerBadgeObserver.observe(document.body, { childList: true, subtree: true });
+      applyTickerBadges(document); // cover whatever's already rendered
+    }
+    // Sugar Babies / Fund Ownership lists changing should re-evaluate badges
+    // on whatever's currently on screen, not just future DOM changes.
+    function refreshTickerBadgesNow() {
+      document.querySelectorAll("[data-badged]").forEach(el => el.removeAttribute("data-badged"));
+      document.querySelectorAll(".ticker-link + .tag, .ticker + .tag").forEach(el => {
+        if (el.textContent === "SB" || el.textContent === "2500") el.remove();
+      });
+      applyTickerBadges(document);
+    }
+
     function getTradePlans() {
       try { return JSON.parse(localStorage.getItem("tt_trade_plans") || "[]"); }
       catch (e) { return []; }
@@ -2908,15 +3214,24 @@
         const screener = data.screener || { available: false, candidates: [] };
         const buzz = data.buzz || [];
         const volumeMovers = data.volumeMovers || { available: false, movers: [] };
-        const hasLive = (screener.available && screener.candidates && screener.candidates.length) || buzz.length || (volumeMovers.available && volumeMovers.movers.length);
+        const hasLive = (screener.available && screener.candidates && screener.candidates.length) || buzz.length;
         if (hasLive) {
           // Tag existing demo rows so they're clearly distinguishable, then
           // prepend real live rows tagged with their actual source.
-          candidates.forEach(c => { if (!("_live" in c) && !("_buzz" in c) && !("_volscreener" in c)) c._demo = true; });
+          candidates.forEach(c => { if (!("_live" in c) && !("_buzz" in c)) c._demo = true; });
           const liveMapped = (screener.candidates || []).map(c => mapLiveCandidate(c, "screener"));
+          // volumeMovers is a SUBSET of screener.candidates (same tickers),
+          // not a separate list — flag the existing entries instead of
+          // creating duplicate rows for the same ticker.
+          const volTickers = new Set((volumeMovers.movers || []).map(m => m.ticker));
+          liveMapped.forEach(c => {
+            if (volTickers.has(c.ticker)) {
+              c._volscreener = true;
+              if (!c.tags.includes("VOL9M")) c.tags.push("VOL9M");
+            }
+          });
           const buzzMapped = buzz.map(c => mapLiveCandidate(c, "buzz"));
-          const volMapped = (volumeMovers.movers || []).map(c => mapLiveCandidate(c, "volume-screener"));
-          candidates.unshift(...buzzMapped, ...volMapped, ...liveMapped);
+          candidates.unshift(...buzzMapped, ...liveMapped);
           renderSIPTable();
           renderBullishBearish();
         }
@@ -4660,6 +4975,8 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       }
       if (section === "market-monitor") loadMarketMonitorData();
       if (section === "positions") { loadBaselineUI(); renderFmpClientKeyStatus(); renderPositions(); fetchAllLivePrices(true); }
+      if (section === "fund-ownership") renderCustomList("fundownership");
+      if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
       if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); }
       const sp = document.getElementById("settings-panel");
@@ -4696,6 +5013,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     loadLiveWatchlistData();
     renderGithubTokenStatus();
     renderFmpClientKeyStatus();
+    initTickerBadgeObserver();
     loadBaselineUI();
     updateExecRiskVisibility();
     updateRefreshLabel();
