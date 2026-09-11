@@ -816,7 +816,7 @@
               <tbody id="bullish-table"></tbody>
             </table>
           </div>
-          <div class="note">Highest-scoring non-avoid names. Setup tag = SIP / EP / EP9M assessment (editable on full list).</div>
+          <div class="note">Highest-scoring non-avoid names, plus any Sugar Babies / Fund Ownership tickers moving up today even outside the top 5 (marked ★) — those are always shown. Setup tag = SIP / EP / EP9M assessment (editable on full list).</div>
         </div>
         <div class="panel">
           <div class="panel-header">
@@ -839,7 +839,7 @@
               <tbody id="bearish-table"></tbody>
             </table>
           </div>
-          <div class="note">Gap-downs / weak quality. Setup tag is informational for review.</div>
+          <div class="note">Gap-downs / weak quality, plus any Sugar Babies / Fund Ownership tickers moving down today even outside the top 5 (marked ★) — those are always shown. Setup tag is informational for review.</div>
         </div>
       </div>
 
@@ -1663,13 +1663,25 @@
       // crowd out real opportunities even though they're correctly present
       // in the full Qualify list above.
       const hasRealData = candidates.some(c => c._live || c._buzz);
-      const pool = hasRealData ? candidates.filter(c => !c._demo) : candidates;
+      const pool = dedupeCandidatesByTicker(hasRealData ? candidates.filter(c => !c._demo) : candidates);
+
+      const sbSet = new Set(getCustomList("sugarbabies").map(x => x.ticker));
+      const foSet = new Set(getCustomList("fundownership").map(x => x.ticker));
 
       // Top 5 Bullish: not avoid, positive gap preferred, highest score
-      const bullish = pool
+      const bullishTop5 = pool
         .filter(c => !c.avoid && c.gap >= 0)
         .sort((a, b) => b.score - a.score)
         .slice(0, 5);
+      // Sugar Babies / Fund Ownership tickers are critical enough to always
+      // show here, even past the normal top-5 cutoff — this can push the
+      // count above 5 on purpose.
+      const bullishPriority = pool.filter(c =>
+        (sbSet.has(c.ticker) || foSet.has(c.ticker)) &&
+        !c.avoid && c.gap >= 0 &&
+        !bullishTop5.some(b => b.ticker === c.ticker)
+      );
+      const bullish = [...bullishTop5, ...bullishPriority];
       const bullBody = document.getElementById("bullish-table");
       if (bullBody) {
         bullBody.innerHTML = bullish.map((c, i) => {
@@ -1679,7 +1691,7 @@
           const tag = c.userSetup || a.type;
           return `
           <tr>
-            <td>${i + 1}</td>
+            <td>${i + 1}${i >= 5 ? ` <span class="muted" style="font-size:9px;">★</span>` : ""}</td>
             <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
             <td>$${c.price.toFixed(2)}</td>
             <td class="pos">+${c.gap}%</td>
@@ -1693,7 +1705,7 @@
       }
 
       // Top 5 Bearish: avoid=true or negative gap, worst first (most negative gap or lowest score among avoids)
-      const bearish = pool
+      const bearishTop5 = pool
         .filter(c => c.avoid || c.gap < 0)
         .sort((a, b) => {
           // Prefer gap-downs first, then by how negative / avoid strength
@@ -1701,6 +1713,12 @@
           return a.score - b.score;
         })
         .slice(0, 5);
+      const bearishPriority = pool.filter(c =>
+        (sbSet.has(c.ticker) || foSet.has(c.ticker)) &&
+        (c.avoid || c.gap < 0) &&
+        !bearishTop5.some(b => b.ticker === c.ticker)
+      );
+      const bearish = [...bearishTop5, ...bearishPriority];
       const bearBody = document.getElementById("bearish-table");
       if (bearBody) {
         bearBody.innerHTML = bearish.map((c, i) => {
@@ -1708,7 +1726,7 @@
           const tag = c.userSetup || a.type;
           return `
           <tr>
-            <td>${i + 1}</td>
+            <td>${i + 1}${i >= 5 ? ` <span class="muted" style="font-size:9px;">★</span>` : ""}</td>
             <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
             <td>$${c.price.toFixed(2)}</td>
             <td class="${c.gap >= 0 ? "pos" : "neg"}">${c.gap > 0 ? "+" : ""}${c.gap}%</td>
@@ -1879,7 +1897,7 @@
       const banner = document.getElementById("qualify-data-banner");
       tbody.innerHTML = "";
       const hasRealData = candidates.some(c => c._live || c._buzz);
-      const rows = hasRealData ? candidates.filter(c => !c._demo) : candidates;
+      const rows = dedupeCandidatesByTicker(hasRealData ? candidates.filter(c => !c._demo) : candidates);
       if (banner) {
         banner.innerHTML = hasRealData
           ? ""
@@ -1947,7 +1965,7 @@
       if (!tbody) return;
       tbody.innerHTML = "";
       const hasRealData = candidates.some(c => c._live || c._buzz);
-      const pool = hasRealData ? candidates.filter(c => !c._demo) : candidates;
+      const pool = dedupeCandidatesByTicker(hasRealData ? candidates.filter(c => !c._demo) : candidates);
       pool.filter(c => c.avoid).forEach(c => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -3063,6 +3081,26 @@
       }).join("");
     }
 
+    function dedupeCandidatesByTicker(list) {
+      // Keeps the first occurrence of each ticker but merges in tags/flags
+      // from any later duplicates, instead of silently dropping information.
+      const seen = new Map();
+      const result = [];
+      list.forEach(c => {
+        if (seen.has(c.ticker)) {
+          const existing = seen.get(c.ticker);
+          (c.tags || []).forEach(t => { if (!existing.tags.includes(t)) existing.tags.push(t); });
+          if (c._buzz) existing._buzz = true;
+          if (c._live) existing._live = true;
+          if (c._volscreener) existing._volscreener = true;
+        } else {
+          seen.set(c.ticker, c);
+          result.push(c);
+        }
+      });
+      return result;
+    }
+
     function mapLiveCandidate(lc, kind) {
       // Maps a screener/buzz row from data/candidates.json into the same shape
       // renderSIPTable/renderBullishBearish/showDetail already expect.
@@ -3216,8 +3254,13 @@
         const volumeMovers = data.volumeMovers || { available: false, movers: [] };
         const hasLive = (screener.available && screener.candidates && screener.candidates.length) || buzz.length;
         if (hasLive) {
-          // Tag existing demo rows so they're clearly distinguishable, then
-          // prepend real live rows tagged with their actual source.
+          // loadLiveWatchlistData() can run more than once per session
+          // (bootstrap, plus the "Refresh Data Now" follow-up check) — remove
+          // any previous live/buzz batch first, or overlapping tickers
+          // between two loads would duplicate instead of being replaced.
+          for (let i = candidates.length - 1; i >= 0; i--) {
+            if (candidates[i]._live || candidates[i]._buzz) candidates.splice(i, 1);
+          }
           candidates.forEach(c => { if (!("_live" in c) && !("_buzz" in c)) c._demo = true; });
           const liveMapped = (screener.candidates || []).map(c => mapLiveCandidate(c, "screener"));
           // volumeMovers is a SUBSET of screener.candidates (same tickers),
@@ -3231,7 +3274,10 @@
             }
           });
           const buzzMapped = buzz.map(c => mapLiveCandidate(c, "buzz"));
-          candidates.unshift(...buzzMapped, ...liveMapped);
+          // Screener-sourced data is richer (real price/gap/volume) than buzz
+          // (price only) — put it first so it wins on a ticker collision,
+          // merging in the buzz tag rather than losing the better data.
+          candidates.unshift(...dedupeCandidatesByTicker([...liveMapped, ...buzzMapped]));
           renderSIPTable();
           renderBullishBearish();
         }
