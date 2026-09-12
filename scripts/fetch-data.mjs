@@ -111,14 +111,34 @@ async function fetchFmpList(endpoint, key) {
 // /stable/profile (per-ticker only, no batching, but it does work and
 // conveniently returns price, volume, averageVolume, sector, and industry
 // all in one call).
-async function fetchFmpProfile(ticker, key) {
+async function fetchFmpProfile(ticker, key, dumpRaw) {
   try {
     const res = await fetch(`https://financialmodelingprep.com/stable/profile?symbol=${ticker}&apikey=${key}`);
     if (!res.ok) return null;
     const data = await res.json();
     const p = Array.isArray(data) ? data[0] : null;
     if (!p) return null;
+    if (dumpRaw) {
+      // One-time full dump so we know definitively which price/change fields
+      // this stable-tier profile response actually has, instead of guessing —
+      // /stable/quote (which we know has changesPercentage) is paid-only, so
+      // it's unconfirmed whether profile carries an equivalent field.
+      console.log(`[diag] Full raw profile response for ${ticker}: ${JSON.stringify(p)}`);
+    }
+    // Try every plausible field name for price and day change, in order of
+    // likelihood, and compute % change ourselves if we only get a dollar
+    // amount. Falls back to null (not a fake 0) if nothing usable is found.
+    const price = p.price != null ? Number(p.price) : null;
+    let changePct = null;
+    if (p.changesPercentage != null) changePct = Number(p.changesPercentage);
+    else if (p.changePercentage != null) changePct = Number(p.changePercentage);
+    else if (p.changes != null && price != null) {
+      const priorClose = price - Number(p.changes);
+      if (priorClose) changePct = (Number(p.changes) / priorClose) * 100;
+    }
     return {
+      price,
+      changePct,
       volume: p.volume != null ? Number(p.volume) : null,
       avgVolume: p.averageVolume != null ? Number(p.averageVolume) : null,
       sector: p.sector || null,
@@ -127,6 +147,45 @@ async function fetchFmpProfile(ticker, key) {
   } catch (e) {
     return null;
   }
+}
+
+// Mega-cap tickers that should always be tracked with real data, regardless
+// of whether they crack the gainers/losers/actives % lists — those lists
+// skew toward small/volatile names, so a mega cap having a genuinely big day
+// (e.g. Oracle +5%) can otherwise never surface. Edit this list any time;
+// it's a flat array on purpose so it's easy to add/remove tickers.
+const ALWAYS_TRACK_TICKERS = [
+  "AAPL", "MSFT", "NVDA", "GOOGL", "GOOG", "AMZN", "META", "TSLA", "ORCL", "AVGO",
+  "JPM", "V", "MA", "UNH", "XOM", "WMT", "JNJ", "PG", "HD", "COST",
+  "NFLX", "AMD", "CRM", "ADBE", "BA"
+];
+
+// ---- QQQ 10dma/20dma signal — per an independent backtest study (thousands
+// of real breakout trades across two datasets), this plain two-moving-average
+// rule was the ONLY signal that held up on genuinely out-of-sample data,
+// beating every McClellan/breadth-style indicator tested. Costs one API call.
+async function fetchQqqMaSignal(key) {
+  const url = `https://financialmodelingprep.com/stable/historical-price-eod/light?symbol=QQQ&apikey=${key}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`QQQ history fetch failed: ${res.status}`);
+  const rows = await res.json();
+  if (!Array.isArray(rows) || rows.length < 20) throw new Error("Not enough QQQ history returned");
+  // Rows are typically newest-first; normalize to be sure, then take the
+  // most recent 20 closes.
+  const sorted = [...rows].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const closes = sorted.slice(0, 20).map(r => Number(r.close != null ? r.close : r.price));
+  if (closes.some(c => isNaN(c))) throw new Error("Unexpected price field in QQQ history response");
+  const sma = (n) => closes.slice(0, n).reduce((a, b) => a + b, 0) / n;
+  const sma10 = sma(10);
+  const sma20 = sma(20);
+  return {
+    date: sorted[0].date,
+    price: closes[0],
+    sma10: Number(sma10.toFixed(2)),
+    sma20: Number(sma20.toFixed(2)),
+    bullish: sma10 > sma20,
+    spreadPct: Number((((sma10 - sma20) / sma20) * 100).toFixed(2))
+  };
 }
 
 async function fetchScreener() {
@@ -155,47 +214,72 @@ async function fetchScreener() {
       ticker,
       name: r.name || ticker,
       price,
-      changePct: Number(r.changesPercentage) || 0
+      changePct: Number(r.changesPercentage) || 0,
+      _fromList: true
     };
+  });
+
+  // Add always-track mega-caps that aren't already in the pool — placeholder
+  // entries here, real price/change/volume comes from the profile fetch below.
+  ALWAYS_TRACK_TICKERS.forEach(ticker => {
+    if (!byTicker[ticker]) {
+      byTicker[ticker] = { ticker, name: ticker, price: null, changePct: null, _fromList: false, _megaCap: true };
+    } else {
+      byTicker[ticker]._megaCap = true;
+    }
   });
 
   const tickers = Object.keys(byTicker);
 
-  // Rank by |% change| first — the biggest movers are the most decision-
-  // relevant — then only fetch the expensive per-ticker profile data (volume,
-  // avgVolume, sector, industry) for a capped subset, to stay well within
-  // FMP's 250-requests/day free-tier limit across all 4 scheduled runs/day.
-  const rankedTickers = [...tickers].sort((a, b) => Math.abs(byTicker[b].changePct) - Math.abs(byTicker[a].changePct));
-  const PROFILE_LIMIT = 25;
-  const profileTargets = rankedTickers.slice(0, PROFILE_LIMIT);
+  // Rank by |% change| first (mega-caps without a % yet sort last in this
+  // step, doesn't matter — they get profile-fetched unconditionally below
+  // regardless of rank), then only fetch the expensive per-ticker profile
+  // data for a capped subset, to stay within FMP's 250-requests/day cap.
+  const rankedTickers = [...tickers].sort((a, b) => Math.abs(byTicker[b].changePct || 0) - Math.abs(byTicker[a].changePct || 0));
+  const TOP_MOVER_LIMIT = 15;
+  const topMoverTargets = rankedTickers.filter(t => !byTicker[t]._megaCap).slice(0, TOP_MOVER_LIMIT);
+  const megaCapTargets = tickers.filter(t => byTicker[t]._megaCap);
+  const profileTargets = [...new Set([...topMoverTargets, ...megaCapTargets])];
 
   const profiles = {};
   let profileFound = 0;
+  let dumpedOne = false;
   for (const ticker of profileTargets) {
-    const p = await fetchFmpProfile(ticker, key);
+    const p = await fetchFmpProfile(ticker, key, !dumpedOne);
+    dumpedOne = true;
     if (p) { profiles[ticker] = p; profileFound++; }
     await new Promise(r => setTimeout(r, 120)); // be a reasonable citizen toward the API
   }
-  console.log(`[diag] Profile data (volume/avgVolume/sector) found for ${profileFound} of ${profileTargets.length} top-movers checked`);
+  console.log(`[diag] Profile data found for ${profileFound} of ${profileTargets.length} tickers checked (${topMoverTargets.length} top movers + ${megaCapTargets.length} always-track mega-caps)`);
 
   const candidates = tickers.map(ticker => {
     const base = byTicker[ticker];
     const p = profiles[ticker] || {};
+    // Mega-caps with no list data start with null price/change — fill from
+    // profile if we got it. List-sourced tickers keep their list price/change
+    // unless profile gave us something (profile is usually fresher).
+    const price = p.price != null ? p.price : base.price;
+    const changePct = p.changePct != null ? p.changePct : base.changePct;
     const volume = p.volume || 0;
     const avgVolume = p.avgVolume || null;
     const rvol = avgVolume ? volume / avgVolume : null;
     return {
-      ...base,
+      ticker: base.ticker,
+      name: base.name,
+      price: price || 0,
+      changePct: changePct || 0,
       volume,
       avgVolume,
       rvol, // e.g. 2.5 means trading at 2.5x its average volume
       sector: p.sector || null,
       industry: p.industry || null,
       hasProfileData: !!profiles[ticker],
+      megaCap: !!base._megaCap,
       source: "Financial Modeling Prep (free tier, licensed API)",
       sourceUrl: `https://financialmodelingprep.com/quote/${ticker}`
     };
-  }).sort((a, b) => b.volume - a.volume);
+  }).filter(c => c.price > 5) // re-apply price filter now that mega-caps have real prices from profile
+    .sort((a, b) => b.volume - a.volume);
 
   return {
     available: candidates.length > 0,
@@ -342,13 +426,61 @@ async function main() {
     console.error("Catalyst attachment failed:", e.message);
   }
 
+  // QQQ 10dma/20dma market-timing gate — see fetchQqqMaSignal for why this
+  // one indicator, and not McClellan/breadth-style ones, made the cut.
+  let qqqSignal = { available: false, note: "" };
+  const fmpKey = process.env.FMP_API_KEY;
+  if (fmpKey) {
+    try {
+      qqqSignal = await fetchQqqMaSignal(fmpKey);
+      qqqSignal.available = true;
+      console.log(`[diag] QQQ 10dma/20dma: ${qqqSignal.sma10} vs ${qqqSignal.sma20} (${qqqSignal.bullish ? "bullish" : "bearish"}, spread ${qqqSignal.spreadPct}%)`);
+    } catch (e) {
+      qqqSignal = { available: false, note: e.message };
+      console.error("QQQ MA signal fetch failed:", e.message);
+    }
+  } else {
+    qqqSignal.note = "FMP_API_KEY not set";
+  }
+
+  // Real (not fake/demo) daily count of big movers, built from data already
+  // fetched above — zero extra API calls. Appends to a running history file
+  // so the chart genuinely grows day over day instead of being backfilled
+  // with invented numbers. This is the "leadership" measure the backtest
+  // found actually carried signal — though note it's a same-day gap% count
+  // from our own screener universe, not the stricter "up 50% over a month"
+  // measure from that study; a true rolling-return leadership count would
+  // need historical price per ticker, which isn't in this session's budget.
+  const historyPath = path.join(process.cwd(), "data", "breadth-history.json");
+  let breadthHistory = [];
+  try {
+    const raw = await readFile(historyPath, "utf8");
+    breadthHistory = JSON.parse(raw);
+    if (!Array.isArray(breadthHistory)) breadthHistory = [];
+  } catch (e) {
+    breadthHistory = []; // first run ever, or file doesn't exist yet
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  const up20 = screener.candidates.filter(c => c.changePct >= 20).length;
+  const down20 = screener.candidates.filter(c => c.changePct <= -20).length;
+  const todayIdx = breadthHistory.findIndex(d => d.date === today);
+  const todayEntry = { date: today, up20, down20 };
+  if (todayIdx >= 0) breadthHistory[todayIdx] = todayEntry;
+  else breadthHistory.push(todayEntry);
+  breadthHistory.sort((a, b) => a.date.localeCompare(b.date));
+  if (breadthHistory.length > 120) breadthHistory = breadthHistory.slice(-120);
+  await writeFile(historyPath, JSON.stringify(breadthHistory, null, 2));
+  console.log(`[diag] Breadth history: today ${up20} up20 / ${down20} down20 · ${breadthHistory.length} day(s) tracked total`);
+
   const output = {
     generatedAt: new Date().toISOString(),
     generatedSlot: slot ? slot.label : "Manual run",
     wsjHeadlines,
     screener,
     volumeMovers,
-    buzz
+    buzz,
+    qqqSignal,
+    breadthHistory
   };
 
   await writeFile(dataPath, JSON.stringify(output, null, 2));
