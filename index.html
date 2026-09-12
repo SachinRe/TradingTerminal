@@ -630,17 +630,10 @@
         <div class="step-tab" data-mm-sub="mm-breadth" onclick="switchMMSub(this)">Breadth</div>
         <div class="step-tab" data-mm-sub="mm-sector" onclick="switchMMSub(this)">Sector &amp; Volume</div>
         <div class="step-tab" data-mm-sub="mm-tab-playbook" onclick="switchMMSub(this)">Playbook</div>
+        <div class="step-tab" data-mm-sub="mm-tab-checklist" onclick="switchMMSub(this)">Timing Checklist</div>
       </div>
 
       <div id="mm-regime" class="mm-sub active">
-      <div class="panel">
-        <div class="panel-header">
-          Market Timing Gate · QQQ 10dma / 20dma
-          <span class="tag" id="qqq-signal-badge">Checking…</span>
-        </div>
-        <div class="panel-body" id="qqq-signal-body">Loading…</div>
-        <div class="note">Per an independent backtest across thousands of real breakout trades on two separate datasets, this plain two-moving-average rule was the only signal that held up on genuinely out-of-sample data — it beat McClellan Oscillator, Summation Index, T2108, and put/call ratio, all of which several experienced traders eventually dropped for giving false signals during sustained trends. Use this as the switch; use other panels for diagnosis, not as separate on/off signals.</div>
-      </div>
       <div class="panel">
         <div class="panel-header">
           Morning Regime Check · Demo Data
@@ -648,7 +641,7 @@
           <span class="tag" id="mm-asof">As of —</span>
         </div>
         <div class="panel-body">
-          <div class="note" style="margin-bottom:10px;">These readings are illustrative placeholder numbers from the original template, not live data — the QQQ signal above is the real, working indicator on this page. Ask if you'd like any specific row here wired up to a real source.</div>
+          <div class="note" style="margin-bottom:10px;">These readings are illustrative placeholder numbers from the original template, not live data. See the Timing Checklist tab for a manual, evidence-based reference to check instead. Ask if you'd like any specific row here wired up to a real source.</div>
           <div class="grid-2">
             <div>
               <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">
@@ -773,6 +766,88 @@
         </div>
       </div>
       </div><!-- end mm-playbook -->
+
+      <div id="mm-tab-checklist" class="mm-sub" style="display:none;">
+      <div class="panel">
+        <div class="panel-header">
+          Timing Checklist
+          <span class="tag">Synthesized from your McClellan notes + an independent backtest study</span>
+        </div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:14px;">
+            This is a manual reference, not automated data — nothing here refreshes on its own. Ordered roughly by how much evidence backs each one, strongest first. Check <a href="#" onclick="navTo('market-monitor');document.querySelector('[data-mm-sub=mm-regime]').click();return false;">Regime</a> for the one item here that IS automated (QQQ 10dma/20dma).
+          </div>
+
+          <div class="checklist">
+            <div class="check-item">
+              <span class="check-icon">1</span>
+              <strong>Check QQQ's 10-day MA vs. 20-day MA first, before anything else.</strong>
+              10dma above 20dma → conditions are open to participate. 10dma below 20dma → be defensive, no new risk.
+              <div class="muted" style="margin-top:4px;font-size:11px;">Why first: an independent backtest across 1,000s of real breakout trades on two separate datasets found this was the <em>only</em> rule that held up on genuinely out-of-sample data (+2.35R gap, range +0.62 to +4.14 — the only measurement in the whole study whose range excluded zero on data nobody had looked at first). It beat every breadth indicator tested, McClellan included. Already automated in the Regime tab.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">2</span>
+              <strong>Are your own recent breakouts/trades actually following through?</strong>
+              If your last several planned trades worked, conditions are healthy — keep sizing normally. If they're failing repeatedly, cut exposure regardless of what any indicator says.
+              <div class="muted" style="margin-top:4px;font-size:11px;">Why: the article's stated single best breadth measurement, full stop — "it skips the proxy and measures the thing itself... no lag, no risk of measuring the wrong population." Check your <a href="#" onclick="navTo('watchlist');document.querySelector('[data-wl-sub=wl-tradeplan]').click();return false;">Weekly Trade Plan performance report</a> for this, directly.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">3</span>
+              <strong>MCO (McClellan Oscillator) — short-term breadth momentum, your timing tool.</strong>
+              Built from NDX components specifically (not NYSE): take daily advancers minus decliners, smooth with a 19-day EMA and a 39-day EMA, then subtract the 39-day EMA from the 19-day EMA. That result is MCO — a read on how strong or weak participation is right now.
+              <br/><strong>Triggers:</strong> MCO &lt; −1σ → watch for a pullback/bounce (think of it like a rubber band — stretched too far, odds shift toward a snap-back, not guaranteed but the risk/reward improves). MCO &lt; −2σ → watch for a major cycle reversal.
+              <br/>When MCO drops deeply negative it means too many stocks declined vs. advanced, breadth is washed out, fear is elevated, and conditions are shifting from "selling climax" toward "snapback potential."
+              <div class="muted" style="margin-top:4px;font-size:11px;">Caution: an independent backtest found McClellan-style measures were "the weak and inverted ones" among everything tested, and several experienced traders dropped NAMO/NASI/T2108/put-call ratio entirely after they gave false or conflicting signals during sustained trends. Treat MCO as a read on internal strength, not an on/off switch.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">4</span>
+              <strong>MSI (McClellan Summation Index) — longer-term breadth trend, your confirmation tool.</strong>
+              The running cumulative total of MCO: take each day's MCO reading, add it to yesterday's MSI value, and that cumulative line is MSI. Compare it to its own 10-day moving average. Where MCO is short-term momentum, MSI is long-term breadth trend and participation.
+              <br/><strong>Triggers:</strong> Curl-up → test the turn with pilot (small) size. Reclaim of its 10dma → press with real conviction — this is the moment breadth actually turns structurally, not just a bounce. Curl-down → halt new risk entirely.
+              <br/>When MSI curls up, it means the underlying trend of participation is improving, more stocks are beginning to join the move, and breadth is supporting the structure repair.
+              <div class="muted" style="margin-top:4px;font-size:11px;">This is why MSI is used <em>after</em> MCO in your own process: MCO gives the timing, MSI gives the confirmation. Same caution as above applies — use as context, not a standalone trigger.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">5</span>
+              <strong>No market confirmation = no portfolio risk.</strong>
+              Use price and the McClellan framework together to determine whether the market offers a favorable risk/reward window. Focus on oversold breadth (MCO) for entries, and avoid new positions when MSI is in a confirmed downtrend.
+              <div class="muted" style="margin-top:4px;font-size:11px;">This is your own governing rule — the one everything else on this list serves. If the market hasn't confirmed, the answer is no new risk, regardless of how good an individual setup looks.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">6</span>
+              <strong>If you do look at breadth counts, use slow measures, not fast ones.</strong>
+              Prefer "stocks up 50%+ in a month" or "25%+ in a quarter" over "stocks up 4% today." Rising leadership count = healthy participation building. Shrinking = a narrowing, mega-cap-only rally.
+              <div class="muted" style="margin-top:4px;font-size:11px;">Why: in the same study, daily 4%-move counts "told me nothing usable," while the 50%-in-a-month count was the single strongest breadth measure found (+1.58R) — stronger than the author's own price-filter benchmark. Leadership over participation.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">7</span>
+              <strong>Don't buy breakouts into a washout — but don't be early either.</strong>
+              If two unrelated breadth measures both hit a bearish extreme at once, that's a bad place to buy breakouts today. Wait for price to actually turn first; breadth confirms afterward, it doesn't lead.
+              <div class="muted" style="margin-top:4px;font-size:11px;">Why: two independent measures agreeing (a 10-day up/down ratio at its bearish extreme, and a %-above-20dma oscillator at oversold) both pointed to the same conclusion in testing. But breadth-based signals were measurably late off sharp lows — 14–23+ trading days behind in 2020, months in 2009 — because a stock can't make a new high until it's reclaimed everything it lost, and a summation index needs time to accumulate. "Don't be too early" is the single line the article asks you to remember if nothing else sticks.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">8</span>
+              <strong>If you ever reference a raw exchange-published breadth number, know what's inside it.</strong>
+              A NYSE new-highs count, for instance, is close to half preferred shares, closed-end bond funds, and structured products — not common stock. When rates move hard, that count can shift without a single actual company doing anything.
+              <div class="muted" style="margin-top:4px;font-size:11px;">This app's own screener already filters to the price/volume criteria you set, so this mainly applies if you ever check an external breadth number by hand.</div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">9</span>
+              <strong>Hold all of it loosely — including this checklist.</strong>
+              A rule that looks strong on the data it was discovered on has not yet been shown to work. Size your confidence in any signal to how much fresh, out-of-sample evidence actually backs it — which, per this research, is mostly just item #1 and #2 above.
+            </div>
+          </div>
+        </div>
+      </div>
+      </div><!-- end mm-tab-checklist -->
     </div>
 
     <!-- QUALIFY (SIPs) -->
@@ -2455,10 +2530,6 @@
       // Default SIP — daily opportunity
       return { type: "SIP", reason: "Minor/daily catalyst profile → SIP (1-day focus; upgrade to EP/EP9M if you disagree)" };
     }
-    function suggestSetupType(c) {
-      return assessSetup(c).type;
-    }
-
     function addToWatchlist(ticker) {
       const list = getWatchlist();
       if (list.find(x => x.ticker === ticker)) {
@@ -3249,7 +3320,6 @@
 
     let lastDataGeneratedAt = null;
     let lastDataGeneratedSlot = null;
-    let lastQqqSignal = null;
     let lastBreadthHistory = [];
     async function loadLiveWatchlistData() {
       const badge = document.getElementById("live-data-badge");
@@ -3260,9 +3330,7 @@
         const data = await res.json();
         lastDataGeneratedAt = data.generatedAt || null;
         lastDataGeneratedSlot = data.generatedSlot || null;
-        lastQqqSignal = data.qqqSignal || null;
         lastBreadthHistory = data.breadthHistory || [];
-        renderQqqSignal();
         renderRealBreadthChart();
 
         renderWsjFeed(data.wsjHeadlines);
@@ -3687,7 +3755,6 @@
         panel.classList.add("active");
       }
       if (sub === "mm-sector") renderDataFreshnessBanners();
-      if (sub === "mm-regime") renderQqqSignal();
       if (sub === "mm-breadth") renderRealBreadthChart();
     }
 
@@ -5119,26 +5186,6 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       note: "Sources: thetrading.tools A-D & MA breadth, sector health (2026-09-04). Exact MM 4%/25%/50%/34-13 scan counts update when you re-generate this terminal after a market session."
     };
 
-    // Rolling series: stocks up/down ≥20% in 5 days (reconstructed from your chart shape through 2026-09-04)
-    // When we refresh Market Monitor after a session, append/update the last value and roll the window.
-
-    function tradingDatesEnding(endISO, n) {
-      // Walk back calendar days, skip weekends — approximate US session dates
-      const out = [];
-      const d = new Date(endISO + "T12:00:00");
-      while (out.length < n) {
-        const wd = d.getDay();
-        if (wd !== 0 && wd !== 6) {
-          const y = d.getFullYear();
-          const m = String(d.getMonth() + 1).padStart(2, "0");
-          const day = String(d.getDate()).padStart(2, "0");
-          out.push(y + "-" + m + "-" + day);
-        }
-        d.setDate(d.getDate() - 1);
-      }
-      return out.reverse();
-    }
-
     function buildBarChart(el, series, colorClass, dates) {
       if (!el || !series.length) return;
       const max = Math.max(...series, 1);
@@ -5191,44 +5238,6 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       if (dnL) dnL.textContent = latest.down20;
       if (asof) asof.textContent = hist.length + " day(s) tracked · latest " + latest.date;
       render20Table();
-    }
-
-    function renderQqqSignal() {
-      const body = document.getElementById("qqq-signal-body");
-      const badge = document.getElementById("qqq-signal-badge");
-      if (!body) return;
-      const s = lastQqqSignal;
-      if (!s || !s.available) {
-        body.innerHTML = `<div class="wl-empty">${(s && s.note) || "No data yet — check FMP_API_KEY is set, or wait for the next scheduled run."}</div>`;
-        if (badge) badge.textContent = "No data";
-        return;
-      }
-      const cls = s.bullish ? "pos" : "neg";
-      const verdict = s.bullish
-        ? "PARTICIPATE — 10dma above 20dma"
-        : "CAUTION — 10dma below 20dma, avoid new risk";
-      if (badge) { badge.textContent = s.bullish ? "Bullish" : "Bearish"; badge.style.background = s.bullish ? "#14532d" : "#7f1d1d"; badge.style.color = s.bullish ? "#86efac" : "#fecaca"; }
-      body.innerHTML = `
-        <div style="font-size:20px;font-weight:700;margin-bottom:10px;" class="${cls}">${verdict}</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;">
-          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">QQQ Price</div>
-            <div style="font-size:16px;font-weight:700;margin-top:4px;">$${s.price.toFixed(2)}</div>
-          </div>
-          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">10dma</div>
-            <div style="font-size:16px;font-weight:700;margin-top:4px;">$${s.sma10.toFixed(2)}</div>
-          </div>
-          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">20dma</div>
-            <div style="font-size:16px;font-weight:700;margin-top:4px;">$${s.sma20.toFixed(2)}</div>
-          </div>
-          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Spread</div>
-            <div style="font-size:16px;font-weight:700;margin-top:4px;" class="${cls}">${s.spreadPct >= 0 ? "+" : ""}${s.spreadPct}%</div>
-          </div>
-        </div>
-        <div class="note" style="margin-top:8px;">As of ${s.date}.</div>`;
     }
 
 
@@ -5302,8 +5311,6 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         badge.className = "privacy-badge " + (cls.includes("offense") ? "public" : "");
       }
     }
-
-    function interpretMM() { loadMarketMonitorData(); }
 
 
     loadMarketMonitorData();
