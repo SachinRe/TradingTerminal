@@ -635,11 +635,20 @@
       <div id="mm-regime" class="mm-sub active">
       <div class="panel">
         <div class="panel-header">
-          Morning Regime Check · Auto-retrieved
+          Market Timing Gate · QQQ 10dma / 20dma
+          <span class="tag" id="qqq-signal-badge">Checking…</span>
+        </div>
+        <div class="panel-body" id="qqq-signal-body">Loading…</div>
+        <div class="note">Per an independent backtest across thousands of real breakout trades on two separate datasets, this plain two-moving-average rule was the only signal that held up on genuinely out-of-sample data — it beat McClellan Oscillator, Summation Index, T2108, and put/call ratio, all of which several experienced traders eventually dropped for giving false signals during sustained trends. Use this as the switch; use other panels for diagnosis, not as separate on/off signals.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Morning Regime Check · Demo Data
+          <span class="tag" style="background:#374151;color:#9ca3af;">Not wired to live data</span>
           <span class="tag" id="mm-asof">As of —</span>
-          <button class="btn btn-sm" onclick="loadMarketMonitorData()">↻ Refresh data</button>
         </div>
         <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">These readings are illustrative placeholder numbers from the original template, not live data — the QQQ signal above is the real, working indicator on this page. Ask if you'd like any specific row here wired up to a real source.</div>
           <div class="grid-2">
             <div>
               <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">
@@ -668,22 +677,25 @@
       <div id="mm-breadth" class="mm-sub" style="display:none;">
       <div class="panel">
         <div class="panel-header">
-          Stocks ±20% in 5 Days · Rolling constructed chart
-          <span class="tag" id="mm-20-asof">Built from daily counts</span>
+          Stocks ≥20% Move · Daily Count
+          <span class="tag" id="mm-20-asof">Real, growing from today forward</span>
         </div>
         <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">
+            Per-day count of screener candidates that moved ≥20% (same-day % change), tracked daily starting from when this was built — not backfilled with invented history, so the chart starts short and grows for real each day this runs. This is a same-day gap% count, not the stricter "up 50% over a month" leadership measure a recent backtest found most useful — that would need historical price data per ticker, outside this session's free-tier budget.
+          </div>
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
-            <div style="font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;">Stocks Up 20% in 5 Days</div>
+            <div style="font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;">Stocks Up ≥20% Today</div>
             <div style="font-size:12px;"><span class="pos" id="mm-20up-latest">—</span> latest</div>
           </div>
           <div id="chart-up20" style="height:180px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px 4px 4px;"></div>
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 4px;">
-            <div style="font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;">Stocks Down 20% in 5 Days</div>
+            <div style="font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;">Stocks Down ≥20% Today</div>
             <div style="font-size:12px;"><span class="neg" id="mm-20dn-latest">—</span> latest</div>
           </div>
           <div id="chart-dn20" style="height:180px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px 4px 4px;"></div>
           <div class="note" style="margin-top:10px;">
-            Hover any bar for <strong>date + exact count</strong>. Chart is built from the rolling series (not a static image).
+            Hover any bar for <strong>date + exact count</strong>.
           </div>
           <div style="margin-top:12px;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
@@ -692,7 +704,7 @@
             </div>
             <div id="mm-20-table-wrap" style="display:none;max-height:260px;overflow:auto;border:1px solid var(--border);border-radius:6px;">
               <table>
-                <thead><tr><th>Date</th><th>Up ≥20% / 5d</th><th>Down ≥20% / 5d</th></tr></thead>
+                <thead><tr><th>Date</th><th>Up ≥20%</th><th>Down ≥20%</th></tr></thead>
                 <tbody id="mm-20-table-body"></tbody>
               </table>
             </div>
@@ -3237,6 +3249,8 @@
 
     let lastDataGeneratedAt = null;
     let lastDataGeneratedSlot = null;
+    let lastQqqSignal = null;
+    let lastBreadthHistory = [];
     async function loadLiveWatchlistData() {
       const badge = document.getElementById("live-data-badge");
       const statusBody = document.getElementById("live-data-status-body");
@@ -3246,6 +3260,10 @@
         const data = await res.json();
         lastDataGeneratedAt = data.generatedAt || null;
         lastDataGeneratedSlot = data.generatedSlot || null;
+        lastQqqSignal = data.qqqSignal || null;
+        lastBreadthHistory = data.breadthHistory || [];
+        renderQqqSignal();
+        renderRealBreadthChart();
 
         renderWsjFeed(data.wsjHeadlines);
 
@@ -3669,6 +3687,8 @@
         panel.classList.add("active");
       }
       if (sub === "mm-sector") renderDataFreshnessBanners();
+      if (sub === "mm-regime") renderQqqSignal();
+      if (sub === "mm-breadth") renderRealBreadthChart();
     }
 
     function formatNewsTime(iso) {
@@ -5101,8 +5121,6 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
 
     // Rolling series: stocks up/down ≥20% in 5 days (reconstructed from your chart shape through 2026-09-04)
     // When we refresh Market Monitor after a session, append/update the last value and roll the window.
-    const SERIES_20UP_5D = [42,48,52,40,32,28,30,38,45,52,70,95,110,88,62,48,55,92,105,130,175,158,100,78,65,52,48,42,58,88,110,175,148,135,92,68,48,38,32,52,70,98,88,75,58,42,48,72,95,68,52,38,32,28,38,55,78,98,92,68,48,38,32,42,58,68,52,38,32,38,48,62,52,38,32,48,90,140,235,242,178,128,115,88,68,52,48,52,58,68,52,38,32,28,24,28,32,38,28,22,25,28];
-    const SERIES_20DN_5D = [18,22,25,30,32,28,22,20,16,14,18,24,20,16,14,18,28,42,55,65,68,52,38,32,22,18,20,26,28,32,38,48,68,100,105,48,38,28,22,26,30,34,38,42,48,28,24,28,32,38,52,68,82,38,32,28,32,38,62,48,38,32,28,22,18,24,28,32,52,68,38,32,28,22,58,118,98,38,32,28,32,38,52,68,78,38,32,28,22,18,24,28,48,52,38,28,22,18,16,14,15,15];
 
     function tradingDatesEnding(endISO, n) {
       // Walk back calendar days, skip weekends — approximate US session dates
@@ -5135,19 +5153,15 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         }).join("") + `</div>`;
     }
 
-    function render20Table(dates) {
+    function render20Table() {
       const body = document.getElementById("mm-20-table-body");
       if (!body) return;
-      const n = Math.min(SERIES_20UP_5D.length, SERIES_20DN_5D.length, dates.length);
-      let html = "";
-      for (let i = n - 1; i >= 0; i--) {
-        html += `<tr>
-          <td>${dates[i]}</td>
-          <td class="pos">${SERIES_20UP_5D[i]}</td>
-          <td class="neg">${SERIES_20DN_5D[i]}</td>
-        </tr>`;
-      }
-      body.innerHTML = html;
+      const hist = lastBreadthHistory || [];
+      body.innerHTML = [...hist].reverse().map(d => `<tr>
+          <td>${d.date}</td>
+          <td class="pos">${d.up20}</td>
+          <td class="neg">${d.down20}</td>
+        </tr>`).join("") || `<tr><td colspan="3" class="muted">No history yet — check back after the next scheduled run.</td></tr>`;
     }
 
     function toggle20Table() {
@@ -5156,18 +5170,68 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       w.style.display = w.style.display === "none" || !w.style.display ? "block" : "none";
     }
 
-    function render20pctCharts() {
-      const dates = tradingDatesEnding("2026-09-04", SERIES_20UP_5D.length);
-      buildBarChart(document.getElementById("chart-up20"), SERIES_20UP_5D, "up", dates);
-      buildBarChart(document.getElementById("chart-dn20"), SERIES_20DN_5D, "dn", dates);
-      render20Table(dates);
+    function renderRealBreadthChart() {
+      const hist = lastBreadthHistory || [];
+      const upEl = document.getElementById("chart-up20");
+      const dnEl = document.getElementById("chart-dn20");
       const upL = document.getElementById("mm-20up-latest");
       const dnL = document.getElementById("mm-20dn-latest");
       const asof = document.getElementById("mm-20-asof");
-      if (upL) upL.textContent = SERIES_20UP_5D[SERIES_20UP_5D.length - 1];
-      if (dnL) dnL.textContent = SERIES_20DN_5D[SERIES_20DN_5D.length - 1];
-      if (asof) asof.textContent = "Rolling · as of " + MM_SNAPSHOT.asOf;
+      if (!hist.length) {
+        if (upEl) upEl.innerHTML = `<div class="wl-empty" style="height:100%;display:flex;align-items:center;justify-content:center;">No history yet — populates after the next scheduled run.</div>`;
+        if (dnEl) dnEl.innerHTML = "";
+        if (asof) asof.textContent = "No data yet";
+        return;
+      }
+      const dates = hist.map(d => d.date);
+      buildBarChart(upEl, hist.map(d => d.up20), "up", dates);
+      buildBarChart(dnEl, hist.map(d => d.down20), "dn", dates);
+      const latest = hist[hist.length - 1];
+      if (upL) upL.textContent = latest.up20;
+      if (dnL) dnL.textContent = latest.down20;
+      if (asof) asof.textContent = hist.length + " day(s) tracked · latest " + latest.date;
+      render20Table();
     }
+
+    function renderQqqSignal() {
+      const body = document.getElementById("qqq-signal-body");
+      const badge = document.getElementById("qqq-signal-badge");
+      if (!body) return;
+      const s = lastQqqSignal;
+      if (!s || !s.available) {
+        body.innerHTML = `<div class="wl-empty">${(s && s.note) || "No data yet — check FMP_API_KEY is set, or wait for the next scheduled run."}</div>`;
+        if (badge) badge.textContent = "No data";
+        return;
+      }
+      const cls = s.bullish ? "pos" : "neg";
+      const verdict = s.bullish
+        ? "PARTICIPATE — 10dma above 20dma"
+        : "CAUTION — 10dma below 20dma, avoid new risk";
+      if (badge) { badge.textContent = s.bullish ? "Bullish" : "Bearish"; badge.style.background = s.bullish ? "#14532d" : "#7f1d1d"; badge.style.color = s.bullish ? "#86efac" : "#fecaca"; }
+      body.innerHTML = `
+        <div style="font-size:20px;font-weight:700;margin-bottom:10px;" class="${cls}">${verdict}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;">
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">QQQ Price</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;">$${s.price.toFixed(2)}</div>
+          </div>
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">10dma</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;">$${s.sma10.toFixed(2)}</div>
+          </div>
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">20dma</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;">$${s.sma20.toFixed(2)}</div>
+          </div>
+          <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Spread</div>
+            <div style="font-size:16px;font-weight:700;margin-top:4px;" class="${cls}">${s.spreadPct >= 0 ? "+" : ""}${s.spreadPct}%</div>
+          </div>
+        </div>
+        <div class="note" style="margin-top:8px;">As of ${s.date}.</div>`;
+    }
+
+
 
     function loadMarketMonitorData() {
       const tbody = document.getElementById("mm-data-table");
@@ -5185,7 +5249,6 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
           </tr>`).join("");
       }
       interpretMMFromSnapshot();
-      render20pctCharts();
     }
 
     function interpretMMFromSnapshot() {
@@ -5241,7 +5304,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     }
 
     function interpretMM() { loadMarketMonitorData(); }
-    function renderBreadthCharts() { render20pctCharts(); }
+
 
     loadMarketMonitorData();
   </script>
