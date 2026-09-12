@@ -160,34 +160,6 @@ const ALWAYS_TRACK_TICKERS = [
   "NFLX", "AMD", "CRM", "ADBE", "BA"
 ];
 
-// ---- QQQ 10dma/20dma signal — per an independent backtest study (thousands
-// of real breakout trades across two datasets), this plain two-moving-average
-// rule was the ONLY signal that held up on genuinely out-of-sample data,
-// beating every McClellan/breadth-style indicator tested. Costs one API call.
-async function fetchQqqMaSignal(key) {
-  const url = `https://financialmodelingprep.com/stable/historical-price-eod/light?symbol=QQQ&apikey=${key}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`QQQ history fetch failed: ${res.status}`);
-  const rows = await res.json();
-  if (!Array.isArray(rows) || rows.length < 20) throw new Error("Not enough QQQ history returned");
-  // Rows are typically newest-first; normalize to be sure, then take the
-  // most recent 20 closes.
-  const sorted = [...rows].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const closes = sorted.slice(0, 20).map(r => Number(r.close != null ? r.close : r.price));
-  if (closes.some(c => isNaN(c))) throw new Error("Unexpected price field in QQQ history response");
-  const sma = (n) => closes.slice(0, n).reduce((a, b) => a + b, 0) / n;
-  const sma10 = sma(10);
-  const sma20 = sma(20);
-  return {
-    date: sorted[0].date,
-    price: closes[0],
-    sma10: Number(sma10.toFixed(2)),
-    sma20: Number(sma20.toFixed(2)),
-    bullish: sma10 > sma20,
-    spreadPct: Number((((sma10 - sma20) / sma20) * 100).toFixed(2))
-  };
-}
-
 async function fetchScreener() {
   const key = process.env.FMP_API_KEY;
   if (!key) {
@@ -426,23 +398,6 @@ async function main() {
     console.error("Catalyst attachment failed:", e.message);
   }
 
-  // QQQ 10dma/20dma market-timing gate — see fetchQqqMaSignal for why this
-  // one indicator, and not McClellan/breadth-style ones, made the cut.
-  let qqqSignal = { available: false, note: "" };
-  const fmpKey = process.env.FMP_API_KEY;
-  if (fmpKey) {
-    try {
-      qqqSignal = await fetchQqqMaSignal(fmpKey);
-      qqqSignal.available = true;
-      console.log(`[diag] QQQ 10dma/20dma: ${qqqSignal.sma10} vs ${qqqSignal.sma20} (${qqqSignal.bullish ? "bullish" : "bearish"}, spread ${qqqSignal.spreadPct}%)`);
-    } catch (e) {
-      qqqSignal = { available: false, note: e.message };
-      console.error("QQQ MA signal fetch failed:", e.message);
-    }
-  } else {
-    qqqSignal.note = "FMP_API_KEY not set";
-  }
-
   // Real (not fake/demo) daily count of big movers, built from data already
   // fetched above — zero extra API calls. Appends to a running history file
   // so the chart genuinely grows day over day instead of being backfilled
@@ -479,7 +434,6 @@ async function main() {
     screener,
     volumeMovers,
     buzz,
-    qqqSignal,
     breadthHistory
   };
 
