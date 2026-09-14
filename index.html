@@ -926,8 +926,10 @@
         <div class="panel-header">Mission</div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:8px;">Why you trade, what you're building. This is yours — write it in your own words, and revise it whenever your thinking moves. It won't be overwritten by anything I build later.</div>
-          <textarea id="vision-mission" rows="8" style="width:100%;" placeholder="e.g. I run a trade factory. Every day I run my process to find and execute setups — singles for consistent base hits, home runs for the rare asymmetric win. I track everything so I know what's actually working, not what I feel is working."></textarea>
+          <textarea id="vision-mission" rows="8" style="width:100%;" oninput="renderMissionPreview()" placeholder="e.g. I run a trade factory. Every day I run my process to find and execute setups — singles for consistent base hits, home runs for the rare asymmetric win. I track everything so I know what's actually working, not what I feel is working."></textarea>
           <div style="margin-top:8px;"><button class="btn btn-accent" onclick="saveVisionField('mission')">Save Mission</button> <span class="muted" id="vision-mission-status" style="font-size:11px;"></span></div>
+          <div class="muted" style="font-size:10px;margin-top:14px;text-transform:uppercase;letter-spacing:0.5px;">Preview — words in CAPS shown bold</div>
+          <div id="vision-mission-preview" style="font-size:14px;line-height:1.6;margin-top:6px;padding:10px;background:#0f172a;border:1px solid var(--border);border-radius:6px;white-space:pre-wrap;"></div>
         </div>
       </div>
 
@@ -2124,18 +2126,31 @@
         </div>
       </div>
       <div class="panel">
-        <div class="panel-header">Gemini AI Analysis · Optional, needs your own API key</div>
+        <div class="panel-header">AI Analysis · Optional, needs your own API key(s)</div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:10px;">
-            <strong>This is a static site with no server</strong> — your key lives only in this browser's local storage and is sent directly from your browser to Google's API when you click Run. It is never written to the GitHub repo. That also means anyone with access to this exact browser/device could view it in DevTools — for real safety, restrict the key to your site's domain in Google AI Studio / Cloud Console (HTTP referrer restriction).
+            <strong>This is a static site with no server</strong> — any key you save here lives only in this browser's local storage and is sent directly from your browser to that provider's API when you click Run. Never written to the GitHub repo. That also means anyone with access to this exact browser/device could view it in DevTools — for real safety, restrict each key to your site's domain where the provider allows it.
           </div>
+
           <div class="form-row">
-            <input type="password" id="gemini-key-input" placeholder="Paste your Gemini API key" style="width:280px;" />
-            <button class="btn btn-sm btn-accent" onclick="saveGeminiKey()">Save key</button>
-            <button class="btn btn-sm" onclick="clearGeminiKey()">Clear key</button>
+            <input type="password" id="gemini-key-input" placeholder="Paste your Gemini API key" style="width:260px;" />
+            <button class="btn btn-sm btn-accent" onclick="saveGeminiKey()">Save</button>
+            <button class="btn btn-sm" onclick="clearGeminiKey()">Clear</button>
+            <span class="muted" style="font-size:11px;" id="gemini-key-status">No key saved yet.</span>
           </div>
-          <div class="muted" style="font-size:11px;margin:6px 0;" id="gemini-key-status">No key saved yet.</div>
-          <button class="btn btn-accent" onclick="runGeminiReview()">Run Gemini Analysis</button>
+          <div class="form-row" style="margin-top:8px;">
+            <input type="password" id="anthropic-key-input" placeholder="Paste your Anthropic (Claude) API key" style="width:260px;" />
+            <button class="btn btn-sm btn-accent" onclick="saveAnthropicKey()">Save</button>
+            <button class="btn btn-sm" onclick="clearAnthropicKey()">Clear</button>
+            <span class="muted" style="font-size:11px;" id="anthropic-key-status">No key saved yet.</span>
+          </div>
+
+          <div style="margin-top:14px;">
+            <button class="btn btn-accent" onclick="runGeminiReview()">Run Gemini</button>
+            <button class="btn btn-accent" onclick="runClaudeReview()">Run Claude</button>
+            <button class="btn btn-accent" onclick="runBothAndCompare()">Run Both &amp; Compare</button>
+          </div>
+          <div class="note" style="margin-top:8px;">"Run Gemini" automatically falls back to Claude if Gemini is unavailable and you've saved a Claude key — you'll see a note if that happens.</div>
           <div id="gemini-review-output" style="margin-top:14px;"></div>
         </div>
       </div>
@@ -4925,12 +4940,26 @@
         status.textContent = "Saved " + new Date().toLocaleTimeString();
         setTimeout(() => { if (status.textContent.startsWith("Saved")) status.textContent = ""; }, 3000);
       }
+      if (key === "mission") renderMissionPreview();
     }
     function loadVisionFields() {
       const mission = document.getElementById("vision-mission");
       const biz = document.getElementById("vision-business-model");
       if (mission) mission.value = getVisionField("mission");
       if (biz) biz.value = getVisionField("businessModel");
+      renderMissionPreview();
+    }
+    function renderMissionPreview() {
+      const el = document.getElementById("vision-mission-preview");
+      const mission = document.getElementById("vision-mission");
+      if (!el || !mission) return;
+      const text = mission.value || "";
+      if (!text.trim()) { el.innerHTML = `<span class="muted">Nothing written yet.</span>`; return; }
+      // Bold any run of 2+ consecutive uppercase letters (allows internal
+      // apostrophes/hyphens/digits so things like "A+" or "DON'T" still count).
+      const escaped = text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+      const bolded = escaped.replace(/\b[A-Z][A-Z0-9''-]*[A-Z]\b|\b[A-Z]{2,}\b/g, (m) => `<strong>${m}</strong>`);
+      el.innerHTML = bolded;
     }
 
     function getVisionPrinciples() {
@@ -5928,6 +5957,28 @@
       const key = getGeminiKey();
       el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No key saved yet.";
     }
+
+    function getAnthropicKey() {
+      return localStorage.getItem("tt_anthropic_key") || "";
+    }
+    function saveAnthropicKey() {
+      const input = document.getElementById("anthropic-key-input");
+      const key = input ? input.value.trim() : "";
+      if (!key) { alert("Paste your Anthropic API key first."); return; }
+      localStorage.setItem("tt_anthropic_key", key);
+      renderAnthropicKeyStatus();
+      alert("Key saved to this browser only (localStorage) — never written to the repo or sent anywhere except Anthropic's API when you run an analysis.");
+    }
+    function clearAnthropicKey() {
+      localStorage.removeItem("tt_anthropic_key");
+      renderAnthropicKeyStatus();
+    }
+    function renderAnthropicKeyStatus() {
+      const el = document.getElementById("anthropic-key-status");
+      if (!el) return;
+      const key = getAnthropicKey();
+      el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No key saved yet.";
+    }
     // 503 = model temporarily overloaded on Google's side, 429 = rate limit
     // — both are transient and worth a few retries with backoff before
     // giving up, rather than making the user manually re-click every time.
@@ -5965,25 +6016,11 @@
       }
     }
 
-    async function runGeminiReview() {
-      const out = document.getElementById("gemini-review-output");
-      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
-      if (!out) return;
-      const key = getGeminiKey();
-      if (!key) {
-        out.innerHTML = `<div class="wl-empty">Save your Gemini API key above first.</div>`;
-        return;
-      }
-      if (list.length < 3) {
-        out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
-        return;
-      }
-      out.innerHTML = `<div class="wl-empty">Asking Gemini… (this calls Google's API directly from your browser)</div>`;
-      const s = computeTradeStats(list);
+    function buildAIReviewPrompt(s) {
       const bySetupLines = s.setupKeys.map(k =>
         `- ${k}: ${s.bySetup[k].n} trades, $${s.bySetup[k].pnl.toFixed(2)} net, ${((s.bySetup[k].w / s.bySetup[k].n) * 100).toFixed(0)}% win rate`
       ).join("\n");
-      const prompt = `You are reviewing a swing/day trader's real closed-trade statistics from their personal trading journal. Be specific, direct, and reference the actual numbers below — no generic trading advice. Write a concise SWOT-style analysis (Strengths, Weaknesses, Opportunities, Threats — 2-3 sentences each) plus 3 concrete, numbered suggestions for improvement. Keep it under 400 words total.
+      return `You are reviewing a swing/day trader's real closed-trade statistics from their personal trading journal. Be specific, direct, and reference the actual numbers below — no generic trading advice. Write a concise SWOT-style analysis (Strengths, Weaknesses, Opportunities, Threats — 2-3 sentences each) plus 3 concrete, numbered suggestions for improvement. Keep it under 400 words total.
 
 Stats:
 - ${s.n} closed trades, net P&L $${s.sum.toFixed(2)}
@@ -5998,16 +6035,156 @@ ${bySetupLines}
 - Avg hold time: winners ${s.avgHoldWin != null ? s.avgHoldWin.toFixed(1) + "d" : "n/a"}, losers ${s.avgHoldLoss != null ? s.avgHoldLoss.toFixed(1) + "d" : "n/a"}
 - Position sizing variance (coefficient of variation): ${s.sizeCV != null ? s.sizeCV.toFixed(0) + "%" : "n/a"}
 ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs earlier trades avg $${s.trendNote.earlierAvg.toFixed(2)}` : ""}`;
+    }
 
-      try {
-        const text = await callGeminiWithRetry(key, prompt, out);
-        out.innerHTML = `<div class="panel" style="margin:0;background:#0f172a;">
+    // Anthropic requires an explicit opt-in header for direct browser calls
+    // (CSRF guard is on by default — this is the documented BYOK escape
+    // hatch, not a workaround). Same transient-error retry pattern as Gemini.
+    async function callAnthropicWithRetry(key, prompt, statusEl) {
+      const maxAttempts = 4;
+      const delays = [2000, 4000, 8000];
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        let res;
+        try {
+          res = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "x-api-key": key,
+              "anthropic-version": "2023-06-01",
+              "anthropic-dangerous-direct-browser-access": "true"
+            },
+            body: JSON.stringify({
+              model: "claude-sonnet-4-6",
+              max_tokens: 1024,
+              messages: [{ role: "user", content: prompt }]
+            })
+          });
+        } catch (networkErr) {
+          if (attempt === maxAttempts) throw networkErr;
+          if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Network error — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
+          await new Promise(r => setTimeout(r, delays[attempt - 1]));
+          continue;
+        }
+        if (res.ok) {
+          const data = await res.json();
+          const text = data.content && data.content.length
+            ? data.content.filter(b => b.type === "text").map(b => b.text).join("")
+            : null;
+          if (!text) throw new Error("Unexpected response shape from Claude");
+          return text;
+        }
+        const errText = await res.text().catch(() => "");
+        const err = new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
+        const transient = res.status === 529 || res.status === 429 || res.status === 503;
+        if (!transient || attempt === maxAttempts) throw err;
+        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Claude is busy (HTTP ${res.status}) — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
+        await new Promise(r => setTimeout(r, delays[attempt - 1]));
+      }
+    }
+
+    function formatAIReviewResult(text, providerLabel) {
+      return `<div class="panel" style="margin:0;background:#0f172a;">
           <div style="white-space:pre-wrap;font-size:13px;line-height:1.6;padding:4px;">${text.replace(/</g, "&lt;")}</div>
         </div>
-        <div class="note" style="margin-top:8px;">Generated just now by Gemini (${new Date().toLocaleTimeString()}), called directly from your browser using your saved key.</div>`;
-      } catch (e) {
-        out.innerHTML = `<div class="wl-empty">Gemini call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Google's API.</div>`;
+        <div class="note" style="margin-top:8px;">Generated just now by ${providerLabel} (${new Date().toLocaleTimeString()}), called directly from your browser using your saved key.</div>`;
+    }
+
+    async function runGeminiReview() {
+      const out = document.getElementById("gemini-review-output");
+      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      if (!out) return;
+      const key = getGeminiKey();
+      const anthropicKey = getAnthropicKey();
+      if (!key) {
+        if (anthropicKey) { runClaudeReview(); return; }
+        out.innerHTML = `<div class="wl-empty">Save your Gemini API key above first (or save a Claude key and use Run Claude instead).</div>`;
+        return;
       }
+      if (list.length < 3) {
+        out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
+        return;
+      }
+      out.innerHTML = `<div class="wl-empty">Asking Gemini… (this calls Google's API directly from your browser)</div>`;
+      const s = computeTradeStats(list);
+      const prompt = buildAIReviewPrompt(s);
+      try {
+        const text = await callGeminiWithRetry(key, prompt, out);
+        out.innerHTML = formatAIReviewResult(text, "Gemini");
+      } catch (e) {
+        if (anthropicKey) {
+          out.innerHTML = `<div class="wl-empty">Gemini was unavailable (${e.message}) — falling back to Claude…</div>`;
+          try {
+            const text = await callAnthropicWithRetry(anthropicKey, prompt, out);
+            out.innerHTML = `<div class="note" style="margin-bottom:8px;border-left:3px solid #eab308;">Gemini was unavailable, so this is Claude's analysis instead.</div>` + formatAIReviewResult(text, "Claude");
+          } catch (e2) {
+            out.innerHTML = `<div class="wl-empty">Both providers failed. Gemini: ${e.message}. Claude: ${e2.message}.</div>`;
+          }
+        } else {
+          out.innerHTML = `<div class="wl-empty">Gemini call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Google's API. Save a Claude key too for automatic fallback next time.</div>`;
+        }
+      }
+    }
+
+    async function runClaudeReview() {
+      const out = document.getElementById("gemini-review-output");
+      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      if (!out) return;
+      const key = getAnthropicKey();
+      if (!key) {
+        out.innerHTML = `<div class="wl-empty">Save your Anthropic API key above first.</div>`;
+        return;
+      }
+      if (list.length < 3) {
+        out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
+        return;
+      }
+      out.innerHTML = `<div class="wl-empty">Asking Claude… (this calls Anthropic's API directly from your browser)</div>`;
+      const s = computeTradeStats(list);
+      const prompt = buildAIReviewPrompt(s);
+      try {
+        const text = await callAnthropicWithRetry(key, prompt, out);
+        out.innerHTML = formatAIReviewResult(text, "Claude");
+      } catch (e) {
+        out.innerHTML = `<div class="wl-empty">Claude call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Anthropic's API.</div>`;
+      }
+    }
+
+    async function runBothAndCompare() {
+      const out = document.getElementById("gemini-review-output");
+      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      if (!out) return;
+      const geminiKey = getGeminiKey();
+      const anthropicKey = getAnthropicKey();
+      if (!geminiKey || !anthropicKey) {
+        out.innerHTML = `<div class="wl-empty">Save both a Gemini key and a Claude key above to compare them side by side.</div>`;
+        return;
+      }
+      if (list.length < 3) {
+        out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
+        return;
+      }
+      out.innerHTML = `<div class="wl-empty">Asking both Gemini and Claude in parallel…</div>`;
+      const s = computeTradeStats(list);
+      const prompt = buildAIReviewPrompt(s);
+      const [geminiResult, claudeResult] = await Promise.allSettled([
+        callGeminiWithRetry(geminiKey, prompt, null),
+        callAnthropicWithRetry(anthropicKey, prompt, null)
+      ]);
+      const renderSide = (label, result) => {
+        if (result.status === "fulfilled") {
+          return `<div class="panel" style="margin:0;background:#0f172a;">
+            <div class="panel-header" style="font-size:12px;">${label}</div>
+            <div style="white-space:pre-wrap;font-size:12px;line-height:1.5;padding:8px;">${result.value.replace(/</g, "&lt;")}</div>
+          </div>`;
+        }
+        return `<div class="panel" style="margin:0;background:#0f172a;">
+          <div class="panel-header" style="font-size:12px;">${label}</div>
+          <div style="padding:8px;font-size:12px;" class="muted">Failed: ${result.reason.message}</div>
+        </div>`;
+      };
+      out.innerHTML = `<div class="grid-2">${renderSide("Gemini", geminiResult)}${renderSide("Claude", claudeResult)}</div>
+        <div class="note" style="margin-top:8px;">Generated just now (${new Date().toLocaleTimeString()}), both called directly from your browser using your saved keys. Where they agree is a stronger signal than either alone; where they diverge is worth a closer look yourself.</div>`;
     }
 
     function markPositionOpen(ticker) {
@@ -6602,12 +6779,13 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         const dd = peak - p.equity;
         if (dd > maxDd) maxDd = dd;
       });
-      const metric = (label, val, cls) =>
-        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      const metric = (label, val, cls, tooltip) =>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;" ${tooltip ? `title="${tooltip.replace(/"/g, "&quot;")}"` : ""}>
           <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">${label}</div>
           <div style="font-size:18px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div>
         </div>`;
       const equity = points.length ? points[points.length - 1].equity : baselineCap + sum;
+      const sqnTooltip = "SQN (System Quality Number) measures how consistent your $ P&L is, not just whether you're profitable — it's mean P&L divided by the standard deviation of P&L, scaled by √(number of trades). A high average with wildly inconsistent results scores lower than a smaller, steadier edge.\n\nScale: <1.6 Poor · 1.6–2.0 Below avg · 2.0–2.5 Average · 2.5–3.0 Good · 3.0–5.0 Excellent · 5.0–7.0 Superb · 7.0+ Holy grail.\n\nThis version uses raw $ P&L, not true R-multiples (that needs a consistent risk amount recorded per trade), so treat it as a directional read, not the textbook Van Tharp number.";
       el.innerHTML =
         metric("Trades", list.length) +
         metric("Win rate", winRate.toFixed(1) + "%", winRate >= 50 ? "pos" : "neg") +
@@ -6621,7 +6799,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         metric("Max drawdown $", maxDd.toFixed(2), "neg") +
         metric("Equity $", equity.toFixed(2), equity >= baselineCap ? "pos" : "neg") +
         metric("Baseline $", baselineCap ? baselineCap.toLocaleString() : "Set in Positions", "") +
-        metric("SQN ($ P&L)", sqn != null ? sqn.toFixed(2) + " · " + sqnLabel(sqn) : "Need 2+ trades", sqn != null ? (sqn >= 2 ? "pos" : "neg") : "") +
+        metric("SQN ($ P&L)", sqn != null ? sqn.toFixed(2) + " · " + sqnLabel(sqn) : "Need 2+ trades", sqn != null ? (sqn >= 2 ? "pos" : "neg") : "", sqnTooltip) +
         metric("Avg hold days", avgHoldDays != null ? avgHoldDays.toFixed(1) + "d" : "No date data", "");
 
       renderEquityCurve(points);
@@ -6727,7 +6905,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
-      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); }
+      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); renderAnthropicKeyStatus(); }
       const sp = document.getElementById("settings-panel");
       if (sp) sp.classList.remove("open");
     }
