@@ -895,6 +895,21 @@
     <!-- VISION -->
     <div id="vision" class="section">
       <div class="panel">
+        <div class="panel-header">
+          Backup &amp; Restore
+          <span class="tag" style="background:#7f1d1d;color:#fecaca;">Everything lives only in this browser</span>
+        </div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">Your entire terminal — every setup, trade, journal entry, plan, and note — exists only in this browser's storage. Clear your cache, switch computers, or a crash wipes your profile, and it's gone with no warning. Export a backup regularly. <strong>The backup file includes any API keys you've saved (Gemini, GitHub, FMP) — treat it like a password file, don't share it.</strong></div>
+          <button class="btn btn-accent" onclick="exportAllData()">⬇ Export Full Backup</button>
+          <div style="margin-top:14px;">
+            <input type="file" id="restore-file-input" accept=".json" style="font-size:12px;color:var(--muted);" />
+            <button class="btn" style="border-color:#7f1d1d;color:#fecaca;" onclick="importAllData()">Restore From Backup</button>
+          </div>
+          <div class="note" style="margin-top:10px;">Restoring <strong>overwrites everything currently in this browser</strong> with the backup file's contents — there's no merge. Only restore into a browser you're OK completely replacing.</div>
+        </div>
+      </div>
+      <div class="panel">
         <div class="panel-header">Mission</div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:8px;">Why you trade, what you're building. This is yours — write it in your own words, and revise it whenever your thinking moves. It won't be overwritten by anything I build later.</div>
@@ -1681,6 +1696,13 @@
           <div class="panel-body" id="tradeplan-report-body"></div>
         </div>
         <div class="panel">
+          <div class="panel-header">
+            Plan vs. Actual Execution
+            <span class="tag">Did you actually follow your own plan?</span>
+          </div>
+          <div class="panel-body" id="plan-vs-actual-body"></div>
+        </div>
+        <div class="panel">
           <div class="panel-header">Planned Trades · Grouped by Week</div>
           <div class="panel-body" id="tradeplan-weeks-body"></div>
         </div>
@@ -1944,6 +1966,19 @@
     <!-- POSITIONS -->
     <div id="positions" class="section">
       <div class="panel">
+        <div class="panel-header">
+          Risk Deployed Right Now
+          <span class="tag">Across all currently open positions</span>
+        </div>
+        <div class="panel-body">
+          <div class="form-row" style="margin-bottom:10px;">
+            <div class="form-group"><label>Max total risk %</label><input type="number" id="max-risk-pct" step="0.5" style="width:90px" onchange="saveMaxRiskPct()" /></div>
+            <div class="muted" style="font-size:11px;align-self:center;">Your own standing ceiling — the whole point is to notice before a new trade would blow past it.</div>
+          </div>
+          <div id="risk-gauge-body"></div>
+        </div>
+      </div>
+      <div class="panel">
         <div class="panel-header">Live Price Source · FMP API Key</div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:8px;">
@@ -2037,6 +2072,11 @@
       </div>
 
       <div class="panel">
+        <div class="panel-header">By Ticker</div>
+        <div class="panel-body" id="dash-by-ticker"></div>
+      </div>
+
+      <div class="panel">
         <div class="panel-header">More Stats</div>
         <div class="panel-body" id="dash-extra"></div>
       </div>
@@ -2096,10 +2136,19 @@
             <label>Notes (what worked / what to improve)</label>
             <textarea id="j-notes" placeholder="Catalyst, entry method, why exit, lesson..."></textarea>
           </div>
+          <div class="form-group" style="margin-top:8px;">
+            <label>Mistake tags (optional — tag any habit that affected this trade)</label>
+            <div id="j-mistake-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;"></div>
+          </div>
           <div style="margin-top:8px;">
             <button class="btn btn-accent" onclick="addJournalEntry()">Save Trade</button>
           </div>
         </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Mistake Frequency</div>
+        <div class="panel-body" id="mistake-tags-summary"></div>
       </div>
 
       <div class="panel">
@@ -3030,6 +3079,7 @@
         }).join("");
       }
       renderTradePlanReport(plans);
+      renderPlanVsActual(plans);
     }
     function tradeMatchesAPlan(trade, plans) {
       // Match by ticker AND proximity in time — the trade's entry date (when
@@ -3045,6 +3095,61 @@
         const diffDays = Math.abs((refDate - planDate) / 86400000);
         return diffDays <= 7;
       });
+    }
+    function findMatchingPlan(trade, plans) {
+      // Same matching rule as tradeMatchesAPlan, but returns the actual plan
+      // record (closest by date if more than one ticker match) instead of a
+      // boolean, so its planned entry/stop can be compared to what happened.
+      const ticker = (trade.ticker || "").toUpperCase();
+      const refDateStr = trade.entryDate || trade.date;
+      if (!refDateStr) return null;
+      const refDate = new Date(refDateStr + "T00:00:00");
+      let best = null, bestDiff = Infinity;
+      plans.forEach(p => {
+        if (p.ticker !== ticker) return;
+        const planDate = new Date(p.dateAdded + "T00:00:00");
+        const diffDays = Math.abs((refDate - planDate) / 86400000);
+        if (diffDays <= 7 && diffDays < bestDiff) { best = p; bestDiff = diffDays; }
+      });
+      return best;
+    }
+    function renderPlanVsActual(plans) {
+      const el = document.getElementById("plan-vs-actual-body");
+      if (!el) return;
+      plans = plans || getTradePlans();
+      const allClosed = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl) && t.entry != null);
+      const rows = [];
+      allClosed.forEach(t => {
+        const plan = findMatchingPlan(t, plans);
+        if (!plan || plan.entry == null) return;
+        const side = (t.side || "Long");
+        const slippage = t.entry - plan.entry;
+        const slippagePct = plan.entry ? (slippage / plan.entry) * 100 : 0;
+        // For a Long, paying MORE than planned is unfavorable; for a Short, selling for LESS than planned is unfavorable.
+        const unfavorable = side === "Short" ? slippage < 0 : slippage > 0;
+        rows.push({ ticker: t.ticker, date: t.date, plannedEntry: plan.entry, actualEntry: t.entry, slippage, slippagePct, unfavorable, side });
+      });
+      if (!rows.length) {
+        el.innerHTML = `<div class="wl-empty">No matched trades with both a planned entry and an actual entry price yet — this needs trades logged with an Entry price, matched to a plan within 7 days.</div>`;
+        return;
+      }
+      const avgSlippagePct = rows.reduce((a, r) => a + r.slippagePct, 0) / rows.length;
+      const unfavorableCount = rows.filter(r => r.unfavorable).length;
+      el.innerHTML = `
+        <table>
+          <thead><tr><th>Ticker</th><th>Date</th><th>Planned Entry</th><th>Actual Entry</th><th>Slippage $</th><th>Slippage %</th></tr></thead>
+          <tbody>
+            ${rows.map(r => `<tr>
+              <td><span class="ticker-link" onclick="showDetail('${r.ticker}')">${r.ticker}</span></td>
+              <td class="muted" style="font-size:11px;">${r.date}</td>
+              <td>$${r.plannedEntry.toFixed(2)}</td>
+              <td>$${r.actualEntry.toFixed(2)}</td>
+              <td class="${r.unfavorable ? "neg" : "pos"}">${r.slippage >= 0 ? "+" : ""}$${r.slippage.toFixed(2)}</td>
+              <td class="${r.unfavorable ? "neg" : "pos"}">${r.slippagePct >= 0 ? "+" : ""}${r.slippagePct.toFixed(2)}%</td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+        <div class="note" style="margin-top:8px;">${unfavorableCount} of ${rows.length} fill(s) were unfavorable relative to plan · average slippage ${avgSlippagePct >= 0 ? "+" : ""}${avgSlippagePct.toFixed(2)}%. Only compares entry price — actual stop used isn't tracked separately from planned stop, so that comparison isn't shown here.</div>`;
     }
     function renderTradePlanReport(plans) {
       const el = document.getElementById("tradeplan-report-body");
@@ -4227,6 +4332,31 @@
     function saveJournal(list) {
       localStorage.setItem("sip_journal", JSON.stringify(list));
     }
+
+    const MISTAKE_TAGS = [
+      "Chased entry", "Moved stop", "Oversized position", "Ignored no-confirmation rule",
+      "Revenge trade", "No real plan", "FOMO", "Held too long", "Cut winner too early", "Other"
+    ];
+    function renderMistakeTagCheckboxes() {
+      const el = document.getElementById("j-mistake-tags");
+      if (!el || el.dataset.rendered) return;
+      el.dataset.rendered = "1";
+      el.innerHTML = MISTAKE_TAGS.map(tag => `
+        <label style="display:inline-flex;align-items:center;gap:4px;background:#0f172a;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;">
+          <input type="checkbox" value="${tag}" style="margin:0;">${tag}
+        </label>`).join("");
+    }
+    function getSelectedMistakeTags(containerId) {
+      const el = document.getElementById(containerId);
+      if (!el) return [];
+      return Array.from(el.querySelectorAll("input[type=checkbox]:checked")).map(cb => cb.value);
+    }
+    function setMistakeTagCheckboxes(containerId, tags) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      el.querySelectorAll("input[type=checkbox]").forEach(cb => { cb.checked = (tags || []).includes(cb.value); });
+    }
+
     function addJournalEntry() {
       const ticker = document.getElementById("j-ticker").value.trim().toUpperCase();
       const entryDate = document.getElementById("j-entrydate").value;
@@ -4238,13 +4368,14 @@
       const shares = parseFloat(document.getElementById("j-shares").value);
       const pnl = parseFloat(document.getElementById("j-pnl").value);
       const notes = document.getElementById("j-notes").value.trim();
+      const mistakeTags = getSelectedMistakeTags("j-mistake-tags");
 
       if (!ticker || !date) { alert("Ticker and Exit Date required"); return; }
       const holdDays = entryDate ? Math.max(0, Math.round((new Date(date + "T00:00:00") - new Date(entryDate + "T00:00:00")) / 86400000)) : null;
 
       const list = getJournal();
       list.unshift({
-        id: Date.now(), ticker, date, entryDate: entryDate || null, holdDays, setup, side, entry, exit: exitP, shares, pnl, notes,
+        id: Date.now(), ticker, date, entryDate: entryDate || null, holdDays, setup, side, entry, exit: exitP, shares, pnl, notes, mistakeTags,
         logged: new Date().toISOString()
       });
       saveJournal(list);
@@ -4265,6 +4396,53 @@
       document.getElementById("j-shares").value = "";
       document.getElementById("j-pnl").value = "";
       document.getElementById("j-notes").value = "";
+      setMistakeTagCheckboxes("j-mistake-tags", []);
+    }
+    function editMistakeTags(id) {
+      const list = getJournal();
+      const t = list.find(x => x.id === id);
+      if (!t) return;
+      const chosen = prompt(
+        "Edit mistake tags for " + t.ticker + " (" + t.date + ").\n" +
+        "Comma-separated, pick from: " + MISTAKE_TAGS.join(", ") + "\n" +
+        "Leave blank to clear.",
+        (t.mistakeTags || []).join(", ")
+      );
+      if (chosen === null) return;
+      t.mistakeTags = chosen.split(",").map(s => s.trim()).filter(Boolean);
+      saveJournal(list);
+      renderJournal();
+    }
+    function renderMistakeTagSummary() {
+      const el = document.getElementById("mistake-tags-summary");
+      if (!el) return;
+      const list = getJournal();
+      const counts = {};
+      let taggedTrades = 0;
+      list.forEach(t => {
+        if (t.mistakeTags && t.mistakeTags.length) {
+          taggedTrades++;
+          t.mistakeTags.forEach(tag => { counts[tag] = (counts[tag] || 0) + 1; });
+        }
+      });
+      const tags = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+      if (!tags.length) {
+        el.innerHTML = `<div class="wl-empty">No trades tagged yet. Tag a trade when you log it, or click "Edit tags" on any existing trade in Trade History below.</div>`;
+        return;
+      }
+      const maxCount = counts[tags[0]];
+      el.innerHTML = `
+        <div style="display:grid;gap:6px;">
+          ${tags.map(tag => `
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:160px;font-size:12px;">${tag}</div>
+              <div style="flex:1;background:#1f2937;border-radius:4px;height:16px;overflow:hidden;">
+                <div style="width:${(counts[tag] / maxCount) * 100}%;height:100%;background:#eab308;"></div>
+              </div>
+              <div style="width:24px;text-align:right;font-size:12px;font-weight:700;">${counts[tag]}</div>
+            </div>`).join("")}
+        </div>
+        <div class="note" style="margin-top:8px;">${taggedTrades} of ${list.length} trade(s) tagged. The most frequent tag here is the single habit most worth fixing.</div>`;
     }
     function clearJournal() {
       if (confirm("Clear entire trade journal?")) {
@@ -4276,6 +4454,8 @@
     }
     function renderJournal() {
       const body = document.getElementById("journal-body");
+      renderMistakeTagCheckboxes();
+      renderMistakeTagSummary();
       const list = getJournal();
       if (!list.length) {
         body.innerHTML = `<div class="journal-empty">No trades logged yet. Record actual vs planned to improve execution.</div>`;
@@ -4288,8 +4468,10 @@
             ${t.entry ? ` · Entry $${t.entry}` : ""} ${t.exit ? `→ Exit $${t.exit}` : ""}
             ${t.shares ? ` · ${t.shares} sh` : ""}
             ${t.pnl != null && !isNaN(t.pnl) ? ` · <span class="${t.pnl >= 0 ? "pos" : "neg"}">P&L $${t.pnl}</span>` : ""}
+            <button class="btn btn-sm" style="margin-left:8px;" onclick="editMistakeTags(${t.id})">Edit tags</button>
           </div>
           <div style="font-size:12px;color:var(--muted);">${t.notes || "No notes"}</div>
+          ${t.mistakeTags && t.mistakeTags.length ? `<div style="margin-top:4px;">${t.mistakeTags.map(tag => `<span class="tag" style="background:#78350f;color:#fde68a;font-size:9px;margin-right:4px;">${tag}</span>`).join("")}</div>` : ""}
         </div>
       `).join("");
     }
@@ -4658,6 +4840,45 @@
       mission: "A repeatable operating system that manufactures consistency and turns raw setups into A+ execution.",
       businessModel: ""
     };
+    // ---- Full backup/restore — generic, reads every localStorage key that
+    // exists rather than a hand-maintained list, so it never goes stale as
+    // new features get added.
+    function exportAllData() {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        data[key] = localStorage.getItem(key);
+      }
+      const payload = { exportedAt: new Date().toISOString(), itemCount: Object.keys(data).length, data };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "trading-terminal-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    function importAllData() {
+      const input = document.getElementById("restore-file-input");
+      if (!input || !input.files || !input.files[0]) { alert("Choose a backup file first."); return; }
+      if (!confirm("This will OVERWRITE everything currently saved in this browser with the backup file's contents. This cannot be undone. Continue?")) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload = JSON.parse(reader.result);
+          if (!payload || !payload.data) throw new Error("Not a valid backup file");
+          Object.keys(payload.data).forEach(key => { localStorage.setItem(key, payload.data[key]); });
+          alert("Restored " + Object.keys(payload.data).length + " item(s) from " + (payload.exportedAt ? new Date(payload.exportedAt).toLocaleString() : "unknown date") + ". Reloading now.");
+          location.reload();
+        } catch (e) {
+          alert("Restore failed: " + e.message);
+        }
+      };
+      reader.readAsText(input.files[0]);
+    }
+
     function getVisionField(key) {
       const v = localStorage.getItem("tt_vision_" + key);
       return v != null ? v : (VISION_DEFAULTS[key] || "");
@@ -5237,6 +5458,54 @@
       return getOpenPositionsWithUnrealized().reduce((a, p) => a + (p.unrealized || 0), 0);
     }
 
+    // ---- Risk Deployed gauge — cumulative $ risk across everything
+    // currently open, checked against a standing max you set yourself.
+    // Only "plan" positions carry a stop price (Schwab lots don't track
+    // one), so risk from Schwab-only open lots is honestly excluded rather
+    // than guessed at.
+    function getMaxRiskPct() {
+      const v = localStorage.getItem("tt_max_risk_pct");
+      return v != null ? Number(v) : 6;
+    }
+    function saveMaxRiskPct() {
+      const el = document.getElementById("max-risk-pct");
+      if (!el) return;
+      const val = parseFloat(el.value);
+      if (isNaN(val) || val <= 0) { alert("Enter a positive number"); return; }
+      localStorage.setItem("tt_max_risk_pct", val);
+      renderRiskGauge();
+    }
+    function renderRiskGauge() {
+      const body = document.getElementById("risk-gauge-body");
+      const input = document.getElementById("max-risk-pct");
+      if (!body) return;
+      const maxPct = getMaxRiskPct();
+      if (input && document.activeElement !== input) input.value = maxPct;
+
+      const positions = getOpenPositionsWithUnrealized();
+      const withStop = positions.filter(p => p.source === "plan" && p.stop != null && p.entry != null);
+      const untracked = positions.length - withStop.length;
+      const totalRiskDollars = withStop.reduce((a, p) => a + Math.abs(p.entry - p.stop) * p.qty, 0);
+      const equity = getCurrentPortfolioValueComputed();
+      const riskPct = equity > 0 ? (totalRiskDollars / equity) * 100 : 0;
+      const barPct = Math.min(100, (riskPct / maxPct) * 100);
+      const overLimit = riskPct > maxPct;
+      const barColor = overLimit ? "#ef4444" : riskPct > maxPct * 0.75 ? "#eab308" : "#22c55e";
+
+      body.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
+          <div style="font-size:22px;font-weight:800;" class="${overLimit ? "neg" : ""}">${riskPct.toFixed(2)}%</div>
+          <div class="muted" style="font-size:12px;">of ${maxPct}% max · $${totalRiskDollars.toFixed(2)} at risk on $${equity.toLocaleString(undefined, { maximumFractionDigits: 0 })} equity</div>
+        </div>
+        <div style="background:#1f2937;border-radius:6px;height:14px;overflow:hidden;">
+          <div style="width:${barPct}%;height:100%;background:${barColor};transition:width 0.3s;"></div>
+        </div>
+        ${overLimit ? `<div class="note" style="margin-top:8px;border-left:3px solid #ef4444;">Over your own limit right now. A new trade would push this further past what you set.</div>` : ""}
+        ${withStop.length === 0 && positions.length === 0 ? `<div class="note" style="margin-top:8px;">No open positions right now.</div>` : ""}
+        ${untracked > 0 ? `<div class="muted" style="font-size:11px;margin-top:8px;">${untracked} open position(s) excluded from this number — Schwab-imported lots don't carry a stop price, so their risk can't be computed here. This is a lower bound, not a complete total.</div>` : ""}
+      `;
+    }
+
     // Parses a real Charles Schwab "Transactions" export:
     // "Date","Action","Symbol","Description","Quantity","Price","Fees & Comm","Amount"
     // Handles $ / , in numeric fields, and FIFO-matches Buy/Sell legs per ticker into
@@ -5714,6 +5983,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     function renderPositions() {
       const openBody = document.getElementById("open-positions-body");
       const closedBody = document.getElementById("closed-positions-body");
+      renderRiskGauge();
       if (!openBody) return;
       const openRows = getOpenPositionsWithUnrealized();
       if (!openRows.length) {
@@ -6233,6 +6503,8 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       if (!list.length) {
         el.innerHTML = `<div class="wl-empty" style="grid-column:1/-1;">Import Schwab or log closed trades to populate closed-trade performance metrics.</div>`;
         if (by) by.innerHTML = "";
+        const byTickerElEmpty = document.getElementById("dash-by-ticker");
+        if (byTickerElEmpty) byTickerElEmpty.innerHTML = "";
         if (extra) extra.innerHTML = "";
         renderWeeklyHoldDaysChart([]);
         // still show equity from portfolio if available (no closed trades yet,
@@ -6317,6 +6589,34 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
               <td class="${exp >= 0 ? "pos" : "neg"}">$${exp.toFixed(2)}</td></tr>`;
           }).join("") + `</tbody></table>`;
       }
+      const byTickerEl = document.getElementById("dash-by-ticker");
+      if (byTickerEl) {
+        const tickers = {};
+        list.forEach(t => {
+          const k = (t.ticker || "?").toUpperCase();
+          if (!tickers[k]) tickers[k] = { n: 0, pnl: 0, wins: 0 };
+          tickers[k].n++;
+          tickers[k].pnl += t.pnl;
+          if (t.pnl > 0) tickers[k].wins++;
+        });
+        const rows = Object.keys(tickers).map(k => ({ ticker: k, ...tickers[k] })).sort((a, b) => b.pnl - a.pnl);
+        if (!rows.length) {
+          byTickerEl.innerHTML = `<div class="wl-empty">No closed trades yet.</div>`;
+        } else {
+          byTickerEl.innerHTML = `<table><thead><tr><th>Ticker</th><th>N</th><th>Win %</th><th>Net P&amp;L</th><th>Expect. $</th></tr></thead><tbody>` +
+            rows.map(x => {
+              const wr = x.wins / x.n;
+              const exp = x.pnl / x.n;
+              return `<tr>
+                <td><span class="ticker-link" onclick="showDetail('${x.ticker}')">${x.ticker}</span></td>
+                <td>${x.n}</td><td>${(wr * 100).toFixed(0)}%</td>
+                <td class="${x.pnl >= 0 ? "pos" : "neg"}">$${x.pnl.toFixed(2)}</td>
+                <td class="${exp >= 0 ? "pos" : "neg"}">$${exp.toFixed(2)}</td>
+              </tr>`;
+            }).join("") + `</tbody></table>
+            <div class="note" style="margin-top:8px;">Sorted by net P&amp;L — your best and worst single tickers, ${rows.length >= 6 ? "top and bottom of this list" : "all of them shown above"} since setup-level stats can hide a ticker that's quietly carrying (or costing) most of the total.</div>`;
+        }
+      }
       if (extra) {
         extra.innerHTML = `<div class="checklist">
           <div class="check-item"><span class="check-icon">W</span> Wins ${wins.length} · Losses ${losses.length} · Flat ${flats.length}</div>
@@ -6347,7 +6647,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       if (section === "market-monitor") loadMarketMonitorData();
       if (section === "vision") { loadVisionFields(); renderVisionPrinciples(); }
       if (section === "trade-factory") renderTradeFactory();
-      if (section === "positions") { loadBaselineUI(); renderFmpClientKeyStatus(); renderPositions(); fetchAllLivePrices(true); }
+      if (section === "positions") { loadBaselineUI(); renderFmpClientKeyStatus(); renderPositions(); renderRiskGauge(); fetchAllLivePrices(true); }
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
