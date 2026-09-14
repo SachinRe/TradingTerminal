@@ -192,6 +192,13 @@
     @media (max-width: 1000px) {
       .grid-2 { grid-template-columns: 1fr; }
     }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 1400px) {
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .grid-4 { grid-template-columns: 1fr; }
+    }
     .form-row {
       display: flex;
       gap: 10px;
@@ -1476,13 +1483,13 @@
           </div>
         </div>
       </div>
-      <div class="grid-2">
+      <div class="grid-4">
         <div class="panel">
           <div class="panel-header">
             Top 5 Bullish · NTRT list
             <span class="tag" style="background:#14532d;color:#86efac;">LONG BIAS</span>
           </div>
-          <div class="panel-body" style="max-height: 280px; overflow-y: auto;">
+          <div class="panel-body" style="max-height: 280px; overflow-y: auto; overflow-x: auto;">
             <table>
               <thead>
                 <tr>
@@ -1507,7 +1514,7 @@
             Top 5 Bearish / Avoid Candidates
             <span class="tag" style="background:#7f1d1d;color:#fecaca;">SHORT / AVOID</span>
           </div>
-          <div class="panel-body" style="max-height: 280px; overflow-y: auto;">
+          <div class="panel-body" style="max-height: 280px; overflow-y: auto; overflow-x: auto;">
             <table>
               <thead>
                 <tr>
@@ -1525,15 +1532,12 @@
           </div>
           <div class="note">Gap-downs / weak quality, plus any Sugar Babies / Fund Ownership tickers moving down today even outside the top 5 (marked ★) — those are always shown. Setup tag is informational for review.</div>
         </div>
-      </div>
-
-      <div class="grid-2">
         <div class="panel">
           <div class="panel-header">
             Top 5 Pre-Market Movers · By Volume
             <span class="tag">Financial Modeling Prep</span>
           </div>
-          <div class="panel-body" style="max-height: 260px; overflow-y: auto;">
+          <div class="panel-body" style="max-height: 260px; overflow-y: auto; overflow-x: auto;">
             <table>
               <thead><tr><th>#</th><th>Ticker</th><th>Price</th><th>Gap</th><th>Volume</th><th>RVOL</th><th>Action</th></tr></thead>
               <tbody id="top-volume-table"></tbody>
@@ -1546,7 +1550,7 @@
             Top 5 Pre-Market Movers · By RVOL%
             <span class="tag">Financial Modeling Prep</span>
           </div>
-          <div class="panel-body" style="max-height: 260px; overflow-y: auto;">
+          <div class="panel-body" style="max-height: 260px; overflow-y: auto; overflow-x: auto;">
             <table>
               <thead><tr><th>#</th><th>Ticker</th><th>Price</th><th>Gap</th><th>Volume</th><th>RVOL</th><th>Action</th></tr></thead>
               <tbody id="top-rvol-table"></tbody>
