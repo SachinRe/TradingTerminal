@@ -60,10 +60,9 @@
       border-right: none;
     }
     .sidebar-toggle {
-      position: sticky;
-      top: 8px;
-      align-self: flex-start;
-      margin: 0 0 8px 8px;
+      position: fixed;
+      top: 58px;
+      left: 12px;
       background: #1e293b;
       border: 1px solid var(--border);
       color: var(--text);
@@ -72,8 +71,7 @@
       height: 28px;
       cursor: pointer;
       font-size: 14px;
-      z-index: 20;
-      flex-shrink: 0;
+      z-index: 200;
     }
     .sidebar-toggle:hover { background: #334155; }
     .nav-group { margin-bottom: 10px; }
@@ -1296,7 +1294,7 @@
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;align-items:stretch;max-width:900px;margin:0 auto;">
+        <div style="display:flex;flex-direction:column;align-items:stretch;max-width:900px;margin:0;">
 
           <!-- LAYER 1: PRE-MARKET -->
           <div style="border:1px solid var(--border);border-left:5px solid #eab308;border-radius:10px;background:#0f172a;padding:16px;">
@@ -4242,7 +4240,11 @@
       const badge = document.getElementById("live-data-badge");
       const statusBody = document.getElementById("live-data-status-body");
       try {
-        const res = await fetch("./data/candidates.json", { cache: "no-store" });
+        // cache:"no-store" only controls the browser's own cache — it does
+        // NOT bypass GitHub Pages' CDN edge cache, which can serve a stale
+        // copy of this file for a while regardless. A changing query string
+        // forces a genuinely fresh request every time, bypassing that layer.
+        const res = await fetch("./data/candidates.json?t=" + Date.now(), { cache: "no-store" });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
         lastDataGeneratedAt = data.generatedAt || null;
