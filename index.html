@@ -596,7 +596,7 @@
     </div>
     <div class="nav-group">
       <div class="nav-group-title">8 · Improve</div>
-      <div class="nav-item" data-section="ai-review" onclick="navTo('ai-review', this)">AI Trade Review</div>
+      <div class="nav-item" data-section="ai-review" onclick="navTo('ai-review', this)">Ask Ayla</div>
       <div class="nav-item" data-section="journal" onclick="navTo('journal', this)">Manual Journal</div>
     </div>
     <div class="nav-group">
@@ -1433,7 +1433,7 @@
               </div>
               <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:baseline;">
                 <span class="check-icon">4</span>
-                <div><strong>Run AI Review.</strong> Go to <a href="#" onclick="navTo('ai-review', document.querySelector('[data-section=ai-review]'));return false;">AI Trade Review</a> — computed review, or Gemini analysis if set up.</div>
+                <div><strong>Run AI Review.</strong> Go to <a href="#" onclick="navTo('ai-review', document.querySelector('[data-section=ai-review]'));return false;">Ask Ayla</a> — computed review, or Gemini/Groq analysis if set up (both free).</div>
               </div>
             </div>
           </div>
@@ -2115,6 +2115,17 @@
 
     <!-- AI REVIEW -->
     <div id="ai-review" class="section">
+      <div class="panel" style="background:#0a1f1a;border-color:#1f4a3d;">
+        <div class="panel-body">
+          <div style="font-size:20px;font-weight:800;color:#fff;">Ask Ayla</div>
+          <div class="note" style="margin-top:6px;background:transparent;border:none;padding:0;">Your AI coach. Trade Review is her first function — more will land here as they're defined, in their own tabs alongside this one.</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step-tab active" data-ayla-sub="ayla-trade-review" onclick="switchAylaSub(this)">Trade Review</div>
+      </div>
+
+      <div id="ayla-trade-review" class="ayla-sub active">
       <div class="panel">
         <div class="panel-header">Computed Review · Real stats, deterministic</div>
         <div class="panel-body">
@@ -2132,6 +2143,7 @@
             <strong>This is a static site with no server</strong> — any key you save here lives only in this browser's local storage and is sent directly from your browser to that provider's API when you click Run. Never written to the GitHub repo. That also means anyone with access to this exact browser/device could view it in DevTools — for real safety, restrict each key to your site's domain where the provider allows it.
           </div>
 
+          <div class="note" style="margin-bottom:8px;background:#0f172a;border-left:3px solid #22c55e;">Both options below are genuinely free — Gemini (Google AI Studio free tier) and Groq (free tier, no credit card, runs Llama 3.3 70B at very generous rate limits). Neither requires payment for this kind of occasional use.</div>
           <div class="form-row">
             <input type="password" id="gemini-key-input" placeholder="Paste your Gemini API key" style="width:260px;" />
             <button class="btn btn-sm btn-accent" onclick="saveGeminiKey()">Save</button>
@@ -2139,21 +2151,22 @@
             <span class="muted" style="font-size:11px;" id="gemini-key-status">No key saved yet.</span>
           </div>
           <div class="form-row" style="margin-top:8px;">
-            <input type="password" id="anthropic-key-input" placeholder="Paste your Anthropic (Claude) API key" style="width:260px;" />
-            <button class="btn btn-sm btn-accent" onclick="saveAnthropicKey()">Save</button>
-            <button class="btn btn-sm" onclick="clearAnthropicKey()">Clear</button>
-            <span class="muted" style="font-size:11px;" id="anthropic-key-status">No key saved yet.</span>
+            <input type="password" id="groq-key-input" placeholder="Paste your Groq API key (free, console.groq.com)" style="width:260px;" />
+            <button class="btn btn-sm btn-accent" onclick="saveGroqKey()">Save</button>
+            <button class="btn btn-sm" onclick="clearGroqKey()">Clear</button>
+            <span class="muted" style="font-size:11px;" id="groq-key-status">No key saved yet.</span>
           </div>
 
           <div style="margin-top:14px;">
             <button class="btn btn-accent" onclick="runGeminiReview()">Run Gemini</button>
-            <button class="btn btn-accent" onclick="runClaudeReview()">Run Claude</button>
+            <button class="btn btn-accent" onclick="runGroqReview()">Run Groq (Llama 3.3 70B)</button>
             <button class="btn btn-accent" onclick="runBothAndCompare()">Run Both &amp; Compare</button>
           </div>
-          <div class="note" style="margin-top:8px;">"Run Gemini" automatically falls back to Claude if Gemini is unavailable and you've saved a Claude key — you'll see a note if that happens.</div>
+          <div class="note" style="margin-top:8px;">"Run Gemini" automatically falls back to Groq if Gemini is unavailable and you've saved a Groq key — you'll see a note if that happens.</div>
           <div id="gemini-review-output" style="margin-top:14px;"></div>
         </div>
       </div>
+      </div><!-- end ayla-trade-review -->
     </div>
 
     <!-- JOURNAL -->
@@ -5958,25 +5971,25 @@
       el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No key saved yet.";
     }
 
-    function getAnthropicKey() {
-      return localStorage.getItem("tt_anthropic_key") || "";
+    function getGroqKey() {
+      return localStorage.getItem("tt_groq_key") || "";
     }
-    function saveAnthropicKey() {
-      const input = document.getElementById("anthropic-key-input");
+    function saveGroqKey() {
+      const input = document.getElementById("groq-key-input");
       const key = input ? input.value.trim() : "";
-      if (!key) { alert("Paste your Anthropic API key first."); return; }
-      localStorage.setItem("tt_anthropic_key", key);
-      renderAnthropicKeyStatus();
-      alert("Key saved to this browser only (localStorage) — never written to the repo or sent anywhere except Anthropic's API when you run an analysis.");
+      if (!key) { alert("Paste your Groq API key first."); return; }
+      localStorage.setItem("tt_groq_key", key);
+      renderGroqKeyStatus();
+      alert("Key saved to this browser only (localStorage) — never written to the repo or sent anywhere except Groq's API when you run an analysis.");
     }
-    function clearAnthropicKey() {
-      localStorage.removeItem("tt_anthropic_key");
-      renderAnthropicKeyStatus();
+    function clearGroqKey() {
+      localStorage.removeItem("tt_groq_key");
+      renderGroqKeyStatus();
     }
-    function renderAnthropicKeyStatus() {
-      const el = document.getElementById("anthropic-key-status");
+    function renderGroqKeyStatus() {
+      const el = document.getElementById("groq-key-status");
       if (!el) return;
-      const key = getAnthropicKey();
+      const key = getGroqKey();
       el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No key saved yet.";
     }
     // 503 = model temporarily overloaded on Google's side, 429 = rate limit
@@ -6037,26 +6050,23 @@ ${bySetupLines}
 ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs earlier trades avg $${s.trendNote.earlierAvg.toFixed(2)}` : ""}`;
     }
 
-    // Anthropic requires an explicit opt-in header for direct browser calls
-    // (CSRF guard is on by default — this is the documented BYOK escape
-    // hatch, not a workaround). Same transient-error retry pattern as Gemini.
-    async function callAnthropicWithRetry(key, prompt, statusEl) {
+    // Groq is OpenAI-compatible (Bearer auth, chat completions shape) —
+    // genuinely free tier, no credit card, generous daily limits. Same
+    // transient-error retry pattern as Gemini.
+    async function callGroqWithRetry(key, prompt, statusEl) {
       const maxAttempts = 4;
       const delays = [2000, 4000, 8000];
       for (let attempt = 1; attempt <= maxAttempts; attempt++) {
         let res;
         try {
-          res = await fetch("https://api.anthropic.com/v1/messages", {
+          res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
               "content-type": "application/json",
-              "x-api-key": key,
-              "anthropic-version": "2023-06-01",
-              "anthropic-dangerous-direct-browser-access": "true"
+              "authorization": "Bearer " + key
             },
             body: JSON.stringify({
-              model: "claude-sonnet-4-6",
-              max_tokens: 1024,
+              model: "llama-3.3-70b-versatile",
               messages: [{ role: "user", content: prompt }]
             })
           });
@@ -6068,17 +6078,15 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         }
         if (res.ok) {
           const data = await res.json();
-          const text = data.content && data.content.length
-            ? data.content.filter(b => b.type === "text").map(b => b.text).join("")
-            : null;
-          if (!text) throw new Error("Unexpected response shape from Claude");
+          const text = data.choices && data.choices.length ? data.choices[0].message.content : null;
+          if (!text) throw new Error("Unexpected response shape from Groq");
           return text;
         }
         const errText = await res.text().catch(() => "");
         const err = new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
-        const transient = res.status === 529 || res.status === 429 || res.status === 503;
+        const transient = res.status === 503 || res.status === 429;
         if (!transient || attempt === maxAttempts) throw err;
-        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Claude is busy (HTTP ${res.status}) — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
+        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Groq is busy (HTTP ${res.status}) — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
         await new Promise(r => setTimeout(r, delays[attempt - 1]));
       }
     }
@@ -6095,10 +6103,10 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
       if (!out) return;
       const key = getGeminiKey();
-      const anthropicKey = getAnthropicKey();
+      const groqKey = getGroqKey();
       if (!key) {
-        if (anthropicKey) { runClaudeReview(); return; }
-        out.innerHTML = `<div class="wl-empty">Save your Gemini API key above first (or save a Claude key and use Run Claude instead).</div>`;
+        if (groqKey) { runGroqReview(); return; }
+        out.innerHTML = `<div class="wl-empty">Save your Gemini API key above first (or save a Groq key and use Run Groq instead — both are free).</div>`;
         return;
       }
       if (list.length < 3) {
@@ -6112,41 +6120,41 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         const text = await callGeminiWithRetry(key, prompt, out);
         out.innerHTML = formatAIReviewResult(text, "Gemini");
       } catch (e) {
-        if (anthropicKey) {
-          out.innerHTML = `<div class="wl-empty">Gemini was unavailable (${e.message}) — falling back to Claude…</div>`;
+        if (groqKey) {
+          out.innerHTML = `<div class="wl-empty">Gemini was unavailable (${e.message}) — falling back to Groq…</div>`;
           try {
-            const text = await callAnthropicWithRetry(anthropicKey, prompt, out);
-            out.innerHTML = `<div class="note" style="margin-bottom:8px;border-left:3px solid #eab308;">Gemini was unavailable, so this is Claude's analysis instead.</div>` + formatAIReviewResult(text, "Claude");
+            const text = await callGroqWithRetry(groqKey, prompt, out);
+            out.innerHTML = `<div class="note" style="margin-bottom:8px;border-left:3px solid #eab308;">Gemini was unavailable, so this is Groq's analysis instead.</div>` + formatAIReviewResult(text, "Groq");
           } catch (e2) {
-            out.innerHTML = `<div class="wl-empty">Both providers failed. Gemini: ${e.message}. Claude: ${e2.message}.</div>`;
+            out.innerHTML = `<div class="wl-empty">Both providers failed. Gemini: ${e.message}. Groq: ${e2.message}.</div>`;
           }
         } else {
-          out.innerHTML = `<div class="wl-empty">Gemini call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Google's API. Save a Claude key too for automatic fallback next time.</div>`;
+          out.innerHTML = `<div class="wl-empty">Gemini call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Google's API. Save a free Groq key too for automatic fallback next time.</div>`;
         }
       }
     }
 
-    async function runClaudeReview() {
+    async function runGroqReview() {
       const out = document.getElementById("gemini-review-output");
       const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
       if (!out) return;
-      const key = getAnthropicKey();
+      const key = getGroqKey();
       if (!key) {
-        out.innerHTML = `<div class="wl-empty">Save your Anthropic API key above first.</div>`;
+        out.innerHTML = `<div class="wl-empty">Save your Groq API key above first — it's free, no credit card, from console.groq.com.</div>`;
         return;
       }
       if (list.length < 3) {
         out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
         return;
       }
-      out.innerHTML = `<div class="wl-empty">Asking Claude… (this calls Anthropic's API directly from your browser)</div>`;
+      out.innerHTML = `<div class="wl-empty">Asking Groq (Llama 3.3 70B)… (this calls Groq's API directly from your browser)</div>`;
       const s = computeTradeStats(list);
       const prompt = buildAIReviewPrompt(s);
       try {
-        const text = await callAnthropicWithRetry(key, prompt, out);
-        out.innerHTML = formatAIReviewResult(text, "Claude");
+        const text = await callGroqWithRetry(key, prompt, out);
+        out.innerHTML = formatAIReviewResult(text, "Groq (Llama 3.3 70B)");
       } catch (e) {
-        out.innerHTML = `<div class="wl-empty">Claude call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Anthropic's API.</div>`;
+        out.innerHTML = `<div class="wl-empty">Groq call failed: ${e.message}. Common causes: invalid/expired key, daily rate limit hit (free tier resets every 24h), or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Groq's API.</div>`;
       }
     }
 
@@ -6155,21 +6163,21 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
       if (!out) return;
       const geminiKey = getGeminiKey();
-      const anthropicKey = getAnthropicKey();
-      if (!geminiKey || !anthropicKey) {
-        out.innerHTML = `<div class="wl-empty">Save both a Gemini key and a Claude key above to compare them side by side.</div>`;
+      const groqKey = getGroqKey();
+      if (!geminiKey || !groqKey) {
+        out.innerHTML = `<div class="wl-empty">Save both a Gemini key and a Groq key above to compare them side by side (both are free).</div>`;
         return;
       }
       if (list.length < 3) {
         out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
         return;
       }
-      out.innerHTML = `<div class="wl-empty">Asking both Gemini and Claude in parallel…</div>`;
+      out.innerHTML = `<div class="wl-empty">Asking both Gemini and Groq in parallel…</div>`;
       const s = computeTradeStats(list);
       const prompt = buildAIReviewPrompt(s);
-      const [geminiResult, claudeResult] = await Promise.allSettled([
+      const [geminiResult, groqResult] = await Promise.allSettled([
         callGeminiWithRetry(geminiKey, prompt, null),
-        callAnthropicWithRetry(anthropicKey, prompt, null)
+        callGroqWithRetry(groqKey, prompt, null)
       ]);
       const renderSide = (label, result) => {
         if (result.status === "fulfilled") {
@@ -6183,7 +6191,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
           <div style="padding:8px;font-size:12px;" class="muted">Failed: ${result.reason.message}</div>
         </div>`;
       };
-      out.innerHTML = `<div class="grid-2">${renderSide("Gemini", geminiResult)}${renderSide("Claude", claudeResult)}</div>
+      out.innerHTML = `<div class="grid-2">${renderSide("Gemini", geminiResult)}${renderSide("Groq (Llama 3.3 70B)", groqResult)}</div>
         <div class="note" style="margin-top:8px;">Generated just now (${new Date().toLocaleTimeString()}), both called directly from your browser using your saved keys. Where they agree is a stronger signal than either alone; where they diverge is worth a closer look yourself.</div>`;
     }
 
@@ -6905,7 +6913,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
-      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); renderAnthropicKeyStatus(); }
+      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); renderGroqKeyStatus(); }
       const sp = document.getElementById("settings-panel");
       if (sp) sp.classList.remove("open");
     }
