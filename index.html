@@ -538,39 +538,48 @@
   <div class="shell">
   <nav class="sidebar" id="sidebar">
     <div class="nav-group">
-      <div class="nav-group-title">1 · Setup Library</div>
-      <div class="nav-item" data-section="setup-library" onclick="navTo('setup-library', this)">Setups (SIP / EP / EP9M / Patterns)</div>
+      <div class="nav-group-title">1 · Vision</div>
+      <div class="nav-item" data-section="vision" onclick="navTo('vision', this)">Vision &amp; Principles</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">2 · Context</div>
+      <div class="nav-group-title">2 · My Process</div>
+      <div class="nav-item" data-section="process-flow" onclick="navTo('process-flow', this)">Process Flow</div>
+      <div class="nav-item" data-section="trade-factory" onclick="navTo('trade-factory', this)">Trade Factory</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">3 · Context</div>
       <div class="nav-item active" data-section="market-monitor" onclick="navTo('market-monitor', this)">Market Monitor</div>
       <div class="nav-item" data-section="news" onclick="navTo('news', this)">News</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">3 · NTRT/MTRT process</div>
+      <div class="nav-group-title">4 · Discover &amp; Qualify</div>
       <div class="nav-item" data-section="qualify" onclick="navTo('qualify', this)">Discover &amp; Qualify</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">4 · Pre-execution</div>
+      <div class="nav-group-title">5 · Pre-Execution</div>
       <div class="nav-item" data-section="watchlist" onclick="navTo('watchlist', this)">Watchlist &amp; Plans</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">5 · Trading Operations</div>
+      <div class="nav-group-title">6 · Trading Operations</div>
       <div class="nav-item" data-section="trading-operations" onclick="navTo('trading-operations', this)">Schwab Import · Daily</div>
       <div class="nav-item" data-section="fund-ownership" onclick="navTo('fund-ownership', this)">Fund Ownership</div>
       <div class="nav-item" data-section="sugar-babies" onclick="navTo('sugar-babies', this)">Sugar Babies</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">6 · Live book</div>
+      <div class="nav-group-title">7 · Live Book</div>
       <div class="nav-item" data-section="positions" onclick="navTo('positions', this)">Positions</div>
       <div class="nav-item" data-section="dashboard" onclick="navTo('dashboard', this)">Performance Dashboard</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">7 · Improve</div>
+      <div class="nav-group-title">8 · Improve</div>
       <div class="nav-item" data-section="ai-review" onclick="navTo('ai-review', this)">AI Trade Review</div>
       <div class="nav-item" data-section="journal" onclick="navTo('journal', this)">Manual Journal</div>
     </div>
-    <div class="nav-hint">Setups → Monitor → Discover/Qualify → Watchlist/Plans → Import Schwab (daily) → Positions/Dashboard → AI Review</div>
+    <div class="nav-group">
+      <div class="nav-group-title">9 · Library</div>
+      <div class="nav-item" data-section="setup-library" onclick="navTo('setup-library', this)">Setups (SIP / EP / EP9M / Patterns)</div>
+    </div>
+    <div class="nav-hint">Vision → My Process → Context → Discover/Qualify → Watchlist/Plans → Trading Operations → Positions/Dashboard → Improve → Library</div>
   </nav>
 
   <div class="content">
@@ -586,7 +595,7 @@
         <div class="panel-body" style="overflow-x:auto;">
           <table>
             <thead>
-              <tr><th>Key</th><th>Label</th><th>Category</th><th>Risk % ideal / max</th><th>Hold</th><th>Actions</th></tr>
+              <tr><th>Key</th><th>Label</th><th>Category</th><th>Money Type</th><th>Branch</th><th>Direction</th><th>Risk % ideal / max</th><th>Hold</th><th>Actions</th></tr>
             </thead>
             <tbody id="setup-library-table"></tbody>
           </table>
@@ -602,10 +611,25 @@
             <div class="form-group"><label>Category</label>
               <select id="su-category" style="width:120px"><option value="catalyst">Catalyst</option><option value="pattern">Pattern</option></select>
             </div>
+            <div class="form-group"><label>Money Type</label>
+              <select id="su-moneytype" style="width:120px"><option value="single">Single</option><option value="homerun">Home Run</option></select>
+            </div>
+            <div class="form-group"><label>Branch</label>
+              <select id="su-branch" style="width:150px">
+                <option value="catalyst_based">Catalyst Based</option>
+                <option value="pattern_based">Pattern Based</option>
+                <option value="exhaustion">Exhaustion</option>
+                <option value="momentum_burst">Momentum Burst</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Direction</label>
+              <select id="su-direction" style="width:110px"><option value="bullish">Bullish</option><option value="bearish">Bearish</option></select>
+            </div>
             <div class="form-group"><label>Risk % ideal</label><input type="number" id="su-riskpct" value="1" step="0.1" style="width:90px" /></div>
             <div class="form-group"><label>Risk % max</label><input type="number" id="su-riskmax" value="2.5" step="0.1" style="width:90px" /></div>
           </div>
           <div class="form-group" style="margin-top:6px;"><label>Typical hold</label><input type="text" id="su-hold" placeholder="e.g. Days to a few weeks" style="width:100%" /></div>
+          <div class="form-group" style="margin-top:6px;"><label>Scan / trigger (where this setup comes from)</label><input type="text" id="su-scan" placeholder="e.g. Combination Scan · Market Open" style="width:100%" /></div>
           <div class="form-row" style="flex-wrap:wrap;margin-top:6px;">
             <div class="form-group" style="flex:1;min-width:220px;"><label>Open entry rule</label><input type="text" id="su-openentry" style="width:100%" /></div>
             <div class="form-group" style="flex:1;min-width:220px;"><label>Delayed entry rule</label><input type="text" id="su-delayedentry" style="width:100%" /></div>
@@ -817,6 +841,520 @@
         </div>
       </div>
       </div><!-- end mm-tab-checklist -->
+    </div>
+
+    <!-- VISION -->
+    <div id="vision" class="section">
+      <div class="panel">
+        <div class="panel-header">Mission</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:8px;">Why you trade, what you're building. This is yours — write it in your own words, and revise it whenever your thinking moves. It won't be overwritten by anything I build later.</div>
+          <textarea id="vision-mission" rows="4" style="width:100%;" placeholder="e.g. I run a trade factory. Every day I run my process to find and execute setups — singles for consistent base hits, home runs for the rare asymmetric win. I track everything so I know what's actually working, not what I feel is working."></textarea>
+          <div style="margin-top:8px;"><button class="btn btn-accent" onclick="saveVisionField('mission')">Save Mission</button> <span class="muted" id="vision-mission-status" style="font-size:11px;"></span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Business Model · Singles &amp; Home Runs</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:8px;">
+            <strong>Singles:</strong> frequent, smaller, high-probability hits — the base hits that keep the factory running day to day.<br/>
+            <strong>Home Runs:</strong> rare, larger, asymmetric wins — lower frequency, bigger payoff when they land.<br/>
+            Both categories get manufactured the same way: a defined setup, a scan/trigger in your <a href="#" onclick="navTo('process-flow', document.querySelector('[data-section=process-flow]'));return false;">Process Flow</a>, and a place in your <a href="#" onclick="navTo('trade-factory', document.querySelector('[data-section=trade-factory]'));return false;">Trade Factory</a> product line.
+          </div>
+          <textarea id="vision-business-model" rows="4" style="width:100%;" placeholder="How do YOU define a single vs. a home run? What's your target mix — mostly singles with occasional home runs, or something else?"></textarea>
+          <div style="margin-top:8px;"><button class="btn btn-accent" onclick="saveVisionField('businessModel')">Save</button> <span class="muted" id="vision-businessModel-status" style="font-size:11px;"></span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Principles</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">The rules you don't break. Add, edit, or delete as your thinking evolves — seeded with a few pulled from what you've already built into this terminal.</div>
+          <div class="form-row">
+            <div class="form-group" style="flex:1;"><input type="text" id="vision-principle-input" style="width:100%" placeholder="e.g. Document the setup on every trade, no exceptions" /></div>
+          </div>
+          <div style="margin-top:8px;">
+            <button class="btn btn-accent" onclick="saveVisionPrinciple()">Save</button>
+            <button class="btn btn-sm" onclick="resetVisionPrincipleForm()">Clear form</button>
+          </div>
+          <div id="vision-principles-body" style="margin-top:12px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRADE FACTORY -->
+    <div id="trade-factory" class="section">
+      <div class="panel" style="background:#0a1f1a;border-color:#1f4a3d;">
+        <div class="panel-body" style="padding:28px 24px;">
+          <div style="font-size:26px;font-weight:800;letter-spacing:0.5px;color:#fff;">THE TRADE FACTORY</div>
+          <div style="height:2px;background:#ea580c;width:100%;max-width:640px;margin:10px 0 16px;"></div>
+          <div style="font-size:14px;color:#9ca3af;max-width:640px;">A Repeatable Operating System for Market Context, Trade Setups, Execution and Risk Management</div>
+          <div style="font-size:15px;font-weight:700;color:#e5e7eb;margin-top:18px;line-height:1.5;">Manufacture Consistency.<br/>Let Exceptional Trades Create the Upside.</div>
+
+          <svg viewBox="0 0 900 400" style="width:100%;max-width:820px;display:block;margin:20px auto 0;" role="img">
+            <title>The Trade Factory production line: named setups flow in on the left, get filtered at the Setup station, and survivors split into two paths — Home Run setups head to the Home Run output, Single setups head to the Singles output.</title>
+            <style>
+              @keyframes tfSmoke { 0% { transform: translateY(0) scale(1); opacity: 0.55; } 100% { transform: translateY(-32px) scale(1.6); opacity: 0; } }
+              .tf-smoke { animation: tfSmoke 3s ease-out infinite; }
+              @keyframes tfDollar { 0%,70% { transform: translateY(0) scale(0.6); opacity: 0; } 85% { transform: translateY(-8px) scale(1.2); opacity: 1; } 100% { transform: translateY(-20px) scale(1); opacity: 0; } }
+              .tf-dollar { animation: tfDollar 2.6s ease-out infinite; }
+            </style>
+
+            <!-- factory building silhouette, background atmosphere -->
+            <g opacity="0.35">
+              <rect x="40" y="40" width="820" height="130" fill="#132a23"/>
+              <path d="M40,40 L130,0 L220,40 Z" fill="#132a23"/>
+              <path d="M400,40 L490,0 L580,40 Z" fill="#132a23"/>
+              <path d="M680,40 L770,0 L860,40 Z" fill="#132a23"/>
+              <rect x="150" y="-30" width="18" height="35" fill="#132a23"/>
+              <rect x="620" y="-30" width="18" height="35" fill="#132a23"/>
+            </g>
+            <!-- animated smoke wisps -->
+            <circle class="tf-smoke" cx="159" cy="-35" r="7" fill="#475569" style="animation-delay:0s;"/>
+            <circle class="tf-smoke" cx="159" cy="-35" r="7" fill="#475569" style="animation-delay:1s;"/>
+            <circle class="tf-smoke" cx="159" cy="-35" r="7" fill="#475569" style="animation-delay:2s;"/>
+            <circle class="tf-smoke" cx="629" cy="-38" r="7" fill="#475569" style="animation-delay:0.5s;"/>
+            <circle class="tf-smoke" cx="629" cy="-38" r="7" fill="#475569" style="animation-delay:1.5s;"/>
+            <circle class="tf-smoke" cx="629" cy="-38" r="7" fill="#475569" style="animation-delay:2.5s;"/>
+
+            <!-- conveyor belt: rollers + belt with tread marks -->
+            <rect x="60" y="255" width="780" height="18" rx="4" fill="#334155"/>
+            <g stroke="#1e293b" stroke-width="2">
+              <line x1="80" y1="255" x2="70" y2="273"/><line x1="120" y1="255" x2="110" y2="273"/>
+              <line x1="160" y1="255" x2="150" y2="273"/><line x1="200" y1="255" x2="190" y2="273"/>
+              <line x1="240" y1="255" x2="230" y2="273"/><line x1="280" y1="255" x2="270" y2="273"/>
+              <line x1="320" y1="255" x2="310" y2="273"/><line x1="360" y1="255" x2="350" y2="273"/>
+              <line x1="400" y1="255" x2="390" y2="273"/><line x1="440" y1="255" x2="430" y2="273"/>
+              <line x1="480" y1="255" x2="470" y2="273"/><line x1="520" y1="255" x2="510" y2="273"/>
+              <line x1="560" y1="255" x2="550" y2="273"/><line x1="600" y1="255" x2="590" y2="273"/>
+              <line x1="640" y1="255" x2="630" y2="273"/>
+            </g>
+            <circle cx="100" cy="280" r="12" fill="#64748b" stroke="#1e293b" stroke-width="2"/>
+            <circle cx="300" cy="280" r="12" fill="#64748b" stroke="#1e293b" stroke-width="2"/>
+            <circle cx="500" cy="280" r="12" fill="#64748b" stroke="#1e293b" stroke-width="2"/>
+            <circle cx="650" cy="280" r="12" fill="#64748b" stroke="#1e293b" stroke-width="2"/>
+
+            <!-- raw material entering the line -->
+            <polygon points="65,240 82,232 96,242 90,255 70,255" fill="#57534e" stroke="#292524" stroke-width="1.5"/>
+            <text x="80" y="222" text-anchor="middle" fill="#9ca3af" font-size="10">Raw Setups</text>
+
+            <!-- STATION 1: SETUP -->
+            <a href="#" onclick="navTo('qualify', document.querySelector('[data-section=qualify]'));return false;" style="cursor:pointer;">
+              <rect x="110" y="90" width="140" height="80" rx="10" fill="#0f172a" stroke="#f472b6" stroke-width="2.5"/>
+              <text x="180" y="125" text-anchor="middle" fill="#f472b6" font-size="14" font-weight="800">1 · SETUP</text>
+              <text x="180" y="144" text-anchor="middle" fill="#9ca3af" font-size="10">Discover, Qualify,</text>
+              <text x="180" y="157" text-anchor="middle" fill="#9ca3af" font-size="10">Watchlist</text>
+            </a>
+
+            <!-- STATION 2: EXECUTE -->
+            <a href="#" onclick="navTo('trading-operations', document.querySelector('[data-section=trading-operations]'));return false;" style="cursor:pointer;">
+              <rect x="370" y="90" width="140" height="80" rx="10" fill="#0f172a" stroke="#eab308" stroke-width="2.5"/>
+              <text x="440" y="125" text-anchor="middle" fill="#eab308" font-size="14" font-weight="800">2 · EXECUTE</text>
+              <text x="440" y="144" text-anchor="middle" fill="#9ca3af" font-size="10">Trading</text>
+              <text x="440" y="157" text-anchor="middle" fill="#9ca3af" font-size="10">Operations</text>
+            </a>
+
+            <!-- STATION 3: MANAGE -->
+            <a href="#" onclick="navTo('positions', document.querySelector('[data-section=positions]'));return false;" style="cursor:pointer;">
+              <rect x="550" y="90" width="140" height="80" rx="10" fill="#0f172a" stroke="#2dd4bf" stroke-width="2.5"/>
+              <text x="620" y="125" text-anchor="middle" fill="#2dd4bf" font-size="14" font-weight="800">3 · MANAGE</text>
+              <text x="620" y="144" text-anchor="middle" fill="#9ca3af" font-size="10">Live Book,</text>
+              <text x="620" y="157" text-anchor="middle" fill="#9ca3af" font-size="10">Risk</text>
+            </a>
+
+            <!-- diverging paths after Manage, drawn faint so the split is visible -->
+            <path d="M650,263 Q745,263 805,145" fill="none" stroke="#78350f" stroke-width="2" stroke-dasharray="3,4" opacity="0.6"/>
+            <path d="M650,263 Q745,263 805,335" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-dasharray="3,4" opacity="0.6"/>
+
+            <!-- HOME RUN output (upper right) -->
+            <rect x="760" y="108" width="90" height="55" rx="6" fill="#ea580c"/>
+            <text x="805" y="130" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">🏠 HOME RUN</text>
+            <text x="805" y="145" text-anchor="middle" fill="#ffedd5" font-size="8">setups only</text>
+            <text class="tf-dollar" x="850" y="120" fill="#22c55e" font-size="16" font-weight="800" style="animation-delay:0.3s;">$</text>
+            <text class="tf-dollar" x="850" y="120" fill="#22c55e" font-size="16" font-weight="800" style="animation-delay:1.5s;">$</text>
+
+            <!-- SINGLES output (lower right) -->
+            <rect x="760" y="328" width="90" height="55" rx="6" fill="#1d4ed8"/>
+            <text x="805" y="350" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">⚾ SINGLES</text>
+            <text x="805" y="365" text-anchor="middle" fill="#dbeafe" font-size="8">setups only</text>
+            <text class="tf-dollar" x="850" y="340" fill="#22c55e" font-size="16" font-weight="800" style="animation-delay:0.9s;">$</text>
+            <text class="tf-dollar" x="850" y="340" fill="#22c55e" font-size="16" font-weight="800" style="animation-delay:2.1s;">$</text>
+
+            <!-- animated, named setup chips. Home Run setups (gold) curve up
+                 to the Home Run output; Single setups (blue) curve down to
+                 Singles — never crossing into the other's lane. Some chips
+                 get filtered at Setup and drop off before either path. -->
+            <g>
+              <!-- Home Run-bound: SIP, EP9M, Classic EP -->
+              <g fill="#0f172a" stroke="#eab308" stroke-width="2">
+                <rect x="-26" y="-11" width="52" height="22" rx="6"/>
+                <animateMotion path="M85,263 L650,263 Q745,263 805,145" dur="8s" begin="0s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="0s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#eab308" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L650,263 Q745,263 805,145" dur="8s" begin="0s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="0s" repeatCount="indefinite"/>
+                SIP
+              </text>
+
+              <g fill="#0f172a" stroke="#eab308" stroke-width="2">
+                <rect x="-26" y="-11" width="52" height="22" rx="6"/>
+                <animateMotion path="M85,263 L650,263 Q745,263 805,145" dur="8s" begin="2.7s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="2.7s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#eab308" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L650,263 Q745,263 805,145" dur="8s" begin="2.7s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="2.7s" repeatCount="indefinite"/>
+                EP9M
+              </text>
+
+              <g fill="#0f172a" stroke="#eab308" stroke-width="2">
+                <rect x="-32" y="-11" width="64" height="22" rx="6"/>
+                <animateMotion path="M85,263 L650,263 Q745,263 805,145" dur="8s" begin="5.4s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="5.4s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#eab308" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L650,263 Q745,263 805,145" dur="8s" begin="5.4s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="5.4s" repeatCount="indefinite"/>
+                CLASSIC EP
+              </text>
+
+              <!-- Single-bound: Anticipation, Reversal Bullish, Bottom Bounce -->
+              <g fill="#0f172a" stroke="#3b82f6" stroke-width="2">
+                <rect x="-40" y="-11" width="80" height="22" rx="6"/>
+                <animateMotion path="M85,263 L650,263 Q745,263 805,335" dur="8s" begin="1.3s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="1.3s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#60a5fa" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L650,263 Q745,263 805,335" dur="8s" begin="1.3s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="1.3s" repeatCount="indefinite"/>
+                ANTICIPATION
+              </text>
+
+              <g fill="#0f172a" stroke="#3b82f6" stroke-width="2">
+                <rect x="-44" y="-11" width="88" height="22" rx="6"/>
+                <animateMotion path="M85,263 L650,263 Q745,263 805,335" dur="8s" begin="4s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="4s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#60a5fa" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L650,263 Q745,263 805,335" dur="8s" begin="4s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="4s" repeatCount="indefinite"/>
+                REVERSAL BULLISH
+              </text>
+
+              <g fill="#0f172a" stroke="#3b82f6" stroke-width="2">
+                <rect x="-38" y="-11" width="76" height="22" rx="6"/>
+                <animateMotion path="M85,263 L650,263 Q745,263 805,335" dur="8s" begin="6.7s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="6.7s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#60a5fa" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L650,263 Q745,263 805,335" dur="8s" begin="6.7s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur="8s" begin="6.7s" repeatCount="indefinite"/>
+                BOTTOM BOUNCE
+              </text>
+
+              <!-- filtered out at Setup: doesn't qualify, never reaches either output -->
+              <g fill="#0f172a" stroke="#ef4444" stroke-width="2">
+                <rect x="-34" y="-11" width="68" height="22" rx="6"/>
+                <animateMotion path="M85,263 L240,263 Q258,300 258,335" dur="3s" begin="0.6s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.75;1" dur="3s" begin="0.6s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#f87171" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L240,263 Q258,300 258,335" dur="3s" begin="0.6s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.75;1" dur="3s" begin="0.6s" repeatCount="indefinite"/>
+                NO SETUP
+              </text>
+
+              <g fill="#0f172a" stroke="#ef4444" stroke-width="2">
+                <rect x="-34" y="-11" width="68" height="22" rx="6"/>
+                <animateMotion path="M85,263 L240,263 Q258,300 258,335" dur="3s" begin="2.2s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.75;1" dur="3s" begin="2.2s" repeatCount="indefinite"/>
+              </g>
+              <text fill="#f87171" font-size="9" font-weight="800" text-anchor="middle">
+                <animateMotion path="M85,263 L240,263 Q258,300 258,335" dur="3s" begin="2.2s" repeatCount="indefinite" rotate="0"/>
+                <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.75;1" dur="3s" begin="2.2s" repeatCount="indefinite"/>
+                NO SETUP
+              </text>
+            </g>
+            <text x="180" y="290" text-anchor="middle" fill="#6b7280" font-size="8">candidates without a real setup get filtered here</text>
+
+            <text x="450" y="215" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">Home Run setups (gold) and Single setups (blue) run the same process, then split —</text>
+            <text x="450" y="232" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">each only ever reaches its own output.</text>
+          </svg>
+          <div class="note" style="max-width:820px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. The detailed product line — every setup, its scan, watchlist count, and live performance — is below.</div>
+          <div class="note" style="max-width:820px;margin:12px auto 0;background:transparent;border:none;padding:0;">The detailed product line — every setup, its scan, watchlist count, and live performance — is below.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Trade Factory</div>
+        <div class="panel-body">
+          <div class="note">Your product line. Run this factory every day — Home Runs pursue episodic repricing, Singles harvest repeatable momentum burst. Every setup here has a scan/trigger in your <a href="#" onclick="navTo('process-flow', document.querySelector('[data-section=process-flow]'));return false;">Process Flow</a> and full rules in your <a href="#" onclick="navTo('setup-library', document.querySelector('[data-section=setup-library]'));return false;">Setup Library</a>. This diagram is generated live from that Library — reassign a setup's Branch/Direction there and this updates automatically.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Framework
+          <span class="tag" style="background:#14532d;color:#86efac;">Green = Bullish</span>
+          <span class="tag" style="background:#7f1d1d;color:#fecaca;">Red = Bearish</span>
+        </div>
+        <div class="panel-body">
+          <div id="trade-factory-diagram" style="overflow-x:auto;"></div>
+        </div>
+      </div>
+      <div id="trade-factory-cards"></div>
+    </div>
+
+    <!-- PROCESS FLOW -->
+    <div id="process-flow" class="section">
+      <div class="steps" style="border:1px solid var(--border);border-radius:6px 6px 0 0;margin-bottom:0;background:#0f172a;">
+        <div class="step-tab active" data-pf-sub="pf-daily" onclick="switchPFSub(this)">Daily</div>
+        <div class="step-tab" data-pf-sub="pf-weekly" onclick="switchPFSub(this)">Weekly</div>
+      </div>
+
+      <!-- DAILY -->
+      <div id="pf-daily" class="pf-sub active">
+        <div class="grid-2">
+          <div class="panel" style="margin:0;">
+            <div class="panel-header">The Cycle</div>
+            <div class="panel-body">
+              <svg viewBox="0 0 740 645" style="width:100%;display:block;margin:0 auto;" role="img">
+                <title>Closed-loop daily process across four time windows — pre-market, during market hours, near market close, and post market — with risk management running through all of them, looping back to pre-market the next day.</title>
+                <defs>
+                  <marker id="loopArrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M2 1L8 5L2 9" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </marker>
+                </defs>
+
+                <!-- dashed spokes: risk management threads through every window -->
+                <line x1="370" y1="325" x2="180" y2="92.5" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
+                <line x1="370" y1="325" x2="560" y2="140" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
+                <line x1="370" y1="325" x2="560" y2="552.5" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
+                <line x1="370" y1="325" x2="180" y2="517.5" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
+
+                <!-- closed loop, clockwise: Pre-Market → During Market Hours → Near Close → Post-Market → back to Pre-Market -->
+                <path d="M330,92.5 L410,140" fill="none" stroke="#22c55e" stroke-width="2" marker-end="url(#loopArrow2)"/>
+                <path d="M560,250 L560,490" fill="none" stroke="#22c55e" stroke-width="2" marker-end="url(#loopArrow2)"/>
+                <path d="M410,552.5 L330,517.5" fill="none" stroke="#22c55e" stroke-width="2" marker-end="url(#loopArrow2)"/>
+                <path d="M180,420 L180,155" fill="none" stroke="#22c55e" stroke-width="2" marker-end="url(#loopArrow2)"/>
+
+                <!-- center hub: continuous risk management -->
+                <circle cx="370" cy="325" r="72" fill="#78350f" stroke="#f59e0b" stroke-width="2"/>
+                <text x="370" y="320" text-anchor="middle" fill="#fde68a" font-size="16" font-weight="700">MANAGE</text>
+                <text x="370" y="340" text-anchor="middle" fill="#fde68a" font-size="16" font-weight="700">RISK</text>
+
+                <!-- PRE-MARKET (top-left) -->
+                <rect x="30" y="30" width="300" height="125" rx="10" fill="#0f172a" stroke="#eab308" stroke-width="2"/>
+                <text x="45" y="58" fill="#eab308" font-size="16" font-weight="800">PRE-MARKET</text>
+                <text x="45" y="76" fill="#9ca3af" font-size="12">Before 9:30am</text>
+                <text x="45" y="102" fill="#e5e7eb" font-size="14">• Pre-Market Movers scan</text>
+
+                <!-- DURING MARKET HOURS (top-right, taller — most content) -->
+                <rect x="410" y="30" width="300" height="220" rx="10" fill="#0f172a" stroke="#22c55e" stroke-width="2"/>
+                <text x="425" y="58" fill="#22c55e" font-size="16" font-weight="800">DURING MARKET HOURS</text>
+                <text x="425" y="76" fill="#9ca3af" font-size="12">9:30am – 3:50pm</text>
+                <text x="425" y="102" fill="#e5e7eb" font-size="14">• Combo Bullish / Bearish</text>
+                <text x="425" y="126" fill="#e5e7eb" font-size="14">• EP9 Million (all day)</text>
+                <text x="425" y="150" fill="#e5e7eb" font-size="14">• Manage positions (midday)</text>
+                <text x="425" y="174" fill="#e5e7eb" font-size="14">• Anticipation (3 variants)</text>
+                <text x="425" y="198" fill="#e5e7eb" font-size="14">• Reversal / Exhaustion</text>
+
+                <!-- NEAR MARKET CLOSE (bottom-right) -->
+                <rect x="410" y="490" width="300" height="125" rx="10" fill="#0f172a" stroke="#f97316" stroke-width="2"/>
+                <text x="425" y="518" fill="#f97316" font-size="16" font-weight="800">NEAR MARKET CLOSE</text>
+                <text x="425" y="536" fill="#9ca3af" font-size="12">3:50pm – 4:00pm</text>
+                <text x="425" y="562" fill="#e5e7eb" font-size="14">• Execute anticipation entries</text>
+
+                <!-- POST MARKET (bottom-left) -->
+                <rect x="30" y="420" width="300" height="195" rx="10" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
+                <text x="45" y="448" fill="#3b82f6" font-size="16" font-weight="800">POST MARKET</text>
+                <text x="45" y="466" fill="#9ca3af" font-size="12">After 4:00pm</text>
+                <text x="45" y="492" fill="#e5e7eb" font-size="14">• Upload trades from broker</text>
+                <text x="45" y="516" fill="#e5e7eb" font-size="14">• Run AI Review</text>
+                <text x="45" y="540" fill="#e5e7eb" font-size="14">• 20% Study (bull / bear)</text>
+                <text x="45" y="564" fill="#e5e7eb" font-size="14">• 50% Bullish Study</text>
+
+                <text x="370" y="632" text-anchor="middle" fill="#9ca3af" font-size="13">Post Market feeds straight back into tomorrow's Pre-Market — this repeats every trading day.</text>
+              </svg>
+              <div class="note" style="margin-top:4px;">Dashed spokes = risk management isn't confined to one window, it runs through all four. Solid arrows = the actual clockwise sequence of your day, looping back to Pre-Market tomorrow. Full scan conditions for each item are in the cards below.</div>
+            </div>
+          </div>
+
+          <div class="panel" style="margin:0;">
+            <div class="panel-header">Rule of Thumb</div>
+            <div class="panel-body">
+              <div style="font-size:12px;font-weight:600;">Morning = find breakouts/breakdowns happening <em>right now</em>. Afternoon = anticipate what breaks out <em>tomorrow</em>.</div>
+              <div class="note" style="margin-top:6px;font-size:10px;">Never run anticipation or reversal scans in the morning — the setups haven't finished forming yet. Source: TC2000 Scan Clinic playbook.</div>
+              <div style="font-size:12px;font-weight:600;margin-top:14px;">Manage risk continuously — it's not a midday-only task.</div>
+              <div class="note" style="margin-top:6px;font-size:10px;">Trail stops, cut losers fast, size every new position before you take it. This runs through every layer below, not just the Midday box — scanning for new setups doesn't pause your responsibility for what's already open.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:stretch;max-width:900px;margin:0 auto;">
+
+          <!-- LAYER 1: PRE-MARKET -->
+          <div style="border:1px solid var(--border);border-left:5px solid #eab308;border-radius:10px;background:#0f172a;padding:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+              <div style="font-size:16px;font-weight:800;color:#eab308;">🌅 PRE-MARKET</div>
+              <span class="tag" style="background:#78350f;color:#fde68a;">Before 9:30am</span>
+            </div>
+            <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;">
+              <div style="font-size:14px;font-weight:700;">Pre-Market Movers scan</div>
+              <div class="muted" style="font-size:12px;margin-top:4px;">Loose "watch and be aware" scan — pre-market liquidity is thin, this isn't a precision entry tool.</div>
+              <details style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:var(--accent);">Conditions &amp; sort</summary>
+                <div class="muted" style="font-size:11px;margin-top:6px;line-height:1.6;">
+                  Up ≥2% or ≥$0.90 — OR — down ≥2% or ≥$0.90<br/>
+                  Volume ≥100,000 (pre-market) · Price &gt;$1<br/>
+                  Sort by Volume — the ones with real volume behind the move are worth tracking into the open.
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <div style="text-align:center;font-size:22px;color:var(--muted);margin:2px 0;">↓</div>
+
+          <!-- LAYER 2: DURING MARKET HOURS -->
+          <div style="border:1px solid var(--border);border-left:5px solid #22c55e;border-radius:10px;background:#0f172a;padding:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+              <div style="font-size:16px;font-weight:800;color:#22c55e;">📈 DURING MARKET HOURS</div>
+              <span class="tag" style="background:#14532d;color:#86efac;">9:30am – 3:50pm</span>
+            </div>
+
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Open · First 5–60 min</div>
+            <div style="display:grid;gap:10px;margin-bottom:16px;">
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <div style="font-size:14px;font-weight:700;">Combination Scan — Bullish <span class="tag" style="background:#14532d;color:#86efac;">Run first, every morning</span></div>
+                <div class="muted" style="font-size:12px;margin-top:4px;">Flagship scan — merges 4% Breakout + Dollar Breakout, plus two qualifying filters so every hit is a genuinely strong close, not a fading spike.</div>
+                <details style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:var(--accent);">Conditions &amp; sort</summary>
+                  <div class="muted" style="font-size:11px;margin-top:6px;line-height:1.6;">
+                    Path A: closes ≥4% above yesterday's close, today's candle bigger than yesterday's<br/>
+                    Path B: strong $ move from today's open even if % gain is modest<br/>
+                    Both paths need: close-near-high (top 70% of day's range) + not-already-extended (yesterday's move under 2%)<br/>
+                    Price &gt;$3 · US common stock, ADRs, ETFs<br/>
+                    Sort by Volume, or Volume Buzz/relative-volume for early-move detection.
+                  </div>
+                </details>
+              </div>
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <div style="font-size:14px;font-weight:700;">EP9 Million scan <span class="tag" style="background:#14532d;color:#86efac;">Highest priority — check all day</span></div>
+                <div class="muted" style="font-size:12px;margin-top:4px;">Simple, purely visual liquidity flag — 9M+ shares in a session is hard-to-hide institutional participation. Toggle between this and Combo Bullish as your two "must-watch" panels.</div>
+                <details style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:var(--accent);">Conditions &amp; sort</summary>
+                  <div class="muted" style="font-size:11px;margin-top:6px;line-height:1.6;">
+                    Volume ≥9,000,000 shares in the session<br/>
+                    Sort by Volume · green candle = also meets 4% breakout + close-near-high (aggressive buying) · red = bearish mirror (aggressive institutional selling)
+                  </div>
+                </details>
+              </div>
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <div style="font-size:14px;font-weight:700;">Combination Scan — Bearish <span class="tag" style="background:#374151;color:#d1d5db;">Conditional</span></div>
+                <div class="muted" style="font-size:12px;margin-top:4px;">Only switch to this when the broader market itself is falling apart — shorting strength into an uptrend is not the game. Same conditions as Bullish, mirrored.</div>
+              </div>
+            </div>
+
+            <div style="text-align:center;font-size:16px;color:var(--muted);margin:4px 0;">↓</div>
+
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 6px;">Midday · 10:30am – 2:00pm</div>
+            <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;">
+              <div style="font-size:14px;font-weight:600;">Light / manage open positions.</div>
+              <div class="muted" style="font-size:12px;margin-top:4px;">No new scans this window — keep EP9 Million running in the background. This is a management window, not a hunting window.</div>
+            </div>
+
+            <div style="text-align:center;font-size:16px;color:var(--muted);margin:4px 0;">↓</div>
+
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 6px;">Afternoon · 2:00pm – 3:50pm</div>
+            <div style="display:grid;gap:10px;">
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <div style="font-size:14px;font-weight:700;">Anticipation scans (3 variants)</div>
+                <div class="muted" style="font-size:12px;margin-top:4px;">Buys BEFORE the breakout — a stock "coiled" through tight, narrow-range days. Building tomorrow's watchlist, not today's trade.</div>
+                <details style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:var(--accent);">The 3 variants</summary>
+                  <div class="muted" style="font-size:11px;margin-top:6px;line-height:1.6;">
+                    <strong>ANTS 15:</strong> first leg ≥15% gain in last 10 days · tight day ±0.4% · Price &gt;$3 · Volume &gt;900K (3-day)<br/>
+                    <strong>Momentum ANTS:</strong> up 20%+ from low OR avg close(7)/avg close(65) ≥1.05 · tight day ±0.4% · |Δ$| &lt;0.40<br/>
+                    <strong>High-Price ANTS (FHP):</strong> Price &gt;$60 · tight day ±0.25% · net change &lt;$0.50<br/>
+                    Sort by Net Change ascending — tightest, most "compressed" stocks surface first.
+                  </div>
+                </details>
+              </div>
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;">
+                <div style="font-size:14px;font-weight:700;">Reversal / Exhaustion scan</div>
+                <div class="muted" style="font-size:12px;margin-top:4px;">Supporting, not leading — selling exhausted, last seller sold, buyers step back in. Ask "who buys this tomorrow?"</div>
+                <details style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:var(--accent);">Conditions &amp; sort</summary>
+                  <div class="muted" style="font-size:11px;margin-top:6px;line-height:1.6;">
+                    Today = lowest close of last 3 trading days, BUT closes in top 60% of intraday range (strong recovery off the low)<br/>
+                    Volume &gt;900K · Price &gt;$5<br/>
+                    Sort by Volume, then qualitative overlay — "fund quality" and genuinely popular.
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align:center;font-size:22px;color:var(--muted);margin:2px 0;">↓</div>
+
+          <!-- LAYER 3: NEAR MARKET CLOSE -->
+          <div style="border:1px solid var(--border);border-left:5px solid #f97316;border-radius:10px;background:#0f172a;padding:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+              <div style="font-size:16px;font-weight:800;color:#f97316;">⏰ NEAR MARKET CLOSE</div>
+              <span class="tag" style="background:#7c2d12;color:#fed7aa;">3:50pm – 4:00pm</span>
+            </div>
+            <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:12px;">
+              <div style="font-size:14px;font-weight:600;">Execute anticipation entries — buy in the final two minutes, not earlier.</div>
+              <div class="muted" style="font-size:12px;margin-top:4px;">A setup that looks perfect at 3:30 can deteriorate by the close — waiting avoids getting caught in a reversal before the bell.</div>
+            </div>
+          </div>
+
+          <div style="text-align:center;font-size:22px;color:var(--muted);margin:2px 0;">↓</div>
+
+          <!-- LAYER 4: POST MARKET -->
+          <div style="border:1px solid var(--border);border-left:5px solid #3b82f6;border-radius:10px;background:#0f172a;padding:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+              <div style="font-size:16px;font-weight:800;color:#3b82f6;">🌙 POST MARKET</div>
+              <span class="tag" style="background:#1e3a8a;color:#bfdbfe;">After 4:00pm</span>
+            </div>
+            <div class="note" style="margin-bottom:10px;">These 4 aren't from the TC2000 playbook — added separately as your own end-of-day review routine.</div>
+            <div style="display:grid;gap:8px;">
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:baseline;">
+                <span class="check-icon">1</span>
+                <div><strong>Do 20% Study for Bullish/Bearish Stocks.</strong> Check <a href="#" onclick="navTo('market-monitor');document.querySelector('[data-mm-sub=mm-breadth]').click();return false;">Market Monitor → Breadth</a> for today's real ≥20%-move count.</div>
+              </div>
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:baseline;">
+                <span class="check-icon">2</span>
+                <div><strong>Do 50% Bullish Study.</strong> Not automated yet — needs historical price data per ticker, outside the current free-tier budget. Check manually for now.</div>
+              </div>
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:baseline;">
+                <span class="check-icon">3</span>
+                <div><strong>Upload trades from Broker.</strong> Go to <a href="#" onclick="navTo('trading-operations', document.querySelector('[data-section=trading-operations]'));return false;">Trading Operations</a> and import your Schwab CSV.</div>
+              </div>
+              <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:baseline;">
+                <span class="check-icon">4</span>
+                <div><strong>Run AI Review.</strong> Go to <a href="#" onclick="navTo('ai-review', document.querySelector('[data-section=ai-review]'));return false;">AI Trade Review</a> — computed review, or Gemini analysis if set up.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WEEKLY -->
+      <div id="pf-weekly" class="pf-sub" style="display:none;">
+        <div class="panel">
+          <div class="panel-header">Add / Update Item</div>
+          <div class="panel-body">
+            <div class="form-row">
+              <div class="form-group" style="flex:1;"><label>Item</label><input type="text" id="pfw-item" style="width:100%" placeholder="e.g. Review week's watchlist hit rate" /></div>
+            </div>
+            <div style="margin-top:10px;">
+              <button class="btn btn-accent" onclick="savePFWeeklyItem()">Save</button>
+              <button class="btn btn-sm" onclick="resetPFWeeklyForm()">Clear form</button>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">Weekly Process</div>
+          <div class="panel-body" id="pfw-list-body"></div>
+        </div>
+      </div>
     </div>
 
     <!-- QUALIFY (SIPs) -->
@@ -2602,10 +3140,18 @@
     }
     // Extensible setup registry — persisted in localStorage so new setups can be
     // added from the UI (Setup Library) without touching code.
+    // tfBranch matches the Trade Factory tree: catalyst_based / pattern_based
+    // (under Home Runs), exhaustion / momentum_burst (under Singles).
+    // direction drives red/green coloring throughout — bearish setups are the
+    // exception, most of this factory is long-only.
     const DEFAULT_SETUPS = {
       SIP: {
         label: "SIP · Stock in Play",
-        category: "catalyst",
+        scan: "Combination Scan · Market Open (run first every morning)",
+                category: "catalyst",
+        moneyType: "homerun",
+        tfBranch: "catalyst_based",
+        direction: "bullish",
         riskPct: 1,
         riskMax: 2.5,
         hold: "1 day (maybe 2–3) — usually flat by close",
@@ -2629,8 +3175,12 @@
         ]
       },
       EP: {
-        label: "EP · Episodic Pivot",
-        category: "catalyst",
+        label: "Classic EP · Episodic Pivot",
+        scan: "No dedicated scan — catalyst-driven, monitor news/EP triggers manually",
+                category: "catalyst",
+        moneyType: "homerun",
+        tfBranch: "catalyst_based",
+        direction: "bullish",
         riskPct: 2.5,
         riskMax: 10,
         hold: "Weeks to months (structural)",
@@ -2653,9 +3203,36 @@
           "After +20–25% in a few days, tighten / bank partials (guide)"
         ]
       },
+      DEP: {
+        label: "DEP · Delayed EP",
+        scan: "Same catalyst monitoring as Classic EP — enter only on delayed/pullback confirmation",
+                category: "catalyst",
+        moneyType: "homerun",
+        tfBranch: "catalyst_based",
+        direction: "bullish",
+        riskPct: 2,
+        riskMax: 7.5,
+        hold: "Weeks to months (structural) — entered later than Classic EP, needs less definition yet",
+        openEntry: "Not used — DEP intentionally does not chase the EP catalyst day itself",
+        delayedEntry: "Pullback to pivot / VCP confirmation after the initial catalyst day — same idea as EP's delayed entry, tracked as its own product so you can see whether waiting actually pays off vs. Classic EP",
+        stop: "Structural (base low) — tighter than a raw EP open-day stop since you're entering on confirmation, not the catalyst spike itself",
+        exit: "Same as Classic EP — scale into strength, trail for weeks, protect after strong bursts",
+        execBullets: [
+          "PLACEHOLDER — refine against your own DEP trade history",
+          "Only take the delayed/pullback entry, never the open-day spike",
+          "Compare win rate and R-multiple against Classic EP over time — that's the point of tracking this separately"
+        ],
+        riskBullets: [
+          "PLACEHOLDER — start at 2% ideal / 7.5% max, adjust once you have real trades logged"
+        ]
+      },
       EP9M: {
         label: "EP9M · ≥8.9M share volume EP",
-        category: "catalyst",
+        scan: "EP9 Million scan · Check continuously all day",
+                category: "catalyst",
+        moneyType: "homerun",
+        tfBranch: "pattern_based",
+        direction: "bullish",
         riskPct: 1.5,
         riskMax: 2.5,
         hold: "3–5 day momentum to 2–4 week swing",
@@ -2678,9 +3255,80 @@
           "Shorter than classic EP — do not force multi-month hold"
         ]
       },
+      DEP9: {
+        label: "DEP9 · Delayed EP9M",
+        scan: "Same EP9 Million scan — enter only on delayed/VWAP confirmation, not the open drive",
+                category: "catalyst",
+        moneyType: "homerun",
+        tfBranch: "pattern_based",
+        direction: "bullish",
+        riskPct: 1.25,
+        riskMax: 2.5,
+        hold: "3–5 day momentum to 2–4 week swing — entered after volume already confirmed, not at the open",
+        openEntry: "Not used — DEP9 waits for confirmation rather than trading the open drive",
+        delayedEntry: "VWAP hold or break of 5-min high once the ≥8.9M volume is already visible on the tape",
+        stop: "LOD or 1–2%, same as EP9M",
+        exit: "Same as EP9M — peel first extension, trail swing pocket",
+        execBullets: [
+          "PLACEHOLDER — refine against your own DEP9 trade history",
+          "Only take the delayed/confirmed entry, never the open-drive spike",
+          "Compare against EP9M over time to see whether waiting for confirmation actually helps here"
+        ],
+        riskBullets: [
+          "PLACEHOLDER — start at 1.25% ideal / 2.5% max, adjust once you have real trades logged"
+        ]
+      },
+      "Sugar Babies": {
+        label: "Sugar Babies · Fund-Driven",
+        scan: "Tracked via your Sugar Babies list (Trading Operations), not a scan",
+                category: "catalyst",
+        moneyType: "homerun",
+        tfBranch: "pattern_based",
+        direction: "bullish",
+        riskPct: 1.5,
+        riskMax: 5,
+        hold: "PLACEHOLDER — define based on the fund accumulation pattern you're tracking",
+        openEntry: "PLACEHOLDER — define your trigger",
+        delayedEntry: "PLACEHOLDER — define your trigger",
+        stop: "PLACEHOLDER",
+        exit: "PLACEHOLDER",
+        execBullets: [
+          "Tracked via your Sugar Babies list (Trading Operations) — this setup record is where you refine the actual entry/stop/target rules",
+          "PLACEHOLDER — define what fund behavior triggers a trade here"
+        ],
+        riskBullets: [
+          "PLACEHOLDER — start at 1.5% ideal / 5% max, adjust once you have real trades logged"
+        ]
+      },
+      "Bottom Bounce": {
+        label: "Bottom Bounce · Exhaustion",
+        scan: "Reversal / Exhaustion scan · Afternoon",
+                category: "pattern",
+        moneyType: "single",
+        tfBranch: "exhaustion",
+        direction: "bullish",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "Days — a fast snapback, shorter than Reversal Bullish's structural hold",
+        openEntry: "Enter on a violent reversal candle off an oversold extreme (washout-style low)",
+        delayedEntry: "Wait for the low to hold on a retest before entering",
+        stop: "Below the bounce low",
+        exit: "Quick — take the snapback and go; this is not a structural hold like Reversal Bullish",
+        execBullets: [
+          "PLACEHOLDER — refine your specific oversold trigger (e.g. breadth extreme, RSI level, % down in N days)",
+          "Distinguish from Reversal Bullish: Bottom Bounce is the fast trade, Reversal Bullish is the structural one"
+        ],
+        riskBullets: [
+          "PLACEHOLDER — start at 1% ideal / 2.5% max, adjust once you have real trades logged"
+        ]
+      },
       "Reversal Bullish": {
-        label: "Reversal Bullish · Pattern",
-        category: "pattern",
+        label: "Reversal Bullish · Exhaustion",
+        scan: "Reversal / Exhaustion scan · Afternoon",
+                category: "pattern",
+        moneyType: "single",
+        tfBranch: "exhaustion",
+        direction: "bullish",
         riskPct: 1,
         riskMax: 2.5,
         hold: "Days to a few weeks — until thesis confirms or invalidates",
@@ -2702,9 +3350,37 @@
           "Size off the distance to the invalidation low, not a round number"
         ]
       },
+      "Reversal Bearish": {
+        label: "Reversal Bearish · Exhaustion",
+        scan: "Reversal / Exhaustion scan · Afternoon (bearish mirror)",
+                category: "pattern",
+        moneyType: "single",
+        tfBranch: "exhaustion",
+        direction: "bearish",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "Days to a few weeks — mirror image of Reversal Bullish, to the downside",
+        openEntry: "Confirmation candle at/below key breakdown level — lower high, trendline break, or base breakdown",
+        delayedEntry: "Wait for retest of the breakdown level holding as new resistance",
+        stop: "Above the reversal high / pattern invalidation point",
+        exit: "Trail above falling swing highs; cover partials into visible support",
+        execBullets: [
+          "SHORT setup — no catalyst required, chart-pattern based",
+          "Confirm the prior uptrend is actually broken (lower high + lower low) before entry",
+          "PLACEHOLDER — refine your specific confirmation trigger"
+        ],
+        riskBullets: [
+          "Risk 1% of account ideal (hard max 2.5%)",
+          "Size off the distance to the invalidation high, not a round number"
+        ]
+      },
       Anticipation: {
-        label: "Anticipation · Pattern",
-        category: "pattern",
+        label: "Anticipation · Momentum Burst",
+        scan: "Anticipation scans (3 variants) · Afternoon",
+                category: "pattern",
+        moneyType: "single",
+        tfBranch: "momentum_burst",
+        direction: "bullish",
         riskPct: 1,
         riskMax: 2.5,
         hold: "Pre-breakout hold, days to weeks, until the move triggers or setup expires",
@@ -2726,9 +3402,36 @@
           "Time-box the idea — if it hasn't resolved, don't keep re-upping risk"
         ]
       },
+      "Weak Structure Short": {
+        label: "Weak Structure Short · Momentum Burst",
+        scan: "No dedicated scan yet — define your weak-structure trigger",
+                category: "pattern",
+        moneyType: "single",
+        tfBranch: "momentum_burst",
+        direction: "bearish",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "Days — shorting a structurally weak, breaking-down name",
+        openEntry: "Short into a failed bounce or breakdown of weak structure",
+        delayedEntry: "Wait for a failed retest of broken support before shorting",
+        stop: "Above the recent swing high",
+        exit: "Cover into support, or on any real strength reclaim",
+        execBullets: [
+          "SHORT setup — momentum burst to the downside, mirror of Anticipation's long bias",
+          "PLACEHOLDER — refine your specific weak-structure trigger (e.g. failed bounce pattern, breakdown volume)"
+        ],
+        riskBullets: [
+          "Risk 1% ideal (hard max 2.5%)",
+          "Shorts carry unlimited-loss risk in theory — respect the stop without exception"
+        ]
+      },
       Other: {
         label: "Other setup",
-        category: "catalyst",
+        scan: "No dedicated scan — define before use",
+                category: "catalyst",
+        moneyType: "single",
+        tfBranch: "momentum_burst",
+        direction: "bullish",
         riskPct: 1,
         riskMax: 2.5,
         hold: "Define before entry",
@@ -2742,11 +3445,20 @@
     };
 
     function getSetups() {
-      try {
-        const stored = JSON.parse(localStorage.getItem("tt_setups") || "null");
-        if (stored && Object.keys(stored).length) return stored;
-      } catch (e) {}
-      return DEFAULT_SETUPS;
+      // Per-field merge, not a blind localStorage passthrough — otherwise any
+      // new DEFAULT_SETUPS key or field added after your browser first saved
+      // tt_setups would silently never appear (this is exactly why the two
+      // bearish setups weren't showing up).
+      let stored = {};
+      try { stored = JSON.parse(localStorage.getItem("tt_setups") || "null") || {}; } catch (e) { stored = {}; }
+      const merged = {};
+      Object.keys(DEFAULT_SETUPS).forEach(key => {
+        merged[key] = { ...DEFAULT_SETUPS[key], ...(stored[key] || {}) };
+      });
+      Object.keys(stored).forEach(key => {
+        if (!merged[key]) merged[key] = stored[key];
+      });
+      return merged;
     }
     function saveSetups(obj) {
       localStorage.setItem("tt_setups", JSON.stringify(obj));
@@ -2782,14 +3494,26 @@
       const tbody = document.getElementById("setup-library-table");
       if (!tbody) return;
       const setups = getSetups();
+      const branchLabels = { catalyst_based: "Catalyst Based", pattern_based: "Pattern Based", exhaustion: "Exhaustion", momentum_burst: "Momentum Burst" };
       tbody.innerHTML = Object.keys(setups).map(key => {
         const s = setups[key];
         const catColor = s.category === "pattern" ? "#7c3aed" : "#0891b2";
         const catText = s.category === "pattern" ? "PATTERN" : "CATALYST";
+        const isHomerun = s.moneyType === "homerun";
+        const moneyColor = isHomerun ? "#78350f" : "#14532d";
+        const moneyTextColor = isHomerun ? "#fde68a" : "#86efac";
+        const moneyText = isHomerun ? "🏠 HOME RUN" : "⚾ SINGLE";
+        const isBearish = s.direction === "bearish";
+        const dirColor = isBearish ? "#7f1d1d" : "#14532d";
+        const dirTextColor = isBearish ? "#fecaca" : "#86efac";
+        const dirText = isBearish ? "BEARISH" : "BULLISH";
         return `<tr>
           <td><span class="ticker">${key}</span></td>
           <td>${s.label || key}</td>
           <td><span class="tag" style="background:${catColor}22;color:${catColor};">${catText}</span></td>
+          <td><span class="tag" style="background:${moneyColor};color:${moneyTextColor};">${moneyText}</span></td>
+          <td class="muted" style="font-size:11px;">${branchLabels[s.tfBranch] || "—"}</td>
+          <td><span class="tag" style="background:${dirColor};color:${dirTextColor};">${dirText}</span></td>
           <td>${s.riskPct}% / ${s.riskMax}%</td>
           <td>${s.hold || "—"}</td>
           <td>
@@ -2807,9 +3531,13 @@
       document.getElementById("su-key").disabled = true;
       document.getElementById("su-label").value = s.label || "";
       document.getElementById("su-category").value = s.category || "catalyst";
+      document.getElementById("su-moneytype").value = s.moneyType || "single";
+      document.getElementById("su-branch").value = s.tfBranch || "catalyst_based";
+      document.getElementById("su-direction").value = s.direction || "bullish";
       document.getElementById("su-riskpct").value = s.riskPct != null ? s.riskPct : 1;
       document.getElementById("su-riskmax").value = s.riskMax != null ? s.riskMax : 2.5;
       document.getElementById("su-hold").value = s.hold || "";
+      document.getElementById("su-scan").value = s.scan || "";
       document.getElementById("su-openentry").value = s.openEntry || "";
       document.getElementById("su-delayedentry").value = s.delayedEntry || "";
       document.getElementById("su-stop").value = s.stop || "";
@@ -2823,9 +3551,12 @@
     function resetSetupForm() {
       document.getElementById("setup-form-header").textContent = "Add a New Setup";
       document.getElementById("su-key").disabled = false;
-      ["su-key", "su-label", "su-hold", "su-openentry", "su-delayedentry", "su-stop", "su-exit", "su-execbullets", "su-riskbullets"]
+      ["su-key", "su-label", "su-hold", "su-scan", "su-openentry", "su-delayedentry", "su-stop", "su-exit", "su-execbullets", "su-riskbullets"]
         .forEach(id => document.getElementById(id).value = "");
       document.getElementById("su-category").value = "catalyst";
+      document.getElementById("su-moneytype").value = "single";
+      document.getElementById("su-branch").value = "catalyst_based";
+      document.getElementById("su-direction").value = "bullish";
       document.getElementById("su-riskpct").value = 1;
       document.getElementById("su-riskmax").value = 2.5;
     }
@@ -2837,9 +3568,13 @@
       const def = {
         label: document.getElementById("su-label").value.trim() || key,
         category: document.getElementById("su-category").value,
+        moneyType: document.getElementById("su-moneytype").value,
+        tfBranch: document.getElementById("su-branch").value,
+        direction: document.getElementById("su-direction").value,
         riskPct: parseFloat(document.getElementById("su-riskpct").value) || 1,
         riskMax: parseFloat(document.getElementById("su-riskmax").value) || 2.5,
         hold: document.getElementById("su-hold").value.trim(),
+        scan: document.getElementById("su-scan").value.trim(),
         openEntry: document.getElementById("su-openentry").value.trim(),
         delayedEntry: document.getElementById("su-delayedentry").value.trim(),
         stop: document.getElementById("su-stop").value.trim(),
@@ -2849,6 +3584,7 @@
       };
       addOrUpdateSetup(key, def);
       renderSetupLibrary();
+      renderTradeFactory();
       resetSetupForm();
       // keep every dropdown that lists setups in sync
       const jSel = document.getElementById("j-setup");
@@ -2865,6 +3601,7 @@
       if (!confirm("Delete setup \"" + key + "\"? Existing trades already tagged with it keep the label, but you won't be able to pick it for new ones.")) return;
       deleteSetup(key);
       renderSetupLibrary();
+      renderTradeFactory();
       const jSel = document.getElementById("j-setup");
       if (jSel) jSel.innerHTML = setupOptionsHtml();
       const manualSel = document.getElementById("wl-manual-setup");
@@ -3725,6 +4462,420 @@
       }
       if (sub === "mm-sector") renderDataFreshnessBanners();
       if (sub === "mm-breadth") renderRealBreadthChart();
+    }
+
+    function switchPFSub(el) {
+      const sub = el.getAttribute("data-pf-sub");
+      document.querySelectorAll("#process-flow > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll(".pf-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
+      const panel = document.getElementById(sub);
+      if (panel) {
+        panel.style.display = "block";
+        panel.classList.add("active");
+      }
+      if (sub === "pf-weekly") renderPFWeeklyList();
+    }
+
+    // ---- Weekly Process checklist — simple editable list, since the user
+    // will add their own items over time rather than these being fixed.
+    function getPFWeeklyList() {
+      try { return JSON.parse(localStorage.getItem("tt_pf_weekly") || "[]"); }
+      catch (e) { return []; }
+    }
+    function savePFWeeklyList(list) {
+      localStorage.setItem("tt_pf_weekly", JSON.stringify(list));
+    }
+    let editingPFWeeklyId = null;
+    function savePFWeeklyItem() {
+      const input = document.getElementById("pfw-item");
+      const text = input.value.trim();
+      if (!text) { alert("Enter an item"); return; }
+      const list = getPFWeeklyList();
+      if (editingPFWeeklyId) {
+        const idx = list.findIndex(x => x.id === editingPFWeeklyId);
+        if (idx >= 0) list[idx].text = text;
+      } else {
+        list.push({ id: "pfw-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6), text });
+      }
+      savePFWeeklyList(list);
+      resetPFWeeklyForm();
+      renderPFWeeklyList();
+    }
+    function editPFWeeklyItem(id) {
+      const item = getPFWeeklyList().find(x => x.id === id);
+      if (!item) return;
+      editingPFWeeklyId = id;
+      document.getElementById("pfw-item").value = item.text;
+      document.getElementById("pfw-item").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    function deletePFWeeklyItem(id) {
+      if (!confirm("Delete this item?")) return;
+      savePFWeeklyList(getPFWeeklyList().filter(x => x.id !== id));
+      renderPFWeeklyList();
+    }
+    function resetPFWeeklyForm() {
+      editingPFWeeklyId = null;
+      document.getElementById("pfw-item").value = "";
+    }
+    function renderPFWeeklyList() {
+      const body = document.getElementById("pfw-list-body");
+      if (!body) return;
+      const list = getPFWeeklyList();
+      if (!list.length) {
+        body.innerHTML = `<div class="wl-empty">No weekly items yet — add them above as you build out this part of your process.</div>`;
+        return;
+      }
+      body.innerHTML = `<div class="checklist">` + list.map((item, i) => `
+        <div class="check-item">
+          <span class="check-icon">${i + 1}</span>
+          ${item.text}
+          <button class="btn btn-sm" style="margin-left:8px;" onclick="editPFWeeklyItem('${item.id}')">Edit</button>
+          <button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deletePFWeeklyItem('${item.id}')">Delete</button>
+        </div>`).join("") + `</div>`;
+    }
+
+    // ---- Vision — a living document. Every field is user-editable and
+    // persisted, never overwritten by future updates to this app.
+    const VISION_DEFAULTS = {
+      mission: "I run a trade factory. Every day I run my process to find and execute setups — singles for consistent base hits, home runs for the rare asymmetric win. I track everything so I know what's actually working, not what I feel is working.",
+      businessModel: ""
+    };
+    function getVisionField(key) {
+      const v = localStorage.getItem("tt_vision_" + key);
+      return v != null ? v : (VISION_DEFAULTS[key] || "");
+    }
+    function saveVisionField(key) {
+      const el = document.getElementById("vision-" + (key === "businessModel" ? "business-model" : key));
+      if (!el) return;
+      localStorage.setItem("tt_vision_" + key, el.value);
+      const status = document.getElementById("vision-" + key + "-status");
+      if (status) {
+        status.textContent = "Saved " + new Date().toLocaleTimeString();
+        setTimeout(() => { if (status.textContent.startsWith("Saved")) status.textContent = ""; }, 3000);
+      }
+    }
+    function loadVisionFields() {
+      const mission = document.getElementById("vision-mission");
+      const biz = document.getElementById("vision-business-model");
+      if (mission) mission.value = getVisionField("mission");
+      if (biz) biz.value = getVisionField("businessModel");
+    }
+
+    function getVisionPrinciples() {
+      try {
+        const stored = JSON.parse(localStorage.getItem("tt_vision_principles") || "null");
+        if (stored) return stored;
+      } catch (e) {}
+      // Seeded defaults, pulled from rules already established elsewhere in this app
+      return [
+        { id: "vp-1", text: "No market confirmation = no portfolio risk." },
+        { id: "vp-2", text: "Manage risk continuously — it's not a midday-only task." },
+        { id: "vp-3", text: "Document the setup on every trade, no exceptions." }
+      ];
+    }
+    function saveVisionPrinciples(list) {
+      localStorage.setItem("tt_vision_principles", JSON.stringify(list));
+    }
+    let editingVisionPrincipleId = null;
+    function saveVisionPrinciple() {
+      const input = document.getElementById("vision-principle-input");
+      const text = input.value.trim();
+      if (!text) { alert("Enter a principle"); return; }
+      const list = getVisionPrinciples();
+      if (editingVisionPrincipleId) {
+        const idx = list.findIndex(x => x.id === editingVisionPrincipleId);
+        if (idx >= 0) list[idx].text = text;
+      } else {
+        list.push({ id: "vp-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6), text });
+      }
+      saveVisionPrinciples(list);
+      resetVisionPrincipleForm();
+      renderVisionPrinciples();
+    }
+    function editVisionPrinciple(id) {
+      const item = getVisionPrinciples().find(x => x.id === id);
+      if (!item) return;
+      editingVisionPrincipleId = id;
+      document.getElementById("vision-principle-input").value = item.text;
+      document.getElementById("vision-principle-input").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    function deleteVisionPrinciple(id) {
+      if (!confirm("Delete this principle?")) return;
+      saveVisionPrinciples(getVisionPrinciples().filter(x => x.id !== id));
+      renderVisionPrinciples();
+    }
+    function resetVisionPrincipleForm() {
+      editingVisionPrincipleId = null;
+      document.getElementById("vision-principle-input").value = "";
+    }
+    function renderVisionPrinciples() {
+      const body = document.getElementById("vision-principles-body");
+      if (!body) return;
+      const list = getVisionPrinciples();
+      if (!list.length) {
+        body.innerHTML = `<div class="wl-empty">No principles yet — add the rules you don't break.</div>`;
+        return;
+      }
+      body.innerHTML = `<div class="checklist">` + list.map((item, i) => `
+        <div class="check-item">
+          <span class="check-icon">${i + 1}</span>
+          ${item.text}
+          <button class="btn btn-sm" style="margin-left:8px;" onclick="editVisionPrinciple('${item.id}')">Edit</button>
+          <button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deleteVisionPrinciple('${item.id}')">Delete</button>
+        </div>`).join("") + `</div>`;
+    }
+
+    // ---- Trade Factory — product line grouped by Single/Home Run, with
+    // live performance per setup computed from the Journal.
+    function renderTradeFactory() {
+      renderTradeFactoryDiagram();
+      renderTradeFactoryCards();
+    }
+
+    function renderTradeFactoryDiagram() {
+      const container = document.getElementById("trade-factory-diagram");
+      if (!container) return;
+      const setups = getSetups();
+      const branchDefs = [
+        { key: "catalyst_based", label: "Catalyst Based", parent: "homeruns" },
+        { key: "pattern_based", label: "Pattern Based", parent: "homeruns" },
+        { key: "exhaustion", label: "Exhaustion", parent: "singles_pattern" },
+        { key: "momentum_burst", label: "Momentum Burst", parent: "singles_pattern" }
+      ];
+      const byBranch = {};
+      branchDefs.forEach(b => byBranch[b.key] = []);
+      Object.keys(setups).forEach(key => {
+        const s = setups[key];
+        const branch = s.tfBranch && byBranch[s.tfBranch] ? s.tfBranch : "momentum_burst";
+        byBranch[branch].push({ key, ...s });
+      });
+
+      // Layout constants. Home Runs' two branches sit directly under Home
+      // Runs and their leaves are one level up (LEAF_Y_HR). Singles has an
+      // extra "Pattern Based" grouping node before it reaches Exhaustion /
+      // Momentum Burst, so that whole path sits one level deeper — the tree
+      // is genuinely asymmetric, not a rendering shortcut.
+      const LEAF_W = 110, LEAF_GAP = 20, GROUP_GAP = 60;
+      const ROOT_Y = 30, ROOT_H = 50;
+      const TOP_Y = 120, TOP_H = 50;
+      const BRANCH_Y = 210, BRANCH_H = 50;      // Catalyst/Pattern(HR) + Pattern(Singles)
+      const LEAF_Y_HR = 300, LEAF_H = 72;         // leaves under Home Runs' 2 branches
+      const BRANCH2_Y = 300, BRANCH2_H = 50;      // Exhaustion / Momentum Burst
+      const LEAF_Y_SINGLES = 390;                 // leaves under Exhaustion / Momentum Burst
+      const BUS1_Y = TOP_Y - 20;
+      const BUS2_Y = BRANCH_Y - 20;
+      const BUS_HR_LEAF_Y = LEAF_Y_HR - 20;
+      const BUS3_Y = BRANCH2_Y - 20;
+      const BUS_SINGLES_LEAF_Y = LEAF_Y_SINGLES - 20;
+
+      let cursorX = 30;
+      const branchLayout = {};
+      branchDefs.forEach(b => {
+        const leaves = byBranch[b.key];
+        const n = Math.max(1, leaves.length);
+        const groupWidth = n * LEAF_W + (n - 1) * LEAF_GAP;
+        const leafCenters = leaves.map((_, i) => cursorX + i * (LEAF_W + LEAF_GAP) + LEAF_W / 2);
+        const branchCenter = leafCenters.length ? (leafCenters[0] + leafCenters[leafCenters.length - 1]) / 2 : cursorX + groupWidth / 2;
+        branchLayout[b.key] = { leaves, leafCenters, branchCenter, startX: cursorX, groupWidth };
+        cursorX += groupWidth + GROUP_GAP;
+      });
+      const canvasWidth = cursorX - GROUP_GAP + 30;
+
+      const homerunsCenter = (branchLayout.catalyst_based.branchCenter + branchLayout.pattern_based.branchCenter) / 2;
+      const patternBasedSinglesCenter = (branchLayout.exhaustion.branchCenter + branchLayout.momentum_burst.branchCenter) / 2;
+      const singlesCenter = patternBasedSinglesCenter; // Singles has one child, so it shares that child's center
+      const rootCenter = (homerunsCenter + singlesCenter) / 2;
+      const canvasHeight = LEAF_Y_SINGLES + LEAF_H + 20;
+
+      const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+      let svg = `<svg viewBox="0 0 ${canvasWidth} ${canvasHeight}" style="width:100%;min-width:${Math.min(canvasWidth, 1600)}px;display:block;" role="img">`;
+      svg += `<title>Trade Factory framework, generated from your Setup Library.</title>`;
+
+      const connectorColor = "#475569";
+      const line = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${connectorColor}" stroke-width="2"/>`;
+
+      // Root -> Home Runs / Singles
+      svg += line(rootCenter, ROOT_Y + ROOT_H, rootCenter, BUS1_Y);
+      svg += line(homerunsCenter, BUS1_Y, singlesCenter, BUS1_Y);
+      svg += line(homerunsCenter, BUS1_Y, homerunsCenter, TOP_Y);
+      svg += line(singlesCenter, BUS1_Y, singlesCenter, TOP_Y);
+
+      // Home Runs -> its 2 branches (Catalyst Based / Pattern Based)
+      svg += line(homerunsCenter, TOP_Y + TOP_H, homerunsCenter, BUS2_Y);
+      svg += line(branchLayout.catalyst_based.branchCenter, BUS2_Y, branchLayout.pattern_based.branchCenter, BUS2_Y);
+      svg += line(branchLayout.catalyst_based.branchCenter, BUS2_Y, branchLayout.catalyst_based.branchCenter, BRANCH_Y);
+      svg += line(branchLayout.pattern_based.branchCenter, BUS2_Y, branchLayout.pattern_based.branchCenter, BRANCH_Y);
+
+      // Home Runs' branches -> their leaves
+      ["catalyst_based", "pattern_based"].forEach(k => {
+        const lay = branchLayout[k];
+        if (!lay.leafCenters.length) return;
+        svg += line(lay.branchCenter, BRANCH_Y + BRANCH_H, lay.branchCenter, BUS_HR_LEAF_Y);
+        if (lay.leafCenters.length > 1) svg += line(lay.leafCenters[0], BUS_HR_LEAF_Y, lay.leafCenters[lay.leafCenters.length - 1], BUS_HR_LEAF_Y);
+        lay.leafCenters.forEach(cx => { svg += line(cx, BUS_HR_LEAF_Y, cx, LEAF_Y_HR); });
+      });
+
+      // Singles -> its one child, Pattern Based (single line, no bus needed)
+      svg += line(singlesCenter, TOP_Y + TOP_H, singlesCenter, BRANCH_Y);
+
+      // Pattern Based (Singles) -> Exhaustion / Momentum Burst
+      svg += line(patternBasedSinglesCenter, BRANCH_Y + BRANCH_H, patternBasedSinglesCenter, BUS3_Y);
+      svg += line(branchLayout.exhaustion.branchCenter, BUS3_Y, branchLayout.momentum_burst.branchCenter, BUS3_Y);
+      svg += line(branchLayout.exhaustion.branchCenter, BUS3_Y, branchLayout.exhaustion.branchCenter, BRANCH2_Y);
+      svg += line(branchLayout.momentum_burst.branchCenter, BUS3_Y, branchLayout.momentum_burst.branchCenter, BRANCH2_Y);
+
+      // Exhaustion / Momentum Burst -> their leaves
+      ["exhaustion", "momentum_burst"].forEach(k => {
+        const lay = branchLayout[k];
+        if (!lay.leafCenters.length) return;
+        svg += line(lay.branchCenter, BRANCH2_Y + BRANCH2_H, lay.branchCenter, BUS_SINGLES_LEAF_Y);
+        if (lay.leafCenters.length > 1) svg += line(lay.leafCenters[0], BUS_SINGLES_LEAF_Y, lay.leafCenters[lay.leafCenters.length - 1], BUS_SINGLES_LEAF_Y);
+        lay.leafCenters.forEach(cx => { svg += line(cx, BUS_SINGLES_LEAF_Y, cx, LEAF_Y_SINGLES); });
+      });
+
+      // Root box
+      svg += `<rect x="${rootCenter - 100}" y="${ROOT_Y}" width="200" height="${ROOT_H}" rx="8" fill="#92400e" stroke="#78350f" stroke-width="2"/>`;
+      svg += `<text x="${rootCenter}" y="${ROOT_Y + ROOT_H / 2 + 5}" text-anchor="middle" fill="#fff" font-size="16" font-weight="800">FRAMEWORK</text>`;
+
+      // Home Runs / Singles boxes
+      svg += `<rect x="${homerunsCenter - 90}" y="${TOP_Y}" width="180" height="${TOP_H}" rx="8" fill="#0f172a" stroke="#b45309" stroke-width="2.5"/>`;
+      svg += `<text x="${homerunsCenter}" y="${TOP_Y + TOP_H / 2 + 5}" text-anchor="middle" fill="#eab308" font-size="15" font-weight="800">🏠 HOME RUNS</text>`;
+      svg += `<rect x="${singlesCenter - 90}" y="${TOP_Y}" width="180" height="${TOP_H}" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="2.5"/>`;
+      svg += `<text x="${singlesCenter}" y="${TOP_Y + TOP_H / 2 + 5}" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="800">⚾ SINGLES</text>`;
+
+      // Home Runs' branch boxes (Catalyst Based / Pattern Based)
+      ["catalyst_based", "pattern_based"].forEach(k => {
+        const cx = branchLayout[k].branchCenter;
+        const label = branchDefs.find(b => b.key === k).label;
+        svg += `<rect x="${cx - 85}" y="${BRANCH_Y}" width="170" height="${BRANCH_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
+        svg += `<text x="${cx}" y="${BRANCH_Y + BRANCH_H / 2 + 5}" text-anchor="middle" fill="#d4a017" font-size="13" font-weight="700">${esc(label).toUpperCase()}</text>`;
+      });
+
+      // Singles' "Pattern Based" grouping box (new intermediate node)
+      svg += `<rect x="${patternBasedSinglesCenter - 85}" y="${BRANCH_Y}" width="170" height="${BRANCH_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
+      svg += `<text x="${patternBasedSinglesCenter}" y="${BRANCH_Y + BRANCH_H / 2 + 5}" text-anchor="middle" fill="#d4a017" font-size="13" font-weight="700">PATTERN BASED</text>`;
+
+      // Exhaustion / Momentum Burst boxes
+      ["exhaustion", "momentum_burst"].forEach(k => {
+        const cx = branchLayout[k].branchCenter;
+        const label = branchDefs.find(b => b.key === k).label;
+        svg += `<rect x="${cx - 85}" y="${BRANCH2_Y}" width="170" height="${BRANCH2_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
+        svg += `<text x="${cx}" y="${BRANCH2_Y + BRANCH2_H / 2 + 5}" text-anchor="middle" fill="#d4a017" font-size="13" font-weight="700">${esc(label).toUpperCase()}</text>`;
+      });
+
+      // Leaf boxes — Home Runs' at LEAF_Y_HR, Singles' at the deeper LEAF_Y_SINGLES
+      const leafY = { catalyst_based: LEAF_Y_HR, pattern_based: LEAF_Y_HR, exhaustion: LEAF_Y_SINGLES, momentum_burst: LEAF_Y_SINGLES };
+      branchDefs.forEach(b => {
+        const lay = branchLayout[b.key];
+        const y = leafY[b.key];
+        lay.leaves.forEach((s, i) => {
+          const cx = lay.leafCenters[i];
+          const isBearish = s.direction === "bearish";
+          const color = isBearish ? "#ef4444" : "#22c55e";
+          svg += `<rect x="${cx - LEAF_W / 2}" y="${y}" width="${LEAF_W}" height="${LEAF_H}" rx="8" fill="#0f172a" stroke="${color}" stroke-width="2"/>`;
+          const nameLines = wrapSvgText(s.label ? s.label.split("·")[0].trim() : s.key, 15);
+          nameLines.slice(0, 2).forEach((ln, li) => {
+            svg += `<text x="${cx}" y="${y + 22 + li * 15}" text-anchor="middle" fill="#e5e7eb" font-size="11" font-weight="700">${esc(ln)}</text>`;
+          });
+          svg += `<text x="${cx}" y="${y + LEAF_H - 10}" text-anchor="middle" fill="${color}" font-size="9" font-weight="700">${isBearish ? "BEARISH" : "BULLISH"}</text>`;
+        });
+        if (!lay.leaves.length) {
+          svg += `<text x="${lay.branchCenter}" y="${y + LEAF_H / 2}" text-anchor="middle" fill="#6b7280" font-size="11">No setups yet</text>`;
+        }
+      });
+
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    function wrapSvgText(text, maxCharsPerLine) {
+      const words = String(text).split(" ");
+      const lines = [];
+      let cur = "";
+      words.forEach(w => {
+        if ((cur + " " + w).trim().length > maxCharsPerLine && cur) {
+          lines.push(cur.trim());
+          cur = w;
+        } else {
+          cur = (cur + " " + w).trim();
+        }
+      });
+      if (cur) lines.push(cur);
+      return lines;
+    }
+
+    function renderTradeFactoryCards() {
+      const container = document.getElementById("trade-factory-cards");
+      if (!container) return;
+      const setups = getSetups();
+      const journal = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      const perfBySetup = {};
+      journal.forEach(t => {
+        const k = t.setup || "Other";
+        if (!perfBySetup[k]) perfBySetup[k] = { n: 0, pnl: 0, w: 0 };
+        perfBySetup[k].n++; perfBySetup[k].pnl += t.pnl; if (t.pnl > 0) perfBySetup[k].w++;
+      });
+      const watchlistBySetup = {};
+      getWatchlist().forEach(w => {
+        const k = w.setupType || "Other";
+        watchlistBySetup[k] = (watchlistBySetup[k] || 0) + 1;
+      });
+
+      const branchDefs = [
+        { key: "catalyst_based", label: "Catalyst Based", group: "🏠 Home Runs" },
+        { key: "pattern_based", label: "Pattern Based", group: "🏠 Home Runs" },
+        { key: "exhaustion", label: "Exhaustion", group: "⚾ Singles" },
+        { key: "momentum_burst", label: "Momentum Burst", group: "⚾ Singles" }
+      ];
+
+      const renderCard = (key) => {
+        const s = setups[key];
+        const perf = perfBySetup[key];
+        const watchCount = watchlistBySetup[key] || 0;
+        const isBearish = s.direction === "bearish";
+        const color = isBearish ? "#ef4444" : "#22c55e";
+        const perfHtml = perf
+          ? `<span class="${perf.pnl >= 0 ? "pos" : "neg"}">$${perf.pnl.toFixed(2)}</span> · ${perf.n} trade${perf.n === 1 ? "" : "s"} · ${((perf.w / perf.n) * 100).toFixed(0)}% win rate`
+          : `<span class="muted">No trades logged yet</span>`;
+        const watchHtml = watchCount
+          ? `<a href="#" onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-list]').click();return false;">${watchCount} on watchlist now</a>`
+          : `<span class="muted">None on watchlist right now</span>`;
+        return `<div style="background:#0f172a;border:1px solid ${color}55;border-left:4px solid ${color};border-radius:8px;padding:12px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <strong style="font-size:14px;">${s.label || key}</strong>
+            <span class="tag" style="background:${color}22;color:${color};font-size:9px;">${isBearish ? "BEARISH" : "BULLISH"}</span>
+          </div>
+          <div class="muted" style="font-size:11px;margin-top:6px;">📡 ${s.scan || "No scan defined"}</div>
+          <div style="font-size:12px;margin-top:6px;">📊 ${perfHtml}</div>
+          <div style="font-size:12px;margin-top:4px;">👁 ${watchHtml}</div>
+          <div class="muted" style="font-size:11px;margin-top:4px;">Risk ${s.riskPct}% ideal / ${s.riskMax}% max · Hold: ${s.hold || "—"}</div>
+          <button class="btn btn-sm" style="margin-top:8px;" onclick="editSetup('${key}')">Add qualification / Edit in Setup Library</button>
+        </div>`;
+      };
+
+      const byBranch = {};
+      branchDefs.forEach(b => byBranch[b.key] = []);
+      Object.keys(setups).forEach(key => {
+        const s = setups[key];
+        const branch = s.tfBranch && byBranch[s.tfBranch] ? s.tfBranch : "momentum_burst";
+        byBranch[branch].push(key);
+      });
+
+      const groups = { "🏠 Home Runs": ["catalyst_based", "pattern_based"], "⚾ Singles": ["exhaustion", "momentum_burst"] };
+      container.innerHTML = Object.keys(groups).map(groupLabel => `
+        <div class="grid-2" style="margin-top:14px;">
+          ${groups[groupLabel].map(branchKey => {
+            const def = branchDefs.find(b => b.key === branchKey);
+            const keys = byBranch[branchKey];
+            return `<div class="panel" style="margin:0;">
+              <div class="panel-header">${groupLabel} · ${def.label}</div>
+              <div class="panel-body">
+                ${keys.length ? keys.map(renderCard).join("") : `<div class="wl-empty">No setups tagged here yet — assign one in the Setup Library.</div>`}
+              </div>
+            </div>`;
+          }).join("")}
+        </div>`).join("");
     }
 
     function formatNewsTime(iso) {
@@ -4937,6 +6088,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       const el = document.getElementById("dash-metrics");
       const by = document.getElementById("dash-by-type");
       const extra = document.getElementById("dash-extra");
+      renderTradeFactory();
       if (!el) return;
       let baselineCap = 0, baselineDate = null;
       try {
@@ -5076,6 +6228,8 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         loadMarketNews();
       }
       if (section === "market-monitor") loadMarketMonitorData();
+      if (section === "vision") { loadVisionFields(); renderVisionPrinciples(); }
+      if (section === "trade-factory") renderTradeFactory();
       if (section === "positions") { loadBaselineUI(); renderFmpClientKeyStatus(); renderPositions(); fetchAllLivePrices(true); }
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
@@ -5106,6 +6260,9 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     document.getElementById("tp-strategy").innerHTML = setupOptionsHtml();
     renderTradePlans();
     renderSetupLibrary();
+    loadVisionFields();
+    renderVisionPrinciples();
+    renderTradeFactory();
     renderSIPTable();
     renderAvoidTable();
     renderWatchlist();
