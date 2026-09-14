@@ -596,7 +596,7 @@
     </div>
     <div class="nav-group">
       <div class="nav-group-title">8 · Improve</div>
-      <div class="nav-item" data-section="ai-review" onclick="navTo('ai-review', this)">Ask Ayla</div>
+      <div class="nav-item" data-section="ai-review" onclick="navTo('ai-review', this)"><img src="assets/moonjelly-logo.png" alt="" style="height:16px;width:16px;vertical-align:middle;margin-right:6px;border-radius:50%;object-fit:cover;">Ask Moonjelly</div>
       <div class="nav-item" data-section="journal" onclick="navTo('journal', this)">Manual Journal</div>
     </div>
     <div class="nav-group">
@@ -1433,7 +1433,7 @@
               </div>
               <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:baseline;">
                 <span class="check-icon">4</span>
-                <div><strong>Run AI Review.</strong> Go to <a href="#" onclick="navTo('ai-review', document.querySelector('[data-section=ai-review]'));return false;">Ask Ayla</a> — computed review, or Gemini/Groq analysis if set up (both free).</div>
+                <div><strong>Run AI Review.</strong> Go to <a href="#" onclick="navTo('ai-review', document.querySelector('[data-section=ai-review]'));return false;">Ask Moonjelly</a> — computed review, or Gemini/Groq analysis if set up (both free).</div>
               </div>
             </div>
           </div>
@@ -2117,15 +2117,18 @@
     <div id="ai-review" class="section">
       <div class="panel" style="background:#0a1f1a;border-color:#1f4a3d;">
         <div class="panel-body">
-          <div style="font-size:20px;font-weight:800;color:#fff;">Ask Ayla</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <img src="assets/moonjelly-logo.png" alt="Moonjelly" style="height:48px;width:48px;object-fit:cover;border-radius:50%;">
+            <div style="font-size:20px;font-weight:800;color:#fff;">Ask Moonjelly</div>
+          </div>
           <div class="note" style="margin-top:6px;background:transparent;border:none;padding:0;">Your AI coach. Trade Review is her first function — more will land here as they're defined, in their own tabs alongside this one.</div>
         </div>
       </div>
       <div class="steps">
-        <div class="step-tab active" data-ayla-sub="ayla-trade-review" onclick="switchAylaSub(this)">Trade Review</div>
+        <div class="step-tab active" data-moonjelly-sub="moonjelly-trade-review" onclick="switchMoonjellySub(this)">Trade Review</div>
       </div>
 
-      <div id="ayla-trade-review" class="ayla-sub active">
+      <div id="moonjelly-trade-review" class="moonjelly-sub active">
       <div class="panel">
         <div class="panel-header">Computed Review · Real stats, deterministic</div>
         <div class="panel-body">
@@ -2143,7 +2146,7 @@
             <strong>This is a static site with no server</strong> — any key you save here lives only in this browser's local storage and is sent directly from your browser to that provider's API when you click Run. Never written to the GitHub repo. That also means anyone with access to this exact browser/device could view it in DevTools — for real safety, restrict each key to your site's domain where the provider allows it.
           </div>
 
-          <div class="note" style="margin-bottom:8px;background:#0f172a;border-left:3px solid #22c55e;">Both options below are genuinely free — Gemini (Google AI Studio free tier) and Groq (free tier, no credit card, runs Llama 3.3 70B at very generous rate limits). Neither requires payment for this kind of occasional use.</div>
+          <div class="note" style="margin-bottom:8px;background:#0f172a;border-left:3px solid #22c55e;">Both options below are genuinely free — Gemini (Google AI Studio free tier) and Groq (free tier, no credit card, runs strong open models at very generous rate limits — exact model available varies by account, editable below). Neither requires payment for this kind of occasional use.</div>
           <div class="form-row">
             <input type="password" id="gemini-key-input" placeholder="Paste your Gemini API key" style="width:260px;" />
             <button class="btn btn-sm btn-accent" onclick="saveGeminiKey()">Save</button>
@@ -2156,17 +2159,22 @@
             <button class="btn btn-sm" onclick="clearGroqKey()">Clear</button>
             <span class="muted" style="font-size:11px;" id="groq-key-status">No key saved yet.</span>
           </div>
+          <div class="form-row" style="margin-top:8px;">
+            <input type="text" id="groq-model-input" placeholder="Groq model id" style="width:260px;" />
+            <button class="btn btn-sm" onclick="saveGroqModel()">Save model</button>
+            <span class="muted" style="font-size:11px;">Groq's available models vary by account — check <a href="https://console.groq.com/docs/models" target="_blank" rel="noopener">console.groq.com/docs/models</a> and paste the exact id if the default 404s for you.</span>
+          </div>
 
           <div style="margin-top:14px;">
             <button class="btn btn-accent" onclick="runGeminiReview()">Run Gemini</button>
-            <button class="btn btn-accent" onclick="runGroqReview()">Run Groq (Llama 3.3 70B)</button>
+            <button class="btn btn-accent" onclick="runGroqReview()">Run Groq</button>
             <button class="btn btn-accent" onclick="runBothAndCompare()">Run Both &amp; Compare</button>
           </div>
           <div class="note" style="margin-top:8px;">"Run Gemini" automatically falls back to Groq if Gemini is unavailable and you've saved a Groq key — you'll see a note if that happens.</div>
           <div id="gemini-review-output" style="margin-top:14px;"></div>
         </div>
       </div>
-      </div><!-- end ayla-trade-review -->
+      </div><!-- end moonjelly-trade-review -->
     </div>
 
     <!-- JOURNAL -->
@@ -4806,6 +4814,18 @@
       if (sub === "mm-breadth") { renderRealBreadthChart(); renderBreadthSheetUrlStatus(); }
     }
 
+    function switchMoonjellySub(el) {
+      const sub = el.getAttribute("data-moonjelly-sub");
+      document.querySelectorAll("#ai-review > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll(".moonjelly-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
+      const panel = document.getElementById(sub);
+      if (panel) {
+        panel.style.display = "block";
+        panel.classList.add("active");
+      }
+    }
+
     function switchPFSub(el) {
       const sub = el.getAttribute("data-pf-sub");
       document.querySelectorAll("#process-flow > .steps .step-tab").forEach(t => t.classList.remove("active"));
@@ -5992,6 +6012,23 @@
       const key = getGroqKey();
       el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No key saved yet.";
     }
+    // Groq's available models vary by account and change over time (a
+    // hardcoded default already 404'd for at least one real account) — kept
+    // user-editable rather than guessed at again.
+    function getGroqModel() {
+      return localStorage.getItem("tt_groq_model") || "openai/gpt-oss-120b";
+    }
+    function saveGroqModel() {
+      const input = document.getElementById("groq-model-input");
+      const model = input ? input.value.trim() : "";
+      if (!model) { alert("Enter a Groq model id first."); return; }
+      localStorage.setItem("tt_groq_model", model);
+      alert("Groq model set to \"" + model + "\" for this browser.");
+    }
+    function loadGroqModelField() {
+      const input = document.getElementById("groq-model-input");
+      if (input) input.value = getGroqModel();
+    }
     // 503 = model temporarily overloaded on Google's side, 429 = rate limit
     // — both are transient and worth a few retries with backoff before
     // giving up, rather than making the user manually re-click every time.
@@ -6066,7 +6103,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
               "authorization": "Bearer " + key
             },
             body: JSON.stringify({
-              model: "llama-3.3-70b-versatile",
+              model: getGroqModel(),
               messages: [{ role: "user", content: prompt }]
             })
           });
@@ -6147,12 +6184,12 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
         return;
       }
-      out.innerHTML = `<div class="wl-empty">Asking Groq (Llama 3.3 70B)… (this calls Groq's API directly from your browser)</div>`;
+      out.innerHTML = `<div class="wl-empty">Asking Groq (${getGroqModel()})… (this calls Groq's API directly from your browser)</div>`;
       const s = computeTradeStats(list);
       const prompt = buildAIReviewPrompt(s);
       try {
         const text = await callGroqWithRetry(key, prompt, out);
-        out.innerHTML = formatAIReviewResult(text, "Groq (Llama 3.3 70B)");
+        out.innerHTML = formatAIReviewResult(text, "Groq (" + getGroqModel() + ")");
       } catch (e) {
         out.innerHTML = `<div class="wl-empty">Groq call failed: ${e.message}. Common causes: invalid/expired key, daily rate limit hit (free tier resets every 24h), or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Groq's API.</div>`;
       }
@@ -6191,7 +6228,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
           <div style="padding:8px;font-size:12px;" class="muted">Failed: ${result.reason.message}</div>
         </div>`;
       };
-      out.innerHTML = `<div class="grid-2">${renderSide("Gemini", geminiResult)}${renderSide("Groq (Llama 3.3 70B)", groqResult)}</div>
+      out.innerHTML = `<div class="grid-2">${renderSide("Gemini", geminiResult)}${renderSide("Groq (" + getGroqModel() + ")", groqResult)}</div>
         <div class="note" style="margin-top:8px;">Generated just now (${new Date().toLocaleTimeString()}), both called directly from your browser using your saved keys. Where they agree is a stronger signal than either alone; where they diverge is worth a closer look yourself.</div>`;
     }
 
@@ -6913,7 +6950,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
-      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); renderGroqKeyStatus(); }
+      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); renderGroqKeyStatus(); loadGroqModelField(); }
       const sp = document.getElementById("settings-panel");
       if (sp) sp.classList.remove("open");
     }
