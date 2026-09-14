@@ -5928,6 +5928,43 @@
       const key = getGeminiKey();
       el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No key saved yet.";
     }
+    // 503 = model temporarily overloaded on Google's side, 429 = rate limit
+    // — both are transient and worth a few retries with backoff before
+    // giving up, rather than making the user manually re-click every time.
+    async function callGeminiWithRetry(key, prompt, statusEl) {
+      const maxAttempts = 4;
+      const delays = [2000, 4000, 8000]; // ms, between attempts
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        let res;
+        try {
+          res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(key)}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+          });
+        } catch (networkErr) {
+          if (attempt === maxAttempts) throw networkErr;
+          if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Network error — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
+          await new Promise(r => setTimeout(r, delays[attempt - 1]));
+          continue;
+        }
+        if (res.ok) {
+          const data = await res.json();
+          const text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts
+            ? data.candidates[0].content.parts.map(p => p.text || "").join("")
+            : null;
+          if (!text) throw new Error("Unexpected response shape from Gemini");
+          return text;
+        }
+        const errText = await res.text().catch(() => "");
+        const err = new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
+        const transient = res.status === 503 || res.status === 429;
+        if (!transient || attempt === maxAttempts) throw err;
+        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Gemini is busy (HTTP ${res.status}) — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
+        await new Promise(r => setTimeout(r, delays[attempt - 1]));
+      }
+    }
+
     async function runGeminiReview() {
       const out = document.getElementById("gemini-review-output");
       const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
@@ -5963,20 +6000,7 @@ ${bySetupLines}
 ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs earlier trades avg $${s.trendNote.earlierAvg.toFixed(2)}` : ""}`;
 
       try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(key)}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-        if (!res.ok) {
-          const errText = await res.text().catch(() => "");
-          throw new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
-        }
-        const data = await res.json();
-        const text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts
-          ? data.candidates[0].content.parts.map(p => p.text || "").join("")
-          : null;
-        if (!text) throw new Error("Unexpected response shape from Gemini");
+        const text = await callGeminiWithRetry(key, prompt, out);
         out.innerHTML = `<div class="panel" style="margin:0;background:#0f172a;">
           <div style="white-space:pre-wrap;font-size:13px;line-height:1.6;padding:4px;">${text.replace(/</g, "&lt;")}</div>
         </div>
