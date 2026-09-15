@@ -2088,6 +2088,28 @@
         </div>
       </div>
 
+      <div class="panel">
+        <div class="panel-header">
+          Hold Days · Winners vs. Losers
+          <span class="tag">Are you cutting losers fast and staying patient with winners?</span>
+        </div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">The discipline this checks: losers should generally be held <em>briefly</em> (cut fast once wrong), while winners — especially ones with strong reward relative to risk — often deserve patience to let the move develop. If your losers chart runs longer than your winners chart, that's the pattern worth fixing first.</div>
+          <div class="grid-2">
+            <div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Winners</div>
+              <div id="hold-days-win-chart" style="height:200px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;"></div>
+              <div class="note" id="hold-days-win-note">By week closed.</div>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Losers</div>
+              <div id="hold-days-loss-chart" style="height:200px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;"></div>
+              <div class="note" id="hold-days-loss-note">By week closed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="grid-2">
         <div class="panel">
           <div class="panel-header">By Setup Type</div>
@@ -6070,11 +6092,14 @@
       const bySetupLines = s.setupKeys.map(k =>
         `- ${k}: ${s.bySetup[k].n} trades, $${s.bySetup[k].pnl.toFixed(2)} net, ${((s.bySetup[k].w / s.bySetup[k].n) * 100).toFixed(0)}% win rate`
       ).join("\n");
+      const winLossRatio = (s.avgL && s.avgL !== 0) ? Math.abs(s.avgW / s.avgL) : null;
       return `You are reviewing a swing/day trader's real closed-trade statistics from their personal trading journal. Be specific, direct, and reference the actual numbers below — no generic trading advice. Write a concise SWOT-style analysis (Strengths, Weaknesses, Opportunities, Threats — 2-3 sentences each) plus 3 concrete, numbered suggestions for improvement. Keep it under 400 words total.
+
+Pay particular attention to this discipline question: losers should generally be held BRIEFLY (cut fast once wrong), while winners — especially ones with a strong reward-to-risk profile — often deserve patience to let the move develop. Explicitly compare the avg hold days for winners vs losers below and say directly whether this trader is following that discipline or violating it (e.g. holding losers too long hoping they recover, or cutting winners too early out of fear). Note: true per-trade R-multiples aren't tracked here, only $ P&L, so use avg win/loss $ ratio as a rough proxy for reward-to-risk, not a precise one.
 
 Stats:
 - ${s.n} closed trades, net P&L $${s.sum.toFixed(2)}
-- Win rate: ${s.wr.toFixed(1)}%, avg win $${s.avgW.toFixed(2)}, avg loss $${s.avgL.toFixed(2)}
+- Win rate: ${s.wr.toFixed(1)}%, avg win $${s.avgW.toFixed(2)}, avg loss $${s.avgL.toFixed(2)}${winLossRatio != null ? ` (avg win is ${winLossRatio.toFixed(2)}x avg loss — rough reward-to-risk proxy, not true R)` : ""}
 - SQN (based on $ P&L, not R-multiples): ${s.sqn != null ? s.sqn.toFixed(2) + " (" + sqnLabel(s.sqn) + ")" : "not enough trades"}
 - Best setup: ${s.bestSetup || "n/a"} (${s.bestSetupWR.toFixed(0)}% win rate)
 - Worst setup: ${s.worstSetup || "n/a"} (${s.worstSetupWR.toFixed(0)}% win rate)
@@ -6573,18 +6598,20 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     }
 
     let holdDaysChartState = null;
-    function renderWeeklyHoldDaysChart(list) {
-      const el = document.getElementById("hold-days-chart");
-      const note = document.getElementById("hold-days-note");
+    let holdDaysWinChartState = null;
+    let holdDaysLossChartState = null;
+
+    function renderHoldDaysChartGeneric(elId, noteId, list, color, stateKey, emptyMsg) {
+      const el = document.getElementById(elId);
+      const note = document.getElementById(noteId);
       if (!el) return;
       el.style.position = "relative";
       const withHold = list.filter(t => t.holdDays != null && !isNaN(t.holdDays));
       if (!withHold.length) {
-        el.innerHTML = `<div class="wl-empty">No hold-time data yet — Schwab imports compute this automatically; manual Journal entries need an Entry Date filled in.</div>`;
-        holdDaysChartState = null;
+        el.innerHTML = `<div class="wl-empty">${emptyMsg}</div>`;
+        window[stateKey] = null;
         return;
       }
-      // group by ISO week (Mon-start) of the exit date
       const weekKey = (dateStr) => {
         const d = new Date(dateStr + "T00:00:00");
         const day = (d.getDay() + 6) % 7; // 0=Mon
@@ -6604,14 +6631,14 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         n: byWeek[wk].length
       }));
 
-      const w = Math.max(el.clientWidth || 600, 400);
-      const h = 200;
+      const w = Math.max(el.clientWidth || 600, 300);
+      const h = elId === "hold-days-chart" ? 200 : 180;
       const pad = { t: 12, r: 12, b: 28, l: 34 };
       const maxAvg = Math.max(...points.map(p => p.avg), 1);
       const bw = (w - pad.l - pad.r) / points.length;
       const xScale = (i) => pad.l + i * bw;
       const yScale = (v) => pad.t + (1 - v / maxAvg) * (h - pad.t - pad.b);
-      holdDaysChartState = { points, xScale, yScale, bw, w, h, pad, maxAvg };
+      window[stateKey] = { points, xScale, yScale, bw, w, h, pad, maxAvg, elId };
 
       const labels = [];
       const step = Math.max(1, Math.floor(points.length / 6));
@@ -6619,23 +6646,24 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         labels.push(`<text x="${xScale(i) + bw / 2}" y="${h - 8}" fill="#9ca3af" font-size="9" text-anchor="middle">${points[i].week.slice(5)}</text>`);
       }
       el.innerHTML = `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
-        ${points.map((p, i) => `<rect data-i="${i}" x="${xScale(i) + 1.5}" y="${yScale(p.avg)}" width="${Math.max(bw - 3, 1)}" height="${h - pad.b - yScale(p.avg)}" fill="#0891b2" opacity="0.85" style="cursor:crosshair;" onmousemove="onHoldDaysHover(event, ${i})" onmouseleave="onHoldDaysLeave()" />`).join("")}
+        ${points.map((p, i) => `<rect data-i="${i}" x="${xScale(i) + 1.5}" y="${yScale(p.avg)}" width="${Math.max(bw - 3, 1)}" height="${h - pad.b - yScale(p.avg)}" fill="${color}" opacity="0.85" style="cursor:crosshair;" onmousemove="onGenericHoldDaysHover(event, ${i}, '${stateKey}', '${elId}-tooltip')" onmouseleave="onGenericHoldDaysLeave('${elId}-tooltip')" />`).join("")}
         <text x="4" y="${yScale(maxAvg) + 4}" fill="#9ca3af" font-size="9">${maxAvg.toFixed(0)}d</text>
         <text x="4" y="${h - pad.b}" fill="#9ca3af" font-size="9">0d</text>
         ${labels.join("")}
       </svg>
-      <div id="hold-days-tooltip" style="position:absolute;display:none;pointer-events:none;background:#111827;border:1px solid var(--border, #374151);padding:6px 9px;border-radius:6px;font-size:11px;color:#e5e7eb;white-space:nowrap;z-index:5;"></div>`;
+      <div id="${elId}-tooltip" style="position:absolute;display:none;pointer-events:none;background:#111827;border:1px solid var(--border, #374151);padding:6px 9px;border-radius:6px;font-size:11px;color:#e5e7eb;white-space:nowrap;z-index:5;"></div>`;
       const overallAvg = withHold.reduce((a, t) => a + t.holdDays, 0) / withHold.length;
-      if (note) note.textContent = "Overall avg hold: " + overallAvg.toFixed(1) + " days · hover a bar for that week's average";
+      if (note) note.textContent = "Overall avg: " + overallAvg.toFixed(1) + " days · " + withHold.length + " trade(s) · hover a bar for that week";
     }
-    function onHoldDaysHover(evt, i) {
-      if (!holdDaysChartState) return;
-      const { points, xScale, bw, w, pad } = holdDaysChartState;
+    function onGenericHoldDaysHover(evt, i, stateKey, tooltipId) {
+      const state = window[stateKey];
+      if (!state) return;
+      const { points, xScale, bw, w } = state;
       const p = points[i];
       const svg = evt.currentTarget.ownerSVGElement;
       const rect = svg.getBoundingClientRect();
       const scaleFactor = w / rect.width;
-      const tooltip = document.getElementById("hold-days-tooltip");
+      const tooltip = document.getElementById(tooltipId);
       if (!tooltip) return;
       tooltip.style.display = "block";
       tooltip.innerHTML = `<strong>Week of ${p.week}</strong><br/>Avg hold: ${p.avg.toFixed(1)} days<br/>${p.n} trade${p.n === 1 ? "" : "s"}`;
@@ -6645,9 +6673,18 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       tooltip.style.left = Math.max(0, left) + "px";
       tooltip.style.top = "6px";
     }
-    function onHoldDaysLeave() {
-      const tooltip = document.getElementById("hold-days-tooltip");
+    function onGenericHoldDaysLeave(tooltipId) {
+      const tooltip = document.getElementById(tooltipId);
       if (tooltip) tooltip.style.display = "none";
+    }
+
+    function renderWeeklyHoldDaysChart(list) {
+      renderHoldDaysChartGeneric("hold-days-chart", "hold-days-note", list, "#0891b2", "holdDaysChartState",
+        "No hold-time data yet — Schwab imports compute this automatically; manual Journal entries need an Entry Date filled in.");
+      renderHoldDaysChartGeneric("hold-days-win-chart", "hold-days-win-note", list.filter(t => t.pnl > 0), "#22c55e", "holdDaysWinChartState",
+        "No winning trades with hold-time data yet.");
+      renderHoldDaysChartGeneric("hold-days-loss-chart", "hold-days-loss-note", list.filter(t => t.pnl < 0), "#ef4444", "holdDaysLossChartState",
+        "No losing trades with hold-time data yet.");
     }
 
     let equityChartState = null;
