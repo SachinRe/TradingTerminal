@@ -7039,12 +7039,14 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     function buildBarChart(el, series, colorClass, dates) {
       if (!el || !series.length) return;
       const max = Math.max(...series, 1);
-      el.innerHTML = `<div class="bar-chart" style="height:100%;">` +
+      const CONTAINER_PX = 160; // fixed pixel height, not a % — avoids any
+      // dependency on the full ancestor chain resolving percentage heights
+      el.innerHTML = `<div class="bar-chart" style="height:${CONTAINER_PX}px;">` +
         series.map((v, i) => {
-          const h = Math.max(3, (v / max) * 100);
+          const h = Math.max(3, Math.round((v / max) * CONTAINER_PX));
           const isLast = i === series.length - 1;
           const label = (dates && dates[i]) ? dates[i] : ("#" + (i + 1));
-          return `<div class="bar ${colorClass}" style="height:${h}%;${isLast ? "outline:1px solid #fff;opacity:1;" : ""}">
+          return `<div class="bar ${colorClass}" style="height:${h}px;${isLast ? "outline:1px solid #fff;opacity:1;" : ""}">
             <span class="bar-tip">${label}<br><strong>${v}</strong> stocks</span>
           </div>`;
         }).join("") + `</div>`;
