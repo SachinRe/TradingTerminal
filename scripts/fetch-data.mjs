@@ -253,11 +253,23 @@ async function fetchScreener() {
   }).filter(c => c.price > 5) // re-apply price filter now that mega-caps have real prices from profile
     .sort((a, b) => b.volume - a.volume);
 
+  // Breadth count from the FULL raw gainers+losers+actives pool (before the
+  // top-15 trim that only applies to which tickers get the expensive profile
+  // fetch) — this is a much larger, more accurate universe for a same-day
+  // ±20% move count than the trimmed candidate list, and costs zero extra
+  // API calls since gainers/losers/actives are already fetched above.
+  const rawMoveCounts = {
+    up20: Object.values(byTicker).filter(c => c._fromList && c.changePct >= 20).length,
+    down20: Object.values(byTicker).filter(c => c._fromList && c.changePct <= -20).length,
+    poolSize: Object.values(byTicker).filter(c => c._fromList).length
+  };
+
   return {
     available: candidates.length > 0,
     note: note.join("; ") || (candidates.length ? "" : "No candidates returned — check FMP_API_KEY is valid and has remaining free-tier quota."),
     source: "Financial Modeling Prep (licensed free-tier API)",
-    candidates
+    candidates,
+    rawMoveCounts
   };
 }
 
@@ -416,16 +428,20 @@ async function main() {
     breadthHistory = []; // first run ever, or file doesn't exist yet
   }
   const today = new Date().toISOString().slice(0, 10);
-  const up20 = screener.candidates.filter(c => c.changePct >= 20).length;
-  const down20 = screener.candidates.filter(c => c.changePct <= -20).length;
+  // Use the full raw gainers/losers/actives pool (rawMoveCounts) rather than
+  // the trimmed ~40-ticker candidate list — same API calls already made,
+  // just a more complete count of the day's real ±20% movers.
+  const up20 = screener.rawMoveCounts ? screener.rawMoveCounts.up20 : screener.candidates.filter(c => c.changePct >= 20).length;
+  const down20 = screener.rawMoveCounts ? screener.rawMoveCounts.down20 : screener.candidates.filter(c => c.changePct <= -20).length;
+  const poolSize = screener.rawMoveCounts ? screener.rawMoveCounts.poolSize : screener.candidates.length;
   const todayIdx = breadthHistory.findIndex(d => d.date === today);
-  const todayEntry = { date: today, up20, down20 };
+  const todayEntry = { date: today, up20, down20, poolSize };
   if (todayIdx >= 0) breadthHistory[todayIdx] = todayEntry;
   else breadthHistory.push(todayEntry);
   breadthHistory.sort((a, b) => a.date.localeCompare(b.date));
   if (breadthHistory.length > 120) breadthHistory = breadthHistory.slice(-120);
   await writeFile(historyPath, JSON.stringify(breadthHistory, null, 2));
-  console.log(`[diag] Breadth history: today ${up20} up20 / ${down20} down20 · ${breadthHistory.length} day(s) tracked total`);
+  console.log(`[diag] Breadth history: today ${up20} up20 / ${down20} down20 (out of ${poolSize} tickers checked) · ${breadthHistory.length} day(s) tracked total`);
 
   const output = {
     generatedAt: new Date().toISOString(),
