@@ -9,14 +9,14 @@ name: Refresh Watchlist Data
 # Targets: 4:00am, 5:30am, 10:30am, 2:00pm Pacific
 on:
   schedule:
-    - cron: '0 12 * * *'   # 4:00am PST
-    - cron: '0 11 * * *'   # 4:00am PDT
-    - cron: '30 13 * * *'  # 5:30am PST
-    - cron: '30 12 * * *'  # 5:30am PDT
-    - cron: '30 18 * * *'  # 10:30am PST
-    - cron: '30 17 * * *'  # 10:30am PDT
-    - cron: '0 22 * * *'   # 2:00pm PST
-    - cron: '0 21 * * *'   # 2:00pm PDT
+    - cron: '7 12 * * *'    # 4:00am PST (was '0 12 * * *')
+    - cron: '7 11 * * *'    # 4:00am PDT (was '0 11 * * *')
+    - cron: '37 13 * * *'   # 5:30am PST (was '30 13 * * *')
+    - cron: '37 12 * * *'   # 5:30am PDT (was '30 12 * * *')
+    - cron: '37 18 * * *'   # 10:30am PST (was '30 18 * * *')
+    - cron: '37 17 * * *'   # 10:30am PDT (was '30 17 * * *')
+    - cron: '7 22 * * *'    # 2:00pm PST (was '0 22 * * *')
+    - cron: '7 21 * * *'    # 2:00pm PDT (was '0 21 * * *')
   workflow_dispatch: {}    # lets you trigger a manual run from the Actions tab to test
 
 permissions:
