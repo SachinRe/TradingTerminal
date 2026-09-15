@@ -1,12 +1,19 @@
 {
-  "generatedAt": "2026-09-15T12:31:36.995Z",
-  "generatedSlot": "5:30am PT",
+  "generatedAt": "2026-09-15T13:12:00.681Z",
+  "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
-      "title": "Stock Market Today: 10-Year Yield Hits Highest Level Since 2007",
-      "description": "Yields fall back to 5% as oil&apos;s upward surge abates",
+      "title": "Stock Market Today: 10-Year Treasury Yield Hits Fresh High Above 5%",
+      "description": "Oil trades around $105 a barrel; stock futures mixed",
       "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-15-2026?mod=rss_markets_main",
       "pubDate": "Tue, 15 Sep 2026 08:39:51 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Fed System Monitoring Banks Suffered Outage Last Month",
+      "description": "The disruption hit the National Information Center, a data system used by regulators.",
+      "link": "https://www.wsj.com/finance/regulation/fed-system-monitoring-banks-suffered-outage-last-month-e5decdbd?mod=rss_markets_main",
+      "pubDate": "Tue, 15 Sep 2026 12:39:00 GMT",
       "tickers": []
     },
     {
@@ -39,16 +46,9 @@
     },
     {
       "title": "AI Leaders Are Calling for a Slowdown, but Wall Street Keeps on Buying",
-      "description": "Talk of heading off AI’s potential role in destroying humanity hurt some stocks and helped others, with major U.S. indexes edging lower.",
+      "description": "Talk of heading off artificial intelligence’s potential role in destroying humanity did little to sap demand for hyperscaler stocks.",
       "link": "https://www.wsj.com/finance/stocks/ai-leaders-are-calling-for-a-slowdown-but-wall-street-keeps-on-buying-7c671903?mod=rss_markets_main",
       "pubDate": "Tue, 15 Sep 2026 01:00:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "U.S. Sanctions Russian Bank in Latest Target for Campaign Against Iran",
-      "description": "The Treasury put additional sanctions on Russia’s VTB Bank, in a bid to pressure foreign banks to cut ties with the institution.",
-      "link": "https://www.wsj.com/finance/regulation/u-s-sanctions-russian-bank-in-latest-target-for-campaign-against-iran-080a1422?mod=rss_markets_main",
-      "pubDate": "Mon, 14 Sep 2026 21:44:00 GMT",
       "tickers": []
     },
     {
@@ -94,6 +94,13 @@
       "tickers": []
     },
     {
+      "title": "U.S. Sanctions Russian Bank in Latest Target for Campaign Against Iran",
+      "description": "The Treasury put additional sanctions on Russia’s VTB Bank, in a bid to pressure foreign banks to cut ties with the institution.",
+      "link": "https://www.wsj.com/finance/regulation/u-s-sanctions-russian-bank-in-latest-target-for-campaign-against-iran-080a1422?mod=rss_markets_main",
+      "pubDate": "Mon, 14 Sep 2026 21:44:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "How PayPal’s CEO Is Planning to Go It Alone and Fix the Payments Giant",
       "description": "A $50 billion buyout is stalled but Enrique Lores could make a $25 million bonus if Wall Street buys into his plans to transform the payments company.",
       "link": "https://www.wsj.com/finance/banking/how-paypals-ceo-is-planning-to-go-it-alone-and-fix-the-payments-giant-ec0daf22?mod=rss_markets_main",
@@ -115,10 +122,17 @@
       "tickers": []
     },
     {
-      "title": "Block Applies to Establish Builders Bank & Trust",
-      "description": "The financial technology company is seeking to establish a federally regulated, uninsured national trust bank called Builders Bank & Trust.",
-      "link": "https://www.wsj.com/finance/banking/block-applies-to-establish-builders-bank-trust-3c6c9556?mod=rss_markets_main",
-      "pubDate": "Tue, 08 Sep 2026 22:30:00 GMT",
+      "title": "Basic Materials Roundup: Market Talk",
+      "description": "Find insight on  South32, Aneka Tambang, and more in the latest Market Talks covering Basic Materials.",
+      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-a04562f0?mod=rss_markets_main",
+      "pubDate": "Tue, 15 Sep 2026 12:33:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Stock Futures Retreat, 10-Year Yield Hovers Around 5% as Investors Await Fed Decision",
+      "description": "U.S. stock futures fell as oil prices continued to rise as Saudi Arabia’s East-West pipeline stayed shut.",
+      "link": "https://www.wsj.com/finance/stocks/stock-futures-retreat-10-year-treasury-yield-holds-above-5-as-investors-await-fed-decision-1cde847e?mod=rss_markets_main",
+      "pubDate": "Tue, 15 Sep 2026 12:31:00 GMT",
       "tickers": []
     },
     {
@@ -126,13 +140,6 @@
       "description": "Find insight on European semiconductor companies, Vodafone Group, LG Electronics and more in the latest Market Talks covering Technology, Media and Telecom.",
       "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-6cd01c34?mod=rss_markets_main",
       "pubDate": "Tue, 15 Sep 2026 12:27:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on Bank of Japan, Reserve Bank of India, and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-91b5888a?mod=rss_markets_main",
-      "pubDate": "Tue, 15 Sep 2026 12:19:00 GMT",
       "tickers": []
     },
     {
@@ -147,13 +154,6 @@
       "description": "The 10-year U.S. Treasury yield hit its highest level since 2007 and yields on 10-year German and Japanese government bonds were at multiyear highs.",
       "link": "https://www.wsj.com/finance/investing/u-s-10-year-treasury-yield-rises-to-highest-since-2007-91d1e44f?mod=rss_markets_main",
       "pubDate": "Tue, 15 Sep 2026 09:50:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Stock Futures Retreat, 10-Year Treasury Yield Holds Above 5% as Investors Await Fed Decision",
-      "description": "U.S. stock futures fell Tuesday as oil prices continued to rise as Saudi Arabia’s East-West pipeline stayed shut.",
-      "link": "https://www.wsj.com/finance/stocks/stock-futures-retreat-10-year-treasury-yield-holds-above-5-as-investors-await-fed-decision-1cde847e?mod=rss_markets_main",
-      "pubDate": "Tue, 15 Sep 2026 09:07:00 GMT",
       "tickers": []
     },
     {
@@ -234,6 +234,13 @@
       "tickers": []
     },
     {
+      "title": "Energy & Utilities Roundup: Market Talk",
+      "description": "Find insight on European oil stocks ,  SK Innovation, and more in the latest Market Talks covering Energy and Utilities.",
+      "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-471af7da?mod=rss_markets_main",
+      "pubDate": "Tue, 15 Sep 2026 12:38:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "U.S. Diesel Prices Hit New Record High as Fuel Squeeze Bites",
       "description": "The average price of a gallon of diesel in the U.S. hit a fresh record of $6.27 on Tuesday,  boosting expectations that the Fed would hike interest rates Wednesday.",
       "link": "https://www.wsj.com/finance/commodities-futures/u-s-diesel-prices-hit-new-record-high-as-fuel-squeeze-bites-455c4983?mod=rss_markets_main",
@@ -259,13 +266,6 @@
       "description": "Oil futures settled higher as Saudi Arabia’s pipeline outage and Houthi advances in Yemen keep the market’s concerns about supply disruptions intact.",
       "link": "https://www.wsj.com/finance/commodities-futures/oil-prices-rise-backing-case-for-rate-hikes-0a17cda4?mod=rss_markets_main",
       "pubDate": "Mon, 14 Sep 2026 19:55:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "U.S. Natural Gas Futures Start Week With Gains",
-      "description": "U.S. natural gas futures settled higher as weekend weather forecasts added heat to the near-term outlook, favoring power-sector demand.",
-      "link": "https://www.wsj.com/finance/commodities-futures/u-s-natural-gas-futures-start-week-with-gains-fe358fb7?mod=rss_markets_main",
-      "pubDate": "Mon, 14 Sep 2026 19:31:00 GMT",
       "tickers": []
     },
     {
@@ -540,8 +540,8 @@
         "megaCap": true,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/META",
-        "catalystHeadline": "ED letter seeking FIR against former Keralam CM Pinarayi Vijayan and others sent to State government: SPC",
-        "catalystUrl": "https://www.thehindu.com/news/national/kerala/ed-letter-seeking-fir-against-former-keralam-cm-pinarayi-vijayanand-otherssent-to-state-government-spc/article71467625.ece"
+        "catalystHeadline": "Tinuiti Goes First-to-Market Turning Meta's New Creative Metrics Into Actionable Intelligence",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/tinuiti-goes-first-to-market-turning-metas-new-creative-metrics-into-actionable-intelligence/2425559"
       },
       {
         "ticker": "ELMT",
@@ -710,8 +710,8 @@
         "megaCap": true,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/HD",
-        "catalystHeadline": "I tested the spec-heavy Poco F9 Ultra and found a phone with top-tier performance and zero deal-breaker flaws for hundreds less than the competition",
-        "catalystUrl": "https://www.techradar.com/phones/poco-phones/poco-f9-ultra-review"
+        "catalystHeadline": "This 65-Inch Samsung OLED TV Is $200 Off Right Now",
+        "catalystUrl": "https://lifehacker.com/tech/samsung-oled-s85h-tv-sale-september-2026"
       },
       {
         "ticker": "RPD",
@@ -901,6 +901,23 @@
         "catalystUrl": "https://www.archyde.com/sar-team-continues-day-7-search-for-missing-journalists-in-sunda-strait/"
       },
       {
+        "ticker": "PCLA",
+        "name": "PicoCELA Inc.",
+        "price": 7.73,
+        "changePct": -23.54105,
+        "volume": 262309,
+        "avgVolume": 1434877,
+        "rvol": 0.18280939759993364,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "hasProfileData": true,
+        "megaCap": false,
+        "source": "Financial Modeling Prep (free tier, licensed API)",
+        "sourceUrl": "https://financialmodelingprep.com/quote/PCLA",
+        "catalystHeadline": "PCLA Stock Pops As Traders Pile Into Volatile Move",
+        "catalystUrl": "https://stockstotrade.com/news/picocela-inc-pcla-news-2026_09_11/"
+      },
+      {
         "ticker": "PANG",
         "name": "Leverage Shares 2x Long PANW Daily ETF",
         "price": 34.5784,
@@ -950,23 +967,6 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/OKTG",
         "catalystHeadline": "Why OKTG Stock is Up 44.9% Today - Analysis In Progress",
         "catalystUrl": "https://tradestie.com/stocks/OKTG/why-moving-today/"
-      },
-      {
-        "ticker": "NFEGP",
-        "name": "New Fortress Energy Inc. Series A Mandatorily Convertible Preferred Stock",
-        "price": 56.22,
-        "changePct": 46.40625,
-        "volume": 202,
-        "avgVolume": null,
-        "rvol": null,
-        "sector": "Energy",
-        "industry": "Oil & Gas Midstream",
-        "hasProfileData": true,
-        "megaCap": false,
-        "source": "Financial Modeling Prep (free tier, licensed API)",
-        "sourceUrl": "https://financialmodelingprep.com/quote/NFEGP",
-        "catalystHeadline": null,
-        "catalystUrl": null
       },
       {
         "ticker": "EUDA",
@@ -1224,23 +1224,6 @@
         "catalystUrl": "https://seekingalpha.com/article/4945182-rubrik-inc-rbrk-presents-at-goldman-sachs-communacopia-technology-conference-2026-transcript"
       },
       {
-        "ticker": "XRPT",
-        "name": "Volatility Shares Trust - 2x XRP ETF",
-        "price": 38.31,
-        "changePct": 15.46112,
-        "volume": 0,
-        "avgVolume": null,
-        "rvol": null,
-        "sector": null,
-        "industry": null,
-        "hasProfileData": false,
-        "megaCap": false,
-        "source": "Financial Modeling Prep (free tier, licensed API)",
-        "sourceUrl": "https://financialmodelingprep.com/quote/XRPT",
-        "catalystHeadline": null,
-        "catalystUrl": null
-      },
-      {
         "ticker": "SAIL",
         "name": "SailPoint, Inc.",
         "price": 19.88,
@@ -1326,10 +1309,10 @@
         "catalystUrl": "https://finance.yahoo.com/markets/stocks/articles/qualys-qlys-posts-double-digit-115235022.html"
       },
       {
-        "ticker": "CRCA",
-        "name": "ProShares Trust - ProShares Ultra CRCL",
-        "price": 25.7,
-        "changePct": 14.98881,
+        "ticker": "CRCG",
+        "name": "Leverage Shares 2x Long CRCL Daily ETF",
+        "price": 17.38,
+        "changePct": 14.71947,
         "volume": 0,
         "avgVolume": null,
         "rvol": null,
@@ -1338,15 +1321,15 @@
         "hasProfileData": false,
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
-        "sourceUrl": "https://financialmodelingprep.com/quote/CRCA",
-        "catalystHeadline": "True Colors Theatre Company Receives Grant From City Of Atlanta",
-        "catalystUrl": "https://www.broadwayworld.com/atlanta/article/True-Colors-TheatreCompanyReceives-Grant-From-City-Of-Atlanta-20260914"
+        "sourceUrl": "https://financialmodelingprep.com/quote/CRCG",
+        "catalystHeadline": "Why CRCG Stock is Up 32.9% Today - Analysis In Progress",
+        "catalystUrl": "https://tradestie.com/stocks/CRCG/why-moving-today/"
       },
       {
-        "ticker": "PCLA",
-        "name": "PicoCELA Inc.",
-        "price": 7.73,
-        "changePct": -23.54105,
+        "ticker": "NOWL",
+        "name": "GraniteShares 2x Long NOW Daily ETF",
+        "price": 8.05,
+        "changePct": 14.67236,
         "volume": 0,
         "avgVolume": null,
         "rvol": null,
@@ -1355,9 +1338,26 @@
         "hasProfileData": false,
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
-        "sourceUrl": "https://financialmodelingprep.com/quote/PCLA",
-        "catalystHeadline": "PCLA Stock Pops As Traders Pile Into Volatile Move",
-        "catalystUrl": "https://stockstotrade.com/news/picocela-inc-pcla-news-2026_09_11/"
+        "sourceUrl": "https://financialmodelingprep.com/quote/NOWL",
+        "catalystHeadline": "After Hours Most Active for Jul 22, 2026 : GRAB, BAC, NVDA, TSLL, GOOGL, NOWL, FRMI, NOW, ALB^A, ET, RIG, CCL",
+        "catalystUrl": "https://www.nasdaq.com/articles/after-hours-most-active-jul-22-2026-grab-bac-nvda-tsll-googl-nowl-frmi-now-alb-et-rig-ccl"
+      },
+      {
+        "ticker": "BBGI",
+        "name": "Beasley Broadcast Group, Inc.",
+        "price": 18.29,
+        "changePct": 14.67085,
+        "volume": 0,
+        "avgVolume": null,
+        "rvol": null,
+        "sector": null,
+        "industry": null,
+        "hasProfileData": false,
+        "megaCap": false,
+        "source": "Financial Modeling Prep (free tier, licensed API)",
+        "sourceUrl": "https://financialmodelingprep.com/quote/BBGI",
+        "catalystHeadline": "Mitico Inc. and Bangchak Complete Successful Carbon Capture Demonstration in Thailand",
+        "catalystUrl": "https://www.businesswire.com/news/home/20260826390755/en/Mitico-Inc.-and-Bangchak-Complete-Successful-Carbon-Capture-Demonstration-in-Thailand?feedref=JjAwJuNHiystnCoBq_hl-d0q77hRjGWvCunvqSsMC5PkKuEqWGdtYcKRejd3o8qMqnKfqP6Z7nZVMLG-WqUNUuIFBOuQU34x9_qUrqnb9IFt3G9xeKEyIFKgj2nxZILuWb2_mZzaa2HVGkrPJ34F1Q=="
       },
       {
         "ticker": "SWVL",
@@ -1547,23 +1547,6 @@
         "catalystUrl": "https://newsable.asianetnews.com/markets/roger-altman-says-ai-is-the-greatest-threat-facing-the-world-amid-calls-for-stronger-guardrails-articleshow-2u91m2h"
       },
       {
-        "ticker": "SMCL",
-        "name": "GraniteShares ETF Trust - GraniteShares 2x Long SMCI Daily ETF",
-        "price": 15.75,
-        "changePct": -16.79873,
-        "volume": 0,
-        "avgVolume": null,
-        "rvol": null,
-        "sector": null,
-        "industry": null,
-        "hasProfileData": false,
-        "megaCap": false,
-        "source": "Financial Modeling Prep (free tier, licensed API)",
-        "sourceUrl": "https://financialmodelingprep.com/quote/SMCL",
-        "catalystHeadline": "KDHE Tests Salina Water Samples",
-        "catalystUrl": "https://www.ksal.com/kdhe-tests-salina-water-samples/"
-      },
-      {
         "ticker": "SIMO",
         "name": "Silicon Motion Technology Corporation",
         "price": 236.81,
@@ -1664,6 +1647,40 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/SKHL",
         "catalystHeadline": "NVDA Stock Comes Off Rough Week: AI Darling Reportedly Plans Major Price Hike As Q2 Earnings Loom",
         "catalystUrl": "https://newsable.asianetnews.com/markets/nvda-stock-comes-off-rough-week-ai-darling-reportedly-plans-major-price-hike-as-q2-earnings-loom-articleshow-5kl3454"
+      },
+      {
+        "ticker": "SKUU",
+        "name": "GraniteShares 2x Long SK Hynix Daily ETF",
+        "price": 26.07,
+        "changePct": -15.24707,
+        "volume": 0,
+        "avgVolume": null,
+        "rvol": null,
+        "sector": null,
+        "industry": null,
+        "hasProfileData": false,
+        "megaCap": false,
+        "source": "Financial Modeling Prep (free tier, licensed API)",
+        "sourceUrl": "https://financialmodelingprep.com/quote/SKUU",
+        "catalystHeadline": "Pre-Market Most Active for Jul 31, 2026 : MUU, NOK, SKHY, TQQQ, REPL, TSLL, SKUU, NVO, RBLX, ORCL, PFE, SGOV",
+        "catalystUrl": "https://www.nasdaq.com/articles/pre-market-most-active-jul-31-2026-muu-nok-skhy-tqqq-repl-tsll-skuu-nvo-rblx-orcl-pfe-sgov"
+      },
+      {
+        "ticker": "HYNX",
+        "name": "T-REX 2X Long SK Hynix Daily Target ETF",
+        "price": 26.09,
+        "changePct": -15.04396,
+        "volume": 0,
+        "avgVolume": null,
+        "rvol": null,
+        "sector": null,
+        "industry": null,
+        "hasProfileData": false,
+        "megaCap": false,
+        "source": "Financial Modeling Prep (free tier, licensed API)",
+        "sourceUrl": "https://financialmodelingprep.com/quote/HYNX",
+        "catalystHeadline": "AI-Driven Chip Rally Hits a Speed Bump: Buy the Dip in ETFs?",
+        "catalystUrl": "https://www.nasdaq.com/articles/ai-driven-chip-rally-hits-speed-bump-buy-dip-etfs"
       },
       {
         "ticker": "NOK",
@@ -1883,8 +1900,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/IBIT",
-        "catalystHeadline": "Bitcoin ETFs shed $463M in weekly reversal as Ether ETFs gain $197M",
-        "catalystUrl": "https://cointelegraph.com/markets/bitcoin-etfs-shed-463m-ether-etfs-gain-197m"
+        "catalystHeadline": "Bitcoin Price Wobbles as Leverage Falls Ahead of CLARITY Vote and Fed Decision",
+        "catalystUrl": "https://cryptonews.com/news/bitcoin-open-interest-price-support/"
       },
       {
         "ticker": "XLE",
@@ -2002,8 +2019,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/RIG",
-        "catalystHeadline": "Ongwe Minerals Commences Maiden Drill Campaign at Its Newly Discovered Nguni Prospect, Namibia",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/ongwe-minerals-commences-maiden-drill-campaign-at-its-newly-discovered-nguni-prospect-namibia/2425396"
+        "catalystHeadline": "Integral Metals Completes 2026 KAP Drill Program and Begins Demobilization",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/integral-metals-completes-2026-kap-drill-program-and-begins-demobilization/2425496"
       },
       {
         "ticker": "BZ",
@@ -2104,8 +2121,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/T",
-        "catalystHeadline": "Avicanna to Present at the Life Sciences Investor Forum on Sep 17th",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/avicanna-to-present-at-the-life-sciences-investor-forum-on-sep-17th/2425438"
+        "catalystHeadline": "Egle Therapeutics to Present Clinical Data at the Upcoming European Academy of Dermatology and Venereology (EADV) Congress in Vienna",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/egle-therapeutics-to-present-clinical-data-at-the-upcoming-european-academy-of-dermatology-and-venereology-eadv-congress-in-vienna/2425499"
       },
       {
         "ticker": "ETHA",
@@ -2123,12 +2140,29 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/ETHA",
         "catalystHeadline": "Stock Market LIVE Updates, Sensex Today: Markets Likely To Open In Green, Tech Stocks In Focus",
         "catalystUrl": "https://www.ndtv.com/business-news/stock-market-sensex-share-market-nifty-live-updates-today-15-september-us-iran-war-oil-prices-12047233"
+      },
+      {
+        "ticker": "KVUE",
+        "name": "Kenvue Inc.",
+        "price": 17.91,
+        "changePct": 0.73116,
+        "volume": 0,
+        "avgVolume": null,
+        "rvol": null,
+        "sector": null,
+        "industry": null,
+        "hasProfileData": false,
+        "megaCap": false,
+        "source": "Financial Modeling Prep (free tier, licensed API)",
+        "sourceUrl": "https://financialmodelingprep.com/quote/KVUE",
+        "catalystHeadline": "‘Profoundly unhelpful’: Texas Republicans worry Bo French’s xenophobic posts make a tough year worse - Politico",
+        "catalystUrl": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOdC1iUDR0MGtYV2FwNGVUbDNwT2VmOGZIOHdtU0pmVVVmckdVdGZsb0prell2YjluTDJLblNiQjdIYktqWlNmQ0p0cHdQQlZiQ1pxbGlVLVFnZi12RTRuWnJOZkl1dEJYNUlTT0lWU3lXcDhEdlRDQ1FvMVNxYnh6d0xmT2VLZFplUnh0U053WjlKTDJrWkEwcm9OTHU?oc=5"
       }
     ],
     "rawMoveCounts": {
-      "up20": 12,
+      "up20": 11,
       "down20": 7,
-      "poolSize": 86
+      "poolSize": 88
     }
   },
   "volumeMovers": {
@@ -2387,8 +2421,8 @@
         "megaCap": true,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/META",
-        "catalystHeadline": "ED letter seeking FIR against former Keralam CM Pinarayi Vijayan and others sent to State government: SPC",
-        "catalystUrl": "https://www.thehindu.com/news/national/kerala/ed-letter-seeking-fir-against-former-keralam-cm-pinarayi-vijayanand-otherssent-to-state-government-spc/article71467625.ece"
+        "catalystHeadline": "Tinuiti Goes First-to-Market Turning Meta's New Creative Metrics Into Actionable Intelligence",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/tinuiti-goes-first-to-market-turning-metas-new-creative-metrics-into-actionable-intelligence/2425559"
       },
       {
         "ticker": "ELMT",
@@ -2445,67 +2479,67 @@
   },
   "buzz": [
     {
-      "ticker": "SPY",
-      "name": "SPDR S&P 500 ETF Trust",
-      "price": 759.56,
+      "ticker": "FPS",
+      "name": "Forgent Power Solutions Inc.",
+      "price": 31.25,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/SPY",
-      "catalystHeadline": "‘We dropped the ball’: Former spy boss calls for debate on radical Islam",
-      "catalystUrl": "https://www.brisbanetimes.com.au/politics/federal/we-dropped-the-ball-former-spy-boss-calls-for-debate-on-radical-islam-20260914-p60x33.html"
+      "sourceUrl": "https://stocktwits.com/symbol/FPS",
+      "catalystHeadline": "Tom's Guide Awards 2026: Our favorite gaming accessories, consoles, controllers and more",
+      "catalystUrl": "https://www.tomsguide.com/gaming/toms-guide-awards-2026"
     },
     {
-      "ticker": "QQQ",
-      "name": "Invesco QQQ Trust Series 1",
-      "price": 708.4,
+      "ticker": "VERA",
+      "name": "Vera Therapeutics Inc - Ordinary Shares - Class A",
+      "price": 38.65,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/QQQ",
-      "catalystHeadline": "AI, Fed And 5% Treasury Yield: Three Risks Putting Nasdaq, Dow Futures On Edge Ahead Of Wednesday’s Rate Decision",
-      "catalystUrl": "https://newsable.asianetnews.com/markets/ai-fed-and-5-treasury-yield-three-risks-putting-nasdaq-dow-futures-on-edge-ahead-of-wednesday-s-rate-decision-articleshow-7wugk0h"
+      "sourceUrl": "https://stocktwits.com/symbol/VERA",
+      "catalystHeadline": "Vera Bradley Announces Second Quarter Fiscal Year 2027 Results",
+      "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/vera-bradley-announces-second-quarter-fiscal-year-2027-results/2425516"
+    },
+    {
+      "ticker": "RDDT",
+      "name": "Reddit Inc",
+      "price": 157.87,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/RDDT",
+      "catalystHeadline": "Reddit (RDDT) Stock Surges 6% on Record August User Growth Data",
+      "catalystUrl": "https://bitcoinethereumnews.com/tech/reddit-rddt-stock-surges-6-on-record-august-user-growth-data/"
+    },
+    {
+      "ticker": "PLAY",
+      "name": "Dave & Buster's Entertainment",
+      "price": 7.4,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/PLAY",
+      "catalystHeadline": "UME LIFE Introduces Its Proprietary LLM-Powered AI Super-Agent Platform",
+      "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/pr-newswire/ume-life-introduces-its-proprietary-llm-powered-ai-super-agent-platform/2425453"
     },
     {
       "ticker": "RKLB",
       "name": "Rocket Lab USA Inc",
-      "price": 63.54,
+      "price": 63.55,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
       "sourceUrl": "https://stocktwits.com/symbol/RKLB",
       "catalystHeadline": "AI, Fed And 5% Treasury Yield: Three Risks Putting Nasdaq, Dow Futures On Edge Ahead Of Wednesday’s Rate Decision",
       "catalystUrl": "https://newsable.asianetnews.com/markets/ai-fed-and-5-treasury-yield-three-risks-putting-nasdaq-dow-futures-on-edge-ahead-of-wednesday-s-rate-decision-articleshow-7wugk0h"
-    },
-    {
-      "ticker": "VERA",
-      "name": "Vera Therapeutics Inc - Ordinary Shares - Class A",
-      "price": 40,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/VERA",
-      "catalystHeadline": "Vera Therapeutics Announces TRUTAKNA™ (atacicept-vymj) Stabilized eGFR and Prevented Kidney Disease Progression Through Two Years in ORIGIN 3 Final Efficacy Analysis in IgA Nephropathy",
-      "catalystUrl": "https://www.manilatimes.net/2026/09/15/tmt-newswire/globenewswire/vera-therapeutics-announces-trutakna-atacicept-vymj-stabilized-egfr-and-prevented-kidney-disease-progression-through-two-years-in-origin-3-final-efficacy-analysis-in-iga-nephropathy/2425335"
-    },
-    {
-      "ticker": "CCXI",
-      "name": "Churchill Capital Corp XI - Ordinary Shares - Class A",
-      "price": 12.17,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/CCXI",
-      "catalystHeadline": "Afreximbank strengthens regional leadership with new appointments across Africa and the Caribbean",
-      "catalystUrl": "https://www.socialnews.xyz/2026/08/31/afreximbank-strengthens-regional-leadership-with-new-appointments-across-africa-and-the-caribbean/?utm_source=rss&utm_medium=rss&utm_campaign=afreximbank-strengthens-regional-leadership-with-new-appointments-across-africa-and-the-caribbean"
     }
   ],
   "breadthHistory": [
     {
       "date": "2026-09-15",
-      "up20": 12,
+      "up20": 11,
       "down20": 7,
-      "poolSize": 86
+      "poolSize": 88
     }
   ]
 }
