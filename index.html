@@ -776,7 +776,7 @@
         </div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:10px;">
-            Per-day count of screener candidates that moved ≥20% (same-day % change), tracked daily starting from when this was built — not backfilled with invented history, so the chart starts short and grows for real each day this runs. This is a same-day gap% count, not the stricter "up 50% over a month" leadership measure a recent backtest found most useful — that would need historical price data per ticker, outside this session's free-tier budget.
+            Per-day count of ≥20% same-day movers (up or down), computed from FMP's full biggest-gainers/biggest-losers/most-actives lists — the same lists already fetched every scheduled run for the screener, so this costs zero extra API calls. This covers a much wider pool than just the ~40 tickers tracked in detail elsewhere in the app (see "Pool Checked" column below), though it's still bounded by what FMP's lists return, not literally every listed stock. Tracked daily starting from when this was built — not backfilled with invented history, so the chart starts short and grows for real each day this runs.
           </div>
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
             <div style="font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;">Stocks Up ≥20% Today</div>
@@ -798,7 +798,7 @@
             </div>
             <div id="mm-20-table-wrap" style="display:none;max-height:260px;overflow:auto;border:1px solid var(--border);border-radius:6px;">
               <table>
-                <thead><tr><th>Date</th><th>Up ≥20%</th><th>Down ≥20%</th></tr></thead>
+                <thead><tr><th>Date</th><th>Up ≥20%</th><th>Down ≥20%</th><th>Pool Checked</th></tr></thead>
                 <tbody id="mm-20-table-body"></tbody>
               </table>
             </div>
@@ -7058,7 +7058,8 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
           <td>${d.date}</td>
           <td class="pos">${d.up20}</td>
           <td class="neg">${d.down20}</td>
-        </tr>`).join("") || `<tr><td colspan="3" class="muted">No history yet — check back after the next scheduled run.</td></tr>`;
+          <td class="muted" style="font-size:11px;">${d.poolSize != null ? d.poolSize : "—"}</td>
+        </tr>`).join("") || `<tr><td colspan="4" class="muted">No history yet — check back after the next scheduled run.</td></tr>`;
     }
 
     function toggle20Table() {
