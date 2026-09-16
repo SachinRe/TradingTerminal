@@ -6,17 +6,22 @@ name: Refresh Watchlist Data
 # does actual work if we're within a few minutes of a real target slot, so the
 # "wrong" one of each pair is a no-op that exits in a couple seconds.
 #
+# Times are shifted a few minutes off the exact hour/half-hour on purpose —
+# GitHub's own docs note scheduled Actions are most likely to be delayed or
+# skipped during high-load periods, and the top of the hour/half-hour is the
+# single busiest moment across all of GitHub's scheduled workflows.
+#
 # Targets: 4:00am, 5:30am, 10:30am, 2:00pm Pacific
 on:
   schedule:
-    - cron: '7 12 * * *'    # 4:00am PST (was '0 12 * * *')
-    - cron: '7 11 * * *'    # 4:00am PDT (was '0 11 * * *')
-    - cron: '37 13 * * *'   # 5:30am PST (was '30 13 * * *')
-    - cron: '37 12 * * *'   # 5:30am PDT (was '30 12 * * *')
-    - cron: '37 18 * * *'   # 10:30am PST (was '30 18 * * *')
-    - cron: '37 17 * * *'   # 10:30am PDT (was '30 17 * * *')
-    - cron: '7 22 * * *'    # 2:00pm PST (was '0 22 * * *')
-    - cron: '7 21 * * *'    # 2:00pm PDT (was '0 21 * * *')
+    - cron: '7 12 * * *'    # 4:00am PST
+    - cron: '7 11 * * *'    # 4:00am PDT
+    - cron: '37 13 * * *'   # 5:30am PST
+    - cron: '37 12 * * *'   # 5:30am PDT
+    - cron: '37 18 * * *'   # 10:30am PST
+    - cron: '37 17 * * *'   # 10:30am PDT
+    - cron: '7 22 * * *'    # 2:00pm PST
+    - cron: '7 21 * * *'    # 2:00pm PDT
   workflow_dispatch: {}    # lets you trigger a manual run from the Actions tab to test
 
 permissions:
@@ -42,6 +47,8 @@ jobs:
       - name: Fetch and build watchlist data
         env:
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          ALPACA_KEY_ID: ${{ secrets.ALPACA_KEY_ID }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
         run: node scripts/fetch-data.mjs
 
       - name: Commit updated data (only if it changed)
@@ -52,10 +59,9 @@ jobs:
           git diff --cached --quiet || git commit -m "chore: scheduled watchlist refresh"
           # -X ours has INVERTED meaning during a rebase vs a merge: "ours"
           # means the branch being rebased ONTO (the remote), "theirs" means
-          # the commits being replayed (our fresh local data). This was
-          # backwards before — on any real conflict it silently kept the OLD
-          # remote data and discarded the freshly-generated scan, while the
-          # job still reported success. -X theirs is what "prefer our fresh
-          # data on conflict" actually requires here.
+          # the commits being replayed (our fresh local data). -X theirs is
+          # what "prefer our fresh data on conflict" actually requires here —
+          # the old -X ours silently kept stale remote data on any real
+          # conflict while the job still reported success.
           git pull --rebase -X theirs origin HEAD || true
           git push
