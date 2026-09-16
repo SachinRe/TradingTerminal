@@ -4945,6 +4945,55 @@
     function closeDetail() {
       document.getElementById("detail-modal").classList.remove("open");
     }
+    function showTickerTradeDetail(ticker) {
+      const trades = getJournal()
+        .filter(t => (t.ticker || "").toUpperCase() === ticker.toUpperCase())
+        .sort((a, b) => (b.date || "").localeCompare(a.date || "")); // most recent first
+      if (!trades.length) return;
+
+      const n = trades.length;
+      const wins = trades.filter(t => (t.pnl || 0) > 0);
+      const netPnl = trades.reduce((a, t) => a + (t.pnl || 0), 0);
+      const wr = n ? (wins.length / n) * 100 : 0;
+
+      const rows = trades.map(t => {
+        const pnlClass = (t.pnl || 0) >= 0 ? "pos" : "neg";
+        const mistakeStr = (t.mistakeTags || []).length ? `<div class="muted" style="font-size:10px;margin-top:3px;">⚠ ${t.mistakeTags.join(", ")}</div>` : "";
+        const notesStr = t.notes ? `<div class="muted" style="font-size:10px;margin-top:3px;max-width:260px;">${t.notes.replace(/</g, "&lt;")}</div>` : "";
+        return `<tr>
+          <td class="muted" style="font-size:11px;">${t.date || "—"}</td>
+          <td>${t.setup || "—"}</td>
+          <td>${t.side || "—"}</td>
+          <td>${t.entry != null ? "$" + t.entry : "—"}</td>
+          <td>${t.stop != null ? "$" + t.stop : "—"}</td>
+          <td>${t.exit != null ? "$" + t.exit : "—"}</td>
+          <td>${t.shares != null ? t.shares : "—"}</td>
+          <td class="muted" style="font-size:11px;">${t.holdDays != null ? t.holdDays + "d" : "—"}</td>
+          <td class="${pnlClass}" style="font-weight:600;">${t.pnl != null ? "$" + t.pnl.toFixed(2) : "—"}</td>
+          <td>${notesStr}${mistakeStr}</td>
+        </tr>`;
+      }).join("");
+
+      document.getElementById("detail-content").innerHTML = `
+        <div class="modal-header">
+          <button class="modal-close" onclick="closeDetail()">×</button>
+          <div class="modal-company">${ticker} · Trade History</div>
+          <div class="modal-catalyst">${n} closed trade${n === 1 ? "" : "s"} · ${wr.toFixed(0)}% win rate · net <span class="${netPnl >= 0 ? "pos" : "neg"}">$${netPnl.toFixed(2)}</span></div>
+        </div>
+        <div class="qualify-panel" style="overflow-x:auto;">
+          <table style="font-size:12px;">
+            <thead><tr>
+              <th>Date</th><th>Setup</th><th>Side</th><th>Entry</th><th>Stop</th><th>Exit</th><th>Shares</th><th>Held</th><th>P&amp;L</th><th>Notes</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <div style="margin-top:14px;">
+          <button class="btn" onclick="closeDetail()">Close</button>
+        </div>
+      `;
+      document.getElementById("detail-modal").classList.add("open");
+    }
     function openNewsFor(ticker) {
       closeDetail();
       navTo("news");
@@ -7354,7 +7403,7 @@ Question: ${question}`;
               const wr = x.wins / x.n;
               const exp = x.pnl / x.n;
               return `<tr>
-                <td><span class="ticker-link" onclick="showDetail('${x.ticker}')">${x.ticker}</span></td>
+                <td><span class="ticker-link" onclick="showTickerTradeDetail('${x.ticker}')">${x.ticker}</span></td>
                 <td>${x.n}</td><td>${(wr * 100).toFixed(0)}%</td>
                 <td class="${x.pnl >= 0 ? "pos" : "neg"}">$${x.pnl.toFixed(2)}</td>
                 <td class="${exp >= 0 ? "pos" : "neg"}">$${exp.toFixed(2)}</td>
