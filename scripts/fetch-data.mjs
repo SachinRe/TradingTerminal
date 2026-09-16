@@ -152,20 +152,41 @@ async function fetchAlpacaSnapshots(tickers, keyId, secret) {
 
 // Separate batched call for a genuine trailing average volume (Alpaca's
 // snapshot endpoint only gives yesterday's single-day volume, not an
-// average) — one call covering every tracked ticker's last ~20 sessions,
-// excluding today's still-forming bar from the average.
+// average) — covers every tracked ticker's last ~20 sessions, excluding
+// today's still-forming bar from the average.
+//
+// IMPORTANT: Alpaca's multi-symbol bars endpoint sorts results by symbol
+// first, then by timestamp, and `limit` caps the TOTAL bars in the response
+// — not a per-symbol limit. A too-small limit silently returns bars for
+// only the first symbol or two (alphabetically) and nothing for the rest,
+// which is exactly what happened here on the first version of this
+// function (confirmed via Alpaca's own docs, not assumed). Fixed by
+// following next_page_token until every page is consumed, rather than
+// hoping a single large limit is always enough.
 async function fetchAlpacaAvgVolume(tickers, keyId, secret) {
   if (!tickers.length) return {};
   const headers = { "APCA-API-KEY-ID": keyId, "APCA-API-SECRET-KEY": secret };
-  const url = `https://data.alpaca.markets/v2/stocks/bars?symbols=${tickers.join(",")}&timeframe=1Day&limit=21&adjustment=raw`;
-  const res = await fetch(url, { headers });
-  if (!res.ok) throw new Error(`Alpaca bars failed: ${res.status}`);
-  const data = await res.json();
-  const bars = data?.bars || {};
+  const bars = {};
+  let pageToken = null;
+  let pages = 0;
+  do {
+    let url = `https://data.alpaca.markets/v2/stocks/bars?symbols=${tickers.join(",")}&timeframe=1Day&limit=10000&adjustment=raw`;
+    if (pageToken) url += `&page_token=${encodeURIComponent(pageToken)}`;
+    const res = await fetch(url, { headers });
+    if (!res.ok) throw new Error(`Alpaca bars failed: ${res.status}`);
+    const data = await res.json();
+    for (const [ticker, series] of Object.entries(data?.bars || {})) {
+      if (!Array.isArray(series)) continue;
+      (bars[ticker] = bars[ticker] || []).push(...series);
+    }
+    pageToken = data?.next_page_token || null;
+    pages++;
+  } while (pageToken && pages < 10); // hard stop so a bug here can never loop forever
+
   const todayStr = new Date().toISOString().slice(0, 10);
   const out = {};
   for (const [ticker, series] of Object.entries(bars)) {
-    if (!Array.isArray(series) || !series.length) continue;
+    if (!series.length) continue;
     // Drop today's bar if present (it's still forming, not a full session)
     const complete = series.filter(b => !(b.t || "").startsWith(todayStr));
     if (!complete.length) continue;
