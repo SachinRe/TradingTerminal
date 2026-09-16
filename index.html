@@ -672,6 +672,7 @@
   <nav class="sidebar" id="sidebar">
     <div class="nav-group">
       <div class="nav-group-title">1 · Vision</div>
+      <div class="nav-item" data-section="home" onclick="navTo('home', this)">Home</div>
       <div class="nav-item" data-section="vision" onclick="navTo('vision', this)">Vision &amp; Principles</div>
     </div>
     <div class="nav-group">
@@ -1085,7 +1086,43 @@
     </div>
 
     <!-- VISION -->
+        <div id="home" class="section">
+      <div class="panel">
+        <div class="panel-header">Featured Principle</div>
+        <div class="panel-body" style="position:relative;">
+          <div id="home-featured-card" style="background:#111827;border:1px solid #eab308;border-radius:12px;padding:26px 30px;min-height:110px;">
+            <div style="font-family:Cambria,Georgia,serif;font-size:40px;font-weight:800;color:#eab308;line-height:1;margin-bottom:4px;">&ldquo;</div>
+            <div id="home-featured-text" style="font-family:Cambria,Georgia,serif;font-size:20px;font-style:italic;color:var(--text);line-height:1.4;"></div>
+            <div id="home-featured-attr" style="font-size:13px;color:var(--muted);margin-top:12px;"></div>
+          </div>
+          <div style="margin-top:10px;"><button class="btn btn-sm" onclick="showNextHomeQuote()">Next principle →</button></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Add a Quote or Principle</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:8px;">These feed both this page and the animated splash you see when the terminal loads — one shared list.</div>
+          <div class="form-group"><label>Quote / Principle</label><textarea id="home-quote-input" rows="2" style="width:100%;" placeholder="e.g. Cut losers fast. Be patient with winners — especially the big ones."></textarea></div>
+          <div class="form-group" style="margin-top:8px;"><label>Attribution</label><input type="text" id="home-quote-attr-input" style="width:260px;" placeholder="e.g. your name, or a real source" /></div>
+          <div style="margin-top:8px;"><button class="btn btn-accent" onclick="addHomeQuote()">Add</button></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">All Saved Quotes &amp; Principles</div>
+        <div class="panel-body"><div id="home-quotes-list"></div></div>
+      </div>
+    </div>
+
+    <!-- VISION -->
     <div id="vision" class="section">
+      <div class="steps">
+        <div class="step-tab active" data-vision-sub="vision-overview" onclick="switchVisionSub(this)">Overview</div>
+        <div class="step-tab" data-vision-sub="vision-goals" onclick="switchVisionSub(this)">Goals</div>
+      </div>
+
+      <div id="vision-overview" class="vision-sub active">
       <div class="panel">
         <div class="panel-header">Mission</div>
         <div class="panel-body">
@@ -1124,6 +1161,12 @@
           <div id="vision-principles-body" style="margin-top:12px;"></div>
         </div>
       </div>
+      </div><!-- end vision-overview -->
+
+      <div id="vision-goals" class="vision-sub" style="display:none;">
+        <div class="note" style="margin:0 0 14px;">Three horizons, each with a target year and two kinds of goals — the process you want to be running by then, and where you want the portfolio itself to be. Revisit and edit these as your thinking moves; nothing here is fixed.</div>
+        <div id="vision-goals-body" style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));"></div>
+      </div>
     </div>
 
     <!-- MAINTENANCE -->
@@ -1134,7 +1177,8 @@
           <span class="tag" style="background:#7f1d1d;color:#fecaca;">Everything lives only in this browser</span>
         </div>
         <div class="panel-body">
-          <div class="note" style="margin-bottom:10px;">Your entire terminal — every setup, trade, journal entry, plan, and note — exists only in this browser's storage. Clear your cache, switch computers, or a crash wipes your profile, and it's gone with no warning. Export a backup regularly. <strong>The backup file includes any API keys you've saved (Gemini, GitHub, FMP) — treat it like a password file, don't share it.</strong></div>
+          <div class="note" style="margin-bottom:10px;">Your entire terminal — every setup, trade, journal entry, plan, and note — lives in this browser's storage. This is <strong>not affected by redeploying the site</strong> (pushing a new index.html doesn't touch browser storage at all) — the real risk is switching browsers/computers, clearing your cache, or a crash. Export a backup regularly as the safety net for those. <strong>The backup file includes any API keys you've saved (Gemini, GitHub, FMP, Alpaca) — treat it like a password file, don't share it.</strong></div>
+          <div class="note" id="last-backup-status" style="margin-bottom:10px;"></div>
           <button class="btn btn-accent" onclick="exportAllData()">⬇ Export Full Backup</button>
           <div style="margin-top:14px;">
             <input type="file" id="restore-file-input" accept=".json" style="font-size:12px;color:var(--muted);" />
@@ -2447,7 +2491,11 @@
 
   <script>
     // ===================== WELCOME SPLASH =====================
-    const WELCOME_QUOTES = [
+    // Shared, persistent, user-editable quote pool — powers both the splash
+    // screen and the Home page. Seeded with these defaults only the first
+    // time (nothing saved yet); once saved, localStorage is the source of
+    // truth and this const is never consulted again.
+    const QUOTES_SEED = [
       { text: "Consistency compounds. A single lucky trade never does.", attr: "Trading Terminal Principles" },
       { text: "It's not whether you're right or wrong, but how much you make when right and how much you lose when wrong.", attr: "George Soros" },
       { text: "The big money is not in the buying and selling, but in the waiting.", attr: "Charlie Munger" },
@@ -2458,10 +2506,69 @@
       { text: "A repeatable operating system beats a brilliant one-off trade.", attr: "Trading Terminal Principles" },
       { text: "An arrow can only be shot by pulling it backward. When life drags you back, it's loading you up to launch you forward.", attr: "Paulo Coelho" }
     ];
+    function getSharedQuotes() {
+      try {
+        const stored = JSON.parse(localStorage.getItem("tt_quotes") || "null");
+        if (Array.isArray(stored) && stored.length) return stored;
+      } catch (e) {}
+      return JSON.parse(JSON.stringify(QUOTES_SEED));
+    }
+    function saveSharedQuotes(list) {
+      localStorage.setItem("tt_quotes", JSON.stringify(list));
+    }
+    function addHomeQuote() {
+      const textEl = document.getElementById("home-quote-input");
+      const attrEl = document.getElementById("home-quote-attr-input");
+      const text = textEl ? textEl.value.trim() : "";
+      const attr = attrEl && attrEl.value.trim() ? attrEl.value.trim() : "You";
+      if (!text) { alert("Type a quote or principle first."); return; }
+      const quotes = getSharedQuotes();
+      quotes.push({ text, attr });
+      saveSharedQuotes(quotes);
+      textEl.value = "";
+      attrEl.value = "";
+      renderHomeQuotesList();
+    }
+    function deleteHomeQuote(idx) {
+      const quotes = getSharedQuotes();
+      if (quotes.length <= 1) { alert("Keep at least one quote — add a new one before removing the last."); return; }
+      quotes.splice(idx, 1);
+      saveSharedQuotes(quotes);
+      renderHomeQuotesList();
+    }
+    function renderHomeQuotesList() {
+      const el = document.getElementById("home-quotes-list");
+      if (!el) return;
+      const quotes = getSharedQuotes();
+      el.innerHTML = quotes.map((q, i) => `
+        <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+          <div>
+            <div style="font-size:13px;font-style:italic;">${q.text.replace(/</g, "&lt;")}</div>
+            <div class="muted" style="font-size:11px;margin-top:4px;">— ${(q.attr || "").replace(/</g, "&lt;")}</div>
+          </div>
+          <button class="btn btn-sm" style="flex-shrink:0;" onclick="deleteHomeQuote(${i})">Remove</button>
+        </div>`).join("");
+    }
+    let homeQuoteIdx = -1;
+    function showNextHomeQuote() {
+      const quotes = getSharedQuotes();
+      if (!quotes.length) return;
+      homeQuoteIdx = (homeQuoteIdx + 1) % quotes.length;
+      const q = quotes[homeQuoteIdx];
+      const textEl = document.getElementById("home-featured-text");
+      const attrEl = document.getElementById("home-featured-attr");
+      const card = document.getElementById("home-featured-card");
+      if (!textEl || !attrEl) return;
+      textEl.textContent = q.text;
+      attrEl.textContent = "— " + q.attr;
+      if (card) { card.style.animation = "none"; void card.offsetWidth; card.style.animation = ""; }
+    }
     let welcomeQuoteIdx = -1;
     function showNextWelcomeQuote() {
-      welcomeQuoteIdx = (welcomeQuoteIdx + 1) % WELCOME_QUOTES.length;
-      const q = WELCOME_QUOTES[welcomeQuoteIdx];
+      const quotes = getSharedQuotes();
+      if (!quotes.length) return;
+      welcomeQuoteIdx = (welcomeQuoteIdx + 1) % quotes.length;
+      const q = quotes[welcomeQuoteIdx];
       const card = document.getElementById("welcome-card");
       const textEl = document.getElementById("welcome-quote-text");
       const attrEl = document.getElementById("welcome-quote-attr");
@@ -5088,6 +5195,112 @@
       `;
       document.getElementById("detail-modal").classList.add("open");
     }
+    function showKpiBreakdown(kind) {
+      const positions = getOpenPositionsWithUnrealized();
+      const p = getPortfolioSnapshot();
+      const equity = getCurrentPortfolioValueComputed();
+      let title, subtitle, rows, totalLabel, totalVal, extraNote = "";
+
+      if (kind === "deployed" || kind === "deployedPct") {
+        // "Deployed" = current market value where we have a price, falling
+        // back to cost basis (entry × qty) for positions with no current
+        // price entered yet — same convention as the headline KPI, which is
+        // just currentValue - cash and doesn't itself distinguish the two.
+        const items = positions.map(pos => {
+          const val = pos.currentPrice != null ? pos.currentPrice * pos.qty : pos.entry * pos.qty;
+          return { ticker: pos.ticker, val, priced: pos.currentPrice != null };
+        }).sort((a, b) => b.val - a.val);
+        const total = items.reduce((a, x) => a + x.val, 0);
+        title = "Capital Deployed by Ticker";
+        subtitle = "Current market value where a price is entered, cost basis otherwise — largest position first.";
+        rows = items.map(x => `<tr>
+          <td><span class="ticker">${x.ticker}</span></td>
+          <td>$${x.val.toFixed(2)}</td>
+          <td class="muted" style="font-size:11px;">${total > 0 ? ((x.val / total) * 100).toFixed(1) : "0.0"}% of deployed</td>
+          <td class="muted" style="font-size:11px;">${equity > 0 ? ((x.val / equity) * 100).toFixed(1) : "0.0"}% of equity</td>
+          <td class="muted" style="font-size:10px;">${x.priced ? "" : "cost basis — no current price entered"}</td>
+        </tr>`).join("");
+        totalLabel = "Total deployed"; totalVal = total;
+      } else if (kind === "unrealized") {
+        const items = positions.filter(pos => pos.unrealized != null)
+          .map(pos => ({ ticker: pos.ticker, val: pos.unrealized }))
+          .sort((a, b) => b.val - a.val);
+        const total = items.reduce((a, x) => a + x.val, 0);
+        title = "Unrealized P&L by Ticker";
+        subtitle = "Open positions with a current price entered — biggest gain first, biggest loss last.";
+        rows = items.map(x => `<tr>
+          <td><span class="ticker">${x.ticker}</span></td>
+          <td class="${x.val >= 0 ? "pos" : "neg"}" style="font-weight:600;">$${x.val.toFixed(2)}</td>
+          <td class="muted" style="font-size:11px;">${equity > 0 ? ((x.val / equity) * 100).toFixed(2) : "0.00"}% of equity</td>
+        </tr>`).join("");
+        totalLabel = "Total unrealized"; totalVal = total;
+        const noPriceCount = positions.filter(pos => pos.unrealized == null).length;
+        if (noPriceCount) extraNote = `<div class="note" style="margin-top:10px;">${noPriceCount} open position${noPriceCount === 1 ? "" : "s"} excluded — no current price entered on the Positions page yet.</div>`;
+      } else if (kind === "realized") {
+        let baselineDate = null;
+        try { const b = JSON.parse(localStorage.getItem("tt_baseline") || "null"); if (b && b.date) baselineDate = b.date; } catch (e) {}
+        const closed = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl) && (!baselineDate || !t.date || t.date >= baselineDate));
+        const byTicker = {};
+        closed.forEach(t => { byTicker[t.ticker] = (byTicker[t.ticker] || 0) + (t.pnl || 0); });
+        const items = Object.entries(byTicker).map(([ticker, val]) => ({ ticker, val })).sort((a, b) => b.val - a.val);
+        const total = items.reduce((a, x) => a + x.val, 0);
+        title = "Realized P&L by Ticker";
+        subtitle = (baselineDate ? "Since your baseline date, " : "All-time, ") + "biggest net winner first, biggest net loser last. Click a ticker on the By Ticker panel below for every individual trade.";
+        rows = items.map(x => `<tr>
+          <td><span class="ticker" style="cursor:pointer;" onclick="closeDetail();showTickerTradeDetail('${x.ticker}')">${x.ticker}</span></td>
+          <td class="${x.val >= 0 ? "pos" : "neg"}" style="font-weight:600;">$${x.val.toFixed(2)}</td>
+          <td class="muted" style="font-size:11px;">${total !== 0 ? Math.abs((x.val / total) * 100).toFixed(1) : "0.0"}% of gross total</td>
+        </tr>`).join("");
+        totalLabel = "Net realized"; totalVal = total;
+      } else if (kind === "drawdown") {
+        // Drawdown is a portfolio-level peak-vs-current concept, not a sum
+        // over tickers — there's no valid way to split "how far below peak"
+        // cleanly by ticker (we don't track the date the peak was set, so
+        // "what's happened since peak" can't be attributed precisely). Shown
+        // as a clear explanation instead of a forced, misleading breakdown.
+        const peak = Math.max(p.peak || 0, equity);
+        const gap = peak - equity;
+        title = "Current Drawdown — What This Means";
+        subtitle = "";
+        rows = "";
+        document.getElementById("detail-content").innerHTML = `
+          <div class="modal-header">
+            <button class="modal-close" onclick="closeDetail()">×</button>
+            <div class="modal-company">${title}</div>
+          </div>
+          <div class="qualify-panel">
+            <p style="font-size:13px;line-height:1.6;">Drawdown compares your current equity to the highest equity you've ever reached (peak) — it's a portfolio-level measure over time, not something that splits cleanly by ticker, since it depends on <em>when</em> the peak happened, not just what's open right now.</p>
+            <table style="font-size:12px;margin-top:10px;">
+              <tr><td style="padding:6px 10px;">Peak equity (all-time)</td><td style="padding:6px 10px;font-weight:600;">$${peak.toFixed(2)}</td></tr>
+              <tr><td style="padding:6px 10px;">Current equity</td><td style="padding:6px 10px;font-weight:600;">$${equity.toFixed(2)}</td></tr>
+              <tr><td style="padding:6px 10px;">Gap from peak</td><td style="padding:6px 10px;font-weight:600;" class="${gap > 0 ? "neg" : ""}">$${gap.toFixed(2)}</td></tr>
+            </table>
+            <div class="note" style="margin-top:10px;">What you can inspect directly: <a href="#" onclick="closeDetail();return false;" style="color:var(--accent);">Unrealized P&L by ticker</a> and <a href="#" onclick="closeDetail();return false;" style="color:var(--accent);">Realized P&L by ticker</a> above, since those two together are what move current equity relative to peak.</div>
+          </div>
+          <div style="margin-top:10px;"><button class="btn" onclick="closeDetail()">Close</button></div>
+        `;
+        document.getElementById("detail-modal").classList.add("open");
+        return;
+      } else {
+        return;
+      }
+
+      document.getElementById("detail-content").innerHTML = `
+        <div class="modal-header">
+          <button class="modal-close" onclick="closeDetail()">×</button>
+          <div class="modal-company">${title}</div>
+          <div class="modal-catalyst">${subtitle}</div>
+        </div>
+        <div class="qualify-panel" style="overflow-x:auto;">
+          ${rows ? `<table style="font-size:12px;"><tbody>${rows}</tbody></table>
+          <div class="note" style="margin-top:10px;">${totalLabel}: <strong class="${totalVal >= 0 ? "pos" : "neg"}">$${totalVal.toFixed(2)}</strong></div>`
+          : `<div class="wl-empty">Nothing to show yet.</div>`}
+          ${extraNote}
+        </div>
+        <div style="margin-top:10px;"><button class="btn" onclick="closeDetail()">Close</button></div>
+      `;
+      document.getElementById("detail-modal").classList.add("open");
+    }
     function openNewsFor(ticker) {
       closeDetail();
       navTo("news");
@@ -5246,6 +5459,83 @@
       if (sub === "moonjelly-ask") renderMoonjellySavedAnswers();
     }
 
+    function switchVisionSub(el) {
+      const sub = el.getAttribute("data-vision-sub");
+      document.querySelectorAll("#vision > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll(".vision-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
+      const panel = document.getElementById(sub);
+      if (panel) {
+        panel.style.display = "block";
+        panel.classList.add("active");
+      }
+      if (sub === "vision-goals") renderVisionGoals();
+    }
+
+    const GOALS_DEFAULT = {
+      shortTerm: { label: "Short Term", year: "", process: "", portfolio: "" },
+      mediumTerm: { label: "Medium Term", year: "", process: "", portfolio: "" },
+      longTerm: { label: "Long Term", year: "", process: "", portfolio: "" }
+    };
+    function getVisionGoals() {
+      try {
+        const stored = JSON.parse(localStorage.getItem("tt_goals") || "null");
+        if (!stored) return JSON.parse(JSON.stringify(GOALS_DEFAULT));
+        // Per-field merge so a new horizon or field added later still shows
+        // up for someone with an older saved version — same convention
+        // getSetups() already uses.
+        const merged = {};
+        for (const key of Object.keys(GOALS_DEFAULT)) {
+          merged[key] = { ...GOALS_DEFAULT[key], ...(stored[key] || {}) };
+        }
+        return merged;
+      } catch (e) { return JSON.parse(JSON.stringify(GOALS_DEFAULT)); }
+    }
+    function saveVisionGoalsField(horizon, field, value) {
+      const goals = getVisionGoals();
+      if (!goals[horizon]) return;
+      goals[horizon][field] = value;
+      localStorage.setItem("tt_goals", JSON.stringify(goals));
+    }
+    function saveVisionGoalHorizon(horizon) {
+      const yearEl = document.getElementById(`goal-${horizon}-year`);
+      const processEl = document.getElementById(`goal-${horizon}-process`);
+      const portfolioEl = document.getElementById(`goal-${horizon}-portfolio`);
+      const goals = getVisionGoals();
+      if (!goals[horizon]) return;
+      goals[horizon].year = yearEl ? yearEl.value.trim() : "";
+      goals[horizon].process = processEl ? processEl.value.trim() : "";
+      goals[horizon].portfolio = portfolioEl ? portfolioEl.value.trim() : "";
+      localStorage.setItem("tt_goals", JSON.stringify(goals));
+      const status = document.getElementById(`goal-${horizon}-status`);
+      if (status) {
+        status.textContent = "Saved " + new Date().toLocaleTimeString();
+        setTimeout(() => { if (status) status.textContent = ""; }, 2500);
+      }
+    }
+    function renderVisionGoals() {
+      const body = document.getElementById("vision-goals-body");
+      if (!body) return;
+      const goals = getVisionGoals();
+      body.innerHTML = Object.entries(goals).map(([key, g]) => `
+        <div class="panel" style="margin:0;">
+          <div class="panel-header">${g.label}</div>
+          <div class="panel-body">
+            <div class="form-group"><label>Target Year</label><input type="text" id="goal-${key}-year" value="${(g.year || "").replace(/"/g, "&quot;")}" placeholder="e.g. 2027" style="width:100px;" /></div>
+            <div class="form-group" style="margin-top:10px;"><label>Process Goals</label>
+              <textarea id="goal-${key}-process" rows="4" style="width:100%;" placeholder="What does your process look like by then — what's automated, what discipline is second nature, what setups are you running?">${(g.process || "").replace(/</g, "&lt;")}</textarea>
+            </div>
+            <div class="form-group" style="margin-top:10px;"><label>Portfolio Goals</label>
+              <textarea id="goal-${key}-portfolio" rows="4" style="width:100%;" placeholder="Where do you want the portfolio itself to be — size, composition, risk profile?">${(g.portfolio || "").replace(/</g, "&lt;")}</textarea>
+            </div>
+            <div style="margin-top:10px;">
+              <button class="btn btn-accent" onclick="saveVisionGoalHorizon('${key}')">Save</button>
+              <span class="muted" id="goal-${key}-status" style="font-size:11px;margin-left:6px;"></span>
+            </div>
+          </div>
+        </div>`).join("");
+    }
+
     function switchPFSub(el) {
       const sub = el.getAttribute("data-pf-sub");
       document.querySelectorAll("#process-flow > .steps .step-tab").forEach(t => t.classList.remove("active"));
@@ -5360,6 +5650,23 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      // Tracked AFTER the data snapshot above so this timestamp itself never
+      // ends up counted as part of what got backed up.
+      localStorage.setItem("tt_last_backup_at", new Date().toISOString());
+      renderLastBackupStatus();
+    }
+    function renderLastBackupStatus() {
+      const el = document.getElementById("last-backup-status");
+      if (!el) return;
+      const raw = localStorage.getItem("tt_last_backup_at");
+      if (!raw) {
+        el.innerHTML = `<span class="neg">No backup taken yet in this browser.</span>`;
+        return;
+      }
+      const last = new Date(raw);
+      const daysAgo = (Date.now() - last.getTime()) / 86400000;
+      const cls = daysAgo > 14 ? "neg" : daysAgo > 5 ? "" : "pos";
+      el.innerHTML = `Last backup: <span class="${cls}">${last.toLocaleString()}</span>${daysAgo > 5 ? ` — ${Math.round(daysAgo)} day${Math.round(daysAgo) === 1 ? "" : "s"} ago, worth exporting a fresh one` : ""}`;
     }
     function importAllData() {
       const input = document.getElementById("restore-file-input");
@@ -7016,12 +7323,12 @@ Question: ${question}`;
         kpi("Starting Portfolio Value", money(p.startValue)) +
         kpi("Current Portfolio Value (auto)", money(currentValue), currentValue >= p.startValue ? "pos" : "neg") +
         kpi("Current Cash Balance", money(p.cash)) +
-        kpi("$ Capital Deployed", money(deployed)) +
-        kpi("% Capital Deployed", deployedPct.toFixed(2) + "%") +
-        kpi("Realized PnL (since baseline)", money(realized), realized >= 0 ? "pos" : "neg") +
-        kpi("Unrealized PnL (auto)", money(unrealized), unrealized >= 0 ? "pos" : "neg") +
+        kpi("$ Capital Deployed", money(deployed), "", "showKpiBreakdown('deployed')") +
+        kpi("% Capital Deployed", deployedPct.toFixed(2) + "%", "", "showKpiBreakdown('deployedPct')") +
+        kpi("Realized PnL (since baseline)", money(realized), realized >= 0 ? "pos" : "neg", "showKpiBreakdown('realized')") +
+        kpi("Unrealized PnL (auto)", money(unrealized), unrealized >= 0 ? "pos" : "neg", "showKpiBreakdown('unrealized')") +
         kpi("Total Heat", money(p.heat), "", "showHeatByTicker()") +
-        kpi("Current Drawdown %", currentDd.toFixed(2) + "%", currentDd < 0 ? "neg" : "") +
+        kpi("Current Drawdown %", currentDd.toFixed(2) + "%", currentDd < 0 ? "neg" : "", "showKpiBreakdown('drawdown')") +
         kpi("Peak Portfolio Value (auto)", money(peak), "") +
         kpi("Max Drawdown from Peak %", maxDdFromPeak.toFixed(2) + "%", maxDdFromPeak < 0 ? "neg" : "");
     }
@@ -7554,6 +7861,8 @@ Question: ${question}`;
       }
       if (section === "market-monitor") loadMarketMonitorData();
       if (section === "vision") { loadVisionFields(); renderVisionPrinciples(); }
+      if (section === "home") { showNextHomeQuote(); renderHomeQuotesList(); }
+      if (section === "maintenance") { renderLastBackupStatus(); }
       if (section === "trade-factory") renderTradeFactory();
       if (section === "positions") { loadBaselineUI(); renderFmpClientKeyStatus(); renderPositions(); renderRiskGauge(); fetchAllLivePrices(true); }
       if (section === "fund-ownership") renderCustomList("fundownership");
