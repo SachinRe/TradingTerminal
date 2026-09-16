@@ -496,6 +496,14 @@
       100% { transform: translateY(-70px) scale(2.4); opacity: 0; }
     }
     .w-smoke { animation: wSmokeRise 4s ease-out infinite; }
+    .home-smoke { animation: wSmokeRise 4s ease-out infinite; }
+    @keyframes homeCardPop {
+      0%   { opacity: 0; transform: translateY(-16px) scale(0.92); }
+      12%  { opacity: 1; transform: translateY(0) scale(1); }
+      88%  { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(10px) scale(0.97); }
+    }
+    .home-quote-card { animation: homeCardPop 6s ease-in-out infinite; }
 
     .welcome-content {
       position: relative; z-index: 2;
@@ -594,7 +602,7 @@
   </div>
 
   <div class="header">
-    <h1>TRADING TERMINAL</h1>
+    <h1 style="cursor:pointer;" onclick="navTo('home', document.querySelector('[data-section=home]'))" title="Go to Home">TRADING TERMINAL</h1>
     <div class="meta">
       <span>Market Monitor → SIPs</span>
       <span id="clock">--:--:-- ET</span>
@@ -672,7 +680,7 @@
   <nav class="sidebar" id="sidebar">
     <div class="nav-group">
       <div class="nav-group-title">1 · Vision</div>
-      <div class="nav-item" data-section="home" onclick="navTo('home', this)">Home</div>
+      <div class="nav-item active" data-section="home" onclick="navTo('home', this)">Home</div>
       <div class="nav-item" data-section="vision" onclick="navTo('vision', this)">Vision &amp; Principles</div>
     </div>
     <div class="nav-group">
@@ -682,7 +690,7 @@
     </div>
     <div class="nav-group">
       <div class="nav-group-title">3 · Context</div>
-      <div class="nav-item active" data-section="market-monitor" onclick="navTo('market-monitor', this)">Market Monitor</div>
+      <div class="nav-item" data-section="market-monitor" onclick="navTo('market-monitor', this)">Market Monitor</div>
       <div class="nav-item" data-section="news" onclick="navTo('news', this)">News</div>
     </div>
     <div class="nav-group">
@@ -786,7 +794,7 @@
       </div>
     </div>
 
-    <div id="market-monitor" class="section active">
+    <div id="market-monitor" class="section">
       <div class="steps" style="border:1px solid var(--border);border-radius:6px 6px 0 0;margin-bottom:0;background:#0f172a;">
         <div class="step-tab active" data-mm-sub="mm-tab-checklist" onclick="switchMMSub(this)">Checklist</div>
         <div class="step-tab" data-mm-sub="mm-regime" onclick="switchMMSub(this)">Regime</div>
@@ -1085,34 +1093,85 @@
       </div><!-- end mm-tab-checklist -->
     </div>
 
-    <!-- VISION -->
-        <div id="home" class="section">
-      <div class="panel">
-        <div class="panel-header">Featured Principle</div>
-        <div class="panel-body" style="position:relative;">
-          <div id="home-featured-card" style="background:#111827;border:1px solid #eab308;border-radius:12px;padding:26px 30px;min-height:110px;">
-            <div style="font-family:Cambria,Georgia,serif;font-size:40px;font-weight:800;color:#eab308;line-height:1;margin-bottom:4px;">&ldquo;</div>
-            <div id="home-featured-text" style="font-family:Cambria,Georgia,serif;font-size:20px;font-style:italic;color:var(--text);line-height:1.4;"></div>
-            <div id="home-featured-attr" style="font-size:13px;color:var(--muted);margin-top:12px;"></div>
+    <!-- HOME -->
+        <div id="home" class="section active">
+      <div class="steps">
+        <div class="step-tab active" data-home-sub="home-landing" onclick="switchHomeSub(this)">Home</div>
+        <div class="step-tab" data-home-sub="home-quotes-manage" onclick="switchHomeSub(this)">Quotes</div>
+      </div>
+
+      <div id="home-landing" class="home-sub active">
+        <div class="panel" style="overflow:hidden;">
+          <div class="panel-body" style="padding:0;">
+            <div style="position:relative;height:460px;background:#0a1220;overflow:hidden;">
+              <svg class="home-bg-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;">
+                <defs>
+                  <linearGradient id="homeSky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#0a1220"/>
+                    <stop offset="100%" stop-color="#0f1b2e"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="1600" height="900" fill="url(#homeSky)"/>
+                <g opacity="0.55">
+                  <rect x="80" y="520" width="1440" height="260" fill="#132a23"/>
+                  <path d="M80,520 L260,420 L440,520 Z" fill="#132a23"/>
+                  <path d="M760,520 L940,420 L1120,520 Z" fill="#132a23"/>
+                  <path d="M1240,520 L1420,420 L1520,520 Z" fill="#132a23"/>
+                  <rect x="320" y="360" width="26" height="65" fill="#132a23"/>
+                  <rect x="1080" y="360" width="26" height="65" fill="#132a23"/>
+                </g>
+                <g opacity="0.5">
+                  <circle class="home-smoke" cx="333" cy="350" r="12" fill="#3b4a5e" style="animation-delay:0s;"/>
+                  <circle class="home-smoke" cx="333" cy="350" r="12" fill="#3b4a5e" style="animation-delay:1.3s;"/>
+                  <circle class="home-smoke" cx="333" cy="350" r="12" fill="#3b4a5e" style="animation-delay:2.6s;"/>
+                  <circle class="home-smoke" cx="1093" cy="350" r="12" fill="#3b4a5e" style="animation-delay:0.6s;"/>
+                  <circle class="home-smoke" cx="1093" cy="350" r="12" fill="#3b4a5e" style="animation-delay:1.9s;"/>
+                  <circle class="home-smoke" cx="1093" cy="350" r="12" fill="#3b4a5e" style="animation-delay:3.2s;"/>
+                </g>
+                <rect x="0" y="780" width="1600" height="24" fill="#334155"/>
+                <g id="homeRollers"></g>
+                <g id="homeCandles" opacity="0.35"></g>
+              </svg>
+
+              <div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px;">
+                  <img src="assets/moonjelly-logo-transparent.png" alt="" style="height:32px;width:32px;">
+                  <span style="font-size:12px;font-weight:700;letter-spacing:3px;color:#94a3b8;">THE TRADING TERMINAL</span>
+                </div>
+
+                <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+                  <div style="width:130px;height:30px;background:#1e293b;border:1px solid #334155;border-radius:6px 6px 3px 3px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,0.4);">
+                    <div style="width:90px;height:5px;background:#0a1220;border-radius:3px;"></div>
+                  </div>
+                  <div id="home-quote-card" class="home-quote-card" style="margin-top:14px;min-height:130px;width:100%;max-width:560px;background:#111827;border:1px solid #eab308;border-radius:12px;padding:24px 30px;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+                    <div style="font-family:Cambria,Georgia,serif;font-size:36px;font-weight:800;color:#eab308;line-height:1;margin-bottom:4px;">&ldquo;</div>
+                    <div id="home-landing-text" style="font-family:Cambria,Georgia,serif;font-size:19px;font-style:italic;color:#f1f5f9;line-height:1.4;"></div>
+                    <div id="home-landing-attr" style="font-size:12px;color:#94a3b8;margin-top:10px;"></div>
+                  </div>
+                </div>
+
+                <div style="font-size:12px;color:#64748b;font-style:italic;margin-top:20px;">Manufacturing consistency, one principle at a time.</div>
+              </div>
+            </div>
           </div>
-          <div style="margin-top:10px;"><button class="btn btn-sm" onclick="showNextHomeQuote()">Next principle →</button></div>
         </div>
-      </div>
+      </div><!-- end home-landing -->
 
-      <div class="panel">
-        <div class="panel-header">Add a Quote or Principle</div>
-        <div class="panel-body">
-          <div class="note" style="margin-bottom:8px;">These feed both this page and the animated splash you see when the terminal loads — one shared list.</div>
-          <div class="form-group"><label>Quote / Principle</label><textarea id="home-quote-input" rows="2" style="width:100%;" placeholder="e.g. Cut losers fast. Be patient with winners — especially the big ones."></textarea></div>
-          <div class="form-group" style="margin-top:8px;"><label>Attribution</label><input type="text" id="home-quote-attr-input" style="width:260px;" placeholder="e.g. your name, or a real source" /></div>
-          <div style="margin-top:8px;"><button class="btn btn-accent" onclick="addHomeQuote()">Add</button></div>
+      <div id="home-quotes-manage" class="home-sub" style="display:none;">
+        <div class="panel">
+          <div class="panel-header">Add a Quote or Principle</div>
+          <div class="panel-body">
+            <div class="note" style="margin-bottom:8px;">Feeds the Home animation and the splash screen you see when the terminal loads — one shared list.</div>
+            <div class="form-group"><label>Quote / Principle</label><textarea id="home-quote-input" rows="2" style="width:100%;" placeholder="e.g. Cut losers fast. Be patient with winners — especially the big ones."></textarea></div>
+            <div class="form-group" style="margin-top:8px;"><label>Attribution</label><input type="text" id="home-quote-attr-input" style="width:260px;" placeholder="e.g. your name, or a real source" /></div>
+            <div style="margin-top:8px;"><button class="btn btn-accent" onclick="addHomeQuote()">Add</button></div>
+          </div>
         </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">All Saved Quotes &amp; Principles</div>
-        <div class="panel-body"><div id="home-quotes-list"></div></div>
-      </div>
+        <div class="panel">
+          <div class="panel-header">All Saved Quotes &amp; Principles</div>
+          <div class="panel-body"><div id="home-quotes-list"></div></div>
+        </div>
+      </div><!-- end home-quotes-manage -->
     </div>
 
     <!-- VISION -->
@@ -2218,17 +2277,18 @@
         </div>
       </div>
       <div class="panel">
-        <div class="panel-header">Live Price Source · FMP API Key</div>
+        <div class="panel-header">Live Price Source · Alpaca API Keys</div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:8px;">
-            Live price lookups use Financial Modeling Prep's free-tier API — a real, properly-licensed developer API, not a scraped endpoint. Your key lives only in this browser's local storage and is sent directly to FMP when fetching prices, never written to the repo. Same key you set up for the scheduled screener works here too.
+            Live prices for open positions use Alpaca's free real-time (IEX feed) market data — the same source the scheduled screener uses server-side, now called directly from your browser for your specific open tickers. Free Paper Trading account, no funding required. Your keys live only in this browser's local storage and are sent directly to Alpaca when fetching prices, never written to the repo.
           </div>
           <div class="form-row">
-            <input type="password" id="fmp-client-key-input" placeholder="Paste your FMP API key" style="width:280px;" />
-            <button class="btn btn-sm btn-accent" onclick="saveFmpClientKey()">Save key</button>
-            <button class="btn btn-sm" onclick="clearFmpClientKey()">Clear key</button>
+            <input type="password" id="alpaca-client-keyid-input" placeholder="Alpaca Key ID" style="width:220px;" />
+            <input type="password" id="alpaca-client-secret-input" placeholder="Alpaca Secret Key" style="width:220px;" />
+            <button class="btn btn-sm btn-accent" onclick="saveAlpacaClientKeys()">Save keys</button>
+            <button class="btn btn-sm" onclick="clearAlpacaClientKeys()">Clear keys</button>
           </div>
-          <div class="muted" style="font-size:11px;margin-top:6px;" id="fmp-client-key-status">No FMP key saved yet — live price fetch will fail until you add one.</div>
+          <div class="muted" style="font-size:11px;margin-top:6px;" id="alpaca-client-key-status">No Alpaca keys saved yet — current prices below will stay blank until you add them.</div>
         </div>
       </div>
       <div class="panel">
@@ -2536,18 +2596,54 @@
       saveSharedQuotes(quotes);
       renderHomeQuotesList();
     }
+    let homeQuoteEditIdx = -1;
+    function editHomeQuote(idx) {
+      homeQuoteEditIdx = idx;
+      renderHomeQuotesList();
+    }
+    function cancelHomeQuoteEdit() {
+      homeQuoteEditIdx = -1;
+      renderHomeQuotesList();
+    }
+    function saveHomeQuoteEdit(idx) {
+      const textEl = document.getElementById(`home-quote-edit-text-${idx}`);
+      const attrEl = document.getElementById(`home-quote-edit-attr-${idx}`);
+      const text = textEl ? textEl.value.trim() : "";
+      if (!text) { alert("Quote text can't be empty."); return; }
+      const quotes = getSharedQuotes();
+      if (!quotes[idx]) return;
+      quotes[idx] = { text, attr: attrEl && attrEl.value.trim() ? attrEl.value.trim() : "You" };
+      saveSharedQuotes(quotes);
+      homeQuoteEditIdx = -1;
+      renderHomeQuotesList();
+    }
     function renderHomeQuotesList() {
       const el = document.getElementById("home-quotes-list");
       if (!el) return;
       const quotes = getSharedQuotes();
-      el.innerHTML = quotes.map((q, i) => `
+      el.innerHTML = quotes.map((q, i) => {
+        if (i === homeQuoteEditIdx) {
+          return `<div style="background:#0f172a;border:1px solid var(--accent);border-radius:8px;padding:10px 12px;margin-bottom:8px;">
+            <textarea id="home-quote-edit-text-${i}" rows="2" style="width:100%;font-size:13px;">${q.text.replace(/</g, "&lt;")}</textarea>
+            <input type="text" id="home-quote-edit-attr-${i}" value="${(q.attr || "").replace(/"/g, "&quot;")}" style="width:220px;margin-top:6px;" placeholder="Attribution" />
+            <div style="margin-top:8px;">
+              <button class="btn btn-sm btn-accent" onclick="saveHomeQuoteEdit(${i})">Save</button>
+              <button class="btn btn-sm" onclick="cancelHomeQuoteEdit()">Cancel</button>
+            </div>
+          </div>`;
+        }
+        return `
         <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
           <div>
             <div style="font-size:13px;font-style:italic;">${q.text.replace(/</g, "&lt;")}</div>
             <div class="muted" style="font-size:11px;margin-top:4px;">— ${(q.attr || "").replace(/</g, "&lt;")}</div>
           </div>
-          <button class="btn btn-sm" style="flex-shrink:0;" onclick="deleteHomeQuote(${i})">Remove</button>
-        </div>`).join("");
+          <div style="flex-shrink:0;display:flex;gap:6px;">
+            <button class="btn btn-sm" onclick="editHomeQuote(${i})">Edit</button>
+            <button class="btn btn-sm" onclick="deleteHomeQuote(${i})">Remove</button>
+          </div>
+        </div>`;
+      }).join("");
     }
     let homeQuoteIdx = -1;
     function showNextHomeQuote() {
@@ -2555,13 +2651,61 @@
       if (!quotes.length) return;
       homeQuoteIdx = (homeQuoteIdx + 1) % quotes.length;
       const q = quotes[homeQuoteIdx];
-      const textEl = document.getElementById("home-featured-text");
-      const attrEl = document.getElementById("home-featured-attr");
-      const card = document.getElementById("home-featured-card");
+      const textEl = document.getElementById("home-landing-text");
+      const attrEl = document.getElementById("home-landing-attr");
+      const card = document.getElementById("home-quote-card");
       if (!textEl || !attrEl) return;
       textEl.textContent = q.text;
       attrEl.textContent = "— " + q.attr;
       if (card) { card.style.animation = "none"; void card.offsetWidth; card.style.animation = ""; }
+    }
+    let homeLandingInitialized = false;
+    function initHomeLanding() {
+      showNextHomeQuote();
+      if (homeLandingInitialized) return; // guard against a second interval piling up on repeat visits
+      homeLandingInitialized = true;
+      setInterval(showNextHomeQuote, 5500);
+      const rollers = document.getElementById("homeRollers");
+      if (rollers) {
+        let html = "";
+        for (let x = 60; x <= 1540; x += 110) {
+          html += `<circle cx="${x}" cy="804" r="14" fill="#64748b" stroke="#1e293b" stroke-width="2"/>`;
+        }
+        rollers.innerHTML = html;
+      }
+      const candles = document.getElementById("homeCandles");
+      if (candles) {
+        let html = "";
+        let seed = 11;
+        const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+        const count = 34;
+        const w = 1600 / count;
+        for (let i = 0; i < count; i++) {
+          const x = i * w + w * 0.2;
+          const bodyW = w * 0.42;
+          const up = rnd() > 0.45;
+          const bodyH = 8 + rnd() * 34;
+          const wickH = bodyH + 6 + rnd() * 16;
+          const color = up ? "#22c55e" : "#ef4444";
+          const yBase = 770;
+          html += `<line x1="${x + bodyW / 2}" y1="${yBase - wickH}" x2="${x + bodyW / 2}" y2="${yBase + wickH}" stroke="${color}" stroke-width="1.5"/>`;
+          html += `<rect x="${x}" y="${yBase - bodyH}" width="${bodyW}" height="${bodyH * 2}" fill="${color}"/>`;
+        }
+        candles.innerHTML = html;
+      }
+    }
+    function switchHomeSub(el) {
+      const sub = el.getAttribute("data-home-sub");
+      document.querySelectorAll("#home > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll(".home-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
+      const panel = document.getElementById(sub);
+      if (panel) {
+        panel.style.display = "block";
+        panel.classList.add("active");
+      }
+      if (sub === "home-landing") initHomeLanding();
+      if (sub === "home-quotes-manage") renderHomeQuotesList();
     }
     let welcomeQuoteIdx = -1;
     function showNextWelcomeQuote() {
@@ -5201,33 +5345,51 @@
       const equity = getCurrentPortfolioValueComputed();
       let title, subtitle, rows, totalLabel, totalVal, extraNote = "";
 
+      let headerRow = "";
       if (kind === "deployed" || kind === "deployedPct") {
         // "Deployed" = current market value where we have a price, falling
         // back to cost basis (entry × qty) for positions with no current
         // price entered yet — same convention as the headline KPI, which is
         // just currentValue - cash and doesn't itself distinguish the two.
-        const items = positions.map(pos => {
+        // Grouped by ticker — a plan position and a Schwab lot on the same
+        // ticker combine into one row rather than showing twice.
+        const byTicker = {};
+        positions.forEach(pos => {
           const val = pos.currentPrice != null ? pos.currentPrice * pos.qty : pos.entry * pos.qty;
-          return { ticker: pos.ticker, val, priced: pos.currentPrice != null };
-        }).sort((a, b) => b.val - a.val);
+          if (!byTicker[pos.ticker]) byTicker[pos.ticker] = { ticker: pos.ticker, val: 0, qty: 0, anyPriced: false, anyUnpriced: false };
+          byTicker[pos.ticker].val += val;
+          byTicker[pos.ticker].qty += pos.qty;
+          if (pos.currentPrice != null) byTicker[pos.ticker].anyPriced = true;
+          else byTicker[pos.ticker].anyUnpriced = true;
+        });
+        const items = Object.values(byTicker).sort((a, b) => b.val - a.val);
         const total = items.reduce((a, x) => a + x.val, 0);
         title = "Capital Deployed by Ticker";
         subtitle = "Current market value where a price is entered, cost basis otherwise — largest position first.";
+        headerRow = `<tr><th>Ticker</th><th>Shares</th><th>Value $</th><th>% Deployed</th><th>% Equity</th><th></th></tr>`;
         rows = items.map(x => `<tr>
           <td><span class="ticker">${x.ticker}</span></td>
+          <td>${x.qty}</td>
           <td>$${x.val.toFixed(2)}</td>
           <td class="muted" style="font-size:11px;">${total > 0 ? ((x.val / total) * 100).toFixed(1) : "0.0"}% of deployed</td>
           <td class="muted" style="font-size:11px;">${equity > 0 ? ((x.val / equity) * 100).toFixed(1) : "0.0"}% of equity</td>
-          <td class="muted" style="font-size:10px;">${x.priced ? "" : "cost basis — no current price entered"}</td>
+          <td class="muted" style="font-size:10px;">${x.anyUnpriced ? (x.anyPriced ? "partly cost basis" : "cost basis — no current price entered") : ""}</td>
         </tr>`).join("");
         totalLabel = "Total deployed"; totalVal = total;
       } else if (kind === "unrealized") {
-        const items = positions.filter(pos => pos.unrealized != null)
-          .map(pos => ({ ticker: pos.ticker, val: pos.unrealized }))
-          .sort((a, b) => b.val - a.val);
+        // Grouped by ticker for the same reason — sum unrealized $ across
+        // any position(s) on that ticker rather than listing each separately.
+        const byTicker = {};
+        positions.forEach(pos => {
+          if (pos.unrealized == null) return;
+          if (!byTicker[pos.ticker]) byTicker[pos.ticker] = { ticker: pos.ticker, val: 0 };
+          byTicker[pos.ticker].val += pos.unrealized;
+        });
+        const items = Object.values(byTicker).sort((a, b) => b.val - a.val);
         const total = items.reduce((a, x) => a + x.val, 0);
         title = "Unrealized P&L by Ticker";
         subtitle = "Open positions with a current price entered — biggest gain first, biggest loss last.";
+        headerRow = `<tr><th>Ticker</th><th>Unrealized $</th><th>% Equity</th></tr>`;
         rows = items.map(x => `<tr>
           <td><span class="ticker">${x.ticker}</span></td>
           <td class="${x.val >= 0 ? "pos" : "neg"}" style="font-weight:600;">$${x.val.toFixed(2)}</td>
@@ -5246,6 +5408,7 @@
         const total = items.reduce((a, x) => a + x.val, 0);
         title = "Realized P&L by Ticker";
         subtitle = (baselineDate ? "Since your baseline date, " : "All-time, ") + "biggest net winner first, biggest net loser last. Click a ticker on the By Ticker panel below for every individual trade.";
+        headerRow = `<tr><th>Ticker</th><th>Net P&amp;L $</th><th>% of Gross</th></tr>`;
         rows = items.map(x => `<tr>
           <td><span class="ticker" style="cursor:pointer;" onclick="closeDetail();showTickerTradeDetail('${x.ticker}')">${x.ticker}</span></td>
           <td class="${x.val >= 0 ? "pos" : "neg"}" style="font-weight:600;">$${x.val.toFixed(2)}</td>
@@ -5292,7 +5455,7 @@
           <div class="modal-catalyst">${subtitle}</div>
         </div>
         <div class="qualify-panel" style="overflow-x:auto;">
-          ${rows ? `<table style="font-size:12px;"><tbody>${rows}</tbody></table>
+          ${rows ? `<table style="font-size:12px;"><thead>${headerRow}</thead><tbody>${rows}</tbody></table>
           <div class="note" style="margin-top:10px;">${totalLabel}: <strong class="${totalVal >= 0 ? "pos" : "neg"}">$${totalVal.toFixed(2)}</strong></div>`
           : `<div class="wl-empty">Nothing to show yet.</div>`}
           ${extraNote}
@@ -6208,68 +6371,77 @@
       const el = document.getElementById("live-price-status");
       if (el) el.textContent = text;
     }
-    function getFmpClientKey() {
-      return localStorage.getItem("tt_fmp_client_key") || "";
+    function getAlpacaClientKeys() {
+      return {
+        keyId: localStorage.getItem("tt_alpaca_client_keyid") || "",
+        secret: localStorage.getItem("tt_alpaca_client_secret") || ""
+      };
     }
-    function saveFmpClientKey() {
-      const input = document.getElementById("fmp-client-key-input");
-      const key = input ? input.value.trim() : "";
-      if (!key) { alert("Paste your FMP API key first."); return; }
-      localStorage.setItem("tt_fmp_client_key", key);
-      renderFmpClientKeyStatus();
-      alert("Key saved to this browser only — sent directly to FMP's API when fetching prices, never written to the repo.");
+    function saveAlpacaClientKeys() {
+      const keyIdInput = document.getElementById("alpaca-client-keyid-input");
+      const secretInput = document.getElementById("alpaca-client-secret-input");
+      const keyId = keyIdInput ? keyIdInput.value.trim() : "";
+      const secret = secretInput ? secretInput.value.trim() : "";
+      if (!keyId || !secret) { alert("Paste both your Alpaca Key ID and Secret Key first."); return; }
+      localStorage.setItem("tt_alpaca_client_keyid", keyId);
+      localStorage.setItem("tt_alpaca_client_secret", secret);
+      renderAlpacaClientKeyStatus();
+      alert("Keys saved to this browser only — sent directly to Alpaca's API when fetching prices, never written to the repo.");
     }
-    function clearFmpClientKey() {
-      localStorage.removeItem("tt_fmp_client_key");
-      renderFmpClientKeyStatus();
+    function clearAlpacaClientKeys() {
+      localStorage.removeItem("tt_alpaca_client_keyid");
+      localStorage.removeItem("tt_alpaca_client_secret");
+      renderAlpacaClientKeyStatus();
     }
-    function renderFmpClientKeyStatus() {
-      const el = document.getElementById("fmp-client-key-status");
+    function renderAlpacaClientKeyStatus() {
+      const el = document.getElementById("alpaca-client-key-status");
       if (!el) return;
-      const key = getFmpClientKey();
-      el.textContent = key ? "Key saved (" + key.slice(0, 4) + "…" + key.slice(-4) + ")" : "No FMP key saved yet — live price fetch will fail until you add one.";
+      const { keyId } = getAlpacaClientKeys();
+      el.textContent = keyId ? "Keys saved (Key ID " + keyId.slice(0, 4) + "…)" : "No Alpaca keys saved yet — current prices below will stay blank until you add them.";
     }
-    async function fmpQuotePrice(ticker, key) {
-      const res = await fetch(`https://financialmodelingprep.com/stable/quote?symbol=${encodeURIComponent(ticker)}&apikey=${encodeURIComponent(key)}`);
+    async function alpacaQuotePrice(ticker, keyId, secret) {
+      const headers = { "APCA-API-KEY-ID": keyId, "APCA-API-SECRET-KEY": secret };
+      const res = await fetch(`https://data.alpaca.markets/v2/stocks/snapshots?symbols=${encodeURIComponent(ticker)}&feed=iex`, { headers });
       if (!res.ok) throw new Error("HTTP " + res.status);
       const data = await res.json();
-      const q = Array.isArray(data) ? data[0] : null;
-      if (!q || q.price == null) throw new Error("No price in response");
-      return q.price;
+      const snap = data[ticker];
+      const price = snap?.latestTrade?.p ?? snap?.dailyBar?.c ?? null;
+      if (price == null) throw new Error("No price in response");
+      return price;
     }
     async function fetchLivePrice(ticker, source, btn) {
       const originalText = btn ? btn.textContent : "";
       if (btn) { btn.textContent = "…"; btn.disabled = true; }
-      const key = getFmpClientKey();
-      if (!key) {
-        setLivePriceStatus("No FMP key saved — add one below, or enter the price manually.");
+      const { keyId, secret } = getAlpacaClientKeys();
+      if (!keyId || !secret) {
+        setLivePriceStatus("No Alpaca keys saved — add them below.");
         if (btn) { btn.textContent = originalText; btn.disabled = false; }
         return;
       }
       try {
-        const price = await fmpQuotePrice(ticker, key);
+        const price = await alpacaQuotePrice(ticker, keyId, secret);
         if (source === "plan") updateWatchlistPositionPrice(ticker, price);
         else updateOpenLotPrice(ticker, price);
         renderPositions();
         setLivePriceStatus("Updated " + ticker + " · $" + Number(price).toFixed(2) + " · " + new Date().toLocaleTimeString());
       } catch (e) {
-        setLivePriceStatus("Couldn't fetch a live price for " + ticker + " (" + e.message + "). Enter it manually instead.");
+        setLivePriceStatus("Couldn't fetch a live price for " + ticker + " (" + e.message + ").");
         if (btn) { btn.textContent = originalText; btn.disabled = false; }
       }
     }
     async function fetchAllLivePrices(silent) {
       const rows = getOpenPositionsWithUnrealized();
       if (!rows.length) { if (!silent) setLivePriceStatus("No open positions to fetch prices for."); return; }
-      const key = getFmpClientKey();
-      if (!key) {
-        if (!silent) setLivePriceStatus("No FMP key saved — add one below to enable live price fetch.");
+      const { keyId, secret } = getAlpacaClientKeys();
+      if (!keyId || !secret) {
+        if (!silent) setLivePriceStatus("No Alpaca keys saved — add them below to enable live prices.");
         return;
       }
       if (!silent) setLivePriceStatus("Fetching live prices…");
       let ok = 0, failed = 0;
       for (const r of rows) {
         try {
-          const price = await fmpQuotePrice(r.ticker, key);
+          const price = await alpacaQuotePrice(r.ticker, keyId, secret);
           if (r.source === "plan") updateWatchlistPositionPrice(r.ticker, price);
           else updateOpenLotPrice(r.ticker, price);
           ok++;
@@ -6277,7 +6449,7 @@
       }
       renderPositions();
       setLivePriceStatus(ok + " of " + rows.length + " price(s) updated automatically" +
-        (failed ? " · " + failed + " unavailable — enter those manually" : "") +
+        (failed ? " · " + failed + " unavailable right now" : "") +
         " · " + new Date().toLocaleTimeString());
     }
     function getOpenPositionsWithUnrealized() {
@@ -7168,7 +7340,7 @@ Question: ${question}`;
         openBody.innerHTML =
           `<div style="margin-bottom:8px;">
             <button class="btn btn-sm" onclick="fetchAllLivePrices(false)">🔄 Try live prices for all rows</button>
-            <span class="muted" style="font-size:11px;margin-left:6px;" id="live-price-status">Best-effort — falls back to manual entry per row if blocked.</span>
+            <span class="muted" style="font-size:11px;margin-left:6px;" id="live-price-status">Read-only, from Alpaca's free real-time feed — add your keys below if this stays blank.</span>
           </div>
           <table><thead><tr><th>Ticker</th><th>Setup</th><th>Qty</th><th>Entry</th><th>Stop</th><th>Current Price</th><th>Unrealized $</th><th>Opened</th><th></th></tr></thead><tbody>` +
           openRows.map(p => {
@@ -7187,13 +7359,12 @@ Question: ${question}`;
                     style="width:75px;" onchange="${stopUpdateFn}('${p.ticker}', this.value)" title="Pulled from your watchlist plan by default — edit if the actual stop differs." />
               </td>
               <td>
-                <input type="number" step="0.01" value="${p.currentPrice != null ? p.currentPrice : ""}" placeholder="type price"
-                    style="width:80px;" onchange="${updateFn}('${p.ticker}', this.value)" />
-                <button class="btn btn-sm" style="padding:2px 6px;font-size:11px;" title="Try live price (best-effort)"
+                <span style="font-weight:600;">${p.currentPrice != null ? "$" + Number(p.currentPrice).toFixed(2) : "—"}</span>
+                <button class="btn btn-sm" style="padding:2px 6px;font-size:11px;margin-left:4px;" title="Refresh this ticker's price now"
                     onclick="fetchLivePrice('${p.ticker}', '${p.source}', this)">🔄</button>
               </td>
               <td class="${p.unrealized == null ? "muted" : p.unrealized >= 0 ? "pos" : "neg"}">
-                ${p.unrealized == null ? "enter price" : "$" + p.unrealized.toFixed(2)}
+                ${p.unrealized == null ? "no live price yet" : "$" + p.unrealized.toFixed(2)}
               </td>
               <td class="muted" style="font-size:10px;">${(p.opened || "").slice(0, 10)}</td>
               <td>${closeBtn}</td>
@@ -7202,7 +7373,7 @@ Question: ${question}`;
           `</tbody></table>
           <div class="note" style="margin-top:8px;">
             Total unrealized: <strong class="${totalUnrealized >= 0 ? "pos" : "neg"}">$${totalUnrealized.toFixed(2)}</strong>
-            ${anyMissingPrice ? " · type a Current Price for every row above (or try 🔄) to make this (and Account Snapshot) accurate — rows without one aren't counted yet." : ""}
+            ${anyMissingPrice ? " · some rows don't have a live price yet — add your Alpaca keys below, or click 🔄 on a row, to populate them." : ""}
           </div>`;
       }
       const closed = getJournal();
@@ -7861,10 +8032,10 @@ Question: ${question}`;
       }
       if (section === "market-monitor") loadMarketMonitorData();
       if (section === "vision") { loadVisionFields(); renderVisionPrinciples(); }
-      if (section === "home") { showNextHomeQuote(); renderHomeQuotesList(); }
+      if (section === "home") { initHomeLanding(); }
       if (section === "maintenance") { renderLastBackupStatus(); }
       if (section === "trade-factory") renderTradeFactory();
-      if (section === "positions") { loadBaselineUI(); renderFmpClientKeyStatus(); renderPositions(); renderRiskGauge(); fetchAllLivePrices(true); }
+      if (section === "positions") { loadBaselineUI(); renderAlpacaClientKeyStatus(); renderPositions(); renderRiskGauge(); fetchAllLivePrices(true); }
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
@@ -7895,6 +8066,7 @@ Question: ${question}`;
     renderTradePlans();
     renderSetupLibrary();
     initSidebarState();
+    initHomeLanding();
     loadVisionFields();
     renderVisionPrinciples();
     renderTradeFactory();
@@ -7913,7 +8085,7 @@ Question: ${question}`;
     // reload the page themselves.
     setInterval(loadLiveWatchlistData, 5 * 60 * 1000);
     renderGithubTokenStatus();
-    renderFmpClientKeyStatus();
+    renderAlpacaClientKeyStatus();
     initTickerBadgeObserver();
     loadBaselineUI();
     updateExecRiskVisibility();
