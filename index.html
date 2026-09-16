@@ -1597,7 +1597,7 @@
               </div>
               <div style="background:#111827;border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:baseline;">
                 <span class="check-icon">4</span>
-                <div><strong>Run AI Review.</strong> Go to <a href="#" onclick="navTo('ai-review', document.querySelector('[data-section=ai-review]'));return false;">Ask Moonjelly</a> — computed review, or Gemini/Groq analysis if set up (both free).</div>
+                <div><strong>Run AI Review.</strong> Go to <a href="#" onclick="navTo('ai-review', document.querySelector('[data-section=ai-review]'));return false;">Ask Moonjelly</a> — a computed review, or ask her anything about your trades or the market (free to set up).</div>
               </div>
             </div>
           </div>
@@ -2312,6 +2312,7 @@
       </div>
       <div class="steps">
         <div class="step-tab active" data-moonjelly-sub="moonjelly-trade-review" onclick="switchMoonjellySub(this)">Trade Review</div>
+        <div class="step-tab" data-moonjelly-sub="moonjelly-ask" onclick="switchMoonjellySub(this)">Ask Anything</div>
       </div>
 
       <div id="moonjelly-trade-review" class="moonjelly-sub active">
@@ -2332,9 +2333,9 @@
             <strong>This is a static site with no server</strong> — any key you save here lives only in this browser's local storage and is sent directly from your browser to that provider's API when you click Run. Never written to the GitHub repo. That also means anyone with access to this exact browser/device could view it in DevTools — for real safety, restrict each key to your site's domain where the provider allows it.
           </div>
 
-          <div class="note" style="margin-bottom:8px;background:#0f172a;border-left:3px solid #22c55e;">Both options below are genuinely free — Gemini (Google AI Studio free tier) and Groq (free tier, no credit card, runs strong open models at very generous rate limits — exact model available varies by account, editable below). Neither requires payment for this kind of occasional use.</div>
+          <div class="note" style="margin-bottom:8px;background:#0f172a;border-left:3px solid #22c55e;">Both options below are genuinely free — Google AI Studio's free tier and Groq's free tier (no credit card, runs strong open models at very generous rate limits — exact model available varies by account, editable below). Neither requires payment for this kind of occasional use. Moonjelly picks whichever is working automatically — you don't need to think about which one.</div>
           <div class="form-row">
-            <input type="password" id="gemini-key-input" placeholder="Paste your Gemini API key" style="width:260px;" />
+            <input type="password" id="gemini-key-input" placeholder="Paste your Google AI Studio (Gemini) API key" style="width:260px;" />
             <button class="btn btn-sm btn-accent" onclick="saveGeminiKey()">Save</button>
             <button class="btn btn-sm" onclick="clearGeminiKey()">Clear</button>
             <span class="muted" style="font-size:11px;" id="gemini-key-status">No key saved yet.</span>
@@ -2352,15 +2353,28 @@
           </div>
 
           <div style="margin-top:14px;">
-            <button class="btn btn-accent" onclick="runGeminiReview()">Run Gemini</button>
-            <button class="btn btn-accent" onclick="runGroqReview()">Run Groq</button>
-            <button class="btn btn-accent" onclick="runBothAndCompare()">Run Both &amp; Compare</button>
+            <button class="btn btn-accent" onclick="runGeminiReview()">Ask Moonjelly</button>
+            <button class="btn btn-accent" onclick="runBothAndCompare()">Compare Two Takes</button>
           </div>
-          <div class="note" style="margin-top:8px;">"Run Gemini" automatically falls back to Groq if Gemini is unavailable and you've saved a Groq key — you'll see a note if that happens.</div>
+          <div class="note" style="margin-top:8px;">Moonjelly automatically tries a backup if her first attempt is unavailable — you'll see a note if that happens, without needing to know or care which service answered.</div>
           <div id="gemini-review-output" style="margin-top:14px;"></div>
         </div>
       </div>
       </div><!-- end moonjelly-trade-review -->
+
+      <div id="moonjelly-ask" class="moonjelly-sub" style="display:none;">
+      <div class="panel">
+        <div class="panel-header">Ask Moonjelly · Any stock, any question about your trading</div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:12px;">Ask about a specific ticker, a trade you're considering, how you're doing lately, or general strategy — whatever's on your mind. Moonjelly has light awareness of your overall stats (win rate, trade count) but not your full trade-by-trade history unless you mention specifics in your question.</div>
+          <textarea id="moonjelly-ask-input" rows="3" style="width:100%;max-width:640px;background:#0f172a;border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px;" placeholder="e.g. What's the case for and against NVDA here? Or: Am I holding losers too long this month?"></textarea>
+          <div style="margin-top:10px;">
+            <button class="btn btn-accent" onclick="askMoonjellyAnything()">Ask Moonjelly</button>
+          </div>
+          <div id="moonjelly-ask-output" style="margin-top:14px;"></div>
+        </div>
+      </div>
+      </div><!-- end moonjelly-ask -->
     </div>
 
     <!-- JOURNAL -->
@@ -6206,7 +6220,7 @@
           </div>
         </div>
         <div class="note" style="margin-top:10px;">
-          This computed panel is rule-based math on your logged trades — deterministic, not an LLM. Use "Run Gemini Analysis" below for genuine AI-written qualitative commentary on top of these same real numbers.
+          This computed panel is rule-based math on your logged trades — deterministic, not an LLM. Use "Ask Moonjelly" below for genuine AI-written qualitative commentary on top of these same real numbers.
         </div>`;
     }
 
@@ -6303,7 +6317,7 @@
         const err = new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
         const transient = res.status === 503 || res.status === 429;
         if (!transient || attempt === maxAttempts) throw err;
-        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Gemini is busy (HTTP ${res.status}) — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
+        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Moonjelly is busy — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
         await new Promise(r => setTimeout(r, delays[attempt - 1]));
       }
     }
@@ -6368,7 +6382,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         const err = new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
         const transient = res.status === 503 || res.status === 429;
         if (!transient || attempt === maxAttempts) throw err;
-        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Groq is busy (HTTP ${res.status}) — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
+        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">Moonjelly is busy — retrying automatically (attempt ${attempt + 1} of ${maxAttempts})…</div>`;
         await new Promise(r => setTimeout(r, delays[attempt - 1]));
       }
     }
@@ -6388,30 +6402,30 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       const groqKey = getGroqKey();
       if (!key) {
         if (groqKey) { runGroqReview(); return; }
-        out.innerHTML = `<div class="wl-empty">Save your Gemini API key above first (or save a Groq key and use Run Groq instead — both are free).</div>`;
+        out.innerHTML = `<div class="wl-empty">Save an API key above first — either one works, both are free.</div>`;
         return;
       }
       if (list.length < 3) {
         out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
         return;
       }
-      out.innerHTML = `<div class="wl-empty">Asking Gemini… (this calls Google's API directly from your browser)</div>`;
+      out.innerHTML = `<div class="wl-empty">Moonjelly is thinking…</div>`;
       const s = computeTradeStats(list);
       const prompt = buildAIReviewPrompt(s);
       try {
         const text = await callGeminiWithRetry(key, prompt, out);
-        out.innerHTML = formatAIReviewResult(text, "Gemini");
+        out.innerHTML = formatAIReviewResult(text, "Moonjelly");
       } catch (e) {
         if (groqKey) {
-          out.innerHTML = `<div class="wl-empty">Gemini was unavailable (${e.message}) — falling back to Groq…</div>`;
+          out.innerHTML = `<div class="wl-empty">Moonjelly's first attempt didn't come through — trying a different approach…</div>`;
           try {
             const text = await callGroqWithRetry(groqKey, prompt, out);
-            out.innerHTML = `<div class="note" style="margin-bottom:8px;border-left:3px solid #eab308;">Gemini was unavailable, so this is Groq's analysis instead.</div>` + formatAIReviewResult(text, "Groq");
+            out.innerHTML = formatAIReviewResult(text, "Moonjelly");
           } catch (e2) {
-            out.innerHTML = `<div class="wl-empty">Both providers failed. Gemini: ${e.message}. Groq: ${e2.message}.</div>`;
+            out.innerHTML = `<div class="wl-empty">Moonjelly couldn't reach either saved key right now. (Primary: ${e.message}. Backup: ${e2.message}.) Double-check both keys above are still valid.</div>`;
           }
         } else {
-          out.innerHTML = `<div class="wl-empty">Gemini call failed: ${e.message}. Common causes: invalid/expired key, no quota left, or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Google's API. Save a free Groq key too for automatic fallback next time.</div>`;
+          out.innerHTML = `<div class="wl-empty">That attempt failed: ${e.message}. Common causes: an invalid/expired key or no quota left. Your key is unaffected either way. Saving a second key above (either provider) gives Moonjelly an automatic backup next time.</div>`;
         }
       }
     }
@@ -6422,21 +6436,21 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       if (!out) return;
       const key = getGroqKey();
       if (!key) {
-        out.innerHTML = `<div class="wl-empty">Save your Groq API key above first — it's free, no credit card, from console.groq.com.</div>`;
+        out.innerHTML = `<div class="wl-empty">Save an API key above first — it's free, no credit card needed.</div>`;
         return;
       }
       if (list.length < 3) {
         out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
         return;
       }
-      out.innerHTML = `<div class="wl-empty">Asking Groq (${getGroqModel()})… (this calls Groq's API directly from your browser)</div>`;
+      out.innerHTML = `<div class="wl-empty">Moonjelly is thinking…</div>`;
       const s = computeTradeStats(list);
       const prompt = buildAIReviewPrompt(s);
       try {
         const text = await callGroqWithRetry(key, prompt, out);
-        out.innerHTML = formatAIReviewResult(text, "Groq (" + getGroqModel() + ")");
+        out.innerHTML = formatAIReviewResult(text, "Moonjelly");
       } catch (e) {
-        out.innerHTML = `<div class="wl-empty">Groq call failed: ${e.message}. Common causes: invalid/expired key, daily rate limit hit (free tier resets every 24h), or your browser blocking the cross-origin request. Your key is unaffected either way — nothing was sent anywhere except Groq's API.</div>`;
+        out.innerHTML = `<div class="wl-empty">That attempt failed: ${e.message}. Common causes: an invalid/expired key or a daily rate limit (resets every 24h). Your key is unaffected either way.</div>`;
       }
     }
 
@@ -6447,14 +6461,14 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       const geminiKey = getGeminiKey();
       const groqKey = getGroqKey();
       if (!geminiKey || !groqKey) {
-        out.innerHTML = `<div class="wl-empty">Save both a Gemini key and a Groq key above to compare them side by side (both are free).</div>`;
+        out.innerHTML = `<div class="wl-empty">Save both API keys above to get two independent takes side by side (both are free).</div>`;
         return;
       }
       if (list.length < 3) {
         out.innerHTML = `<div class="wl-empty">Need at least a few closed trades for a useful review.</div>`;
         return;
       }
-      out.innerHTML = `<div class="wl-empty">Asking both Gemini and Groq in parallel…</div>`;
+      out.innerHTML = `<div class="wl-empty">Moonjelly is working on two independent takes…</div>`;
       const s = computeTradeStats(list);
       const prompt = buildAIReviewPrompt(s);
       const [geminiResult, groqResult] = await Promise.allSettled([
@@ -6470,11 +6484,60 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         }
         return `<div class="panel" style="margin:0;background:#0f172a;">
           <div class="panel-header" style="font-size:12px;">${label}</div>
-          <div style="padding:8px;font-size:12px;" class="muted">Failed: ${result.reason.message}</div>
+          <div style="padding:8px;font-size:12px;" class="muted">Didn't come through: ${result.reason.message}</div>
         </div>`;
       };
-      out.innerHTML = `<div class="grid-2">${renderSide("Gemini", geminiResult)}${renderSide("Groq (" + getGroqModel() + ")", groqResult)}</div>
-        <div class="note" style="margin-top:8px;">Generated just now (${new Date().toLocaleTimeString()}), both called directly from your browser using your saved keys. Where they agree is a stronger signal than either alone; where they diverge is worth a closer look yourself.</div>`;
+      out.innerHTML = `<div class="grid-2">${renderSide("Moonjelly — take 1", geminiResult)}${renderSide("Moonjelly — take 2", groqResult)}</div>
+        <div class="note" style="margin-top:8px;">Generated just now (${new Date().toLocaleTimeString()}). Where the two takes agree is a stronger signal than either alone; where they diverge is worth a closer look yourself.</div>`;
+    }
+
+    // Free-form Q&A — same silent primary/backup pattern as the trade
+    // review, single unified "Moonjelly" voice regardless of which
+    // underlying provider actually answers.
+    function buildAskAnythingPrompt(question, s) {
+      const context = s
+        ? `Light background only, mention it only if directly relevant to the question: the trader has ${s.n} closed trades logged, a ${s.wr.toFixed(0)}% win rate, and net P&L of $${s.sum.toFixed(2)}.`
+        : "";
+      return `You are Moonjelly, a trading coach embedded in a personal trading terminal. Answer the trader's question directly and practically, in under 250 words. This could be about a specific stock or ticker, a trade they're considering, their own recent performance, or general strategy. Skip generic disclaimers and hedging unless the question genuinely calls for a risk warning. ${context}
+
+Question: ${question}`;
+    }
+    async function askMoonjellyAnything() {
+      const input = document.getElementById("moonjelly-ask-input");
+      const out = document.getElementById("moonjelly-ask-output");
+      if (!input || !out) return;
+      const question = input.value.trim();
+      if (!question) {
+        out.innerHTML = `<div class="wl-empty">Type a question first.</div>`;
+        return;
+      }
+      const geminiKey = getGeminiKey();
+      const groqKey = getGroqKey();
+      if (!geminiKey && !groqKey) {
+        out.innerHTML = `<div class="wl-empty">Save an API key on the Trade Review tab first (either provider, both free) — Moonjelly needs one to answer.</div>`;
+        return;
+      }
+      out.innerHTML = `<div class="wl-empty">Moonjelly is thinking…</div>`;
+      const list = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      const s = list.length >= 3 ? computeTradeStats(list) : null;
+      const prompt = buildAskAnythingPrompt(question, s);
+      try {
+        let text;
+        if (geminiKey) {
+          try {
+            text = await callGeminiWithRetry(geminiKey, prompt, out);
+          } catch (e) {
+            if (!groqKey) throw e;
+            out.innerHTML = `<div class="wl-empty">Moonjelly's first attempt didn't come through — trying a different approach…</div>`;
+            text = await callGroqWithRetry(groqKey, prompt, out);
+          }
+        } else {
+          text = await callGroqWithRetry(groqKey, prompt, out);
+        }
+        out.innerHTML = formatAIReviewResult(text, "Moonjelly");
+      } catch (e) {
+        out.innerHTML = `<div class="wl-empty">Moonjelly couldn't answer that just now: ${e.message}. Double-check your saved key(s) on the Trade Review tab.</div>`;
+      }
     }
 
     function markPositionOpen(ticker) {
