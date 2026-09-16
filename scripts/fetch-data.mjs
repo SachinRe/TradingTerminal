@@ -131,7 +131,7 @@ async function fetchFmpList(endpoint, key) {
 async function fetchAlpacaSnapshots(tickers, keyId, secret) {
   if (!tickers.length) return {};
   const headers = { "APCA-API-KEY-ID": keyId, "APCA-API-SECRET-KEY": secret };
-  const url = `https://data.alpaca.markets/v2/stocks/snapshots?symbols=${tickers.join(",")}`;
+  const url = `https://data.alpaca.markets/v2/stocks/snapshots?symbols=${tickers.join(",")}&feed=iex`;
   const res = await fetch(url, { headers });
   if (!res.ok) throw new Error(`Alpaca snapshots failed: ${res.status}`);
   const data = await res.json();
@@ -169,11 +169,21 @@ async function fetchAlpacaAvgVolume(tickers, keyId, secret) {
   const bars = {};
   let pageToken = null;
   let pages = 0;
+  // Explicit feed=iex rather than relying on the documented free-tier
+  // default — there are confirmed real-world reports of free/paper
+  // accounts intermittently getting routed to the paid SIP feed and
+  // rejected with 403 anyway. Also pin `end` to 20 minutes ago (comfortably
+  // past Alpaca's documented 15-minute SIP recency restriction) as a second,
+  // independent safeguard against the same class of rejection.
+  const endTime = new Date(Date.now() - 20 * 60 * 1000).toISOString();
   do {
-    let url = `https://data.alpaca.markets/v2/stocks/bars?symbols=${tickers.join(",")}&timeframe=1Day&limit=10000&adjustment=raw`;
+    let url = `https://data.alpaca.markets/v2/stocks/bars?symbols=${tickers.join(",")}&timeframe=1Day&limit=10000&adjustment=raw&feed=iex&end=${encodeURIComponent(endTime)}`;
     if (pageToken) url += `&page_token=${encodeURIComponent(pageToken)}`;
     const res = await fetch(url, { headers });
-    if (!res.ok) throw new Error(`Alpaca bars failed: ${res.status}`);
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => "");
+      throw new Error(`Alpaca bars failed: ${res.status}${errBody ? " — " + errBody.slice(0, 200) : ""}`);
+    }
     const data = await res.json();
     for (const [ticker, series] of Object.entries(data?.bars || {})) {
       if (!Array.isArray(series)) continue;
@@ -269,25 +279,34 @@ async function fetchScreener() {
   if (!alpacaKeyId || !alpacaSecret) {
     note.push("ALPACA_KEY_ID/ALPACA_SECRET_KEY not set — candidate price/volume detail will fall back to gainers/losers/actives list data only (no RVOL). Add a free Alpaca Paper Trading account's API keys as repo secrets to enable live detail.");
   } else {
+    // Independent try/catch per call, not Promise.all — a failure in the
+    // avgVolume/RVOL call must never discard already-successful price/change
+    // data from the snapshot call (Promise.all rejects the whole thing if
+    // either promise throws, silently losing the other's real result).
+    let snapshots = {};
+    let avgVolumes = {};
     try {
-      const [snapshots, avgVolumes] = await Promise.all([
-        fetchAlpacaSnapshots(profileTargets, alpacaKeyId, alpacaSecret),
-        fetchAlpacaAvgVolume(profileTargets, alpacaKeyId, alpacaSecret)
-      ]);
-      for (const ticker of profileTargets) {
-        const snap = snapshots[ticker];
-        if (!snap) continue;
-        profiles[ticker] = {
-          price: snap.price,
-          changePct: snap.changePct,
-          volume: snap.volume,
-          avgVolume: avgVolumes[ticker] ?? null
-        };
-        profileFound++;
-      }
+      snapshots = await fetchAlpacaSnapshots(profileTargets, alpacaKeyId, alpacaSecret);
     } catch (e) {
-      note.push("Alpaca detail fetch: " + e.message);
+      note.push("Alpaca snapshot fetch failed: " + e.message);
     }
+    try {
+      avgVolumes = await fetchAlpacaAvgVolume(profileTargets, alpacaKeyId, alpacaSecret);
+    } catch (e) {
+      note.push("Alpaca avg-volume (RVOL) fetch failed: " + e.message);
+    }
+    for (const ticker of profileTargets) {
+      const snap = snapshots[ticker];
+      if (!snap) continue;
+      profiles[ticker] = {
+        price: snap.price,
+        changePct: snap.changePct,
+        volume: snap.volume,
+        avgVolume: avgVolumes[ticker] ?? null
+      };
+      profileFound++;
+    }
+    console.log(`[diag] Avg-volume (RVOL) data found for ${Object.keys(avgVolumes).length} of ${profileTargets.length} tickers checked`);
   }
   console.log(`[diag] Live detail found for ${profileFound} of ${profileTargets.length} tickers checked (${topMoverTargets.length} top movers + ${megaCapTargets.length} always-track mega-caps), via Alpaca in 2 batched calls`);
 
