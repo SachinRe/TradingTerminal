@@ -2311,11 +2311,11 @@
         </div>
       </div>
       <div class="steps">
-        <div class="step-tab active" data-moonjelly-sub="moonjelly-trade-review" onclick="switchMoonjellySub(this)">Trade Review</div>
-        <div class="step-tab" data-moonjelly-sub="moonjelly-ask" onclick="switchMoonjellySub(this)">Ask Anything</div>
+        <div class="step-tab" data-moonjelly-sub="moonjelly-trade-review" onclick="switchMoonjellySub(this)">Trade Review</div>
+        <div class="step-tab active" data-moonjelly-sub="moonjelly-ask" onclick="switchMoonjellySub(this)">Ask Anything</div>
       </div>
 
-      <div id="moonjelly-trade-review" class="moonjelly-sub active">
+      <div id="moonjelly-trade-review" class="moonjelly-sub" style="display:none;">
       <div class="panel">
         <div class="panel-header">Computed Review · Real stats, deterministic</div>
         <div class="panel-body">
@@ -2362,7 +2362,7 @@
       </div>
       </div><!-- end moonjelly-trade-review -->
 
-      <div id="moonjelly-ask" class="moonjelly-sub" style="display:none;">
+      <div id="moonjelly-ask" class="moonjelly-sub active">
       <div class="panel">
         <div class="panel-header">Ask Moonjelly · Any stock, any question about your trading</div>
         <div class="panel-body">
@@ -2372,6 +2372,15 @@
             <button class="btn btn-accent" onclick="askMoonjellyAnything()">Ask Moonjelly</button>
           </div>
           <div id="moonjelly-ask-output" style="margin-top:14px;"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          My Saved Answers
+          <span class="tag" style="cursor:pointer;" onclick="downloadAllMoonjellySavedAnswers()">Download all</span>
+        </div>
+        <div class="panel-body">
+          <div id="moonjelly-saved-list"></div>
         </div>
       </div>
       </div><!-- end moonjelly-ask -->
@@ -2394,6 +2403,7 @@
             </div>
             <div class="form-group"><label>Entry</label><input type="number" id="j-entry" step="0.01" style="width:90px" /></div>
             <div class="form-group"><label>Exit</label><input type="number" id="j-exit" step="0.01" style="width:90px" /></div>
+            <div class="form-group"><label>Stop</label><input type="number" id="j-stop" step="0.01" style="width:90px" title="Auto-filled from your watchlist plan when closing from there — edit if the actual stop you used differed." /></div>
             <div class="form-group"><label>Shares</label><input type="number" id="j-shares" style="width:90px" /></div>
             <div class="form-group"><label>P&L $</label><input type="number" id="j-pnl" step="0.01" style="width:90px" /></div>
           </div>
@@ -4204,6 +4214,13 @@
         if (item.plan.entry != null && !isNaN(item.plan.entry)) {
           document.getElementById("j-entry").value = item.plan.entry;
         }
+        // Prefer the position's own (possibly already-edited) stop over the
+        // original plan's stop — it reflects the actual stop used, which
+        // may have been adjusted after the trade opened.
+        const liveStop = item.position && item.position.stop != null ? item.position.stop : item.plan.stop;
+        if (liveStop != null && !isNaN(liveStop)) {
+          document.getElementById("j-stop").value = liveStop;
+        }
         const noteParts = [];
         noteParts.push("Setup: " + (item.setupType || "SIP"));
         noteParts.push("Mode: " + (item.entryMode || "open"));
@@ -4690,6 +4707,8 @@
       const side = document.getElementById("j-side").value;
       const entry = parseFloat(document.getElementById("j-entry").value);
       const exitP = parseFloat(document.getElementById("j-exit").value);
+      const stopEl = document.getElementById("j-stop");
+      const stop = stopEl && stopEl.value !== "" ? parseFloat(stopEl.value) : null;
       const shares = parseFloat(document.getElementById("j-shares").value);
       const pnl = parseFloat(document.getElementById("j-pnl").value);
       const notes = document.getElementById("j-notes").value.trim();
@@ -4700,7 +4719,7 @@
 
       const list = getJournal();
       list.unshift({
-        id: Date.now(), ticker, date, entryDate: entryDate || null, holdDays, setup, side, entry, exit: exitP, shares, pnl, notes, mistakeTags,
+        id: Date.now(), ticker, date, entryDate: entryDate || null, holdDays, setup, side, entry, exit: exitP, stop, shares, pnl, notes, mistakeTags,
         logged: new Date().toISOString()
       });
       saveJournal(list);
@@ -4718,6 +4737,7 @@
       document.getElementById("j-entrydate").value = "";
       document.getElementById("j-entry").value = "";
       document.getElementById("j-exit").value = "";
+      document.getElementById("j-stop").value = "";
       document.getElementById("j-shares").value = "";
       document.getElementById("j-pnl").value = "";
       document.getElementById("j-notes").value = "";
@@ -5080,6 +5100,7 @@
         panel.style.display = "block";
         panel.classList.add("active");
       }
+      if (sub === "moonjelly-ask") renderMoonjellySavedAnswers();
     }
 
     function switchPFSub(el) {
@@ -5693,6 +5714,35 @@
       saveOpenLots(lots);
       renderDashboard();
     }
+    function updateWatchlistPositionStop(ticker, stop) {
+      const s = stop === "" ? null : parseFloat(stop);
+      if (stop !== "" && isNaN(s)) return;
+      const wl = getWatchlist();
+      const w = wl.find(x => x.ticker === ticker);
+      if (w && w.position) {
+        w.position.stop = s;
+        saveWatchlist(wl);
+        renderPositions();
+      }
+    }
+    function updateOpenLotStop(ticker, stop) {
+      const s = stop === "" ? null : parseFloat(stop);
+      if (stop !== "" && isNaN(s)) return;
+      const lots = getOpenLots();
+      lots.forEach(l => { if (l.ticker === ticker) l.stop = s; });
+      saveOpenLots(lots);
+      renderPositions();
+    }
+    function updateJournalEntryStop(id, stop) {
+      const s = stop === "" ? null : parseFloat(stop);
+      if (stop !== "" && isNaN(s)) return;
+      const list = getJournal();
+      const t = list.find(x => x.id === id);
+      if (t) {
+        t.stop = s;
+        saveJournal(list);
+      }
+    }
     // Best-effort live price lookup. There's no server-side proxy here (this
     // is a static site), so this calls stockanalysis.com's public per-ticker
     // quote endpoint directly from the browser. It may or may not work
@@ -5783,7 +5833,8 @@
     function getOpenPositionsWithUnrealized() {
       // Unified list combining watchlist "open" positions and Schwab open lots,
       // each with qty, entry, currentPrice (if known), and computed unrealized $.
-      const fromPlans = getWatchlist().filter(w => w.position && w.position.status === "open").map(w => {
+      const wlAll = getWatchlist();
+      const fromPlans = wlAll.filter(w => w.position && w.position.status === "open").map(w => {
         const p = w.position;
         const qty = p.shares || 1;
         const entry = p.entry || 0;
@@ -5797,10 +5848,19 @@
       });
       const fromSchwab = getOpenLots().map(l => {
         const cur = l.currentPrice != null ? l.currentPrice : null;
+        // Schwab imports don't carry a stop on their own — if the lot doesn't
+        // already have one manually set, default to a matching watchlist
+        // ticker's planned stop when one exists (still editable/overridable
+        // either way; once edited it's saved directly on the lot itself).
+        let stop = l.stop != null ? l.stop : null;
+        if (stop == null) {
+          const match = wlAll.find(w => w.ticker === l.ticker && w.plan && w.plan.stop != null);
+          if (match) stop = match.plan.stop;
+        }
         return {
           ticker: l.ticker, source: "schwab", qty: l.qty, entry: l.avgEntry, currentPrice: cur,
           unrealized: cur != null ? (cur - l.avgEntry) * l.qty : null,
-          setup: null, mode: null, stop: null, target: null, opened: l.date
+          setup: null, mode: null, stop, target: null, opened: l.date
         };
       });
       return [...fromPlans, ...fromSchwab];
@@ -5834,7 +5894,12 @@
       if (input && document.activeElement !== input) input.value = maxPct;
 
       const positions = getOpenPositionsWithUnrealized();
-      const withStop = positions.filter(p => p.source === "plan" && p.stop != null && p.entry != null);
+      // Now includes Schwab-sourced positions too — they can carry a real
+      // stop (auto-matched from a watchlist plan, or manually entered) just
+      // like plan positions can, so the same honest "only count what has an
+      // actual stop" rule now applies across both sources instead of
+      // excluding Schwab entirely.
+      const withStop = positions.filter(p => p.stop != null && p.entry != null);
       const untracked = positions.length - withStop.length;
       const totalRiskDollars = withStop.reduce((a, p) => a + Math.abs(p.entry - p.stop) * p.qty, 0);
       const equity = getCurrentPortfolioValueComputed();
@@ -6502,6 +6567,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
 
 Question: ${question}`;
     }
+    let lastMoonjellyQA = null;
     async function askMoonjellyAnything() {
       const input = document.getElementById("moonjelly-ask-input");
       const out = document.getElementById("moonjelly-ask-output");
@@ -6534,10 +6600,81 @@ Question: ${question}`;
         } else {
           text = await callGroqWithRetry(groqKey, prompt, out);
         }
-        out.innerHTML = formatAIReviewResult(text, "Moonjelly");
+        lastMoonjellyQA = { question, answer: text, timestamp: new Date().toISOString() };
+        out.innerHTML = formatAIReviewResult(text, "Moonjelly") + `
+          <div style="margin-top:8px;">
+            <button class="btn btn-sm" onclick="downloadMoonjellyAnswer()">Download this answer</button>
+            <button class="btn btn-sm" onclick="saveMoonjellyAnswer()">Save to my Saved Answers</button>
+          </div>`;
       } catch (e) {
         out.innerHTML = `<div class="wl-empty">Moonjelly couldn't answer that just now: ${e.message}. Double-check your saved key(s) on the Trade Review tab.</div>`;
       }
+    }
+
+    function downloadMoonjellyAnswer() {
+      if (!lastMoonjellyQA) return;
+      const { question, answer, timestamp } = lastMoonjellyQA;
+      const text = `Ask Moonjelly\n${new Date(timestamp).toLocaleString()}\n\nQ: ${question}\n\nA: ${answer}\n`;
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "moonjelly_answer_" + new Date(timestamp).toISOString().slice(0, 10) + ".txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function getMoonjellySavedAnswers() {
+      try { return JSON.parse(localStorage.getItem("tt_moonjelly_saved_qa") || "[]"); }
+      catch (e) { return []; }
+    }
+    function saveMoonjellyAnswer() {
+      if (!lastMoonjellyQA) return;
+      const saved = getMoonjellySavedAnswers();
+      saved.unshift(lastMoonjellyQA);
+      localStorage.setItem("tt_moonjelly_saved_qa", JSON.stringify(saved.slice(0, 200))); // reasonable cap
+      renderMoonjellySavedAnswers();
+      alert("Saved. See \"My Saved Answers\" below the question box.");
+    }
+    function deleteMoonjellySavedAnswer(idx) {
+      const saved = getMoonjellySavedAnswers();
+      saved.splice(idx, 1);
+      localStorage.setItem("tt_moonjelly_saved_qa", JSON.stringify(saved));
+      renderMoonjellySavedAnswers();
+    }
+    function downloadAllMoonjellySavedAnswers() {
+      const saved = getMoonjellySavedAnswers();
+      if (!saved.length) { alert("No saved answers yet."); return; }
+      const text = saved.map(qa => `${new Date(qa.timestamp).toLocaleString()}\n\nQ: ${qa.question}\n\nA: ${qa.answer}\n\n${"-".repeat(40)}\n`).join("\n");
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "moonjelly_saved_answers_" + new Date().toISOString().slice(0, 10) + ".txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    function renderMoonjellySavedAnswers() {
+      const el = document.getElementById("moonjelly-saved-list");
+      if (!el) return;
+      const saved = getMoonjellySavedAnswers();
+      if (!saved.length) {
+        el.innerHTML = `<div class="muted" style="font-size:12px;">Nothing saved yet — answers you save will show up here.</div>`;
+        return;
+      }
+      el.innerHTML = saved.map((qa, i) => `
+        <div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+            <div style="font-size:12px;font-weight:700;color:var(--accent);">${qa.question.replace(/</g, "&lt;")}</div>
+            <button class="btn btn-sm" style="flex-shrink:0;" onclick="deleteMoonjellySavedAnswer(${i})">Remove</button>
+          </div>
+          <div class="muted" style="font-size:10px;margin-top:2px;">${new Date(qa.timestamp).toLocaleString()}</div>
+          <div style="font-size:12px;margin-top:6px;white-space:pre-wrap;line-height:1.5;">${qa.answer.replace(/</g, "&lt;")}</div>
+        </div>`).join("");
     }
 
     function markPositionOpen(ticker) {
@@ -6583,9 +6720,10 @@ Question: ${question}`;
             <button class="btn btn-sm" onclick="fetchAllLivePrices(false)">🔄 Try live prices for all rows</button>
             <span class="muted" style="font-size:11px;margin-left:6px;" id="live-price-status">Best-effort — falls back to manual entry per row if blocked.</span>
           </div>
-          <table><thead><tr><th>Ticker</th><th>Setup</th><th>Qty</th><th>Entry</th><th>Current Price</th><th>Unrealized $</th><th>Opened</th><th></th></tr></thead><tbody>` +
+          <table><thead><tr><th>Ticker</th><th>Setup</th><th>Qty</th><th>Entry</th><th>Stop</th><th>Current Price</th><th>Unrealized $</th><th>Opened</th><th></th></tr></thead><tbody>` +
           openRows.map(p => {
             const updateFn = p.source === "plan" ? "updateWatchlistPositionPrice" : "updateOpenLotPrice";
+            const stopUpdateFn = p.source === "plan" ? "updateWatchlistPositionStop" : "updateOpenLotStop";
             const closeBtn = p.source === "plan"
               ? `<button class="btn btn-sm" onclick="closeOutTrade('${p.ticker}')">Close → Journal</button>`
               : `<span class="muted" style="font-size:11px;">Schwab</span>`;
@@ -6594,6 +6732,10 @@ Question: ${question}`;
               <td>${p.setup || "—"}</td>
               <td>${p.qty}</td>
               <td class="pos">$${Number(p.entry).toFixed(2)}</td>
+              <td>
+                <input type="number" step="0.01" value="${p.stop != null ? p.stop : ""}" placeholder="stop"
+                    style="width:75px;" onchange="${stopUpdateFn}('${p.ticker}', this.value)" title="Pulled from your watchlist plan by default — edit if the actual stop differs." />
+              </td>
               <td>
                 <input type="number" step="0.01" value="${p.currentPrice != null ? p.currentPrice : ""}" placeholder="type price"
                     style="width:80px;" onchange="${updateFn}('${p.ticker}', this.value)" />
@@ -6619,13 +6761,17 @@ Question: ${question}`;
         closedBody.innerHTML = `<div class="wl-empty">Closed trades sync from Journal.</div>`;
       } else {
         const totalRealized = closed.reduce((a, t) => a + (t.pnl || 0), 0);
-        closedBody.innerHTML = `<table><thead><tr><th>Date</th><th>Ticker</th><th>Setup</th><th>Side</th><th>Entry</th><th>Exit</th><th>Realized P&L</th></tr></thead><tbody>` +
+        closedBody.innerHTML = `<table><thead><tr><th>Date</th><th>Ticker</th><th>Setup</th><th>Side</th><th>Entry</th><th>Stop</th><th>Exit</th><th>Realized P&L</th></tr></thead><tbody>` +
           closed.slice(0, 50).map(t => `<tr>
             <td>${t.date}</td>
             <td><span class="ticker">${t.ticker}</span></td>
             <td>${t.setup || "—"}</td>
             <td>${t.side}</td>
             <td>${t.entry != null ? "$" + t.entry : "—"}</td>
+            <td>
+              <input type="number" step="0.01" value="${t.stop != null ? t.stop : ""}" placeholder="stop"
+                  style="width:75px;" onchange="updateJournalEntryStop(${t.id}, this.value)" title="Auto-filled from your watchlist plan when closed from there — edit if the actual stop differed." />
+            </td>
             <td>${t.exit != null ? "$" + t.exit : "—"}</td>
             <td class="${(t.pnl || 0) >= 0 ? "pos" : "neg"}">${t.pnl != null ? "$" + t.pnl.toFixed(2) : "—"}</td>
           </tr>`).join("") + `</tbody></table>
@@ -7270,7 +7416,7 @@ Question: ${question}`;
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
-      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); renderGroqKeyStatus(); loadGroqModelField(); }
+      if (section === "ai-review") { runAIReview(); renderGeminiKeyStatus(); renderGroqKeyStatus(); loadGroqModelField(); renderMoonjellySavedAnswers(); }
       const sp = document.getElementById("settings-panel");
       if (sp) sp.classList.remove("open");
     }
