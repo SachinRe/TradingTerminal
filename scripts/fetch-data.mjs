@@ -172,12 +172,20 @@ async function fetchAlpacaAvgVolume(tickers, keyId, secret) {
   // Explicit feed=iex rather than relying on the documented free-tier
   // default — there are confirmed real-world reports of free/paper
   // accounts intermittently getting routed to the paid SIP feed and
-  // rejected with 403 anyway. Also pin `end` to 20 minutes ago (comfortably
-  // past Alpaca's documented 15-minute SIP recency restriction) as a second,
-  // independent safeguard against the same class of rejection.
+  // rejected with 403 anyway. `end` stays pinned 20 minutes in the past
+  // (comfortably past Alpaca's documented 15-minute SIP recency
+  // restriction) as a second, independent safeguard against that same
+  // rejection. `start` is now explicit too — without it, a prior version of
+  // this call returned a technically-successful but empty response for
+  // every ticker (confirmed: no error was thrown, "0 of 40" with no
+  // exception logged), most likely because Alpaca's default start window
+  // wasn't reaching back far enough. 40 calendar days comfortably covers
+  // the ~20 trading days actually needed after weekends/holidays.
   const endTime = new Date(Date.now() - 20 * 60 * 1000).toISOString();
+  const startTime = new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString();
+  let dumpedRaw = false;
   do {
-    let url = `https://data.alpaca.markets/v2/stocks/bars?symbols=${tickers.join(",")}&timeframe=1Day&limit=10000&adjustment=raw&feed=iex&end=${encodeURIComponent(endTime)}`;
+    let url = `https://data.alpaca.markets/v2/stocks/bars?symbols=${tickers.join(",")}&timeframe=1Day&limit=10000&adjustment=raw&feed=iex&start=${encodeURIComponent(startTime)}&end=${encodeURIComponent(endTime)}`;
     if (pageToken) url += `&page_token=${encodeURIComponent(pageToken)}`;
     const res = await fetch(url, { headers });
     if (!res.ok) {
@@ -185,6 +193,14 @@ async function fetchAlpacaAvgVolume(tickers, keyId, secret) {
       throw new Error(`Alpaca bars failed: ${res.status}${errBody ? " — " + errBody.slice(0, 200) : ""}`);
     }
     const data = await res.json();
+    if (!dumpedRaw) {
+      // One-time shape dump so a future empty-but-"successful" response is
+      // immediately diagnosable from the log alone, instead of needing
+      // another round of guessing.
+      const barKeys = Object.keys(data?.bars || {});
+      console.log(`[diag] Alpaca bars response: ${barKeys.length} ticker(s) with data, next_page_token=${data?.next_page_token || "none"}. First ticker's bar count: ${barKeys.length ? (data.bars[barKeys[0]] || []).length : "n/a"}`);
+      dumpedRaw = true;
+    }
     for (const [ticker, series] of Object.entries(data?.bars || {})) {
       if (!Array.isArray(series)) continue;
       (bars[ticker] = bars[ticker] || []).push(...series);
