@@ -4946,17 +4946,37 @@
       document.getElementById("detail-modal").classList.remove("open");
     }
     function showTickerTradeDetail(ticker) {
-      const trades = getJournal()
+      const closedTrades = getJournal()
         .filter(t => (t.ticker || "").toUpperCase() === ticker.toUpperCase())
         .sort((a, b) => (b.date || "").localeCompare(a.date || "")); // most recent first
-      if (!trades.length) return;
+      const openTrades = getOpenPositionsWithUnrealized()
+        .filter(p => (p.ticker || "").toUpperCase() === ticker.toUpperCase());
+      if (!closedTrades.length && !openTrades.length) return;
 
-      const n = trades.length;
-      const wins = trades.filter(t => (t.pnl || 0) > 0);
-      const netPnl = trades.reduce((a, t) => a + (t.pnl || 0), 0);
+      const n = closedTrades.length;
+      const wins = closedTrades.filter(t => (t.pnl || 0) > 0);
+      const realizedPnl = closedTrades.reduce((a, t) => a + (t.pnl || 0), 0);
+      const unrealizedPnl = openTrades.reduce((a, p) => a + (p.unrealized || 0), 0);
       const wr = n ? (wins.length / n) * 100 : 0;
+      const hasUnrealized = openTrades.some(p => p.unrealized != null);
 
-      const rows = trades.map(t => {
+      const openRows = openTrades.map(p => {
+        const uClass = p.unrealized == null ? "muted" : p.unrealized >= 0 ? "pos" : "neg";
+        return `<tr style="background:rgba(234,179,8,0.06);">
+          <td class="muted" style="font-size:11px;">${(p.opened || "").slice(0, 10) || "—"}</td>
+          <td>${p.setup || "—"}</td>
+          <td><span style="background:#eab308;color:#111827;font-size:9px;font-weight:800;padding:1px 5px;border-radius:3px;">OPEN</span></td>
+          <td>${p.entry != null ? "$" + Number(p.entry).toFixed(2) : "—"}</td>
+          <td>${p.stop != null ? "$" + Number(p.stop).toFixed(2) : "—"}</td>
+          <td>${p.currentPrice != null ? "$" + Number(p.currentPrice).toFixed(2) + " (current)" : "no price entered"}</td>
+          <td>${p.qty != null ? p.qty : "—"}</td>
+          <td class="muted" style="font-size:11px;">—</td>
+          <td class="${uClass}" style="font-weight:600;">${p.unrealized == null ? "—" : "$" + p.unrealized.toFixed(2) + " (unrl.)"}</td>
+          <td class="muted" style="font-size:10px;">${p.source === "schwab" ? "Schwab" : ""}</td>
+        </tr>`;
+      }).join("");
+
+      const closedRows = closedTrades.map(t => {
         const pnlClass = (t.pnl || 0) >= 0 ? "pos" : "neg";
         const mistakeStr = (t.mistakeTags || []).length ? `<div class="muted" style="font-size:10px;margin-top:3px;">⚠ ${t.mistakeTags.join(", ")}</div>` : "";
         const notesStr = t.notes ? `<div class="muted" style="font-size:10px;margin-top:3px;max-width:260px;">${t.notes.replace(/</g, "&lt;")}</div>` : "";
@@ -4974,21 +4994,95 @@
         </tr>`;
       }).join("");
 
+      const summaryParts = [];
+      summaryParts.push(`${n} closed trade${n === 1 ? "" : "s"}`);
+      if (n) summaryParts.push(`${wr.toFixed(0)}% win rate`);
+      summaryParts.push(`realized <span class="${realizedPnl >= 0 ? "pos" : "neg"}">$${realizedPnl.toFixed(2)}</span>`);
+      if (openTrades.length) {
+        summaryParts.push(`${openTrades.length} open position${openTrades.length === 1 ? "" : "s"}`);
+        summaryParts.push(hasUnrealized
+          ? `unrealized <span class="${unrealizedPnl >= 0 ? "pos" : "neg"}">$${unrealizedPnl.toFixed(2)}</span>`
+          : `unrealized — <span class="muted">no current price entered on Positions</span>`);
+      }
+
       document.getElementById("detail-content").innerHTML = `
         <div class="modal-header">
           <button class="modal-close" onclick="closeDetail()">×</button>
           <div class="modal-company">${ticker} · Trade History</div>
-          <div class="modal-catalyst">${n} closed trade${n === 1 ? "" : "s"} · ${wr.toFixed(0)}% win rate · net <span class="${netPnl >= 0 ? "pos" : "neg"}">$${netPnl.toFixed(2)}</span></div>
+          <div class="modal-catalyst">${summaryParts.join(" · ")}</div>
         </div>
         <div class="qualify-panel" style="overflow-x:auto;">
           <table style="font-size:12px;">
             <thead><tr>
-              <th>Date</th><th>Setup</th><th>Side</th><th>Entry</th><th>Stop</th><th>Exit</th><th>Shares</th><th>Held</th><th>P&amp;L</th><th>Notes</th>
+              <th>Date</th><th>Setup</th><th>Side</th><th>Entry</th><th>Stop</th><th>Exit / Current</th><th>Shares</th><th>Held</th><th>P&amp;L</th><th>Notes</th>
             </tr></thead>
-            <tbody>${rows}</tbody>
+            <tbody>${openRows}${closedRows}</tbody>
           </table>
         </div>
-        <div style="margin-top:14px;">
+        <div class="note" style="margin-top:8px;">Rows highlighted in gold are still open — that P&amp;L is unrealized and will move with the current price you've entered on the Positions page.</div>
+        <div style="margin-top:10px;">
+          <button class="btn" onclick="closeDetail()">Close</button>
+        </div>
+      `;
+      document.getElementById("detail-modal").classList.add("open");
+    }
+    function showHeatByTicker() {
+      const positions = getOpenPositionsWithUnrealized();
+      const withStop = positions.filter(p => p.stop != null && p.entry != null);
+      const untracked = positions.filter(p => p.stop == null || p.entry == null);
+
+      // Aggregate by ticker (usually one position per ticker, but two
+      // sources — a plan and a Schwab lot — could both be open on the same
+      // ticker at once, so sum rather than assume uniqueness).
+      const byTicker = {};
+      withStop.forEach(p => {
+        const heat = Math.abs(p.entry - p.stop) * p.qty;
+        if (!byTicker[p.ticker]) byTicker[p.ticker] = { ticker: p.ticker, heat: 0, qty: 0, sources: [] };
+        byTicker[p.ticker].heat += heat;
+        byTicker[p.ticker].qty += p.qty;
+        byTicker[p.ticker].sources.push(p.source);
+      });
+      const rows = Object.values(byTicker).sort((a, b) => b.heat - a.heat); // descending — largest heat first
+
+      const equity = getCurrentPortfolioValueComputed();
+      const totalComputedHeat = rows.reduce((a, r) => a + r.heat, 0);
+      const manualHeat = getPortfolioSnapshot().heat || 0;
+
+      const rowsHtml = rows.map(r => {
+        const pctOfEquity = equity > 0 ? (r.heat / equity) * 100 : 0;
+        return `<tr>
+          <td><span class="ticker">${r.ticker}</span></td>
+          <td>${r.qty}</td>
+          <td class="neg" style="font-weight:600;">$${r.heat.toFixed(2)}</td>
+          <td class="muted" style="font-size:11px;">${pctOfEquity.toFixed(2)}% of equity</td>
+          <td class="muted" style="font-size:10px;">${r.sources.includes("schwab") ? "Schwab" : "Plan"}</td>
+        </tr>`;
+      }).join("");
+
+      const untrackedNote = untracked.length
+        ? `<div class="note" style="margin-top:10px;">${untracked.length} open position${untracked.length === 1 ? "" : "s"} (${untracked.map(p => p.ticker).join(", ")}) ${untracked.length === 1 ? "has" : "have"} no stop set, so they're honestly excluded from this total rather than guessed at — set a stop on the Positions page to include ${untracked.length === 1 ? "it" : "them"}.</div>`
+        : "";
+      const reconcileNote = Math.abs(totalComputedHeat - manualHeat) > 0.5
+        ? `<div class="note" style="margin-top:8px;border-left:3px solid #eab308;">This computed total ($${totalComputedHeat.toFixed(2)}) differs from the "Total Heat" you've entered manually in Portfolio Snapshot ($${manualHeat.toFixed(2)}). The number on the dashboard card is still your manual figure — update it there if you'd rather it match this computed breakdown.</div>`
+        : "";
+
+      document.getElementById("detail-content").innerHTML = `
+        <div class="modal-header">
+          <button class="modal-close" onclick="closeDetail()">×</button>
+          <div class="modal-company">Open Heat by Ticker</div>
+          <div class="modal-catalyst">$ at risk if every open stop were hit, computed from entry/stop/shares — largest first.</div>
+        </div>
+        <div class="qualify-panel" style="overflow-x:auto;">
+          ${rows.length ? `<table style="font-size:12px;">
+            <thead><tr><th>Ticker</th><th>Shares</th><th>Heat $</th><th>% Equity</th><th>Source</th></tr></thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+          <div class="note" style="margin-top:10px;">Total computed heat: <strong class="neg">$${totalComputedHeat.toFixed(2)}</strong>${equity > 0 ? ` (${((totalComputedHeat / equity) * 100).toFixed(2)}% of current equity)` : ""}</div>`
+          : `<div class="wl-empty">No open positions have a stop set yet — nothing to show here until at least one does.</div>`}
+          ${untrackedNote}
+          ${reconcileNote}
+        </div>
+        <div style="margin-top:10px;">
           <button class="btn" onclick="closeDetail()">Close</button>
         </div>
       `;
@@ -6911,9 +7005,9 @@ Question: ${question}`;
       const maxDdFromPeak = peak > 0 ? ((currentValue - peak) / peak) * 100 : 0;
       const currentDd = maxDdFromPeak < 0 ? maxDdFromPeak : 0;
 
-      const kpi = (label, val, cls) =>
-        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;">
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;">${label}</div>
+      const kpi = (label, val, cls, onclickAttr) =>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;${onclickAttr ? "cursor:pointer;" : ""}" ${onclickAttr ? `onclick="${onclickAttr}"` : ""}>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;">${label}${onclickAttr ? " ↗" : ""}</div>
           <div style="font-size:16px;font-weight:700;margin-top:6px;" class="${cls || ""}">${val}</div>
         </div>`;
       const money = (n) => (n < 0 ? "-$" : "$") + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -6926,7 +7020,7 @@ Question: ${question}`;
         kpi("% Capital Deployed", deployedPct.toFixed(2) + "%") +
         kpi("Realized PnL (since baseline)", money(realized), realized >= 0 ? "pos" : "neg") +
         kpi("Unrealized PnL (auto)", money(unrealized), unrealized >= 0 ? "pos" : "neg") +
-        kpi("Total Heat", money(p.heat)) +
+        kpi("Total Heat", money(p.heat), "", "showHeatByTicker()") +
         kpi("Current Drawdown %", currentDd.toFixed(2) + "%", currentDd < 0 ? "neg" : "") +
         kpi("Peak Portfolio Value (auto)", money(peak), "") +
         kpi("Max Drawdown from Peak %", maxDdFromPeak.toFixed(2) + "%", maxDdFromPeak < 0 ? "neg" : "");
