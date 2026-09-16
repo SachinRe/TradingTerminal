@@ -481,9 +481,118 @@
     .regime-defense { color: #fca5a5 !important; }
     .regime-tactical { color: #7dd3fc !important; }
     .regime-choppy { color: #c4b5fd !important; }
+
+    /* ===================== WELCOME SPLASH ===================== */
+    .welcome-splash {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: #0a1220;
+    }
+    .welcome-splash.hidden { display: none; }
+    .welcome-bg-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    @keyframes wSmokeRise {
+      0% { transform: translateY(0) scale(1); opacity: 0.5; }
+      100% { transform: translateY(-70px) scale(2.4); opacity: 0; }
+    }
+    .w-smoke { animation: wSmokeRise 4s ease-out infinite; }
+
+    .welcome-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      max-width: 640px; padding: 24px; text-align: center;
+    }
+    .welcome-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 34px; }
+    .welcome-brand-logo { height: 34px; width: 34px; }
+    .welcome-brand span { font-size: 13px; font-weight: 700; letter-spacing: 3px; color: #94a3b8; }
+
+    .welcome-press { position: relative; display: flex; flex-direction: column; align-items: center; margin-bottom: 22px; }
+    .welcome-press-body {
+      width: 130px; height: 30px; background: #1e293b; border: 1px solid #334155;
+      border-radius: 6px 6px 3px 3px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .welcome-press-slot { width: 90px; height: 5px; background: #0a1220; border-radius: 3px; }
+
+    @keyframes wCardPop {
+      0%   { opacity: 0; transform: translateY(-16px) scale(0.92); }
+      12%  { opacity: 1; transform: translateY(0) scale(1); }
+      88%  { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(10px) scale(0.97); }
+    }
+    .welcome-card {
+      margin-top: 14px; min-height: 150px; width: 100%; max-width: 560px;
+      background: #111827; border: 1px solid #eab308; border-radius: 12px;
+      padding: 26px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: wCardPop 5.5s ease-in-out infinite;
+    }
+    .welcome-card-quote-mark { font-family: Cambria, Georgia, serif; font-size: 40px; font-weight: 800; color: #eab308; line-height: 1; margin-bottom: 4px; }
+    .welcome-quote-text { font-family: Cambria, Georgia, serif; font-size: 21px; font-style: italic; color: #f1f5f9; line-height: 1.4; }
+    .welcome-quote-attr { font-size: 13px; color: #94a3b8; margin-top: 12px; }
+
+    .welcome-caption { font-size: 13px; color: #64748b; font-style: italic; margin-bottom: 26px; }
+    .welcome-enter-btn {
+      background: #eab308; color: #111827; border: none; border-radius: 8px;
+      padding: 12px 26px; font-size: 14px; font-weight: 700; cursor: pointer;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .welcome-enter-btn:hover { background: #f5c944; transform: translateY(-1px); }
   </style>
 </head>
 <body>
+  <!-- ===================== WELCOME SPLASH ===================== -->
+  <div id="welcome-splash" class="welcome-splash">
+    <svg class="welcome-bg-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="welcomeSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0a1220"/>
+          <stop offset="100%" stop-color="#0f1b2e"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="1600" height="900" fill="url(#welcomeSky)"/>
+      <g opacity="0.55">
+        <rect x="80" y="520" width="1440" height="260" fill="#132a23"/>
+        <path d="M80,520 L260,420 L440,520 Z" fill="#132a23"/>
+        <path d="M760,520 L940,420 L1120,520 Z" fill="#132a23"/>
+        <path d="M1240,520 L1420,420 L1520,520 Z" fill="#132a23"/>
+        <rect x="320" y="360" width="26" height="65" fill="#132a23"/>
+        <rect x="1080" y="360" width="26" height="65" fill="#132a23"/>
+      </g>
+      <g id="welcomeSmoke" opacity="0.5">
+        <circle class="w-smoke" cx="333" cy="350" r="12" fill="#3b4a5e" style="animation-delay:0s;"/>
+        <circle class="w-smoke" cx="333" cy="350" r="12" fill="#3b4a5e" style="animation-delay:1.3s;"/>
+        <circle class="w-smoke" cx="333" cy="350" r="12" fill="#3b4a5e" style="animation-delay:2.6s;"/>
+        <circle class="w-smoke" cx="1093" cy="350" r="12" fill="#3b4a5e" style="animation-delay:0.6s;"/>
+        <circle class="w-smoke" cx="1093" cy="350" r="12" fill="#3b4a5e" style="animation-delay:1.9s;"/>
+        <circle class="w-smoke" cx="1093" cy="350" r="12" fill="#3b4a5e" style="animation-delay:3.2s;"/>
+      </g>
+      <!-- conveyor belt across the base -->
+      <rect x="0" y="780" width="1600" height="24" fill="#334155"/>
+      <g id="welcomeRollers"></g>
+    </svg>
+
+    <div class="welcome-content">
+      <div class="welcome-brand">
+        <img src="assets/moonjelly-logo-transparent.png" alt="" class="welcome-brand-logo">
+        <span>THE TRADING TERMINAL</span>
+      </div>
+
+      <div class="welcome-press">
+        <div class="welcome-press-body">
+          <div class="welcome-press-slot"></div>
+        </div>
+        <div id="welcome-card" class="welcome-card">
+          <div class="welcome-card-quote-mark">&ldquo;</div>
+          <div id="welcome-quote-text" class="welcome-quote-text"></div>
+          <div id="welcome-quote-attr" class="welcome-quote-attr"></div>
+        </div>
+      </div>
+
+      <div class="welcome-caption">Manufacturing consistency, one principle at a time.</div>
+      <button class="welcome-enter-btn" onclick="enterTerminal()">Enter the Terminal →</button>
+    </div>
+  </div>
+
   <div class="header">
     <h1>TRADING TERMINAL</h1>
     <div class="meta">
@@ -2313,6 +2422,62 @@
   </div>
 
   <script>
+    // ===================== WELCOME SPLASH =====================
+    const WELCOME_QUOTES = [
+      { text: "Consistency compounds. A single lucky trade never does.", attr: "Trading Terminal Principles" },
+      { text: "It's not whether you're right or wrong, but how much you make when right and how much you lose when wrong.", attr: "George Soros" },
+      { text: "The big money is not in the buying and selling, but in the waiting.", attr: "Charlie Munger" },
+      { text: "The size was never the variable that didn't matter. It was the only one that did.", attr: "Trading Terminal Principles" },
+      { text: "Cut losers fast. Be patient with winners \u2014 especially the big ones.", attr: "Trading Terminal Principles" },
+      { text: "No market confirmation. No new risk.", attr: "Trading Terminal Principles" },
+      { text: "The process is the strategy. Everything else is noise.", attr: "Trading Terminal Principles" },
+      { text: "A repeatable operating system beats a brilliant one-off trade.", attr: "Trading Terminal Principles" },
+      { text: "An arrow can only be shot by pulling it backward. When life drags you back, it's loading you up to launch you forward.", attr: "Paulo Coelho" }
+    ];
+    let welcomeQuoteIdx = -1;
+    function showNextWelcomeQuote() {
+      welcomeQuoteIdx = (welcomeQuoteIdx + 1) % WELCOME_QUOTES.length;
+      const q = WELCOME_QUOTES[welcomeQuoteIdx];
+      const card = document.getElementById("welcome-card");
+      const textEl = document.getElementById("welcome-quote-text");
+      const attrEl = document.getElementById("welcome-quote-attr");
+      if (!card || !textEl || !attrEl) return;
+      textEl.textContent = q.text;
+      attrEl.textContent = "\u2014 " + q.attr;
+      // restart the CSS animation by forcing reflow
+      card.style.animation = "none";
+      void card.offsetWidth;
+      card.style.animation = "";
+    }
+    function initWelcomeSplash() {
+      showNextWelcomeQuote();
+      setInterval(showNextWelcomeQuote, 5500);
+      const rollers = document.getElementById("welcomeRollers");
+      if (rollers) {
+        let html = "";
+        for (let x = 60; x <= 1540; x += 110) {
+          html += `<circle cx="${x}" cy="804" r="14" fill="#64748b" stroke="#1e293b" stroke-width="2"/>`;
+        }
+        rollers.innerHTML = html;
+      }
+    }
+    function enterTerminal() {
+      const splash = document.getElementById("welcome-splash");
+      if (splash) splash.classList.add("hidden");
+      sessionStorage.setItem("tt_welcome_seen", "1");
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      // Skip the splash on subsequent reloads within the same browser
+      // session so it doesn't get in the way of active work — it still
+      // shows fresh every time a genuinely new session/tab opens.
+      if (sessionStorage.getItem("tt_welcome_seen") === "1") {
+        const splash = document.getElementById("welcome-splash");
+        if (splash) splash.classList.add("hidden");
+        return;
+      }
+      initWelcomeSplash();
+    });
+
     const candidates = [
       { ticker: "AOUT", name: "American Outdoor Brands, Inc.", price: 14.48, gap: 44.7, vol: "4.4M", volMult: "42.2x avg",
         catalyst: "Q1 FY27 beat with a swing to non-GAAP profitability, driven by new-product innovation across the outdoor-lifestyle lineup.",
