@@ -106,48 +106,75 @@ async function fetchFmpList(endpoint, key) {
 // CONFIRMED (from an actual run's log, HTTP 402 = Payment Required) that both
 // /stable/quote (batch quotes) and /stable/company-screener require a paid
 // FMP plan — despite what several third-party articles suggested. They are
-// NOT usable here. The only two endpoints that have actually returned real
-// data on the free tier are the gainers/losers/actives lists and
-// /stable/profile (per-ticker only, no batching, but it does work and
-// conveniently returns price, volume, averageVolume, sector, and industry
-// all in one call).
-async function fetchFmpProfile(ticker, key, dumpRaw) {
-  try {
-    const res = await fetch(`https://financialmodelingprep.com/stable/profile?symbol=${ticker}&apikey=${key}`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    const p = Array.isArray(data) ? data[0] : null;
-    if (!p) return null;
-    if (dumpRaw) {
-      // One-time full dump so we know definitively which price/change fields
-      // this stable-tier profile response actually has, instead of guessing —
-      // /stable/quote (which we know has changesPercentage) is paid-only, so
-      // it's unconfirmed whether profile carries an equivalent field.
-      console.log(`[diag] Full raw profile response for ${ticker}: ${JSON.stringify(p)}`);
-    }
-    // Try every plausible field name for price and day change, in order of
-    // likelihood, and compute % change ourselves if we only get a dollar
-    // amount. Falls back to null (not a fake 0) if nothing usable is found.
-    const price = p.price != null ? Number(p.price) : null;
-    let changePct = null;
-    if (p.changesPercentage != null) changePct = Number(p.changesPercentage);
-    else if (p.changePercentage != null) changePct = Number(p.changePercentage);
-    else if (p.changes != null && price != null) {
-      const priorClose = price - Number(p.changes);
-      if (priorClose) changePct = (Number(p.changes) / priorClose) * 100;
-    }
-    return {
+// NOT usable here.
+//
+// Price/volume detail for the tracked candidates now comes from Alpaca's
+// free Basic market data tier instead of FMP's /stable/profile. Two reasons:
+// 1. FMP's free-tier profile endpoint is effectively end-of-day only — this
+//    was the confirmed root cause of candidates showing yesterday's price
+//    even right after a fresh pre-market run (diagnosed directly against a
+//    live run's data, not assumed).
+// 2. Alpaca's Basic tier is genuinely real-time (IEX exchange feed), free,
+//    and needs only a free Paper Trading account — no funded live account
+//    required. Needs ALPACA_KEY_ID + ALPACA_SECRET_KEY as repo secrets;
+//    degrades gracefully (falls back to list-only price/change, no
+//    volume/avgVolume/RVOL) if either is missing.
+//
+// Trade-off worth knowing: Alpaca's free tier sees only IEX exchange volume,
+// not the full consolidated market tape, so volume figures will run lower
+// than what FMP or your broker shows — still genuinely live, just a partial
+// (and reasonably representative) slice of total volume rather than all of it.
+//
+// Sector/industry are no longer auto-populated (Alpaca's basic data API
+// doesn't carry company fundamentals) — the app's existing manual sector-map
+// feature covers that gap instead of adding a second paid-adjacent dependency.
+async function fetchAlpacaSnapshots(tickers, keyId, secret) {
+  if (!tickers.length) return {};
+  const headers = { "APCA-API-KEY-ID": keyId, "APCA-API-SECRET-KEY": secret };
+  const url = `https://data.alpaca.markets/v2/stocks/snapshots?symbols=${tickers.join(",")}`;
+  const res = await fetch(url, { headers });
+  if (!res.ok) throw new Error(`Alpaca snapshots failed: ${res.status}`);
+  const data = await res.json();
+  const out = {};
+  for (const [ticker, snap] of Object.entries(data || {})) {
+    if (!snap) continue;
+    const price = snap.latestTrade?.p ?? snap.dailyBar?.c ?? null;
+    const prevClose = snap.prevDailyBar?.c ?? null;
+    const changePct = price != null && prevClose ? ((price - prevClose) / prevClose) * 100 : null;
+    out[ticker] = {
       price,
       changePct,
-      volume: p.volume != null ? Number(p.volume) : null,
-      avgVolume: p.averageVolume != null ? Number(p.averageVolume) : null,
-      sector: p.sector || null,
-      industry: p.industry || null
+      volume: snap.dailyBar?.v ?? null
     };
-  } catch (e) {
-    return null;
   }
+  return out;
 }
+
+// Separate batched call for a genuine trailing average volume (Alpaca's
+// snapshot endpoint only gives yesterday's single-day volume, not an
+// average) — one call covering every tracked ticker's last ~20 sessions,
+// excluding today's still-forming bar from the average.
+async function fetchAlpacaAvgVolume(tickers, keyId, secret) {
+  if (!tickers.length) return {};
+  const headers = { "APCA-API-KEY-ID": keyId, "APCA-API-SECRET-KEY": secret };
+  const url = `https://data.alpaca.markets/v2/stocks/bars?symbols=${tickers.join(",")}&timeframe=1Day&limit=21&adjustment=raw`;
+  const res = await fetch(url, { headers });
+  if (!res.ok) throw new Error(`Alpaca bars failed: ${res.status}`);
+  const data = await res.json();
+  const bars = data?.bars || {};
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const out = {};
+  for (const [ticker, series] of Object.entries(bars)) {
+    if (!Array.isArray(series) || !series.length) continue;
+    // Drop today's bar if present (it's still forming, not a full session)
+    const complete = series.filter(b => !(b.t || "").startsWith(todayStr));
+    if (!complete.length) continue;
+    const avg = complete.reduce((sum, b) => sum + (b.v || 0), 0) / complete.length;
+    out[ticker] = avg;
+  }
+  return out;
+}
+
 
 // Mega-cap tickers that should always be tracked with real data, regardless
 // of whether they crack the gainers/losers/actives % lists — those lists
@@ -192,7 +219,7 @@ async function fetchScreener() {
   });
 
   // Add always-track mega-caps that aren't already in the pool — placeholder
-  // entries here, real price/change/volume comes from the profile fetch below.
+  // entries here, real price/change/volume comes from the Alpaca live-detail fetch below.
   ALWAYS_TRACK_TICKERS.forEach(ticker => {
     if (!byTicker[ticker]) {
       byTicker[ticker] = { ticker, name: ticker, price: null, changePct: null, _fromList: false, _megaCap: true };
@@ -204,9 +231,10 @@ async function fetchScreener() {
   const tickers = Object.keys(byTicker);
 
   // Rank by |% change| first (mega-caps without a % yet sort last in this
-  // step, doesn't matter — they get profile-fetched unconditionally below
-  // regardless of rank), then only fetch the expensive per-ticker profile
-  // data for a capped subset, to stay within FMP's 250-requests/day cap.
+  // step, doesn't matter — they get live-detail-fetched unconditionally
+  // below regardless of rank), then only fetch detailed data for a capped
+  // subset — keeps the batched Alpaca calls a reasonable size and keeps
+  // the candidate list focused on tickers that actually matter.
   const rankedTickers = [...tickers].sort((a, b) => Math.abs(byTicker[b].changePct || 0) - Math.abs(byTicker[a].changePct || 0));
   const TOP_MOVER_LIMIT = 15;
   const topMoverTargets = rankedTickers.filter(t => !byTicker[t]._megaCap).slice(0, TOP_MOVER_LIMIT);
@@ -215,21 +243,40 @@ async function fetchScreener() {
 
   const profiles = {};
   let profileFound = 0;
-  let dumpedOne = false;
-  for (const ticker of profileTargets) {
-    const p = await fetchFmpProfile(ticker, key, !dumpedOne);
-    dumpedOne = true;
-    if (p) { profiles[ticker] = p; profileFound++; }
-    await new Promise(r => setTimeout(r, 120)); // be a reasonable citizen toward the API
+  const alpacaKeyId = process.env.ALPACA_KEY_ID;
+  const alpacaSecret = process.env.ALPACA_SECRET_KEY;
+  if (!alpacaKeyId || !alpacaSecret) {
+    note.push("ALPACA_KEY_ID/ALPACA_SECRET_KEY not set — candidate price/volume detail will fall back to gainers/losers/actives list data only (no RVOL). Add a free Alpaca Paper Trading account's API keys as repo secrets to enable live detail.");
+  } else {
+    try {
+      const [snapshots, avgVolumes] = await Promise.all([
+        fetchAlpacaSnapshots(profileTargets, alpacaKeyId, alpacaSecret),
+        fetchAlpacaAvgVolume(profileTargets, alpacaKeyId, alpacaSecret)
+      ]);
+      for (const ticker of profileTargets) {
+        const snap = snapshots[ticker];
+        if (!snap) continue;
+        profiles[ticker] = {
+          price: snap.price,
+          changePct: snap.changePct,
+          volume: snap.volume,
+          avgVolume: avgVolumes[ticker] ?? null
+        };
+        profileFound++;
+      }
+    } catch (e) {
+      note.push("Alpaca detail fetch: " + e.message);
+    }
   }
-  console.log(`[diag] Profile data found for ${profileFound} of ${profileTargets.length} tickers checked (${topMoverTargets.length} top movers + ${megaCapTargets.length} always-track mega-caps)`);
+  console.log(`[diag] Live detail found for ${profileFound} of ${profileTargets.length} tickers checked (${topMoverTargets.length} top movers + ${megaCapTargets.length} always-track mega-caps), via Alpaca in 2 batched calls`);
 
   const candidates = tickers.map(ticker => {
     const base = byTicker[ticker];
     const p = profiles[ticker] || {};
     // Mega-caps with no list data start with null price/change — fill from
-    // profile if we got it. List-sourced tickers keep their list price/change
-    // unless profile gave us something (profile is usually fresher).
+    // the Alpaca snapshot if we got it. List-sourced tickers keep their list
+    // price/change unless the snapshot gave us something (Alpaca is
+    // genuinely real-time; the list endpoints update less predictably).
     const price = p.price != null ? p.price : base.price;
     const changePct = p.changePct != null ? p.changePct : base.changePct;
     const volume = p.volume || 0;
@@ -243,18 +290,16 @@ async function fetchScreener() {
       volume,
       avgVolume,
       rvol, // e.g. 2.5 means trading at 2.5x its average volume
-      sector: p.sector || null,
-      industry: p.industry || null,
       hasProfileData: !!profiles[ticker],
       megaCap: !!base._megaCap,
-      source: "Financial Modeling Prep (free tier, licensed API)",
+      source: profiles[ticker] ? "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)" : "Financial Modeling Prep (free tier, licensed API)",
       sourceUrl: `https://financialmodelingprep.com/quote/${ticker}`
     };
-  }).filter(c => c.price > 5) // re-apply price filter now that mega-caps have real prices from profile
+  }).filter(c => c.price > 5) // re-apply price filter now that mega-caps have real prices from the snapshot
     .sort((a, b) => b.volume - a.volume);
 
   // Breadth count from the FULL raw gainers+losers+actives pool (before the
-  // top-15 trim that only applies to which tickers get the expensive profile
+  // top-15 trim that only applies to which tickers get the live-detail
   // fetch) — this is a much larger, more accurate universe for a same-day
   // ±20% move count than the trimmed candidate list, and costs zero extra
   // API calls since gainers/losers/actives are already fetched above.
