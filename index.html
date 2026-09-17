@@ -2277,10 +2277,10 @@
         </div>
       </div>
       <div class="panel">
-        <div class="panel-header">Live Price Source · Alpaca API Keys</div>
+        <div class="panel-header">🔄 Try Live Price (Experimental) · Alpaca API Keys</div>
         <div class="panel-body">
           <div class="note" style="margin-bottom:8px;">
-            Live prices for open positions use Alpaca's free real-time (IEX feed) market data — the same source the scheduled screener uses server-side, now called directly from your browser for your specific open tickers. Free Paper Trading account, no funding required. Your keys live only in this browser's local storage and are sent directly to Alpaca when fetching prices, never written to the repo.
+            <strong>Known limitation:</strong> Alpaca's market data API has a confirmed CORS restriction that blocks direct calls from a browser — the 🔄 button on each open position will likely fail with this configured, since the request gets rejected before it reaches Alpaca at all. This is unrelated to the server-side screener (which runs in GitHub Actions, not a browser, so it isn't affected). Kept here in case Alpaca changes this policy — for now, type prices manually below, which is the reliable path.
           </div>
           <div class="form-row">
             <input type="password" id="alpaca-client-keyid-input" placeholder="Alpaca Key ID" style="width:220px;" />
@@ -2288,7 +2288,7 @@
             <button class="btn btn-sm btn-accent" onclick="saveAlpacaClientKeys()">Save keys</button>
             <button class="btn btn-sm" onclick="clearAlpacaClientKeys()">Clear keys</button>
           </div>
-          <div class="muted" style="font-size:11px;margin-top:6px;" id="alpaca-client-key-status">No Alpaca keys saved yet — current prices below will stay blank until you add them.</div>
+          <div class="muted" style="font-size:11px;margin-top:6px;" id="alpaca-client-key-status">No Alpaca keys saved yet.</div>
         </div>
       </div>
       <div class="panel">
@@ -4796,6 +4796,7 @@
     let lastDataGeneratedAt = null;
     let lastDataGeneratedSlot = null;
     let lastBreadthHistory = [];
+    let lastScreenerCandidates = [];
     async function loadLiveWatchlistData() {
       const badge = document.getElementById("live-data-badge");
       const statusBody = document.getElementById("live-data-status-body");
@@ -4815,6 +4816,7 @@
         renderWsjFeed(data.wsjHeadlines);
 
         const screener = data.screener || { available: false, candidates: [] };
+        lastScreenerCandidates = screener.candidates || [];
         const buzz = data.buzz || [];
         const volumeMovers = data.volumeMovers || { available: false, movers: [] };
         const hasLive = (screener.available && screener.candidates && screener.candidates.length) || buzz.length;
@@ -4861,6 +4863,11 @@
           }
         }
         liveDataLoaded = true;
+        // Sector data specifically depends on this fetch completing — refresh
+        // it now that lastScreenerCandidates is actually populated, rather
+        // than leaving it stuck showing "Unclassified" until the user
+        // happens to navigate away and back.
+        renderSectorAllocation();
       } catch (e) {
         if (badge) badge.textContent = "Not connected";
         if (statusBody) statusBody.textContent = "Could not load data/candidates.json (" + e.message + "). This is expected if you're opening the file directly rather than through the deployed site, or before the first scheduled/manual Action run.";
@@ -6399,6 +6406,13 @@
       const { keyId } = getAlpacaClientKeys();
       el.textContent = keyId ? "Keys saved (Key ID " + keyId.slice(0, 4) + "…)" : "No Alpaca keys saved yet — current prices below will stay blank until you add them.";
     }
+    // Direct browser calls to Alpaca's market DATA api (data.alpaca.markets)
+    // are blocked by a confirmed CORS restriction — the browser's preflight
+    // OPTIONS request can't carry the required auth header, so Alpaca
+    // rejects it before the real request is even sent. This is NOT the same
+    // as the server-side calls in fetch-data.mjs, which run in GitHub
+    // Actions (no browser, no CORS) and work fine. Kept here in case Alpaca
+    // changes this, but not relied on as the primary path — manual entry is.
     async function alpacaQuotePrice(ticker, keyId, secret) {
       const headers = { "APCA-API-KEY-ID": keyId, "APCA-API-SECRET-KEY": secret };
       const res = await fetch(`https://data.alpaca.markets/v2/stocks/snapshots?symbols=${encodeURIComponent(ticker)}&feed=iex`, { headers });
@@ -6414,7 +6428,7 @@
       if (btn) { btn.textContent = "…"; btn.disabled = true; }
       const { keyId, secret } = getAlpacaClientKeys();
       if (!keyId || !secret) {
-        setLivePriceStatus("No Alpaca keys saved — add them below.");
+        setLivePriceStatus("No Alpaca keys saved — enter the price manually instead.");
         if (btn) { btn.textContent = originalText; btn.disabled = false; }
         return;
       }
@@ -6425,7 +6439,7 @@
         renderPositions();
         setLivePriceStatus("Updated " + ticker + " · $" + Number(price).toFixed(2) + " · " + new Date().toLocaleTimeString());
       } catch (e) {
-        setLivePriceStatus("Couldn't fetch a live price for " + ticker + " (" + e.message + ").");
+        setLivePriceStatus("Live fetch for " + ticker + " didn't work (" + e.message + ") — this is a known CORS restriction on Alpaca's data API from a browser, not your keys. Enter the price manually.");
         if (btn) { btn.textContent = originalText; btn.disabled = false; }
       }
     }
@@ -7340,7 +7354,7 @@ Question: ${question}`;
         openBody.innerHTML =
           `<div style="margin-bottom:8px;">
             <button class="btn btn-sm" onclick="fetchAllLivePrices(false)">🔄 Try live prices for all rows</button>
-            <span class="muted" style="font-size:11px;margin-left:6px;" id="live-price-status">Read-only, from Alpaca's free real-time feed — add your keys below if this stays blank.</span>
+            <span class="muted" style="font-size:11px;margin-left:6px;" id="live-price-status">Enter prices manually — automatic browser-based fetching is blocked by Alpaca's data API (a confirmed CORS restriction, not a bug in your setup). The 🔄 button will try anyway in case that changes.</span>
           </div>
           <table><thead><tr><th>Ticker</th><th>Setup</th><th>Qty</th><th>Entry</th><th>Stop</th><th>Current Price</th><th>Unrealized $</th><th>Opened</th><th></th></tr></thead><tbody>` +
           openRows.map(p => {
@@ -7359,12 +7373,13 @@ Question: ${question}`;
                     style="width:75px;" onchange="${stopUpdateFn}('${p.ticker}', this.value)" title="Pulled from your watchlist plan by default — edit if the actual stop differs." />
               </td>
               <td>
-                <span style="font-weight:600;">${p.currentPrice != null ? "$" + Number(p.currentPrice).toFixed(2) : "—"}</span>
-                <button class="btn btn-sm" style="padding:2px 6px;font-size:11px;margin-left:4px;" title="Refresh this ticker's price now"
+                <input type="number" step="0.01" value="${p.currentPrice != null ? p.currentPrice : ""}" placeholder="type price"
+                    style="width:80px;" onchange="${updateFn}('${p.ticker}', this.value)" />
+                <button class="btn btn-sm" style="padding:2px 6px;font-size:11px;" title="Try a live price (often blocked by CORS from a browser — enter manually if it doesn't work)"
                     onclick="fetchLivePrice('${p.ticker}', '${p.source}', this)">🔄</button>
               </td>
               <td class="${p.unrealized == null ? "muted" : p.unrealized >= 0 ? "pos" : "neg"}">
-                ${p.unrealized == null ? "no live price yet" : "$" + p.unrealized.toFixed(2)}
+                ${p.unrealized == null ? "enter price" : "$" + p.unrealized.toFixed(2)}
               </td>
               <td class="muted" style="font-size:10px;">${(p.opened || "").slice(0, 10)}</td>
               <td>${closeBtn}</td>
@@ -7373,7 +7388,7 @@ Question: ${question}`;
           `</tbody></table>
           <div class="note" style="margin-top:8px;">
             Total unrealized: <strong class="${totalUnrealized >= 0 ? "pos" : "neg"}">$${totalUnrealized.toFixed(2)}</strong>
-            ${anyMissingPrice ? " · some rows don't have a live price yet — add your Alpaca keys below, or click 🔄 on a row, to populate them." : ""}
+            ${anyMissingPrice ? " · type a Current Price for every row above to make this (and Account Snapshot) accurate — rows without one aren't counted yet." : ""}
           </div>`;
       }
       const closed = getJournal();
@@ -7594,10 +7609,16 @@ Question: ${question}`;
       return "Holy grail";
     }
 
+    function getTickerSector(ticker) {
+      const fromScreener = lastScreenerCandidates.find(c => c.ticker === ticker);
+      if (fromScreener && fromScreener.sector) return fromScreener.sector;
+      const manual = getSectorMap()[ticker];
+      if (manual) return manual;
+      return "Unclassified";
+    }
     function renderSectorAllocation() {
       const el = document.getElementById("sector-allocation-body");
       if (!el) return;
-      const sectorMap = getSectorMap();
       const openFromPlans = getWatchlist().filter(w => w.position && w.position.status === "open");
       const openFromSchwab = getOpenLots();
       const rows = [
@@ -7613,7 +7634,7 @@ Question: ${question}`;
       let total = 0;
       const unclassified = new Set();
       rows.forEach(r => {
-        const sector = sectorMap[r.ticker] || "Unclassified";
+        const sector = getTickerSector(r.ticker);
         if (sector === "Unclassified") unclassified.add(r.ticker);
         const value = r.qty * r.price;
         bySector[sector] = (bySector[sector] || 0) + value;
@@ -8035,7 +8056,7 @@ Question: ${question}`;
       if (section === "home") { initHomeLanding(); }
       if (section === "maintenance") { renderLastBackupStatus(); }
       if (section === "trade-factory") renderTradeFactory();
-      if (section === "positions") { loadBaselineUI(); renderAlpacaClientKeyStatus(); renderPositions(); renderRiskGauge(); fetchAllLivePrices(true); }
+      if (section === "positions") { loadBaselineUI(); renderAlpacaClientKeyStatus(); renderPositions(); renderRiskGauge(); }
       if (section === "fund-ownership") renderCustomList("fundownership");
       if (section === "sugar-babies") renderCustomList("sugarbabies");
       if (section === "dashboard") renderDashboard();
