@@ -5,6 +5,48 @@
 import { writeFile, readFile, mkdir } from "fs/promises";
 import path from "path";
 
+// Sector/industry classification, unlike price, doesn't go stale day to
+// day — a company's sector this morning is still its sector this afternoon.
+// So this is fetched from FMP's /stable/profile (which does have the
+// end-of-day price staleness problem that Alpaca was brought in to fix, but
+// that doesn't matter here since only the sector/industry fields are used,
+// never the price from this same response) and cached indefinitely in
+// data/sector-cache.json, checked before ever spending a request on a
+// ticker already known. Keeps this well within FMP's free-tier budget
+// regardless of how many tickers accumulate over time.
+async function loadSectorCache(cachePath) {
+  try {
+    const raw = await readFile(cachePath, "utf8");
+    return JSON.parse(raw);
+  } catch (e) {
+    return {};
+  }
+}
+async function fetchFmpSector(ticker, key) {
+  try {
+    const res = await fetch(`https://financialmodelingprep.com/stable/profile?symbol=${ticker}&apikey=${key}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const p = Array.isArray(data) ? data[0] : null;
+    if (!p) return null;
+    return { sector: p.sector || null, industry: p.industry || null };
+  } catch (e) {
+    return null;
+  }
+}
+async function updateSectorCache(tickers, cache, key, maxNewLookups) {
+  if (!key) return cache;
+  const unknown = tickers.filter(t => !cache[t]);
+  const toFetch = unknown.slice(0, maxNewLookups);
+  for (const ticker of toFetch) {
+    const result = await fetchFmpSector(ticker, key);
+    cache[ticker] = result || { sector: null, industry: null }; // cache the miss too, so we don't retry it forever
+    await new Promise(r => setTimeout(r, 120));
+  }
+  if (toFetch.length) console.log(`[diag] Sector cache: looked up ${toFetch.length} new ticker(s), ${unknown.length - toFetch.length} more still unknown (next run), ${tickers.length - unknown.length} already cached`);
+  return cache;
+}
+
 const TARGET_SLOTS = [
   { label: "4:00am PT", minutes: 4 * 60 },
   { label: "5:30am PT", minutes: 5 * 60 + 30 },
@@ -543,6 +585,23 @@ async function main() {
   if (breadthHistory.length > 120) breadthHistory = breadthHistory.slice(-120);
   await writeFile(historyPath, JSON.stringify(breadthHistory, null, 2));
   console.log(`[diag] Breadth history: today ${up20} up20 / ${down20} down20 (out of ${poolSize} tickers checked) · ${breadthHistory.length} day(s) tracked total`);
+
+  // Sector/industry — cached indefinitely (see loadSectorCache above for
+  // why this is safe to source from FMP despite that same endpoint's price
+  // data being stale). Capped at 20 new lookups per run regardless of how
+  // many unclassified tickers exist, so this can never blow the free-tier
+  // budget even on a day with lots of new names — the rest just get picked
+  // up on subsequent runs.
+  const sectorCachePath = path.join(process.cwd(), "data", "sector-cache.json");
+  let sectorCache = await loadSectorCache(sectorCachePath);
+  const allTickers = [...new Set(screener.candidates.map(c => c.ticker))];
+  sectorCache = await updateSectorCache(allTickers, sectorCache, process.env.FMP_API_KEY, 20);
+  await writeFile(sectorCachePath, JSON.stringify(sectorCache, null, 2));
+  screener.candidates.forEach(c => {
+    const s = sectorCache[c.ticker];
+    c.sector = s?.sector || null;
+    c.industry = s?.industry || null;
+  });
 
   const output = {
     generatedAt: new Date().toISOString(),
