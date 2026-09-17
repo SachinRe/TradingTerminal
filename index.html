@@ -1181,16 +1181,29 @@
         </div>
 
         <div style="display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;margin-bottom:20px;">
-          <div style="flex:1;min-width:260px;background:#0f172a;border:2px solid #eab308;border-radius:12px;padding:16px;overflow:hidden;">
-            <img src="assets/holygrail-distracted.png" alt="Meme: a trader looks back at a random breakout candle while his trading plan looks on, upset" style="width:100%;max-width:220px;display:block;margin:0 auto 12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.45);">
-            <div style="font-size:16px;font-weight:800;color:#eab308;text-align:center;">MARRY A SETUP</div>
+          <div style="flex:1;min-width:260px;background:#0f172a;border:2px solid #eab308;border-radius:12px;padding:18px;overflow:hidden;">
+            <div style="font-size:22px;font-weight:800;color:#eab308;text-align:center;">MARRY A SETUP</div>
             <div style="font-size:12px;color:#e5e7eb;margin-top:8px;line-height:1.6;text-align:center;">Stop rotating between five methods. Pick <strong>one</strong> structure. Give it months, not a weekend, before you judge it.</div>
+            <img src="assets/holygrail-distracted.png" alt="Meme: a trader looks back at a random breakout candle while his trading plan looks on, upset" style="width:100%;max-width:220px;display:block;margin:14px auto 0;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.45);">
           </div>
           <div style="display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--muted);font-weight:800;padding:0 4px;">+</div>
-          <div style="flex:1;min-width:260px;background:#0f172a;border:2px solid #2dd4bf;border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center;">
-            <div style="font-size:40px;text-align:center;">🔁</div>
-            <div style="font-size:16px;font-weight:800;color:#2dd4bf;margin-top:12px;text-align:center;">BUILD PROCEDURAL MEMORY</div>
+          <div style="flex:1;min-width:260px;background:#0f172a;border:2px solid #2dd4bf;border-radius:12px;padding:18px;display:flex;flex-direction:column;">
+            <div style="font-size:22px;font-weight:800;color:#2dd4bf;text-align:center;">BUILD PROCEDURAL MEMORY</div>
             <div style="font-size:12px;color:#e5e7eb;margin-top:8px;line-height:1.6;text-align:center;">Run the <strong>same six-step loop, every single day</strong>, until it fires without you thinking — not once a week when a setup happens to appear.</div>
+            <svg viewBox="0 0 400 130" style="width:100%;max-width:340px;margin:16px auto 0;display:block;">
+              <line x1="20" y1="70" x2="88" y2="70" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="3,4" opacity="0.4"/>
+              <line x1="92" y1="70" x2="160" y2="70" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="5,3" opacity="0.55"/>
+              <line x1="164" y1="70" x2="232" y2="70" stroke="#2dd4bf" stroke-width="5" opacity="0.7"/>
+              <line x1="236" y1="70" x2="304" y2="70" stroke="#2dd4bf" stroke-width="7.5" opacity="0.85"/>
+              <line x1="308" y1="70" x2="380" y2="70" stroke="#2dd4bf" stroke-width="10" opacity="1"/>
+              <circle cx="20" cy="70" r="4" fill="#0f172a" stroke="#2dd4bf" stroke-width="2"/>
+              <circle cx="380" cy="70" r="6" fill="#2dd4bf"/>
+              <text x="20" y="95" fill="#94a3b8" font-size="10" text-anchor="middle">Day 1</text>
+              <text x="20" y="108" fill="#64748b" font-size="8" text-anchor="middle">hesitant</text>
+              <text x="380" y="95" fill="#2dd4bf" font-size="10" font-weight="700" text-anchor="middle">Day 100+</text>
+              <text x="380" y="108" fill="#5eead4" font-size="8" text-anchor="middle">automatic</text>
+              <text x="200" y="35" fill="#94a3b8" font-size="9" text-anchor="middle">same loop, repeated daily — the pathway thickens</text>
+            </svg>
           </div>
         </div>
         <div style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:24px;">Neither one works alone. A setup with no daily repetition never becomes a skill. Daily repetition on a setup you keep switching never compounds.</div>
@@ -4002,6 +4015,16 @@
       renderWatchlist();
       populateTickerSelects();
     }
+    function updateWatchlistComment(ticker, comment) {
+      const list = getWatchlist();
+      const item = list.find(x => x.ticker === ticker);
+      if (!item) return;
+      item.comment = comment;
+      saveWatchlist(list);
+      // No re-render here — the textarea the user just typed into is already
+      // showing the saved value, and re-rendering the whole table on every
+      // blur would be a jarring reset for no visible benefit.
+    }
     function setQualifySetup(ticker, type) {
       const c = candidates.find(x => x.ticker === ticker);
       if (c) {
@@ -4523,7 +4546,7 @@
       }
 
       let html = `<table><thead><tr>
-        <th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Plan</th><th>Risk cue</th><th>Actions</th>
+        <th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Plan</th><th>Risk cue</th><th>Why keeping it</th><th>Actions</th>
       </tr></thead><tbody>`;
       list.forEach(w => {
         const st = w.setupType || "SIP";
@@ -4551,6 +4574,11 @@
           </td>
           <td style="font-size:11px;max-width:220px;white-space:normal;">${planTxt}</td>
           <td style="font-size:10px;color:var(--muted);max-width:160px;white-space:normal;">${rules.riskPct}% risk · ${rules.hold}</td>
+          <td>
+            <textarea onchange="updateWatchlistComment('${w.ticker}', this.value)" rows="2"
+                style="width:170px;font-size:11px;background:#0f172a;border:1px solid var(--border);color:var(--text);border-radius:4px;padding:5px 7px;font-family:inherit;resize:vertical;"
+                placeholder="Why is this still here?">${(w.comment || "").replace(/</g, "&lt;")}</textarea>
+          </td>
           <td style="white-space:nowrap;">
             <button class="btn btn-sm btn-accent" onclick="openPlanFor('${w.ticker}')">${p ? "Edit" : "Plan"}</button>
             <button class="btn btn-sm" onclick="openRiskFor('${w.ticker}')">Size</button>
