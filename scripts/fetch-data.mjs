@@ -9,11 +9,16 @@ import path from "path";
 // day — a company's sector this morning is still its sector this afternoon.
 // So this is fetched from FMP's /stable/profile (which does have the
 // end-of-day price staleness problem that Alpaca was brought in to fix, but
-// that doesn't matter here since only the sector/industry fields are used,
-// never the price from this same response) and cached indefinitely in
-// data/sector-cache.json, checked before ever spending a request on a
+// that doesn't matter here since only the sector/industry/market-cap fields
+// are used, never the price from this same response) and cached indefinitely
+// in data/sector-cache.json, checked before ever spending a request on a
 // ticker already known. Keeps this well within FMP's free-tier budget
-// regardless of how many tickers accumulate over time.
+// regardless of how many tickers accumulate over time. Market cap piggybacks
+// on this same cached call — it's the same endpoint response, just one more
+// field read from it — used for the 20%-study's market-cap-bucket breakdown.
+// It goes stale exactly as much as price does, but cap *buckets* (Nano
+// through Mega) are wide enough that this rarely changes which bucket a
+// ticker actually falls into.
 async function loadSectorCache(cachePath) {
   try {
     const raw = await readFile(cachePath, "utf8");
@@ -29,7 +34,7 @@ async function fetchFmpSector(ticker, key) {
     const data = await res.json();
     const p = Array.isArray(data) ? data[0] : null;
     if (!p) return null;
-    return { sector: p.sector || null, industry: p.industry || null };
+    return { sector: p.sector || null, industry: p.industry || null, mktCap: p.marketCap != null ? p.marketCap : (p.mktCap != null ? p.mktCap : null) };
   } catch (e) {
     return null;
   }
@@ -40,7 +45,7 @@ async function updateSectorCache(tickers, cache, key, maxNewLookups) {
   const toFetch = unknown.slice(0, maxNewLookups);
   for (const ticker of toFetch) {
     const result = await fetchFmpSector(ticker, key);
-    cache[ticker] = result || { sector: null, industry: null }; // cache the miss too, so we don't retry it forever
+    cache[ticker] = result || { sector: null, industry: null, mktCap: null }; // cache the miss too, so we don't retry it forever
     await new Promise(r => setTimeout(r, 120));
   }
   if (toFetch.length) console.log(`[diag] Sector cache: looked up ${toFetch.length} new ticker(s), ${unknown.length - toFetch.length} more still unknown (next run), ${tickers.length - unknown.length} already cached`);
@@ -400,11 +405,17 @@ async function fetchScreener() {
   // top-15 trim that only applies to which tickers get the live-detail
   // fetch) — this is a much larger, more accurate universe for a same-day
   // ±20% move count than the trimmed candidate list, and costs zero extra
-  // API calls since gainers/losers/actives are already fetched above.
+  // API calls since gainers/losers/actives are already fetched above. The
+  // actual ticker lists (not just counts) are captured too now, for the
+  // composition/theme-rotation history — also free, same source data.
+  const upMovers = Object.values(byTicker).filter(c => c._fromList && c.changePct >= 20);
+  const downMovers = Object.values(byTicker).filter(c => c._fromList && c.changePct <= -20);
   const rawMoveCounts = {
-    up20: Object.values(byTicker).filter(c => c._fromList && c.changePct >= 20).length,
-    down20: Object.values(byTicker).filter(c => c._fromList && c.changePct <= -20).length,
-    poolSize: Object.values(byTicker).filter(c => c._fromList).length
+    up20: upMovers.length,
+    down20: downMovers.length,
+    poolSize: Object.values(byTicker).filter(c => c._fromList).length,
+    upMovers: upMovers.map(c => ({ ticker: c.ticker, price: c.price, changePct: Number((c.changePct || 0).toFixed(2)) })),
+    downMovers: downMovers.map(c => ({ ticker: c.ticker, price: c.price, changePct: Number((c.changePct || 0).toFixed(2)) }))
   };
 
   return {
@@ -586,15 +597,20 @@ async function main() {
   await writeFile(historyPath, JSON.stringify(breadthHistory, null, 2));
   console.log(`[diag] Breadth history: today ${up20} up20 / ${down20} down20 (out of ${poolSize} tickers checked) · ${breadthHistory.length} day(s) tracked total`);
 
-  // Sector/industry — cached indefinitely (see loadSectorCache above for
-  // why this is safe to source from FMP despite that same endpoint's price
-  // data being stale). Capped at 20 new lookups per run regardless of how
-  // many unclassified tickers exist, so this can never blow the free-tier
-  // budget even on a day with lots of new names — the rest just get picked
-  // up on subsequent runs.
+  // Sector/industry/market-cap — cached indefinitely (see loadSectorCache
+  // above for why this is safe to source from FMP despite that same
+  // endpoint's price data being stale). Capped at 20 new lookups per run
+  // regardless of how many unclassified tickers exist, so this can never
+  // blow the free-tier budget even on a day with lots of new names — the
+  // rest just get picked up on subsequent runs. Scope now covers every
+  // ticker that moved ±20% today too, not just the ~40 tracked candidates —
+  // needed for the 20%-study composition breakdown, and it's the same cache
+  // so this only grows the pool of tickers competing for those 20 daily
+  // lookup slots, not the API budget itself.
   const sectorCachePath = path.join(process.cwd(), "data", "sector-cache.json");
   let sectorCache = await loadSectorCache(sectorCachePath);
-  const allTickers = [...new Set(screener.candidates.map(c => c.ticker))];
+  const moverTickers = [...(screener.rawMoveCounts?.upMovers || []), ...(screener.rawMoveCounts?.downMovers || [])].map(m => m.ticker);
+  const allTickers = [...new Set([...screener.candidates.map(c => c.ticker), ...moverTickers])];
   sectorCache = await updateSectorCache(allTickers, sectorCache, process.env.FMP_API_KEY, 20);
   await writeFile(sectorCachePath, JSON.stringify(sectorCache, null, 2));
   screener.candidates.forEach(c => {
@@ -602,6 +618,31 @@ async function main() {
     c.sector = s?.sector || null;
     c.industry = s?.industry || null;
   });
+
+  // 20%-study history — the full daily ticker list (not just the up20/down20
+  // counts already in breadthHistory above), enriched with sector/industry/
+  // market-cap from the same cache, for the composition and theme-rotation
+  // views. Retained 90 days — enough for month-scale pooling without the
+  // file growing unbounded (each day is maybe a few dozen tickers).
+  const enrichMover = (m) => {
+    const s = sectorCache[m.ticker];
+    return { ticker: m.ticker, price: m.price, changePct: m.changePct, sector: s?.sector || null, industry: s?.industry || null, mktCap: s?.mktCap != null ? s.mktCap : null };
+  };
+  const twentyPctPath = path.join(process.cwd(), "data", "twenty-pct-history.json");
+  let twentyPctHistory = [];
+  try { twentyPctHistory = JSON.parse(await readFile(twentyPctPath, "utf8")); } catch (e) { twentyPctHistory = []; }
+  const twentyPctEntry = {
+    date: today,
+    up: (screener.rawMoveCounts?.upMovers || []).map(enrichMover),
+    down: (screener.rawMoveCounts?.downMovers || []).map(enrichMover)
+  };
+  const tpIdx = twentyPctHistory.findIndex(d => d.date === today);
+  if (tpIdx >= 0) twentyPctHistory[tpIdx] = twentyPctEntry;
+  else twentyPctHistory.push(twentyPctEntry);
+  twentyPctHistory.sort((a, b) => a.date.localeCompare(b.date));
+  if (twentyPctHistory.length > 90) twentyPctHistory = twentyPctHistory.slice(-90);
+  await writeFile(twentyPctPath, JSON.stringify(twentyPctHistory, null, 2));
+  console.log(`[diag] 20%-study history: today ${twentyPctEntry.up.length} up / ${twentyPctEntry.down.length} down movers captured with sector/industry/mktCap · ${twentyPctHistory.length} day(s) retained`);
 
   const output = {
     generatedAt: new Date().toISOString(),
