@@ -3,102 +3,94 @@
     "date": "2026-09-18",
     "up": [
       {
-        "ticker": "AEMD",
-        "price": 6.78,
-        "changePct": 374.13,
-        "sector": "Healthcare",
-        "industry": "Medical - Devices",
-        "mktCap": 3571107
+        "ticker": "SVRN",
+        "price": 18.795,
+        "changePct": 32.45,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 26617829
       },
       {
-        "ticker": "DAIC",
-        "price": 5.3,
-        "changePct": 163.68,
-        "sector": "Technology",
-        "industry": "Information Technology Services",
-        "mktCap": 6415030
+        "ticker": "TJGC",
+        "price": 13.99,
+        "changePct": 27.07,
+        "sector": "Communication Services",
+        "industry": "Advertising Agencies",
+        "mktCap": 70990664
+      },
+      {
+        "ticker": "GEMG",
+        "price": 9.47,
+        "changePct": 26.3,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 932681
       },
       {
         "ticker": "BIAF",
-        "price": 8.75,
-        "changePct": 63.55,
+        "price": 10.69,
+        "changePct": 22.17,
         "sector": "Healthcare",
         "industry": "Medical - Diagnostics & Research",
         "mktCap": 3665121
       },
       {
-        "ticker": "NGHT",
-        "price": 21.456,
-        "changePct": 45.46,
+        "ticker": "MSTP",
+        "price": 26.4809,
+        "changePct": 21.72,
         "sector": "Financial Services",
-        "industry": "Asset Management",
-        "mktCap": 1287360
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 56060
+      },
+      {
+        "ticker": "MSTX",
+        "price": 17.2,
+        "changePct": 21.64,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 54206509
+      },
+      {
+        "ticker": "TXXH",
+        "price": 78.88,
+        "changePct": 21.53,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 10575363
+      },
+      {
+        "ticker": "CONX",
+        "price": 7.452,
+        "changePct": 20,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5102122
+      }
+    ],
+    "down": [
+      {
+        "ticker": "XENE",
+        "price": 40.72,
+        "changePct": -29,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 3944923136
       },
       {
         "ticker": "AEHL",
-        "price": 12.29,
-        "changePct": 33.3,
+        "price": 9.57,
+        "changePct": -22.13,
         "sector": "Basic Materials",
         "industry": "Construction Materials",
         "mktCap": 11980366
       },
       {
-        "ticker": "SDGR",
-        "price": 30.24,
-        "changePct": 26.37,
-        "sector": "Technology",
-        "industry": "Software - Application",
-        "mktCap": 2259554694
-      },
-      {
-        "ticker": "MTC",
-        "price": 6.56,
-        "changePct": 25.43,
-        "sector": "Financial Services",
-        "industry": "Financial - Capital Markets",
-        "mktCap": 165225828
-      },
-      {
-        "ticker": "PUR",
-        "price": 37.1,
-        "changePct": 24.2,
+        "ticker": "SMST",
+        "price": 16.025,
+        "changePct": -21.91,
         "sector": "Financial Services",
         "industry": "Asset Management",
-        "mktCap": 1113000
-      },
-      {
-        "ticker": "OKLL",
-        "price": 11.15,
-        "changePct": 22.26,
-        "sector": "Financial Services",
-        "industry": "Asset Management - Leveraged",
-        "mktCap": 3030871
-      },
-      {
-        "ticker": "IPEXU",
-        "price": 11.95,
-        "changePct": 21.94,
-        "sector": "Financial Services",
-        "industry": "Shell Companies",
-        "mktCap": 106242969
-      },
-      {
-        "ticker": "SVRN",
-        "price": 14.19,
-        "changePct": 21.28,
-        "sector": "Industrials",
-        "industry": "Marine Shipping",
-        "mktCap": 26617829
-      }
-    ],
-    "down": [
-      {
-        "ticker": "IONZ",
-        "price": 24.7835,
-        "changePct": -20.08,
-        "sector": "Financial Services",
-        "industry": "Asset Management",
-        "mktCap": 15187254
+        "mktCap": 8772063
       }
     ]
   }

@@ -298,5 +298,105 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 6505783
+  },
+  "XENE": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 3944923136
+  },
+  "CONL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 222925997
+  },
+  "MSTX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 54206509
+  },
+  "SMST": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 8772063
+  },
+  "TJGC": {
+    "sector": "Communication Services",
+    "industry": "Advertising Agencies",
+    "mktCap": 70990664
+  },
+  "TXXH": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 10575363
+  },
+  "TXXS": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 64219030
+  },
+  "MSTP": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 56060
+  },
+  "CONX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 5102122
+  },
+  "COIG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 10528845
+  },
+  "GEMG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 932681
+  },
+  "COIA": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1171362
+  },
+  "SOLT": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 27069638
+  },
+  "SLON": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 11305974
+  },
+  "MST": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1336269
+  },
+  "FWDI": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 530654569
+  },
+  "BMNG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 62213613
+  },
+  "MRAL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 13553869
+  },
+  "TXXD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 261481
+  },
+  "CRCG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 6424962
   }
 }
