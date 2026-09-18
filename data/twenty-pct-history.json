@@ -1,0 +1,105 @@
+[
+  {
+    "date": "2026-09-18",
+    "up": [
+      {
+        "ticker": "AEMD",
+        "price": 6.78,
+        "changePct": 374.13,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "DAIC",
+        "price": 5.3,
+        "changePct": 163.68,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 6415030
+      },
+      {
+        "ticker": "BIAF",
+        "price": 8.75,
+        "changePct": 63.55,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "NGHT",
+        "price": 21.456,
+        "changePct": 45.46,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "AEHL",
+        "price": 12.29,
+        "changePct": 33.3,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "SDGR",
+        "price": 30.24,
+        "changePct": 26.37,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 2259554694
+      },
+      {
+        "ticker": "MTC",
+        "price": 6.56,
+        "changePct": 25.43,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "PUR",
+        "price": 37.1,
+        "changePct": 24.2,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "OKLL",
+        "price": 11.15,
+        "changePct": 22.26,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "IPEXU",
+        "price": 11.95,
+        "changePct": 21.94,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "SVRN",
+        "price": 14.19,
+        "changePct": 21.28,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      }
+    ],
+    "down": [
+      {
+        "ticker": "IONZ",
+        "price": 24.7835,
+        "changePct": -20.08,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      }
+    ]
+  }
+]

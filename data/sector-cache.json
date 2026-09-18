@@ -1,0 +1,102 @@
+{
+  "NVDA": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 5312634140000
+  },
+  "NFLX": {
+    "sector": "Communication Services",
+    "industry": "Entertainment",
+    "mktCap": 313586321325
+  },
+  "AMZN": {
+    "sector": "Consumer Cyclical",
+    "industry": "Specialty Retail",
+    "mktCap": 2702075949000
+  },
+  "AAPL": {
+    "sector": "Technology",
+    "industry": "Consumer Electronics",
+    "mktCap": 4949638972000
+  },
+  "AMD": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 888823754000
+  },
+  "TSLA": {
+    "sector": "Consumer Cyclical",
+    "industry": "Auto - Manufacturers",
+    "mktCap": 1446324255683
+  },
+  "WMT": {
+    "sector": "Consumer Defensive",
+    "industry": "Discount Stores",
+    "mktCap": 849843363200
+  },
+  "CRM": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 198894150000
+  },
+  "GOOGL": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 4203426312966
+  },
+  "ORCL": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 433741172600
+  },
+  "AVGO": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 1652307534000
+  },
+  "MSFT": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 3696067512500
+  },
+  "BA": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 155702890000
+  },
+  "META": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 1738175561577
+  },
+  "SDGR": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 2259554694
+  },
+  "GOOG": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 4170866954703.0005
+  },
+  "DAIC": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 6415030
+  },
+  "XOM": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Integrated",
+    "mktCap": 676790318000
+  },
+  "JPM": {
+    "sector": "Financial Services",
+    "industry": "Banks - Diversified",
+    "mktCap": 935979638100
+  },
+  "PG": {
+    "sector": "Consumer Defensive",
+    "industry": "Household & Personal Products",
+    "mktCap": 350662090297
+  }
+}
