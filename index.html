@@ -799,6 +799,7 @@
         <div class="step-tab active" data-mm-sub="mm-tab-checklist" onclick="switchMMSub(this)">Checklist</div>
         <div class="step-tab" data-mm-sub="mm-regime" onclick="switchMMSub(this)">Regime</div>
         <div class="step-tab" data-mm-sub="mm-breadth" onclick="switchMMSub(this)">Breadth</div>
+        <div class="step-tab" data-mm-sub="mm-20study" onclick="switchMMSub(this)">20% Study</div>
         <div class="step-tab" data-mm-sub="mm-sector" onclick="switchMMSub(this)">Sector &amp; Volume</div>
         <div class="step-tab" data-mm-sub="mm-tab-playbook" onclick="switchMMSub(this)">Playbook</div>
       </div>
@@ -924,6 +925,59 @@
         </div>
       </div>
       </div><!-- end mm-breadth -->
+
+      <div id="mm-20study" class="mm-sub" style="display:none;">
+      <div id="tps-status" class="note" style="margin-bottom:10px;">Loading 20%-study history…</div>
+
+      <div class="panel">
+        <div class="panel-header">
+          Composition Now
+          <span class="tag">Sector · Industry · Market Cap · Price, of today's ±20% movers</span>
+        </div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">Reveals <em>where</em> the day's speculative move is concentrated — which sector, which market-cap tier, which price range is doing the heavy lifting. Not a substitute for reading individual charts, an additional layer on top.</div>
+          <div class="form-row" style="padding:0 0 10px;">
+            <div class="form-group"><label>Direction</label>
+              <select id="tps-direction" onchange="renderTwentyPctStudy()" style="width:110px"><option value="up">Up ≥20%</option><option value="down">Down ≥20%</option></select>
+            </div>
+            <div class="form-group"><label>Pool</label>
+              <select id="tps-pool" onchange="renderTwentyPctStudy()" style="width:110px"><option value="1">Today</option><option value="5">5 sessions</option><option value="20">20 sessions</option></select>
+            </div>
+            <div class="form-group"><label>Measure</label>
+              <select id="tps-measure" onchange="renderTwentyPctStudy()" style="width:100px"><option value="count">Count</option><option value="pct">%</option></select>
+            </div>
+          </div>
+          <div id="tps-composition-body" style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          Stocks Up ≥20% · Rolling 5-Day Window
+          <span class="tag">Sum of the last 5 sessions, plotted daily</span>
+        </div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">Smooths day-to-day noise so the underlying wave of speculative breadth is easier to see — a single thin day can hide inside a hot rolling week, and vice versa.</div>
+          <div id="tps-rolling-chart" style="height:180px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px 4px 4px;"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          Sector &amp; Industry Rotation
+          <span class="tag">Ranked by count of today's ≥20% movers · last 5 sessions</span>
+        </div>
+        <div class="panel-body">
+          <div class="note" style="margin-bottom:10px;">Our own rank rule, defined here since we don't have the source tool's exact methodology: each day, sectors/industries are ranked by how many of that day's ±20% movers belong to them — more movers in a group means more heat, means a higher (lower-numbered) rank. The colored delta shows how many spots a group moved since the previous session in view.</div>
+          <div class="form-row" style="padding:0 0 6px;">
+            <div class="form-group"><label>Group by</label>
+              <select id="tps-rotation-groupby" onchange="renderTwentyPctStudy()" style="width:110px"><option value="sector">Sector</option><option value="industry">Industry</option></select>
+            </div>
+          </div>
+          <div id="tps-rotation-body" style="overflow-x:auto;"></div>
+        </div>
+      </div>
+      </div><!-- end mm-20study -->
 
       <div id="mm-sector" class="mm-sub" style="display:none;">
       <div class="note" id="mm-sector-freshness" style="margin-bottom:10px;">Checking data freshness…</div>
@@ -4977,6 +5031,20 @@
     let lastDataGeneratedAt = null;
     let lastDataGeneratedSlot = null;
     let lastBreadthHistory = [];
+    let twentyPctHistory = [];
+    let twentyPctHistoryLoaded = false;
+    async function loadTwentyPctHistory() {
+      try {
+        const res = await fetch("./data/twenty-pct-history.json?t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        twentyPctHistory = await res.json();
+        twentyPctHistoryLoaded = true;
+        renderTwentyPctStudy();
+      } catch (e) {
+        const el = document.getElementById("tps-status");
+        if (el) el.innerHTML = `<div class="wl-empty">Could not load the 20%-study history (${e.message}). Populates after the next scheduled run.</div>`;
+      }
+    }
     let lastScreenerCandidates = [];
     async function loadLiveWatchlistData() {
       const badge = document.getElementById("live-data-badge");
@@ -5795,6 +5863,7 @@
       }
       if (sub === "mm-sector") renderDataFreshnessBanners();
       if (sub === "mm-breadth") { renderRealBreadthChart(); renderBreadthSheetUrlStatus(); }
+      if (sub === "mm-20study") { if (twentyPctHistoryLoaded) renderTwentyPctStudy(); else loadTwentyPctHistory(); }
     }
 
     function switchMoonjellySub(el) {
@@ -8327,6 +8396,172 @@ Question: ${question}`;
       sectorScore: 60,
       note: "Sources: thetrading.tools A-D & MA breadth, sector health (2026-09-04). Exact MM 4%/25%/50%/34-13 scan counts update when you re-generate this terminal after a market session."
     };
+
+    // ---- 20%-study: composition + rotation, computed client-side from
+    // data/twenty-pct-history.json (loaded lazily on first visit to the tab).
+    function getMktCapBucket(mktCap) {
+      if (mktCap == null) return "Unknown";
+      if (mktCap < 50e6) return "Nano";
+      if (mktCap < 300e6) return "Micro";
+      if (mktCap < 2e9) return "Small";
+      if (mktCap < 10e9) return "Mid";
+      if (mktCap < 200e9) return "Large";
+      return "Mega";
+    }
+    function getPriceBucket(price) {
+      if (price == null) return "Unknown";
+      if (price < 10) return "$5 – $10";
+      if (price < 20) return "$10 – $20";
+      if (price < 50) return "$20 – $50";
+      if (price < 100) return "$50 – $100";
+      if (price < 200) return "$100 – $200";
+      return "Over $200";
+    }
+    function computeComposition(entries, bucketFn) {
+      const counts = {};
+      entries.forEach(e => {
+        const key = bucketFn(e) || "Unclassified";
+        counts[key] = (counts[key] || 0) + 1;
+      });
+      const total = entries.length;
+      return Object.entries(counts)
+        .map(([label, count]) => ({ label, count, pct: total ? (count / total) * 100 : 0 }))
+        .sort((a, b) => b.count - a.count);
+    }
+    function renderCompositionCard(title, groups, measure, total) {
+      if (!groups.length) return `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">${title}</div><div class="muted" style="font-size:12px;">No data yet</div></div>`;
+      const maxVal = Math.max(...groups.map(g => measure === "pct" ? g.pct : g.count), 1);
+      return `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;"><span>${title}</span><span>${groups.length}</span></div>
+        ${groups.map(g => {
+          const val = measure === "pct" ? g.pct : g.count;
+          const barPct = (val / maxVal) * 100;
+          const display = measure === "pct" ? val.toFixed(1) + "%" : g.count;
+          return `<div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span>${g.label}</span><span class="muted">${display}</span></div>
+            <div style="background:#1f2937;border-radius:3px;height:6px;overflow:hidden;margin-top:3px;"><div style="width:${barPct}%;height:100%;background:#0891b2;"></div></div>
+          </div>`;
+        }).join("")}
+      </div>`;
+    }
+    function computeRotation(history, groupByField, numDays) {
+      const days = history.slice(-numDays);
+      // For each day, count that day's UP movers per group, then rank
+      // descending by count (rank 1 = most movers = most heat). Ties broken
+      // alphabetically so the rank is always deterministic, not order-of-
+      // insertion dependent.
+      const byDay = days.map(d => {
+        const counts = {};
+        (d.up || []).forEach(m => {
+          const key = m[groupByField] || "Unclassified";
+          counts[key] = (counts[key] || 0) + 1;
+        });
+        const ranked = Object.entries(counts)
+          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+          .map(([label, count], i) => ({ label, count, rank: i + 1 }));
+        return { date: d.date, ranked };
+      });
+      const allGroups = new Set();
+      byDay.forEach(d => d.ranked.forEach(r => allGroups.add(r.label)));
+      return { dates: byDay.map(d => d.date), groups: [...allGroups], byDay };
+    }
+    function renderRotationTable(containerId, rotation) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      if (!rotation.dates.length || !rotation.groups.length) {
+        el.innerHTML = `<div class="wl-empty">No ranked groups yet — populates once a few days of history accumulate.</div>`;
+        return;
+      }
+      // Sort rows by most-recent day's rank (unranked/absent groups sink to
+      // the bottom) so the table opens with today's leaders on top.
+      const lastDay = rotation.byDay[rotation.byDay.length - 1];
+      const lastRankOf = (label) => { const r = lastDay.ranked.find(x => x.label === label); return r ? r.rank : 9999; };
+      const sortedGroups = [...rotation.groups].sort((a, b) => lastRankOf(a) - lastRankOf(b));
+
+      const cellFor = (dayIdx, label) => {
+        const day = rotation.byDay[dayIdx];
+        const cur = day.ranked.find(r => r.label === label);
+        if (!cur) return `<td class="muted" style="text-align:center;">—</td>`;
+        let deltaHtml = "–";
+        if (dayIdx > 0) {
+          const prevDay = rotation.byDay[dayIdx - 1];
+          const prev = prevDay.ranked.find(r => r.label === label);
+          if (prev) {
+            const delta = prev.rank - cur.rank; // positive = moved up (better rank, lower number)
+            if (delta > 0) deltaHtml = `<span class="pos">▲${delta}</span>`;
+            else if (delta < 0) deltaHtml = `<span class="neg">▼${Math.abs(delta)}</span>`;
+            else deltaHtml = "–";
+          } else {
+            deltaHtml = `<span class="pos">new</span>`;
+          }
+        }
+        const bg = dayIdx > 0 && deltaHtml.includes("pos") ? "background:rgba(34,197,94,0.12);" : dayIdx > 0 && deltaHtml.includes("neg") ? "background:rgba(239,68,68,0.12);" : "";
+        return `<td style="text-align:center;${bg}">${cur.rank} ${deltaHtml}</td>`;
+      };
+
+      el.innerHTML = `<table style="font-size:12px;">
+        <thead><tr><th>Group</th>${rotation.dates.map(d => `<th style="text-align:center;">${d.slice(5)}</th>`).join("")}</tr></thead>
+        <tbody>
+          ${sortedGroups.map(g => `<tr><td><strong>${g}</strong></td>${rotation.dates.map((d, i) => cellFor(i, g)).join("")}</tr>`).join("")}
+        </tbody>
+      </table>`;
+    }
+    function renderTwentyPctRollingChart() {
+      const el = document.getElementById("tps-rolling-chart");
+      if (!el) return;
+      if (twentyPctHistory.length < 2) {
+        el.innerHTML = `<div class="wl-empty" style="height:100%;display:flex;align-items:center;justify-content:center;">Need at least a couple days of history to plot a rolling window.</div>`;
+        return;
+      }
+      const series = [];
+      const dates = [];
+      for (let i = 0; i < twentyPctHistory.length; i++) {
+        const windowStart = Math.max(0, i - 4);
+        const windowDays = twentyPctHistory.slice(windowStart, i + 1);
+        const sum = windowDays.reduce((a, d) => a + (d.up ? d.up.length : 0), 0);
+        series.push(sum);
+        dates.push(twentyPctHistory[i].date);
+      }
+      buildBarChart(el, series, "up", dates);
+    }
+    function renderTwentyPctStudy() {
+      const statusEl = document.getElementById("tps-status");
+      if (!twentyPctHistoryLoaded) return;
+      if (!twentyPctHistory.length) {
+        if (statusEl) statusEl.innerHTML = `<div class="wl-empty">No 20%-study history yet — populates after the next scheduled run.</div>`;
+        return;
+      }
+      if (statusEl) statusEl.innerHTML = `${twentyPctHistory.length} day(s) of history tracked · latest ${twentyPctHistory[twentyPctHistory.length - 1].date}`;
+
+      const direction = document.getElementById("tps-direction")?.value || "up";
+      const pool = parseInt(document.getElementById("tps-pool")?.value || "1", 10);
+      const measure = document.getElementById("tps-measure")?.value || "count";
+      const pooledDays = twentyPctHistory.slice(-pool);
+      const entries = pooledDays.flatMap(d => direction === "up" ? (d.up || []) : (d.down || []));
+
+      const compBody = document.getElementById("tps-composition-body");
+      if (compBody) {
+        if (!entries.length) {
+          compBody.innerHTML = `<div class="wl-empty" style="grid-column:1/-1;">No ${direction === "up" ? "≥20% up" : "≤-20% down"} movers in this window.</div>`;
+        } else {
+          const bySector = computeComposition(entries, e => e.sector);
+          const byIndustry = computeComposition(entries, e => e.industry);
+          const byMktCap = computeComposition(entries, e => getMktCapBucket(e.mktCap));
+          const byPrice = computeComposition(entries, e => getPriceBucket(e.price));
+          compBody.innerHTML =
+            renderCompositionCard("Sector", bySector, measure, entries.length) +
+            renderCompositionCard("Industry", byIndustry, measure, entries.length) +
+            renderCompositionCard("Market Cap", byMktCap, measure, entries.length) +
+            renderCompositionCard("Price", byPrice, measure, entries.length);
+        }
+      }
+
+      renderTwentyPctRollingChart();
+
+      const groupBy = document.getElementById("tps-rotation-groupby")?.value || "sector";
+      const rotation = computeRotation(twentyPctHistory, groupBy, 5);
+      renderRotationTable("tps-rotation-body", rotation);
+    }
 
     function buildBarChart(el, series, colorClass, dates) {
       if (!el || !series.length) return;
