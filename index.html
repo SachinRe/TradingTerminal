@@ -1047,46 +1047,139 @@
           <span class="tag">Start with the market — not the stock or setup</span>
         </div>
         <div class="panel-body">
-          <div class="note" style="margin-bottom:14px;">The same 5-stage funnel, shown two ways below: the flow itself, then the exact question to ask at each stage. If you can't answer them in order, you're probably starting at the wrong end of the process.</div>
+          <div class="note" style="margin-bottom:14px;">The same 5-stage funnel, shown two ways below: an at-a-glance strip, then the full detail. If you can't answer them in order, you're probably starting at the wrong end of the process. Click any stage — in either view — to jump to where that work actually happens in this terminal.</div>
+
+          <!-- AT-A-GLANCE STRIP -->
+          <div style="display:flex;align-items:stretch;gap:4px;flex-wrap:wrap;margin-bottom:22px;">
+            <div onclick="navTo('market-monitor');document.querySelector('[data-mm-sub=mm-breadth]').click();"
+                style="cursor:pointer;flex:1;min-width:150px;background:#0f172a;border:1px solid #2dd4bf;border-radius:10px;padding:14px 10px;text-align:center;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#2dd4bf;color:#0a0e17;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">1</div>
+              <div style="font-size:12px;font-weight:800;color:#2dd4bf;">MARKET</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;">Right market</div>
+            </div>
+            <div style="display:flex;align-items:center;font-size:16px;color:var(--muted);padding:0 2px;">→</div>
+            <div onclick="navTo('market-monitor');document.querySelector('[data-mm-sub=mm-sector]').click();"
+                style="cursor:pointer;flex:1;min-width:150px;background:#0f172a;border:1px solid #eab308;border-radius:10px;padding:14px 10px;text-align:center;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#eab308;color:#0a0e17;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">2</div>
+              <div style="font-size:12px;font-weight:800;color:#eab308;">SECTORS</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;">Right sectors</div>
+            </div>
+            <div style="display:flex;align-items:center;font-size:16px;color:var(--muted);padding:0 2px;">→</div>
+            <div onclick="navTo('qualify', document.querySelector('[data-section=qualify]'));"
+                style="cursor:pointer;flex:1;min-width:150px;background:#0f172a;border:1px solid #22c55e;border-radius:10px;padding:14px 10px;text-align:center;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#22c55e;color:#0a0e17;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">3</div>
+              <div style="font-size:12px;font-weight:800;color:#22c55e;">LEADERS</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;">Right stocks</div>
+            </div>
+            <div style="display:flex;align-items:center;font-size:16px;color:var(--muted);padding:0 2px;">→</div>
+            <div onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-execute]').click();"
+                style="cursor:pointer;flex:1;min-width:150px;background:#0f172a;border:1px solid #3b82f6;border-radius:10px;padding:14px 10px;text-align:center;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#3b82f6;color:#0a0e17;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">4</div>
+              <div style="font-size:12px;font-weight:800;color:#3b82f6;">STRUCTURE</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;">Right entry</div>
+            </div>
+            <div style="display:flex;align-items:center;font-size:16px;color:var(--muted);padding:0 2px;">→</div>
+            <div onclick="navTo('positions', document.querySelector('[data-section=positions]'));"
+                style="cursor:pointer;flex:1;min-width:150px;background:#0f172a;border:1px solid #a855f7;border-radius:10px;padding:14px 10px;text-align:center;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#a855f7;color:#0a0e17;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">5</div>
+              <div style="font-size:12px;font-weight:800;color:#a855f7;">TRADE</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;">Right setup</div>
+            </div>
+          </div>
 
           <div style="display:flex;flex-direction:column;gap:4px;max-width:900px;">
             <!-- STAGE 1: MARKET -->
-            <div style="background:#0f172a;border:1px solid #2dd4bf;border-left:5px solid #2dd4bf;border-radius:8px;padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-              <div style="font-size:14px;font-weight:800;color:#2dd4bf;min-width:130px;">MARKET</div>
-              <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Is the environment supportive or hostile?</div>
-              <div style="font-size:11px;color:var(--muted);">21DMA structure + breadth + cycle</div>
+            <div onclick="navTo('market-monitor');document.querySelector('[data-mm-sub=mm-breadth]').click();"
+                style="cursor:pointer;background:#0f172a;border:1px solid #2dd4bf;border-left:5px solid #2dd4bf;border-radius:8px;padding:12px 16px;">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+                <div style="font-size:14px;font-weight:800;color:#2dd4bf;min-width:130px;">MARKET →</div>
+                <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Is the environment supportive or hostile?</div>
+                <div style="font-size:11px;color:var(--muted);">21DMA structure + breadth + cycle</div>
+              </div>
+              <details onclick="event.stopPropagation();" style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:#2dd4bf;">What to look for</summary>
+                <ul style="margin:6px 0 0 18px;font-size:11px;color:var(--muted);line-height:1.6;">
+                  <li>Market trend — up, down, or sideways</li>
+                  <li>Breadth and participation (how many names are actually moving with it)</li>
+                  <li>Momentum and risk indicators — the Timing Checklist below (QQQ EMAs, MCO, MCSI) is exactly this</li>
+                  <li>Overall risk sentiment — is conviction easy to find, or does everything feel like a fight?</li>
+                </ul>
+              </details>
             </div>
             <div style="text-align:center;font-size:15px;color:var(--muted);">↓</div>
 
             <!-- STAGE 2: SECTORS / THEMES -->
-            <div style="background:#0f172a;border:1px solid #eab308;border-left:5px solid #eab308;border-radius:8px;padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-              <div style="font-size:14px;font-weight:800;color:#eab308;min-width:130px;">SECTORS / THEMES</div>
-              <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Where is capital concentrating?</div>
-              <div style="font-size:11px;color:var(--muted);">Strength should be concentrated, not random</div>
+            <div onclick="navTo('market-monitor');document.querySelector('[data-mm-sub=mm-sector]').click();"
+                style="cursor:pointer;background:#0f172a;border:1px solid #eab308;border-left:5px solid #eab308;border-radius:8px;padding:12px 16px;">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+                <div style="font-size:14px;font-weight:800;color:#eab308;min-width:130px;">SECTORS / THEMES →</div>
+                <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Where is capital concentrating?</div>
+                <div style="font-size:11px;color:var(--muted);">Strength should be concentrated, not random</div>
+              </div>
+              <details onclick="event.stopPropagation();" style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:#eab308;">What to look for</summary>
+                <ul style="margin:6px 0 0 18px;font-size:11px;color:var(--muted);line-height:1.6;">
+                  <li>Sector rotation and relative strength — which groups are leading vs lagging right now, not historically</li>
+                  <li>Leading industries within a leading sector (a strong sector still has weak corners)</li>
+                  <li>Money flow and volume trends backing the move, not just price alone</li>
+                  <li>Strongest vs. weakest groups, side by side — Sector & Volume and 20% Study → Rotation both rank this directly</li>
+                </ul>
+              </details>
             </div>
             <div style="text-align:center;font-size:15px;color:var(--muted);">↓</div>
 
             <!-- STAGE 3: LEADERS -->
-            <div style="background:#0f172a;border:1px solid #22c55e;border-left:5px solid #22c55e;border-radius:8px;padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-              <div style="font-size:14px;font-weight:800;color:#22c55e;min-width:130px;">LEADERS</div>
-              <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Which liquid stocks are outperforming?</div>
-              <div style="font-size:11px;color:var(--muted);">High RS + liquidity + clean structure</div>
+            <div onclick="navTo('qualify', document.querySelector('[data-section=qualify]'));"
+                style="cursor:pointer;background:#0f172a;border:1px solid #22c55e;border-left:5px solid #22c55e;border-radius:8px;padding:12px 16px;">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+                <div style="font-size:14px;font-weight:800;color:#22c55e;min-width:130px;">LEADERS →</div>
+                <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Which liquid stocks are outperforming?</div>
+                <div style="font-size:11px;color:var(--muted);">High RS + liquidity + clean structure</div>
+              </div>
+              <details onclick="event.stopPropagation();" style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:#22c55e;">What to look for</summary>
+                <ul style="margin:6px 0 0 18px;font-size:11px;color:var(--muted);line-height:1.6;">
+                  <li>High relative strength — outperforming the sector, not just the market</li>
+                  <li>Strong earnings and guidance behind the move, not just a chart pattern</li>
+                  <li>Volume and institutional interest — thin, illiquid strength is easy to fake</li>
+                  <li>Near highs but not already extended — Discover &amp; Qualify's score and RVOL columns are built for exactly this read</li>
+                </ul>
+              </details>
             </div>
             <div style="text-align:center;font-size:15px;color:var(--muted);">↓</div>
 
             <!-- STAGE 4: STRUCTURE -->
-            <div style="background:#0f172a;border:1px solid #3b82f6;border-left:5px solid #3b82f6;border-radius:8px;padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-              <div style="font-size:14px;font-weight:800;color:#3b82f6;min-width:130px;">STRUCTURE</div>
-              <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Where is the stock offering defined risk?</div>
-              <div style="font-size:11px;color:var(--muted);">Prefer pullbacks near 21DMA structure</div>
+            <div onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-execute]').click();"
+                style="cursor:pointer;background:#0f172a;border:1px solid #3b82f6;border-left:5px solid #3b82f6;border-radius:8px;padding:12px 16px;">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+                <div style="font-size:14px;font-weight:800;color:#3b82f6;min-width:130px;">STRUCTURE →</div>
+                <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">Where is the stock offering defined risk?</div>
+                <div style="font-size:11px;color:var(--muted);">Prefer pullbacks near 21DMA structure</div>
+              </div>
+              <details onclick="event.stopPropagation();" style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:#3b82f6;">What to look for</summary>
+                <ul style="margin:6px 0 0 18px;font-size:11px;color:var(--muted);line-height:1.6;">
+                  <li>Pullbacks to a key level (21 DMA is the classic one) — a controlled retreat into rising support, not a breakdown</li>
+                  <li>Reversal patterns at a level that actually means something, not an arbitrary round number</li>
+                  <li>Breakouts from genuine consolidation — tight range, not a random spike</li>
+                  <li>A risk/reward that's actually worth taking, defined before entry, not discovered after</li>
+                </ul>
+              </details>
             </div>
             <div style="text-align:center;font-size:15px;color:var(--muted);">↓</div>
 
             <!-- STAGE 5: TRADE -->
-            <div style="background:#0f172a;border:1px solid #a855f7;border-left:5px solid #a855f7;border-radius:8px;padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-              <div style="font-size:14px;font-weight:800;color:#a855f7;min-width:130px;">TRADE</div>
-              <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">What is the entry, size, stop and exit?</div>
-              <div style="font-size:11px;color:var(--muted);">Size from structure + conviction + portfolio state</div>
+            <div onclick="navTo('positions', document.querySelector('[data-section=positions]'));"
+                style="cursor:pointer;background:#0f172a;border:1px solid #a855f7;border-left:5px solid #a855f7;border-radius:8px;padding:12px 16px;">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+                <div style="font-size:14px;font-weight:800;color:#a855f7;min-width:130px;">TRADE →</div>
+                <div style="font-size:13px;color:#e5e7eb;flex:1;min-width:220px;">What is the entry, size, stop and exit?</div>
+                <div style="font-size:11px;color:var(--muted);">Size from structure + conviction + portfolio state</div>
+              </div>
+              <details onclick="event.stopPropagation();" style="margin-top:8px;"><summary style="cursor:pointer;font-size:11px;color:#a855f7;">What to look for</summary>
+                <ul style="margin:6px 0 0 18px;font-size:11px;color:var(--muted);line-height:1.6;">
+                  <li>A stop placed where the setup is actually proven wrong, not a round-number guess</li>
+                  <li>Size derived from that stop distance and your risk %, not from conviction</li>
+                  <li>A target that reflects what a real move in this name looks like</li>
+                  <li>This is where every earlier stage either pays off or gets exposed — a great Market/Sector/Leader read still needs a clean Structure and disciplined Trade to actually work</li>
+                </ul>
+              </details>
             </div>
           </div>
 
