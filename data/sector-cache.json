@@ -198,5 +198,105 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 1287360
+  },
+  "IONL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 4924379
+  },
+  "SMCX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 47176533
+  },
+  "IONX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 10250453
+  },
+  "GNRC": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 12199360701
+  },
+  "VICR": {
+    "sector": "Technology",
+    "industry": "Hardware, Equipment & Parts",
+    "mktCap": 9809735107
+  },
+  "DSP": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 657501548
+  },
+  "QBTZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 6593037
+  },
+  "RGTZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 15913621
+  },
+  "FLNC": {
+    "sector": "Utilities",
+    "industry": "Renewable Utilities",
+    "mktCap": 1413474216
+  },
+  "KRRO": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 117449731
+  },
+  "HUBC": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 9232055
+  },
+  "ALMU": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 211335081
+  },
+  "PMI": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 11536000
+  },
+  "HFSP": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Bonds",
+    "mktCap": 668121
+  },
+  "CCG": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 28549393
+  },
+  "RKLZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 71271
+  },
+  "DAMD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 14319446
+  },
+  "VEEA": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 14688681
+  },
+  "NOEMU": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 92739600
+  },
+  "CONI": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 6505783
   }
 }
