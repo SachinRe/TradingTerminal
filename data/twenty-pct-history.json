@@ -6,9 +6,9 @@
         "ticker": "AEMD",
         "price": 6.78,
         "changePct": 374.13,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 3571107
       },
       {
         "ticker": "DAIC",
@@ -22,25 +22,25 @@
         "ticker": "BIAF",
         "price": 8.75,
         "changePct": 63.55,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 3665121
       },
       {
         "ticker": "NGHT",
         "price": 21.456,
         "changePct": 45.46,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1287360
       },
       {
         "ticker": "AEHL",
         "price": 12.29,
         "changePct": 33.3,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 11980366
       },
       {
         "ticker": "SDGR",
@@ -54,41 +54,41 @@
         "ticker": "MTC",
         "price": 6.56,
         "changePct": 25.43,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Financial Services",
+        "industry": "Financial - Capital Markets",
+        "mktCap": 165225828
       },
       {
         "ticker": "PUR",
         "price": 37.1,
         "changePct": 24.2,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1113000
       },
       {
         "ticker": "OKLL",
         "price": 11.15,
         "changePct": 22.26,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 3030871
       },
       {
         "ticker": "IPEXU",
         "price": 11.95,
         "changePct": 21.94,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 106242969
       },
       {
         "ticker": "SVRN",
         "price": 14.19,
         "changePct": 21.28,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 26617829
       }
     ],
     "down": [
@@ -96,9 +96,9 @@
         "ticker": "IONZ",
         "price": 24.7835,
         "changePct": -20.08,
-        "sector": null,
-        "industry": null,
-        "mktCap": null
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 15187254
       }
     ]
   }

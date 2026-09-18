@@ -98,5 +98,105 @@
     "sector": "Consumer Defensive",
     "industry": "Household & Personal Products",
     "mktCap": 350662090297
+  },
+  "JNJ": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - General",
+    "mktCap": 651202749972
+  },
+  "AEMD": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 3571107
+  },
+  "V": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 690676774765
+  },
+  "UNH": {
+    "sector": "Healthcare",
+    "industry": "Medical - Healthcare Plans",
+    "mktCap": 340744861825
+  },
+  "BIAF": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 3665121
+  },
+  "ADBE": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 100436325000
+  },
+  "HD": {
+    "sector": "Consumer Cyclical",
+    "industry": "Home Improvement",
+    "mktCap": 301637863670
+  },
+  "MA": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 496165576280
+  },
+  "COST": {
+    "sector": "Consumer Defensive",
+    "industry": "Discount Stores",
+    "mktCap": 396439182470
+  },
+  "OKLL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 3030871
+  },
+  "TRVG": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 472119381
+  },
+  "AEHL": {
+    "sector": "Basic Materials",
+    "industry": "Construction Materials",
+    "mktCap": 11980366
+  },
+  "IONZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 15187254
+  },
+  "PUR": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 1113000
+  },
+  "SMCL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 40448233
+  },
+  "SVRN": {
+    "sector": "Industrials",
+    "industry": "Marine Shipping",
+    "mktCap": 26617829
+  },
+  "HCWC": {
+    "sector": "Consumer Defensive",
+    "industry": "Grocery Stores",
+    "mktCap": 7364772
+  },
+  "MTC": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 165225828
+  },
+  "IPEXU": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 106242969
+  },
+  "NGHT": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 1287360
   }
 }
