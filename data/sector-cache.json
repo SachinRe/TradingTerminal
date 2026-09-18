@@ -398,5 +398,105 @@
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
     "mktCap": 6424962
+  },
+  "GEMI": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 709868385
+  },
+  "HUHU": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 149138438
+  },
+  "NCT": {
+    "sector": "Industrials",
+    "industry": "Marine Shipping",
+    "mktCap": 258582
+  },
+  "BTDL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1217886
+  },
+  "LGHL": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 1572
+  },
+  "SECZ": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 1607961411
+  },
+  "AUC": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 87148002
+  },
+  "DFDV": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 182516316
+  },
+  "JXG": {
+    "sector": "Consumer Cyclical",
+    "industry": "Travel Services",
+    "mktCap": 1490230
+  },
+  "SION": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 269095967
+  },
+  "ETHD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 35807370
+  },
+  "GAUZ": {
+    "sector": "Technology",
+    "industry": "Hardware, Equipment & Parts",
+    "mktCap": 5791630
+  },
+  "WFCF": {
+    "sector": "Industrials",
+    "industry": "Specialty Business Services",
+    "mktCap": 55583214
+  },
+  "WNTR": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 24590314
+  },
+  "GENI": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 1452514320
+  },
+  "SBIT": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 80257884
+  },
+  "HELP": {
+    "sector": "Healthcare",
+    "industry": "Medical - Pharmaceuticals",
+    "mktCap": 766743317
+  },
+  "QCMU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 2727484
+  },
+  "QCML": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 4722268
+  },
+  "SPCX": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 2014307793395
   }
 }

@@ -3,94 +3,230 @@
     "date": "2026-09-18",
     "up": [
       {
-        "ticker": "SVRN",
-        "price": 18.795,
-        "changePct": 32.45,
-        "sector": "Industrials",
-        "industry": "Marine Shipping",
-        "mktCap": 26617829
-      },
-      {
-        "ticker": "TJGC",
-        "price": 13.99,
-        "changePct": 27.07,
-        "sector": "Communication Services",
-        "industry": "Advertising Agencies",
-        "mktCap": 70990664
-      },
-      {
         "ticker": "GEMG",
-        "price": 9.47,
-        "changePct": 26.3,
+        "price": 12.0261,
+        "changePct": 60.4,
         "sector": "Financial Services",
         "industry": "Asset Management - Leveraged",
         "mktCap": 932681
       },
       {
-        "ticker": "BIAF",
-        "price": 10.69,
-        "changePct": 22.17,
-        "sector": "Healthcare",
-        "industry": "Medical - Diagnostics & Research",
-        "mktCap": 3665121
+        "ticker": "TJGC",
+        "price": 16.84,
+        "changePct": 52.95,
+        "sector": "Communication Services",
+        "industry": "Advertising Agencies",
+        "mktCap": 70990664
+      },
+      {
+        "ticker": "SVRN",
+        "price": 20.32,
+        "changePct": 43.2,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 26617829
+      },
+      {
+        "ticker": "HUHU",
+        "price": 5.85,
+        "changePct": 38.95,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 149138438
       },
       {
         "ticker": "MSTP",
-        "price": 26.4809,
-        "changePct": 21.72,
+        "price": 28.871,
+        "changePct": 32.7,
         "sector": "Financial Services",
         "industry": "Asset Management - Leveraged",
         "mktCap": 56060
       },
       {
         "ticker": "MSTX",
-        "price": 17.2,
-        "changePct": 21.64,
+        "price": 18.73,
+        "changePct": 32.46,
         "sector": "Financial Services",
         "industry": "Asset Management - Leveraged",
         "mktCap": 54206509
       },
       {
+        "ticker": "GEMI",
+        "price": 5.81,
+        "changePct": 31.15,
+        "sector": "Financial Services",
+        "industry": "Financial - Capital Markets",
+        "mktCap": 709868385
+      },
+      {
+        "ticker": "BTDL",
+        "price": 20.2981,
+        "changePct": 29.93,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1217886
+      },
+      {
+        "ticker": "MRAL",
+        "price": 50.34,
+        "changePct": 27.55,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 13553869
+      },
+      {
+        "ticker": "MST",
+        "price": 15.16,
+        "changePct": 27.07,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1336269
+      },
+      {
+        "ticker": "SLON",
+        "price": 39.38,
+        "changePct": 26.75,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 11305974
+      },
+      {
+        "ticker": "SOLT",
+        "price": 71.2,
+        "changePct": 26.71,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 27069638
+      },
+      {
+        "ticker": "FWDI",
+        "price": 7.7,
+        "changePct": 24.19,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 530654569
+      },
+      {
+        "ticker": "CONL",
+        "price": 6.27,
+        "changePct": 23.18,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 222925997
+      },
+      {
+        "ticker": "COIA",
+        "price": 9.55,
+        "changePct": 23.07,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1171362
+      },
+      {
+        "ticker": "COIG",
+        "price": 6.1405,
+        "changePct": 23.06,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 10528845
+      },
+      {
+        "ticker": "CONX",
+        "price": 7.6412,
+        "changePct": 23.05,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5102122
+      },
+      {
+        "ticker": "LGHL",
+        "price": 7.9,
+        "changePct": 22.48,
+        "sector": "Financial Services",
+        "industry": "Financial - Capital Markets",
+        "mktCap": 1572
+      },
+      {
+        "ticker": "SECZ",
+        "price": 10.86,
+        "changePct": 21.61,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 1607961411
+      },
+      {
         "ticker": "TXXH",
-        "price": 78.88,
-        "changePct": 21.53,
+        "price": 78.9101,
+        "changePct": 21.58,
         "sector": "Financial Services",
         "industry": "Asset Management - Cryptocurrency",
         "mktCap": 10575363
       },
       {
-        "ticker": "CONX",
-        "price": 7.452,
-        "changePct": 20,
+        "ticker": "AUC",
+        "price": 8.45,
+        "changePct": 21.41,
         "sector": "Financial Services",
-        "industry": "Asset Management - Leveraged",
-        "mktCap": 5102122
+        "industry": "Asset Management",
+        "mktCap": 87148002
+      },
+      {
+        "ticker": "TXXS",
+        "price": 25.054,
+        "changePct": 21.24,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 64219030
+      },
+      {
+        "ticker": "DFDV",
+        "price": 6.06,
+        "changePct": 21.2,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 182516316
       }
     ],
     "down": [
       {
-        "ticker": "XENE",
-        "price": 40.72,
-        "changePct": -29,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 3944923136
+        "ticker": "SMST",
+        "price": 13.85,
+        "changePct": -32.5,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 8772063
       },
       {
         "ticker": "AEHL",
-        "price": 9.57,
-        "changePct": -22.13,
+        "price": 8.41,
+        "changePct": -31.57,
         "sector": "Basic Materials",
         "industry": "Construction Materials",
         "mktCap": 11980366
       },
       {
-        "ticker": "SMST",
-        "price": 16.025,
-        "changePct": -21.91,
+        "ticker": "XENE",
+        "price": 39.75,
+        "changePct": -30.69,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 3944923136
+      },
+      {
+        "ticker": "NCT",
+        "price": 6.13,
+        "changePct": -28.51,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 258582
+      },
+      {
+        "ticker": "CONI",
+        "price": 22.535,
+        "changePct": -23.44,
         "sector": "Financial Services",
         "industry": "Asset Management",
-        "mktCap": 8772063
+        "mktCap": 6505783
       }
     ]
   }
