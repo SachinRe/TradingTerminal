@@ -498,5 +498,105 @@
     "sector": "Industrials",
     "industry": "Aerospace & Defense",
     "mktCap": 2014307793395
+  },
+  "FTFT": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 2568742
+  },
+  "AGNC": {
+    "sector": "Real Estate",
+    "industry": "REIT - Mortgage",
+    "mktCap": 11330069100
+  },
+  "INTC": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 547778372524
+  },
+  "NOK": {
+    "sector": "Technology",
+    "industry": "Communication Equipment",
+    "mktCap": 57735535480
+  },
+  "TTD": {
+    "sector": "Communication Services",
+    "industry": "Advertising Agencies",
+    "mktCap": 6543908037
+  },
+  "F": {
+    "sector": "Consumer Cyclical",
+    "industry": "Auto - Manufacturers",
+    "mktCap": 52676140426
+  },
+  "BITO": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 2224518442
+  },
+  "MARA": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 5048021460
+  },
+  "IBIT": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 76738764962
+  },
+  "T": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 174153491850
+  },
+  "PSKY": {
+    "sector": "Communication Services",
+    "industry": "Entertainment",
+    "mktCap": 11105110700
+  },
+  "ETHA": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 12165700824
+  },
+  "PFE": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - General",
+    "mktCap": 157304544000
+  },
+  "BE": {
+    "sector": "Industrials",
+    "industry": "Electrical Equipment & Parts",
+    "mktCap": 78235207010
+  },
+  "JHX": {
+    "sector": "Basic Materials",
+    "industry": "Construction Materials",
+    "mktCap": 14984295169
+  },
+  "NU": {
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "mktCap": 66108588000
+  },
+  "SKHY": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 1330977920625
+  },
+  "TSLL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 4490607701
+  },
+  "CRWV": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 44387606768
+  },
+  "SPY": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 811381304362
   }
 }
