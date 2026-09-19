@@ -675,6 +675,11 @@
     <div class="modal" id="detail-content"></div>
   </div>
 
+  <!-- Image lightbox -->
+  <div id="image-lightbox" onclick="closeImageLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:600;align-items:center;justify-content:center;cursor:zoom-out;padding:24px;">
+    <img id="image-lightbox-img" src="" alt="" style="max-width:92vw;max-height:92vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+  </div>
+
   <div class="shell">
   <button class="sidebar-toggle" id="sidebar-toggle-btn" onclick="toggleSidebar()" title="Show/hide navigation">◀</button>
   <nav class="sidebar" id="sidebar">
@@ -1246,6 +1251,7 @@
         <div class="step-tab active" data-home-sub="home-landing" onclick="switchHomeSub(this)">Home</div>
         <div class="step-tab" data-home-sub="home-quotes-manage" onclick="switchHomeSub(this)">Quotes</div>
         <div class="step-tab" data-home-sub="home-holygrail" onclick="switchHomeSub(this)">Holy Grail of Trading</div>
+        <div class="step-tab" data-home-sub="home-psychology" onclick="switchHomeSub(this)">Trading Psychology</div>
       </div>
 
       <div id="home-landing" class="home-sub active">
@@ -1485,6 +1491,53 @@
           </div>
         </div>
       </div><!-- end home-holygrail -->
+
+      <div id="home-psychology" class="home-sub" style="display:none;">
+        <div class="panel">
+          <div class="panel-header">Situation → Thought → Response</div>
+          <div class="panel-body">
+            <div class="note" style="margin-bottom:14px;">Angela Duckworth's framework: don't fight for a better response with willpower — engineer a better situation, and the thought (then the response) follows on its own.</div>
+            <div style="display:flex;align-items:stretch;gap:4px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:200px;background:#0f172a;border:2px solid #2dd4bf;border-radius:12px;padding:16px;text-align:center;">
+                <div style="font-size:26px;">🖥️</div>
+                <div style="font-size:13px;font-weight:800;color:#2dd4bf;margin-top:6px;">SITUATION</div>
+                <div style="font-size:11px;color:var(--accent);font-weight:700;margin-top:6px;">= This Trading Terminal</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;">Checklist before chart.<br>Plan before position.</div>
+              </div>
+              <div style="display:flex;align-items:center;font-size:20px;color:var(--muted);padding:0 2px;">→</div>
+              <div style="flex:1;min-width:200px;background:#0f172a;border:2px solid #eab308;border-radius:12px;padding:16px;text-align:center;">
+                <div style="font-size:26px;">💭</div>
+                <div style="font-size:13px;font-weight:800;color:#eab308;margin-top:6px;">THOUGHT</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;">"Is this actually<br>right?" — not<br>"do I want this?"</div>
+              </div>
+              <div style="display:flex;align-items:center;font-size:20px;color:var(--muted);padding:0 2px;">→</div>
+              <div style="flex:1;min-width:200px;background:#0f172a;border:2px solid #22c55e;border-radius:12px;padding:16px;text-align:center;">
+                <div style="font-size:26px;">✅</div>
+                <div style="font-size:13px;font-weight:800;color:#22c55e;margin-top:6px;">RESPONSE</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;">Sized right.<br>Planned exit.<br>Not impulse.</div>
+              </div>
+            </div>
+            <div style="margin-top:14px;padding:10px 14px;background:#0f172a;border-left:3px solid var(--accent);border-radius:6px;font-size:12px;font-weight:600;color:var(--accent);">Same edge, same willpower — a better situation still wins. Fix the situation once; it pays out on every trade after.</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">What Do You See First?</div>
+          <div class="panel-body">
+            <div class="note" style="margin-bottom:12px;">Attention works the same way. Loud and bold wins your focus instantly; quiet stays in the background — visible the whole time, easy to miss.</div>
+            <div style="text-align:center;">
+              <div style="display:inline-block;background:#1a1a1a;border-radius:10px;padding:20px;">
+                <img src="assets/letter-illusion.png" alt="An ambiguous letter shape" onclick="openImageLightbox('assets/letter-illusion.png')"
+                    style="max-width:100%;width:360px;cursor:zoom-in;transition:transform 0.15s;"
+                    onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+              </div>
+              <div style="font-size:18px;font-weight:800;color:#fff;margin-top:14px;">What letter is this?</div>
+              <div class="muted" style="font-size:11px;margin-top:4px;">Click to expand · look closely before you answer</div>
+            </div>
+            <div style="margin-top:14px;padding:10px 14px;background:#0f172a;border-left:3px solid var(--accent);border-radius:6px;font-size:12px;color:var(--muted);">What else might be sitting in a chart or a plan that you walked past — simply because something louder was in the frame at the same time?</div>
+          </div>
+        </div>
+      </div><!-- end home-psychology -->
     </div>
 
     <!-- VISION -->
@@ -5545,6 +5598,17 @@
     function closeDetail() {
       document.getElementById("detail-modal").classList.remove("open");
     }
+    function openImageLightbox(src) {
+      const overlay = document.getElementById("image-lightbox");
+      const img = document.getElementById("image-lightbox-img");
+      if (!overlay || !img) return;
+      img.src = src;
+      overlay.style.display = "flex";
+    }
+    function closeImageLightbox() {
+      const overlay = document.getElementById("image-lightbox");
+      if (overlay) overlay.style.display = "none";
+    }
     function showTickerTradeDetail(ticker) {
       const closedTrades = getJournal()
         .filter(t => (t.ticker || "").toUpperCase() === ticker.toUpperCase())
@@ -8409,7 +8473,7 @@ Question: ${question}`;
     }
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeDetail();
+      if (e.key === "Escape") { closeDetail(); closeImageLightbox(); }
     });
 
     function updateClock() {
