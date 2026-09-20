@@ -598,5 +598,45 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 811381304362
+  },
+  "CMCSA": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 80695996580
+  },
+  "BMNR": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 14803301188
+  },
+  "ONDS": {
+    "sector": "Technology",
+    "industry": "Communication Equipment",
+    "mktCap": 4211107313
+  },
+  "SMR": {
+    "sector": "Industrials",
+    "industry": "Electrical Equipment & Parts",
+    "mktCap": 2462949768
+  },
+  "P": {
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "mktCap": 34540203550
+  },
+  "PURR": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 1896514000
+  },
+  "CDE": {
+    "sector": "Basic Materials",
+    "industry": "Gold",
+    "mktCap": 20363362728
+  },
+  "MSTR": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 50917967360
   }
 }
