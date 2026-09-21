@@ -638,5 +638,105 @@
     "sector": "Technology",
     "industry": "Software - Application",
     "mktCap": 50917967360
+  },
+  "CRML": {
+    "sector": "Basic Materials",
+    "industry": "Industrial Materials",
+    "mktCap": 1370472019
+  },
+  "GRML": {
+    "sector": "Basic Materials",
+    "industry": "Other Precious Metals",
+    "mktCap": 28359711
+  },
+  "NUAI": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 438136622
+  },
+  "PRTH": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 642370326
+  },
+  "GRAL": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 4633704222
+  },
+  "VEEE": {
+    "sector": "Consumer Cyclical",
+    "industry": "Auto - Recreational Vehicles",
+    "mktCap": 917013
+  },
+  "ARMG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 84128750
+  },
+  "SMX": {
+    "sector": "Industrials",
+    "industry": "Specialty Business Services",
+    "mktCap": 691946
+  },
+  "TSUI": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 19381190
+  },
+  "GAVA": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 7383745
+  },
+  "BAVA": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 27686193
+  },
+  "VAVX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 18238553
+  },
+  "GSUI": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 3204145
+  },
+  "SUIS": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 30756230
+  },
+  "NXTT": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 9957216
+  },
+  "MRNX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 4791574
+  },
+  "LINT": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 15902915
+  },
+  "METU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 697030000
+  },
+  "FBL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 280844026
+  },
+  "PUL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 1388775
   }
 }
