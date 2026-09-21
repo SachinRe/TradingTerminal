@@ -114,7 +114,7 @@
     .step-tab { display: inline-block; padding: 8px 14px; cursor: pointer; border-radius: 6px 6px 0 0; color: var(--muted); font-size: 24px; background: transparent; border: 1px solid transparent; }
     .step-tab:hover { color: var(--text); }
     .step-tab.active { background: var(--panel); color: var(--text); font-weight: 600; border: 1px solid var(--border); border-bottom: 1px solid var(--panel); }
-    .content { padding: 12px 16px; flex: 1; max-width: 2200px; overflow-x: auto; }
+    .content { padding: 12px 16px; flex: 1; max-width: 3300px; overflow-x: auto; }
     @media (max-width: 800px) {
       .shell { flex-direction: column; }
       .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; padding: 6px; }
@@ -496,9 +496,13 @@
     /* Saved Plans table — doubled font size per explicit request (wide
        monitor), scoped to just this table so it doesn't affect anything
        else in the app. */
-    #watchlist-body table th { font-size: 44px; }
-    #watchlist-body table td { font-size: 44px; }
-    #watchlist-body table input, #watchlist-body table select, #watchlist-body table textarea { font-size: 44px; }
+    #watchlist-body table th { font-size: 20px; }
+    #watchlist-body table td { font-size: 20px; }
+    #watchlist-body table input, #watchlist-body table select, #watchlist-body table textarea { font-size: 20px; }
+    /* Weekly Trade Plan form — bigger boxes and font, wide-monitor request,
+       scoped to just this tab's form fields. */
+    #wl-tradeplan input, #wl-tradeplan select, #wl-tradeplan textarea, #wl-tradeplan label { font-size: 18px; }
+    #wl-tradeplan input, #wl-tradeplan select, #wl-tradeplan textarea { padding: 8px 10px; }
 
     /* ===================== WELCOME SPLASH ===================== */
     .welcome-splash {
@@ -1361,7 +1365,7 @@
           <div style="flex:1;min-width:260px;background:#0f172a;border:2px solid #2dd4bf;border-radius:12px;padding:18px;display:flex;flex-direction:column;">
             <div style="font-size:22px;font-weight:800;color:#2dd4bf;text-align:center;">BUILD PROCEDURAL MEMORY</div>
             <div style="font-size:12px;color:#e5e7eb;margin-top:8px;line-height:1.6;text-align:center;">Run the <strong>same six-step loop, every single day</strong>, until it fires without you thinking — not once a week when a setup happens to appear.</div>
-            <svg viewBox="0 0 340 210" style="width:100%;max-width:460px;margin:16px auto 0;display:block;">
+            <svg viewBox="0 0 340 210" style="width:100%;max-width:640px;margin:16px auto 0;display:block;">
               <polygon points="170,30 234,60 234,120 170,150 106,120 106,60" fill="none" stroke="#334155" stroke-width="2"/>
               <path d="M106,60 L106,55" fill="none" stroke="#a855f7" stroke-width="3" marker-end="url(#loopArrowHG)"/>
               <circle cx="170" cy="90" r="34" fill="#111827" stroke="#1e293b" stroke-width="1"/>
@@ -2356,11 +2360,11 @@
           <div class="panel-header" id="tradeplan-form-header">Add / Update a Planned Trade</div>
           <div class="panel-body">
             <div class="form-row" style="flex-wrap:wrap;">
-              <div class="form-group"><label>Ticker</label><input type="text" id="tp-ticker" style="width:90px" /></div>
-              <div class="form-group"><label>Strategy</label><select id="tp-strategy" style="width:150px"></select></div>
-              <div class="form-group"><label>Entry Price</label><input type="number" id="tp-entry" step="0.01" style="width:100px" oninput="updateTradePlanSharesPreview()" /></div>
-              <div class="form-group"><label>Stop Loss</label><input type="number" id="tp-stop" step="0.01" style="width:100px" oninput="updateTradePlanSharesPreview()" /></div>
-              <div class="form-group"><label>Equity Risk %</label><input type="number" id="tp-riskpct" step="0.1" value="1" style="width:90px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Ticker</label><input type="text" id="tp-ticker" style="width:140px" /></div>
+              <div class="form-group"><label>Strategy</label><select id="tp-strategy" style="width:220px"></select></div>
+              <div class="form-group"><label>Entry Price</label><input type="number" id="tp-entry" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Stop Loss</label><input type="number" id="tp-stop" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Equity Risk %</label><input type="number" id="tp-riskpct" step="0.1" value="1" style="width:130px" oninput="updateTradePlanSharesPreview()" /></div>
             </div>
             <div class="form-group" style="margin-top:6px;"><label>Comments</label><textarea id="tp-comments" rows="2" style="width:100%"></textarea></div>
             <div id="tp-shares-preview" class="note" style="margin-top:6px;">Enter entry, stop, and risk % to see the calculated share count.</div>
@@ -6497,18 +6501,18 @@
       // extra "Pattern Based" grouping node before it reaches Exhaustion /
       // Momentum Burst, so that whole path sits one level deeper — the tree
       // is genuinely asymmetric, not a rendering shortcut.
-      const LEAF_W = 110, LEAF_GAP = 20, GROUP_GAP = 60;
-      const ROOT_Y = 30, ROOT_H = 50;
-      const TOP_Y = 120, TOP_H = 50;
-      const BRANCH_Y = 210, BRANCH_H = 50;      // Catalyst/Pattern(HR) + Pattern(Singles)
-      const LEAF_Y_HR = 300, LEAF_H = 72;         // leaves under Home Runs' 2 branches
-      const BRANCH2_Y = 300, BRANCH2_H = 50;      // Exhaustion / Momentum Burst
-      const LEAF_Y_SINGLES = 390;                 // leaves under Exhaustion / Momentum Burst
-      const BUS1_Y = TOP_Y - 20;
-      const BUS2_Y = BRANCH_Y - 20;
-      const BUS_HR_LEAF_Y = LEAF_Y_HR - 20;
-      const BUS3_Y = BRANCH2_Y - 20;
-      const BUS_SINGLES_LEAF_Y = LEAF_Y_SINGLES - 20;
+      const LEAF_W = 170, LEAF_GAP = 30, GROUP_GAP = 90;
+      const ROOT_Y = 40, ROOT_H = 70;
+      const TOP_Y = 165, TOP_H = 70;
+      const BRANCH_Y = 290, BRANCH_H = 70;      // Catalyst/Pattern(HR) + Pattern(Singles)
+      const LEAF_Y_HR = 415, LEAF_H = 100;         // leaves under Home Runs' 2 branches
+      const BRANCH2_Y = 415, BRANCH2_H = 70;      // Exhaustion / Momentum Burst
+      const LEAF_Y_SINGLES = 540;                 // leaves under Exhaustion / Momentum Burst
+      const BUS1_Y = TOP_Y - 28;
+      const BUS2_Y = BRANCH_Y - 28;
+      const BUS_HR_LEAF_Y = LEAF_Y_HR - 28;
+      const BUS3_Y = BRANCH2_Y - 28;
+      const BUS_SINGLES_LEAF_Y = LEAF_Y_SINGLES - 28;
 
       let cursorX = 30;
       const branchLayout = {};
@@ -6530,7 +6534,7 @@
       const canvasHeight = LEAF_Y_SINGLES + LEAF_H + 20;
 
       const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
-      let svg = `<svg viewBox="0 0 ${canvasWidth} ${canvasHeight}" style="width:100%;min-width:${Math.min(canvasWidth, 1600)}px;display:block;" role="img">`;
+      let svg = `<svg viewBox="0 0 ${canvasWidth} ${canvasHeight}" style="width:100%;min-width:${Math.min(canvasWidth, 2400)}px;display:block;" role="img">`;
       svg += `<title>Trade Factory framework, generated from your Setup Library.</title>`;
 
       const connectorColor = "#475569";
@@ -6576,32 +6580,32 @@
       });
 
       // Root box
-      svg += `<rect x="${rootCenter - 100}" y="${ROOT_Y}" width="200" height="${ROOT_H}" rx="8" fill="#92400e" stroke="#78350f" stroke-width="2"/>`;
+      svg += `<rect x="${rootCenter - 130}" y="${ROOT_Y}" width="260" height="${ROOT_H}" rx="8" fill="#92400e" stroke="#78350f" stroke-width="2"/>`;
       svg += `<text x="${rootCenter}" y="${ROOT_Y + ROOT_H / 2 + 5}" text-anchor="middle" fill="#fff" font-size="32" font-weight="800">FRAMEWORK</text>`;
 
       // Home Runs / Singles boxes
-      svg += `<rect x="${homerunsCenter - 90}" y="${TOP_Y}" width="180" height="${TOP_H}" rx="8" fill="#0f172a" stroke="#b45309" stroke-width="2.5"/>`;
+      svg += `<rect x="${homerunsCenter - 130}" y="${TOP_Y}" width="260" height="${TOP_H}" rx="8" fill="#0f172a" stroke="#b45309" stroke-width="2.5"/>`;
       svg += `<text x="${homerunsCenter}" y="${TOP_Y + TOP_H / 2 + 5}" text-anchor="middle" fill="#eab308" font-size="30" font-weight="800">🏠 HOME RUNS</text>`;
-      svg += `<rect x="${singlesCenter - 90}" y="${TOP_Y}" width="180" height="${TOP_H}" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="2.5"/>`;
+      svg += `<rect x="${singlesCenter - 130}" y="${TOP_Y}" width="260" height="${TOP_H}" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="2.5"/>`;
       svg += `<text x="${singlesCenter}" y="${TOP_Y + TOP_H / 2 + 5}" text-anchor="middle" fill="#60a5fa" font-size="30" font-weight="800">⚾ SINGLES</text>`;
 
       // Home Runs' branch boxes (Catalyst Based / Pattern Based)
       ["catalyst_based", "pattern_based"].forEach(k => {
         const cx = branchLayout[k].branchCenter;
         const label = branchDefs.find(b => b.key === k).label;
-        svg += `<rect x="${cx - 85}" y="${BRANCH_Y}" width="170" height="${BRANCH_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
+        svg += `<rect x="${cx - 120}" y="${BRANCH_Y}" width="240" height="${BRANCH_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
         svg += `<text x="${cx}" y="${BRANCH_Y + BRANCH_H / 2 + 5}" text-anchor="middle" fill="#d4a017" font-size="26" font-weight="700">${esc(label).toUpperCase()}</text>`;
       });
 
       // Singles' "Pattern Based" grouping box (new intermediate node)
-      svg += `<rect x="${patternBasedSinglesCenter - 85}" y="${BRANCH_Y}" width="170" height="${BRANCH_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
+      svg += `<rect x="${patternBasedSinglesCenter - 120}" y="${BRANCH_Y}" width="240" height="${BRANCH_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
       svg += `<text x="${patternBasedSinglesCenter}" y="${BRANCH_Y + BRANCH_H / 2 + 5}" text-anchor="middle" fill="#d4a017" font-size="26" font-weight="700">PATTERN BASED</text>`;
 
       // Exhaustion / Momentum Burst boxes
       ["exhaustion", "momentum_burst"].forEach(k => {
         const cx = branchLayout[k].branchCenter;
         const label = branchDefs.find(b => b.key === k).label;
-        svg += `<rect x="${cx - 85}" y="${BRANCH2_Y}" width="170" height="${BRANCH2_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
+        svg += `<rect x="${cx - 120}" y="${BRANCH2_Y}" width="240" height="${BRANCH2_H}" rx="8" fill="#0f172a" stroke="#1f2937" stroke-width="2"/>`;
         svg += `<text x="${cx}" y="${BRANCH2_Y + BRANCH2_H / 2 + 5}" text-anchor="middle" fill="#d4a017" font-size="26" font-weight="700">${esc(label).toUpperCase()}</text>`;
       });
 
@@ -6615,7 +6619,7 @@
           const isBearish = s.direction === "bearish";
           const color = isBearish ? "#ef4444" : "#22c55e";
           svg += `<rect x="${cx - LEAF_W / 2}" y="${y}" width="${LEAF_W}" height="${LEAF_H}" rx="8" fill="#0f172a" stroke="${color}" stroke-width="2"/>`;
-          const nameLines = wrapSvgText(s.label ? s.label.split("·")[0].trim() : s.key, 15);
+          const nameLines = wrapSvgText(s.label ? s.label.split("·")[0].trim() : s.key, 10);
           nameLines.slice(0, 2).forEach((ln, li) => {
             svg += `<text x="${cx}" y="${y + 22 + li * 15}" text-anchor="middle" fill="#e5e7eb" font-size="22" font-weight="700">${esc(ln)}</text>`;
           });
