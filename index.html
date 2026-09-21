@@ -2491,7 +2491,7 @@
               <div class="form-row">
                 <div class="form-group">
                   <label>Account Value $</label>
-                  <input type="number" id="risk-account" value="50000" step="1000" />
+                  <input type="number" id="risk-account" step="1000" />
                 </div>
                 <div class="form-group">
                   <label>Risk % (ideal 1%)</label>
@@ -4238,6 +4238,38 @@
       // showing the saved value, and re-rendering the whole table on every
       // blur would be a jarring reset for no visible benefit.
     }
+    function updateWatchlistPlanField(ticker, field, value) {
+      const list = getWatchlist();
+      const item = list.find(x => x.ticker === ticker);
+      if (!item) return;
+      const num = value === "" ? null : parseFloat(value);
+      if (value !== "" && isNaN(num)) return;
+      item.plan = item.plan || {};
+      item.plan[field] = num;
+      saveWatchlist(list);
+      // No re-render — same reasoning as updateWatchlistComment. The field
+      // the user just edited already shows what they typed; resetting the
+      // whole table on every single field edit would be disruptive when
+      // they're working through several fields in a row before market open.
+    }
+    function recalcPlanShares(ticker) {
+      const list = getWatchlist();
+      const item = list.find(x => x.ticker === ticker);
+      if (!item || !item.plan) { alert("Set an entry and stop first."); return; }
+      const { entry, stop, riskPct } = item.plan;
+      if (entry == null || stop == null || riskPct == null) {
+        alert("Need Entry, Stop, and Risk % all filled in before recalculating shares.");
+        return;
+      }
+      const riskPerShare = Math.abs(entry - stop);
+      if (riskPerShare === 0) { alert("Entry and Stop can't be equal."); return; }
+      const equity = getCurrentPortfolioValueComputed();
+      const shares = Math.floor((equity * (riskPct / 100)) / riskPerShare);
+      item.plan.shares = shares;
+      item.plan.accountValue = equity;
+      saveWatchlist(list);
+      renderWatchlist();
+    }
     function setQualifySetup(ticker, type) {
       const c = candidates.find(x => x.ticker === ticker);
       if (c) {
@@ -4759,16 +4791,13 @@
       }
 
       let html = `<table><thead><tr>
-        <th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Plan</th><th>Risk cue</th><th>Why keeping it</th><th>Actions</th>
+        <th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Target</th><th>Why keeping it</th><th>Actions</th>
       </tr></thead><tbody>`;
       list.forEach(w => {
         const st = w.setupType || "SIP";
         const rules = getSetupRules(st);
         const mode = w.entryMode || "open";
-        const p = w.plan;
-        const planTxt = p
-          ? `${p.method || "—"} · E $${p.entry != null ? p.entry : "—"} · S $${p.stop != null ? p.stop : "—"} · T $${p.target != null ? p.target : "—"}`
-          : "<span class='muted'>No plan</span>";
+        const p = w.plan || {};
         html += `<tr>
           <td><span class="ticker-link" onclick="showDetail('${w.ticker}')">${w.ticker}</span>
             <div class="muted" style="font-size:10px;">$${Number(w.price).toFixed(2)} · ${w.gap > 0 ? "+" : ""}${w.gap}% · ${w.catalyst || ""}</div>
@@ -4785,15 +4814,21 @@
               <option value="delayed" ${mode==="delayed"?"selected":""}>Delayed</option>
             </select>
           </td>
-          <td style="font-size:11px;max-width:220px;white-space:normal;">${planTxt}</td>
-          <td style="font-size:10px;color:var(--muted);max-width:160px;white-space:normal;">${rules.riskPct}% risk · ${rules.hold}</td>
+          <td><input type="number" step="0.01" value="${p.entry != null ? p.entry : ""}" placeholder="—" style="width:75px;" onchange="updateWatchlistPlanField('${w.ticker}', 'entry', this.value)" /></td>
+          <td><input type="number" step="0.01" value="${p.stop != null ? p.stop : ""}" placeholder="—" style="width:75px;" onchange="updateWatchlistPlanField('${w.ticker}', 'stop', this.value)" /></td>
+          <td><input type="number" step="0.1" value="${p.riskPct != null ? p.riskPct : ""}" placeholder="—" style="width:60px;" onchange="updateWatchlistPlanField('${w.ticker}', 'riskPct', this.value)" /></td>
+          <td>
+            <input type="number" step="1" value="${p.shares != null ? p.shares : ""}" placeholder="—" style="width:70px;" onchange="updateWatchlistPlanField('${w.ticker}', 'shares', this.value)" />
+            <button class="btn btn-sm" style="padding:2px 5px;font-size:10px;" title="Recalculate shares from entry/stop/risk% and current portfolio value" onclick="recalcPlanShares('${w.ticker}')">↻</button>
+          </td>
+          <td><input type="number" step="0.01" value="${p.target != null ? p.target : ""}" placeholder="—" style="width:75px;" onchange="updateWatchlistPlanField('${w.ticker}', 'target', this.value)" /></td>
           <td>
             <textarea onchange="updateWatchlistComment('${w.ticker}', this.value)" rows="2"
                 style="width:170px;font-size:11px;background:#0f172a;border:1px solid var(--border);color:var(--text);border-radius:4px;padding:5px 7px;font-family:inherit;resize:vertical;"
                 placeholder="Why is this still here?">${(w.comment || "").replace(/</g, "&lt;")}</textarea>
           </td>
           <td style="white-space:nowrap;">
-            <button class="btn btn-sm btn-accent" onclick="openPlanFor('${w.ticker}')">${p ? "Edit" : "Plan"}</button>
+            <button class="btn btn-sm btn-accent" onclick="openPlanFor('${w.ticker}')">${w.plan ? "Edit" : "Plan"}</button>
             <button class="btn btn-sm" onclick="openRiskFor('${w.ticker}')">Size</button>
             <button class="btn btn-sm" onclick="markPositionOpen('${w.ticker}')">Open pos</button>
             <button class="btn btn-sm" style="border-color:#166534;color:#86efac;" onclick="closeOutTrade('${w.ticker}')">Close</button>
@@ -4877,7 +4912,7 @@
       let list = getWatchlist();
       let item = list.find(x => x.ticker === ticker);
       if (!item) { alert("Ticker not on watchlist"); return; }
-      item.plan = { method, entry, stop, target };
+      item.plan = { ...(item.plan || {}), method, entry, stop, target };
       saveWatchlist(list);
       renderWatchlist();
       if (entry) document.getElementById("risk-entry").value = entry;
@@ -5318,6 +5353,22 @@
       document.getElementById("shares-out").textContent = shares.toLocaleString();
       document.getElementById("size-details").innerHTML =
         `Risk $: <strong>$${riskDollars.toFixed(0)}</strong> (${pct}%) · Risk/share: <strong>$${riskPerShare.toFixed(2)}</strong> · Notional: <strong>$${notional.toLocaleString(undefined,{maximumFractionDigits:0})}</strong>`;
+
+      // Save the full sizing result onto the selected ticker's plan, so
+      // Saved Plans shows entry/stop/risk%/shares without needing to
+      // re-open this calculator — that's the actual point of a trade plan,
+      // something to execute against later, not a number that evaporates
+      // the moment you leave this tab.
+      const ticker = document.getElementById("risk-ticker-select") ? document.getElementById("risk-ticker-select").value : "";
+      if (ticker) {
+        const list = getWatchlist();
+        const item = list.find(x => x.ticker === ticker);
+        if (item) {
+          item.plan = { ...(item.plan || {}), entry, stop, riskPct: pct, shares, accountValue: account };
+          saveWatchlist(list);
+          renderWatchlist();
+        }
+      }
     }
 
     function getJournal() {
@@ -6005,6 +6056,14 @@
         panel.classList.add("active");
       }
       if (sub === "wl-tradeplan") renderTradePlans();
+      if (sub === "wl-risk") {
+        // Account Value defaults to the live computed portfolio value each
+        // time this tab is entered — still fully editable for a one-off
+        // what-if calculation, it just resets to the real number next visit
+        // rather than staying stuck on whatever was typed in previously.
+        const accountEl = document.getElementById("risk-account");
+        if (accountEl) accountEl.value = Math.round(getCurrentPortfolioValueComputed());
+      }
       updateExecRiskVisibility();
     }
 
@@ -7735,6 +7794,7 @@ Question: ${question}`;
         entry: item.plan.entry,
         stop: item.plan.stop,
         target: item.plan.target,
+        shares: item.plan.shares || 1,
         entryMode: item.entryMode || "open"
       };
       saveWatchlist(list);
