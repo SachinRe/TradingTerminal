@@ -2707,21 +2707,21 @@
         <div class="panel-body">
           <div id="portfolio-edit" style="display:none;margin-bottom:14px;padding:12px;background:#0f172a;border:1px solid var(--border);border-radius:8px;">
             <div class="form-row" style="flex-wrap:wrap;">
-              <div class="form-group"><label>Starting Date</label><input type="date" id="pf-start-date" style="width:150px" /></div>
-              <div class="form-group"><label>Starting Portfolio Value $</label><input type="number" id="pf-start-value" step="0.01" style="width:160px" /></div>
-              <div class="form-group"><label>Current Cash Balance $</label><input type="number" id="pf-cash" step="0.01" style="width:160px" /></div>
-              <div class="form-group"><label>Total Heat $</label><input type="number" id="pf-heat" step="0.01" style="width:120px" value="0" /></div>
+              <div class="form-group"><label>Starting Date</label><input type="date" id="pf-start-date" style="width:210px" /></div>
+              <div class="form-group"><label>Starting Portfolio Value $</label><input type="number" id="pf-start-value" step="0.01" style="width:220px" /></div>
+              <div class="form-group"><label>Current Cash Balance $</label><input type="number" id="pf-cash" step="0.01" style="width:220px" /></div>
+              <div class="form-group"><label>Total Heat $</label><input type="number" id="pf-heat" step="0.01" style="width:170px" value="0" /></div>
             </div>
             <div class="note">Current Portfolio Value, Unrealized PnL, and Peak are calculated automatically now — Current Value = Starting Value + Realized PnL (since baseline, from Journal/Schwab) + Unrealized PnL (from Current Price on each open position in Positions). Update Cash Balance here whenever it changes in real life.</div>
           </div>
-          <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;"></div>
+          <div id="portfolio-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;"></div>
         </div>
       </div>
 
       <div id="dash-baseline-banner"></div>
       <div class="panel">
         <div class="panel-header">Trading Performance · Closed Trades</div>
-        <div class="panel-body" id="dash-metrics" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;"></div>
+        <div class="panel-body" id="dash-metrics" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;"></div>
         <div class="panel-body" style="padding-top:0;">
           <div class="note">SQN here is computed from raw $ P&amp;L per trade, not true R-multiples (which need a consistent stop-loss/risk amount recorded per trade — not tracked yet). Treat it as a directional read on consistency, not the textbook Van Tharp number.</div>
         </div>
@@ -8015,9 +8015,9 @@ Question: ${question}`;
       const currentDd = maxDdFromPeak < 0 ? maxDdFromPeak : 0;
 
       const kpi = (label, val, cls, onclickAttr) =>
-        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;${onclickAttr ? "cursor:pointer;" : ""}" ${onclickAttr ? `onclick="${onclickAttr}"` : ""}>
-          <div style="font-size:20px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;">${label}${onclickAttr ? " ↗" : ""}</div>
-          <div style="font-size:32px;font-weight:700;margin-top:6px;" class="${cls || ""}">${val}</div>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:16px;${onclickAttr ? "cursor:pointer;" : ""}" ${onclickAttr ? `onclick="${onclickAttr}"` : ""}>
+          <div style="font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;">${label}${onclickAttr ? " ↗" : ""}</div>
+          <div style="font-size:24px;font-weight:700;margin-top:6px;" class="${cls || ""}">${val}</div>
         </div>`;
       const money = (n) => (n < 0 ? "-$" : "$") + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       box.innerHTML =
@@ -8460,9 +8460,9 @@ Question: ${question}`;
         if (dd > maxDd) maxDd = dd;
       });
       const metric = (label, val, cls, tooltip) =>
-        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px;" ${tooltip ? `title="${tooltip.replace(/"/g, "&quot;")}"` : ""}>
-          <div style="font-size:20px;color:var(--muted);text-transform:uppercase;">${label}</div>
-          <div style="font-size:36px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:16px;" ${tooltip ? `title="${tooltip.replace(/"/g, "&quot;")}"` : ""}>
+          <div style="font-size:15px;color:var(--muted);text-transform:uppercase;">${label}</div>
+          <div style="font-size:27px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div>
         </div>`;
       const equity = points.length ? points[points.length - 1].equity : baselineCap + sum;
       const sqnTooltip = "SQN (System Quality Number) measures how consistent your $ P&L is, not just whether you're profitable — it's mean P&L divided by the standard deviation of P&L, scaled by √(number of trades). A high average with wildly inconsistent results scores lower than a smaller, steadier edge.\n\nScale: <1.6 Poor · 1.6–2.0 Below avg · 2.0–2.5 Average · 2.5–3.0 Good · 3.0–5.0 Excellent · 5.0–7.0 Superb · 7.0+ Holy grail.\n\nThis version uses raw $ P&L, not true R-multiples (that needs a consistent risk amount recorded per trade), so treat it as a directional read, not the textbook Van Tharp number.";
