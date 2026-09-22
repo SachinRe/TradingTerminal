@@ -7703,6 +7703,18 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       }
       return sipMktCapCache;
     }
+    let sipFinvizCache = null;
+    async function loadSipFinvizCache() {
+      if (sipFinvizCache) return sipFinvizCache;
+      try {
+        const res = await fetch("./data/finviz-cache.json?t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        sipFinvizCache = await res.json();
+      } catch (e) {
+        sipFinvizCache = {};
+      }
+      return sipFinvizCache;
+    }
     function computeSipCandidates() {
       // Price/volume floors are direction-agnostic; the gap threshold covers
       // both directions since bearish catalysts qualify just as much as
@@ -7730,6 +7742,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       const wrap = document.getElementById("sip-table-wrap");
       if (!wrap) return;
       const mktCaps = await loadSipMktCapCache();
+      const finvizData = await loadSipFinvizCache();
       const list = computeSipCandidates().sort((a, b) => (b.rvol || 0) - (a.rvol || 0));
       if (!list.length) {
         wrap.innerHTML = `<div class="wl-empty">No candidates clear the filter right now (price &gt; $0.99, volume ≥ 50k, move &gt; 3%).</div>`;
@@ -7743,7 +7756,20 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
       </tr></thead><tbody>`;
       list.forEach(c => {
         const f = fundamentals[c.ticker] || {};
-        const mc = mktCaps[c.ticker] && mktCaps[c.ticker].mktCap;
+        const fv = finvizData[c.ticker] || {};
+        const mktCapEntry = mktCaps[c.ticker];
+        const mc = mktCapEntry && mktCapEntry.mktCap;
+        // FMP's licensed float takes priority; Finviz's scraped float only
+        // fills in when FMP doesn't have it. A manual entry from the user
+        // always wins over either auto-sourced value — theirs is presumed
+        // more current if they bothered to type it in.
+        const autoFloat = mktCapEntry && mktCapEntry.float != null ? mktCapEntry.float : fv.finvizFloat;
+        const floatVal = f.float != null && f.float !== "" ? f.float : (autoFloat != null ? (autoFloat / 1e6).toFixed(1) + "M" : "");
+        const siVal = f.shortInterest != null && f.shortInterest !== "" ? f.shortInterest : (fv.shortInterestPct || "");
+        const dtcVal = f.daysToCover != null && f.daysToCover !== "" ? f.daysToCover : (fv.daysToCover != null ? fv.daysToCover : "");
+        const isAutoFloat = !(f.float != null && f.float !== "") && autoFloat != null;
+        const isAutoSi = !(f.shortInterest != null && f.shortInterest !== "") && fv.shortInterestPct;
+        const isAutoDtc = !(f.daysToCover != null && f.daysToCover !== "") && fv.daysToCover != null;
         const analysis = analysisCache[c.ticker];
         html += `<tr>
           <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
@@ -7752,9 +7778,9 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
           <td>${c.rvol != null ? Number(c.rvol).toFixed(2) : "—"}</td>
           <td>${mc ? "$" + Number(mc).toLocaleString(undefined, { maximumFractionDigits: 0 }) : "—"}</td>
           <td style="font-size:20px;max-width:220px;white-space:normal;">${c.catalystHeadline ? `<a href="${c.catalystUrl || "#"}" target="_blank" rel="noopener">${c.catalystHeadline}</a>` : "<span class='muted'>No catalyst attached</span>"}</td>
-          <td><input type="text" value="${f.float || ""}" placeholder="e.g. 8M" style="width:80px;" onchange="saveSipFundamental('${c.ticker}','float',this.value)" /></td>
-          <td><input type="text" value="${f.shortInterest || ""}" placeholder="e.g. 22%" style="width:70px;" onchange="saveSipFundamental('${c.ticker}','shortInterest',this.value)" /></td>
-          <td><input type="text" value="${f.daysToCover || ""}" placeholder="e.g. 4" style="width:60px;" onchange="saveSipFundamental('${c.ticker}','daysToCover',this.value)" /></td>
+          <td><input type="text" value="${floatVal}" placeholder="e.g. 8M" title="${isAutoFloat ? "Auto-filled — edit to override" : "Manual entry"}" style="width:80px;${isAutoFloat ? "color:#7dd3fc;" : ""}" onchange="saveSipFundamental('${c.ticker}','float',this.value)" /></td>
+          <td><input type="text" value="${siVal}" placeholder="e.g. 22%" title="${isAutoSi ? "Auto-filled from Finviz — edit to override" : "Manual entry"}" style="width:70px;${isAutoSi ? "color:#7dd3fc;" : ""}" onchange="saveSipFundamental('${c.ticker}','shortInterest',this.value)" /></td>
+          <td><input type="text" value="${dtcVal}" placeholder="e.g. 4" title="${isAutoDtc ? "Auto-filled from Finviz — edit to override" : "Manual entry"}" style="width:60px;${isAutoDtc ? "color:#7dd3fc;" : ""}" onchange="saveSipFundamental('${c.ticker}','daysToCover',this.value)" /></td>
           <td>
             <button class="btn btn-sm btn-accent" onclick="analyzeStockInPlay('${c.ticker}')">Analyze</button>
             ${analysis ? `<div class="muted" style="font-size:18px;margin-top:4px;">${analysis.classification || ""}</div>` : ""}
@@ -7762,7 +7788,7 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
         </tr>`;
       });
       html += `</tbody></table>`;
-      wrap.innerHTML = html;
+      wrap.innerHTML = html + `<div class="note" style="margin-top:10px;">Fields in <span style="color:#7dd3fc;">blue</span> were auto-filled (FMP for Float, a best-effort Finviz scrape for Short Interest/Days to Cover — no uptime guarantee on the latter). Edit any of them to override.</div>`;
     }
     function buildSipAnalysisPrompt(c, f) {
       return `You are a discretionary momentum trader's assistant. Analyze this premarket mover as a candidate for today's watchlist.
