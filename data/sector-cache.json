@@ -863,5 +863,105 @@
     "sector": "Financial Services",
     "industry": "Asset Management - Bonds",
     "mktCap": 16987899825
+  },
+  "BFLY": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 2646741616
+  },
+  "VKTX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 4765272313
+  },
+  "XNDU": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 130859200
+  },
+  "MAZE": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1570698479
+  },
+  "DNA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 610130746
+  },
+  "JAGX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 14441682
+  },
+  "EAF": {
+    "sector": "Industrials",
+    "industry": "Electrical Equipment & Parts",
+    "mktCap": 291866540
+  },
+  "NFE": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Midstream",
+    "mktCap": 46558448
+  },
+  "FIRY": {
+    "sector": "Technology",
+    "industry": "Electronic Gaming & Multimedia",
+    "mktCap": 197278256
+  },
+  "EDRY": {
+    "sector": "Industrials",
+    "industry": "Marine Shipping",
+    "mktCap": 156320782
+  },
+  "BWET": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 92499786
+  },
+  "AIFU": {
+    "sector": "Financial Services",
+    "industry": "Insurance - Brokers",
+    "mktCap": 49598159
+  },
+  "TANH": {
+    "sector": "Consumer Defensive",
+    "industry": "Household & Personal Products",
+    "mktCap": 10048072
+  },
+  "BALY": {
+    "sector": "Consumer Cyclical",
+    "industry": "Gambling, Resorts & Casinos",
+    "mktCap": 602559679
+  },
+  "SGRY": {
+    "sector": "Healthcare",
+    "industry": "Medical - Care Facilities",
+    "mktCap": 2066450400
+  },
+  "HVII": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 236291836
+  },
+  "EVER": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 688937152
+  },
+  "NTRB": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 82174445
+  },
+  "EHLD": {
+    "sector": "Industrials",
+    "industry": "Marine Shipping",
+    "mktCap": 31715085
+  },
+  "CLDX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 2229703828
   }
 }
