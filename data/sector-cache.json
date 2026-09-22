@@ -74,7 +74,8 @@
   "BA": {
     "sector": "Industrials",
     "industry": "Aerospace & Defense",
-    "mktCap": 155702890000
+    "mktCap": 156271956400,
+    "float": 758478590
   },
   "META": {
     "sector": "Communication Services",
@@ -113,12 +114,14 @@
   "PG": {
     "sector": "Consumer Defensive",
     "industry": "Household & Personal Products",
-    "mktCap": 350662090297
+    "mktCap": 352349908642,
+    "float": null
   },
   "JNJ": {
     "sector": "Healthcare",
     "industry": "Drug Manufacturers - General",
-    "mktCap": 651202749972
+    "mktCap": 648720554603,
+    "float": 2405898165
   },
   "AEMD": {
     "sector": "Healthcare",
@@ -128,12 +131,14 @@
   "V": {
     "sector": "Financial Services",
     "industry": "Financial - Credit Services",
-    "mktCap": 690676774765
+    "mktCap": 675945772270,
+    "float": 1697189609
   },
   "UNH": {
     "sector": "Healthcare",
     "industry": "Medical - Healthcare Plans",
-    "mktCap": 340744861825
+    "mktCap": 338692455472,
+    "float": 906109757
   },
   "BIAF": {
     "sector": "Healthcare",
@@ -143,22 +148,26 @@
   "ADBE": {
     "sector": "Technology",
     "industry": "Software - Application",
-    "mktCap": 100436325000
+    "mktCap": 94704375000,
+    "float": 396228000
   },
   "HD": {
     "sector": "Consumer Cyclical",
     "industry": "Home Improvement",
-    "mktCap": 301637863670
+    "mktCap": 304469675950,
+    "float": null
   },
   "MA": {
     "sector": "Financial Services",
     "industry": "Financial - Credit Services",
-    "mktCap": 496165576280
+    "mktCap": 487535542040,
+    "float": null
   },
   "COST": {
     "sector": "Consumer Defensive",
     "industry": "Discount Stores",
-    "mktCap": 396439182470
+    "mktCap": 398869447390,
+    "float": 440929534
   },
   "OKLL": {
     "sector": "Financial Services",
@@ -238,7 +247,8 @@
   "VICR": {
     "sector": "Technology",
     "industry": "Hardware, Equipment & Parts",
-    "mktCap": 9809735107
+    "mktCap": 12164815004,
+    "float": null
   },
   "DSP": {
     "sector": "Technology",
@@ -448,7 +458,8 @@
   "AUC": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 87148002
+    "mktCap": 94883032,
+    "float": null
   },
   "DFDV": {
     "sector": "Financial Services",
@@ -902,47 +913,56 @@
   "MAZE": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 1570698479
+    "mktCap": 1570698479,
+    "float": null
   },
   "DNA": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 610130746
+    "mktCap": 612090481,
+    "float": null
   },
   "JAGX": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 14441682
+    "mktCap": 14960120,
+    "float": null
   },
   "EAF": {
     "sector": "Industrials",
     "industry": "Electrical Equipment & Parts",
-    "mktCap": 291866540
+    "mktCap": 291996780,
+    "float": null
   },
   "NFE": {
     "sector": "Energy",
     "industry": "Oil & Gas Midstream",
-    "mktCap": 46558448
+    "mktCap": 46558448,
+    "float": null
   },
   "FIRY": {
     "sector": "Technology",
     "industry": "Electronic Gaming & Multimedia",
-    "mktCap": 197278256
+    "mktCap": 196653958,
+    "float": null
   },
   "EDRY": {
     "sector": "Industrials",
     "industry": "Marine Shipping",
-    "mktCap": 156320782
+    "mktCap": 156320782,
+    "float": null
   },
   "BWET": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 92499786
+    "mktCap": 92138869,
+    "float": null
   },
   "AIFU": {
     "sector": "Financial Services",
     "industry": "Insurance - Brokers",
-    "mktCap": 49598159
+    "mktCap": 50664786,
+    "float": null
   },
   "TANH": {
     "sector": "Consumer Defensive",

@@ -956,7 +956,7 @@
         "changePct": 1190.64,
         "sector": "Healthcare",
         "industry": "Biotechnology",
-        "mktCap": 14441682
+        "mktCap": 14960120
       },
       {
         "ticker": "GRML",
@@ -996,7 +996,7 @@
         "changePct": 20.1,
         "sector": "Financial Services",
         "industry": "Asset Management",
-        "mktCap": 87148002
+        "mktCap": 94883032
       }
     ],
     "down": [
@@ -1014,7 +1014,7 @@
         "changePct": -22.06,
         "sector": "Financial Services",
         "industry": "Insurance - Brokers",
-        "mktCap": 49598159
+        "mktCap": 50664786
       },
       {
         "ticker": "XNDU",
