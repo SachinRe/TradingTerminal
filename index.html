@@ -2137,6 +2137,12 @@
 
     <!-- QUALIFY (SIPs) -->
     <div id="qualify" class="section">
+      <div class="steps">
+        <div class="step-tab active" data-q-sub="q-screener" onclick="switchQualifySub(this)">Screener</div>
+        <div class="step-tab" data-q-sub="q-sip" onclick="switchQualifySub(this)">Stocks In Play</div>
+      </div>
+
+      <div id="q-screener" class="q-sub" style="display:block;">
       <div class="panel" id="live-data-status-panel">
         <div class="panel-header">
           Scheduled Data Refresh · 4:00am / 5:30am / 10:30am / 2:00pm Pacific
@@ -2285,6 +2291,45 @@
           <div class="check-item"><span class="check-icon">✓</span> Stop location defined; position size calculated</div>
         </div>
       </div>
+      </div><!-- end q-screener -->
+
+      <div id="q-sip" class="q-sub" style="display:none;">
+        <div class="panel">
+          <div class="panel-header">Stocks In Play</div>
+          <div class="panel-body">
+            <div class="note" style="margin-bottom:12px;">Premarket gappers from today's screener data (price &gt; $0.99, volume ≥ 50k, change &gt; 3%), sorted by RVOL. For each one: enter what you know about Float / Short Interest / Days to Cover (none of these are available from a free live source, so they're yours to fill in), then click Analyze for an on-demand AI read on whether the catalyst is game-changing, secular, or just noise — plus a bull case, bear case, and target range.</div>
+            <div id="sip-table-wrap"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            Today's Top 5 Bullish &amp; Bearish
+            <span class="tag">Ranked by framework score — editable, saved daily for a growing history</span>
+          </div>
+          <div class="panel-body">
+            <div class="note" style="margin-bottom:12px;">Ranking starts from an automatic score (RVOL, gap %, volume) and gets boosted or penalized once you've analyzed a ticker (game-changing catalysts rank up, transient/noise ranks down). You can swap any slot by ticker before saving — your judgment overrides the auto-rank, not the other way around.</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <div style="font-weight:700;color:#22c55e;margin-bottom:8px;">TOP 5 BULLISH</div>
+                <div id="sip-top5-bullish"></div>
+              </div>
+              <div>
+                <div style="font-weight:700;color:#ef4444;margin-bottom:8px;">TOP 5 BEARISH</div>
+                <div id="sip-top5-bearish"></div>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-accent" style="margin-top:14px;" onclick="saveSipTop5Today()">Save Today's Top 5</button>
+            <span class="muted" id="sip-top5-save-status" style="margin-left:10px;font-size:22px;"></span>
+            <div style="margin-top:18px;">
+              <div style="font-weight:700;margin-bottom:8px;">History</div>
+              <div id="sip-top5-history"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="sip-analysis-result"></div>
+      </div><!-- end q-sip -->
     </div>
 
     <!-- NEWS -->
@@ -6138,6 +6183,22 @@
       reader.readAsText(file);
     }
 
+    function switchQualifySub(el) {
+      const sub = el.getAttribute("data-q-sub");
+      document.querySelectorAll("#qualify > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll(".q-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
+      const panel = document.getElementById(sub);
+      if (panel) {
+        panel.style.display = "block";
+        panel.classList.add("active");
+      }
+      if (sub === "q-sip") {
+        renderStocksInPlay();
+        renderSipTop5();
+        renderSipTop5History();
+      }
+    }
     function switchWatchSub(el) {
       const sub = el.getAttribute("data-wl-sub");
       document.querySelectorAll("#watchlist > .steps .step-tab").forEach(t => t.classList.remove("active"));
@@ -7609,6 +7670,214 @@ ${s.trendNote ? `- Recent 5 trades avg $${s.trendNote.recentAvg.toFixed(2)} vs e
     // Groq is OpenAI-compatible (Bearer auth, chat completions shape) —
     // genuinely free tier, no credit card, generous daily limits. Same
     // transient-error retry pattern as Gemini.
+    // ---- Stocks In Play: discovery + fundamentals (manual) + on-demand AI
+    // catalyst classification / bull-bear / targets + a daily Top 5
+    // Bullish/Bearish ranking, saved as a growing history. ----
+    function getSipFundamentals() {
+      try { return JSON.parse(localStorage.getItem("tt_sip_fundamentals") || "{}"); } catch (e) { return {}; }
+    }
+    function saveSipFundamental(ticker, field, value) {
+      const all = getSipFundamentals();
+      all[ticker] = all[ticker] || {};
+      all[ticker][field] = value === "" ? null : value;
+      all[ticker].updatedAt = new Date().toISOString();
+      localStorage.setItem("tt_sip_fundamentals", JSON.stringify(all));
+    }
+    function getSipAnalysisCache() {
+      try { return JSON.parse(localStorage.getItem("tt_sip_analysis") || "{}"); } catch (e) { return {}; }
+    }
+    function saveSipAnalysis(ticker, data) {
+      const all = getSipAnalysisCache();
+      all[ticker] = data;
+      localStorage.setItem("tt_sip_analysis", JSON.stringify(all));
+    }
+    let sipMktCapCache = null;
+    async function loadSipMktCapCache() {
+      if (sipMktCapCache) return sipMktCapCache;
+      try {
+        const res = await fetch("./data/sector-cache.json?t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        sipMktCapCache = await res.json();
+      } catch (e) {
+        sipMktCapCache = {};
+      }
+      return sipMktCapCache;
+    }
+    function computeSipCandidates() {
+      // Price/volume floors are direction-agnostic; the gap threshold covers
+      // both directions since bearish catalysts qualify just as much as
+      // bullish ones for this tab.
+      return lastScreenerCandidates.filter(c =>
+        c.price > 0.99 &&
+        (c.volume || 0) >= 50000 &&
+        Math.abs(c.changePct || 0) > 3
+      );
+    }
+    function computeSipScore(c, analysis) {
+      const rvolPart = Math.min((c.rvol || 0) * 10, 40);
+      const gapPart = Math.min(Math.abs(c.changePct || 0), 60) * 0.6;
+      const volPart = Math.min((c.volume || 0) / 200000, 20);
+      let base = rvolPart + gapPart + volPart;
+      if (analysis && analysis.classification) {
+        const cls = analysis.classification.toLowerCase();
+        if (cls.includes("game")) base += 25;
+        else if (cls.includes("secular")) base += 12;
+        else if (cls.includes("transient") || cls.includes("noise")) base -= 20;
+      }
+      return Math.round(base);
+    }
+    async function renderStocksInPlay() {
+      const wrap = document.getElementById("sip-table-wrap");
+      if (!wrap) return;
+      const mktCaps = await loadSipMktCapCache();
+      const list = computeSipCandidates().sort((a, b) => (b.rvol || 0) - (a.rvol || 0));
+      if (!list.length) {
+        wrap.innerHTML = `<div class="wl-empty">No candidates clear the filter right now (price &gt; $0.99, volume ≥ 50k, move &gt; 3%).</div>`;
+        return;
+      }
+      const fundamentals = getSipFundamentals();
+      const analysisCache = getSipAnalysisCache();
+      let html = `<table><thead><tr>
+        <th>Ticker</th><th>Price</th><th>% Chg</th><th>RVOL</th><th>Mkt Cap</th><th>Catalyst</th>
+        <th>Float</th><th>Short Int %</th><th>Days to Cover</th><th>Analysis</th>
+      </tr></thead><tbody>`;
+      list.forEach(c => {
+        const f = fundamentals[c.ticker] || {};
+        const mc = mktCaps[c.ticker] && mktCaps[c.ticker].mktCap;
+        const analysis = analysisCache[c.ticker];
+        html += `<tr>
+          <td><span class="ticker-link" onclick="showDetail('${c.ticker}')">${c.ticker}</span></td>
+          <td>$${Number(c.price).toFixed(2)}</td>
+          <td class="${c.changePct >= 0 ? "pos" : "neg"}">${c.changePct >= 0 ? "+" : ""}${Number(c.changePct).toFixed(1)}%</td>
+          <td>${c.rvol != null ? Number(c.rvol).toFixed(2) : "—"}</td>
+          <td>${mc ? "$" + Number(mc).toLocaleString(undefined, { maximumFractionDigits: 0 }) : "—"}</td>
+          <td style="font-size:20px;max-width:220px;white-space:normal;">${c.catalystHeadline ? `<a href="${c.catalystUrl || "#"}" target="_blank" rel="noopener">${c.catalystHeadline}</a>` : "<span class='muted'>No catalyst attached</span>"}</td>
+          <td><input type="text" value="${f.float || ""}" placeholder="e.g. 8M" style="width:80px;" onchange="saveSipFundamental('${c.ticker}','float',this.value)" /></td>
+          <td><input type="text" value="${f.shortInterest || ""}" placeholder="e.g. 22%" style="width:70px;" onchange="saveSipFundamental('${c.ticker}','shortInterest',this.value)" /></td>
+          <td><input type="text" value="${f.daysToCover || ""}" placeholder="e.g. 4" style="width:60px;" onchange="saveSipFundamental('${c.ticker}','daysToCover',this.value)" /></td>
+          <td>
+            <button class="btn btn-sm btn-accent" onclick="analyzeStockInPlay('${c.ticker}')">Analyze</button>
+            ${analysis ? `<div class="muted" style="font-size:18px;margin-top:4px;">${analysis.classification || ""}</div>` : ""}
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table>`;
+      wrap.innerHTML = html;
+    }
+    function buildSipAnalysisPrompt(c, f) {
+      return `You are a discretionary momentum trader's assistant. Analyze this premarket mover as a candidate for today's watchlist.
+
+Ticker: ${c.ticker}
+Price: $${c.price}
+Change: ${c.changePct >= 0 ? "+" : ""}${Number(c.changePct).toFixed(1)}%
+RVOL: ${c.rvol != null ? c.rvol : "unknown"}
+Volume: ${c.volume || "unknown"}
+Catalyst headline: ${c.catalystHeadline || "none attached — infer from ticker/price action if you recognize it, otherwise say so"}
+Float: ${f.float || "not provided"}
+Short interest: ${f.shortInterest || "not provided"}
+Days to cover: ${f.daysToCover || "not provided"}
+
+Respond in this exact structure:
+CLASSIFICATION: [one of: Game-Changing / Secular / Transient]
+Then a one-sentence reason for that classification.
+
+BULL CASE: (2-3 sentences — what has to keep being true for this to work)
+BEAR CASE: (2-3 sentences — what kills the trade)
+TARGET RANGE: a price range with brief reasoning, referencing the move size and any float/short-interest dynamics if provided. Label it clearly as a reasoned estimate, not a guarantee.`;
+    }
+    async function analyzeStockInPlay(ticker) {
+      const c = lastScreenerCandidates.find(x => x.ticker === ticker);
+      const resultEl = document.getElementById("sip-analysis-result");
+      if (!c || !resultEl) return;
+      const geminiKey = getGeminiKey();
+      const groqKey = getGroqKey();
+      if (!geminiKey && !groqKey) {
+        resultEl.innerHTML = `<div class="wl-empty">Save an API key on the Trade Review tab first (either provider, both free).</div>`;
+        return;
+      }
+      resultEl.innerHTML = `<div class="panel"><div class="panel-body"><div class="wl-empty">Analyzing ${ticker}…</div></div></div>`;
+      const f = (getSipFundamentals())[ticker] || {};
+      const prompt = buildSipAnalysisPrompt(c, f);
+      try {
+        let text;
+        if (geminiKey) {
+          try { text = await callGeminiWithRetry(geminiKey, prompt, resultEl); }
+          catch (e) { if (!groqKey) throw e; text = await callGroqWithRetry(groqKey, prompt, resultEl); }
+        } else {
+          text = await callGroqWithRetry(groqKey, prompt, resultEl);
+        }
+        const clsMatch = text.match(/CLASSIFICATION:\s*(Game-Changing|Secular|Transient)/i);
+        const classification = clsMatch ? clsMatch[1] : null;
+        saveSipAnalysis(ticker, { classification, text, analyzedAt: new Date().toISOString() });
+        resultEl.innerHTML = `<div class="panel"><div class="panel-header">${ticker} — Analysis</div><div class="panel-body">` +
+          formatAIReviewResult(text, "Moonjelly") + `</div></div>`;
+        renderStocksInPlay();
+        renderSipTop5();
+      } catch (e) {
+        resultEl.innerHTML = `<div class="wl-empty">Couldn't analyze ${ticker} just now: ${e.message}</div>`;
+      }
+    }
+    function renderSipTop5() {
+      const bullEl = document.getElementById("sip-top5-bullish");
+      const bearEl = document.getElementById("sip-top5-bearish");
+      if (!bullEl || !bearEl) return;
+      const analysisCache = getSipAnalysisCache();
+      const scored = computeSipCandidates().map(c => ({ c, score: computeSipScore(c, analysisCache[c.ticker]) }));
+      const bullish = scored.filter(x => x.c.changePct > 0).sort((a, b) => b.score - a.score).slice(0, 5);
+      const bearish = scored.filter(x => x.c.changePct < 0).sort((a, b) => b.score - a.score).slice(0, 5);
+      const allTickers = scored.map(x => x.c.ticker);
+      const renderSlots = (picks, prefix) => {
+        if (!picks.length) return `<div class="wl-empty">No candidates yet today.</div>`;
+        return picks.map((p, i) => `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span class="muted" style="width:16px;">${i + 1}.</span>
+          <select id="${prefix}-slot-${i}" style="flex:1;">
+            ${allTickers.map(t => `<option value="${t}" ${t === p.c.ticker ? "selected" : ""}>${t} (${p.c.changePct >= 0 ? "+" : ""}${p.c.changePct.toFixed(1)}%, score ${scored.find(x => x.c.ticker === t).score})</option>`).join("")}
+          </select>
+        </div>`).join("");
+      };
+      bullEl.innerHTML = renderSlots(bullish, "sip-bull");
+      bearEl.innerHTML = renderSlots(bearish, "sip-bear");
+    }
+    function getSipTop5History() {
+      try { return JSON.parse(localStorage.getItem("tt_sip_top5_history") || "[]"); } catch (e) { return []; }
+    }
+    function saveSipTop5Today() {
+      const analysisCache = getSipAnalysisCache();
+      const readSlots = (prefix) => {
+        const picks = [];
+        for (let i = 0; i < 5; i++) {
+          const sel = document.getElementById(`${prefix}-slot-${i}`);
+          if (!sel || !sel.value) continue;
+          const c = lastScreenerCandidates.find(x => x.ticker === sel.value);
+          if (!c) continue;
+          const a = analysisCache[c.ticker];
+          picks.push({ ticker: c.ticker, price: c.price, changePct: c.changePct, rvol: c.rvol, classification: a ? a.classification : null });
+        }
+        return picks;
+      };
+      const today = new Date().toISOString().slice(0, 10);
+      const history = getSipTop5History();
+      const entry = { date: today, bullish: readSlots("sip-bull"), bearish: readSlots("sip-bear") };
+      const idx = history.findIndex(h => h.date === today);
+      if (idx >= 0) history[idx] = entry; else history.push(entry);
+      history.sort((a, b) => a.date.localeCompare(b.date));
+      localStorage.setItem("tt_sip_top5_history", JSON.stringify(history));
+      const status = document.getElementById("sip-top5-save-status");
+      if (status) { status.textContent = "Saved for " + today; setTimeout(() => { if (status) status.textContent = ""; }, 3000); }
+      renderSipTop5History();
+    }
+    function renderSipTop5History() {
+      const el = document.getElementById("sip-top5-history");
+      if (!el) return;
+      const history = getSipTop5History();
+      if (!history.length) { el.innerHTML = `<div class="wl-empty">Nothing saved yet — build today's list above and click Save.</div>`; return; }
+      const rows = history.slice().reverse().map(h => {
+        const fmt = (picks) => picks.map(p => `${p.ticker} (${p.changePct >= 0 ? "+" : ""}${Number(p.changePct).toFixed(1)}%${p.classification ? " · " + p.classification : ""})`).join(", ") || "—";
+        return `<tr><td>${h.date}</td><td style="font-size:20px;">${fmt(h.bullish)}</td><td style="font-size:20px;">${fmt(h.bearish)}</td></tr>`;
+      }).join("");
+      el.innerHTML = `<table><thead><tr><th>Date</th><th>Bullish</th><th>Bearish</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
     async function callGroqWithRetry(key, prompt, statusEl) {
       const maxAttempts = 4;
       const delays = [2000, 4000, 8000];
