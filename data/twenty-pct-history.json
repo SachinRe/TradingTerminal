@@ -946,5 +946,244 @@
         "mktCap": null
       }
     ]
+  },
+  {
+    "date": "2026-09-22",
+    "up": [
+      {
+        "ticker": "GRML",
+        "price": 9.42,
+        "changePct": 230.53,
+        "sector": "Basic Materials",
+        "industry": "Other Precious Metals",
+        "mktCap": 28359711
+      },
+      {
+        "ticker": "VEEE",
+        "price": 17.24,
+        "changePct": 100.93,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto - Recreational Vehicles",
+        "mktCap": 917013
+      },
+      {
+        "ticker": "TXXS",
+        "price": 38.5067,
+        "changePct": 53.72,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 64219030
+      },
+      {
+        "ticker": "SVRN",
+        "price": 29.5,
+        "changePct": 45.18,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 26617829
+      },
+      {
+        "ticker": "CRML",
+        "price": 9.33,
+        "changePct": 38.63,
+        "sector": "Basic Materials",
+        "industry": "Industrial Materials",
+        "mktCap": 1370472019
+      },
+      {
+        "ticker": "ARMG",
+        "price": 26.75,
+        "changePct": 34.49,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 84128750
+      },
+      {
+        "ticker": "PRTH",
+        "price": 7.8,
+        "changePct": 33.79,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 642370326
+      },
+      {
+        "ticker": "GRAL",
+        "price": 107.97,
+        "changePct": 33.68,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 4633704222
+      },
+      {
+        "ticker": "VAVX",
+        "price": 23.0954,
+        "changePct": 33.5,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 18238553
+      },
+      {
+        "ticker": "GAVA",
+        "price": 26.9854,
+        "changePct": 33.39,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 7383745
+      },
+      {
+        "ticker": "BAVA",
+        "price": 29.7701,
+        "changePct": 32.35,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 27686193
+      },
+      {
+        "ticker": "NUAI",
+        "price": 7.65,
+        "changePct": 30.55,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 438136622
+      },
+      {
+        "ticker": "HUBC",
+        "price": 6,
+        "changePct": 30.43,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 9232055
+      },
+      {
+        "ticker": "TSUI",
+        "price": 20.83,
+        "changePct": 28.11,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 19381190
+      },
+      {
+        "ticker": "GSUI",
+        "price": 15.05,
+        "changePct": 27.76,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 3204145
+      },
+      {
+        "ticker": "SUIS",
+        "price": 26.6108,
+        "changePct": 26.6,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 30756230
+      },
+      {
+        "ticker": "NXTT",
+        "price": 6.76,
+        "changePct": 26.12,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 9957216
+      },
+      {
+        "ticker": "SECZ",
+        "price": 13.5,
+        "changePct": 24.31,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 1607961411
+      },
+      {
+        "ticker": "MRNX",
+        "price": 114.62,
+        "changePct": 24.03,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 4791574
+      },
+      {
+        "ticker": "TXXD",
+        "price": 52.7198,
+        "changePct": 23.93,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 261481
+      },
+      {
+        "ticker": "LINT",
+        "price": 166.5,
+        "changePct": 23.79,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 15902915
+      },
+      {
+        "ticker": "METU",
+        "price": 32.42,
+        "changePct": 22.8,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 697030000
+      },
+      {
+        "ticker": "FBL",
+        "price": 33.51,
+        "changePct": 22.75,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 280844026
+      },
+      {
+        "ticker": "PUL",
+        "price": 46.2925,
+        "changePct": 21.02,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1388775
+      },
+      {
+        "ticker": "SUPX",
+        "price": 8.84,
+        "changePct": 20.93,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 278589391
+      },
+      {
+        "ticker": "AMUU",
+        "price": 285.1077,
+        "changePct": 20.17,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 135426158
+      },
+      {
+        "ticker": "AMDG",
+        "price": 136.6814,
+        "changePct": 20.15,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 96747195
+      }
+    ],
+    "down": [
+      {
+        "ticker": "SMX",
+        "price": 10.98,
+        "changePct": -35.45,
+        "sector": "Industrials",
+        "industry": "Specialty Business Services",
+        "mktCap": 691946
+      },
+      {
+        "ticker": "CUE",
+        "price": 28.27,
+        "changePct": -23.7,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 74291525
+      }
+    ]
   }
 ]

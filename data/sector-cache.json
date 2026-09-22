@@ -738,5 +738,105 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 1388775
+  },
+  "SUPX": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 278589391
+  },
+  "AMUU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 135426158
+  },
+  "AMDG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 96747195
+  },
+  "AMDL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1612206528
+  },
+  "CUE": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 74291525
+  },
+  "NVOX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 29597880
+  },
+  "SCTX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 453905381
+  },
+  "SOXS": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 112147736
+  },
+  "LFT": {
+    "sector": "Real Estate",
+    "industry": "REIT - Mortgage",
+    "mktCap": 29366098
+  },
+  "VNCE": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Manufacturers",
+    "mktCap": 117295794
+  },
+  "BRVE": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1767734007
+  },
+  "WBD": {
+    "sector": "Communication Services",
+    "industry": "Entertainment",
+    "mktCap": 77219810422
+  },
+  "AAL": {
+    "sector": "Industrials",
+    "industry": "Airlines, Airports & Air Services",
+    "mktCap": 8982932235
+  },
+  "SOFI": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 21768097800
+  },
+  "SOXL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 39277029065
+  },
+  "SQQQ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1569911509
+  },
+  "TQQQ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 48452404054
+  },
+  "AUR": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 12767431927
+  },
+  "TSLG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 38544155
+  },
+  "NVO": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - General",
+    "mktCap": 176825035089
   }
 }

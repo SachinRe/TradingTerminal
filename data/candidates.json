@@ -1,16 +1,30 @@
 {
-  "generatedAt": "2026-09-21T21:13:27.218Z",
-  "generatedSlot": "2:00pm PT",
+  "generatedAt": "2026-09-22T12:02:35.753Z",
+  "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
-      "title": "Stock Market Today: Nasdaq Rises to Record as Oil-Price Drop Unlocks Rally",
-      "description": "AI shares march higher, crude oil falls more than 3%",
-      "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-21-2026?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 08:45:28 GMT",
+      "title": "Stock Market Today: Oil Sinks Below $100, Lifting Stock Futures",
+      "description": "Trump to address world leaders this morning",
+      "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-22-2026?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 08:37:04 GMT",
       "tickers": []
     },
     {
-      "title": "The Magnificent Seven Is Roaring Back. You Can Thank Meta.",
+      "title": "Dividend Cuts Send a Bearish Signal",
+      "description": "Plus, has this market found its Muse?",
+      "link": "https://www.wsj.com/finance/stocks/dividend-cuts-send-a-bearish-signal-a57c2bc0?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 10:27:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Looking for Real-Estate Bargains? Watch These Apartment Loans",
+      "description": "One pool of multifamily apartment mortgages issued in 2021 is already 53% delinquent.",
+      "link": "https://www.wsj.com/real-estate/looking-for-real-estate-bargains-watch-these-apartment-loans-cc49fa8e?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 09:30:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "The Magnificent Seven Is Roaring Back, Fueled by Meta’s Rally",
       "description": "Surging tech shares lifted the Nasdaq composite to a record close, and left AI safety fears in the dust.",
       "link": "https://www.wsj.com/finance/stocks/meta-magnificent-seven-tech-stock-5a793174?mod=rss_markets_main",
       "pubDate": "Mon, 21 Sep 2026 21:07:00 GMT",
@@ -45,13 +59,6 @@
       "tickers": []
     },
     {
-      "title": "See the 10-Year Treasury Yield’s Wild Ride on the Road to 5%",
-      "description": "A pandemic, wars and government deficits have reshaped the bond market since the start of the decade.",
-      "link": "https://www.wsj.com/finance/investing/see-the-10-year-treasury-yields-wild-ride-on-the-road-to-5-22e4bbc2?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 01:00:00 GMT",
-      "tickers": []
-    },
-    {
       "title": "Don’t Count Out Corporate Bonds Just Because the Fed Is Raising Rates",
       "description": "A healthy economy and reduced issuance by tech companies could support corporate debt.",
       "link": "https://www.wsj.com/finance/investing/dont-count-out-corporate-bonds-just-because-the-fed-is-raising-rates-de2e787a?mod=rss_markets_main",
@@ -77,13 +84,6 @@
       "description": "With the Food and Drug Administration’s hard-liners gone, investors are rushing back into rare-disease bets.",
       "link": "https://www.wsj.com/health/pharma/trump-administration-shift-puts-this-corner-of-biotech-back-in-favor-2abc0ae3?mod=rss_markets_main",
       "pubDate": "Wed, 16 Sep 2026 09:30:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Bond Yields Could Come Down as Fast as They’ve Climbed",
-      "description": "Expectations for what the Fed will do are driving the recent moves in long-term yields.",
-      "link": "https://www.wsj.com/finance/investing/bond-yields-could-come-down-as-fast-as-theyve-climbed-d64ea9cd?mod=rss_markets_main",
-      "pubDate": "Tue, 15 Sep 2026 09:30:00 GMT",
       "tickers": []
     },
     {
@@ -122,75 +122,73 @@
       "tickers": []
     },
     {
-      "title": "Auto & Transport Roundup: Market Talk",
-      "description": "Find insight on Uber Technologies, Volkswagen, Kuehne + Nagel and more in the latest Market Talks covering Auto and Transport.",
-      "link": "https://www.wsj.com/business/auto-transport-roundup-market-talk-ea02b61d?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 20:56:00 GMT",
-      "tickers": [
-        "VWAGY"
-      ]
+      "title": "Health Care Roundup: Market Talk",
+      "description": "Find insight on Novo Nordisk, Roche Holding, IHH Healthcare and more in the latest Market Talks covering Health Care.",
+      "link": "https://www.wsj.com/business/health-care-roundup-market-talk-2f40e335?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:56:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Energy & Utilities Roundup: Market Talk",
+      "description": "Find insight on  Shell, BP and more in the latest Market Talks covering Energy and Utilities.",
+      "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-415ce2e2?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:50:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Tech, Media & Telecom Roundup: Market Talk",
+      "description": "Find insight on Samsung Electronics, Meta,  Singtel and more in the latest Market Talks covering Technology, Media and Telecom.",
+      "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-9ea269b4?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:45:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Basic Materials Roundup: Market Talk",
+      "description": "Find insight on Capstone Copper, Ramelius Resources, Artemis Gold and more in the latest Market Talks covering Basic Materials.",
+      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-8962d0c7?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:38:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Financial Services Roundup: Market Talk",
+      "description": "Find insight on  Prudential PLC, Bank Indonesia,  Societe Generale and more in the latest Market Talks covering Financial Services.",
+      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-f25d3281?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:32:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "European Utilities to Gain From Higher Natural Gas Prices",
+      "description": "A basket of European utilities stocks rose and Bank of America said European utilities’ earnings will benefit from higher-for-longer natural gas prices on the continent.",
+      "link": "https://www.wsj.com/finance/stocks/nikkei-could-rally-on-modest-catalysts-as-shorts-pile-up-39640022?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:06:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "AI Stock Rally Loses Steam, Oil Prices Turn Negative",
+      "description": "Nasdaq futures were flat after a global rally in AI-linked stocks stalled in European trade, and oil prices reversed course to fall on rising hopes for a diplomatic settlement to reopen Hormuz.",
+      "link": "https://www.wsj.com/finance/stocks/ai-stock-rally-loses-steam-oil-prices-turn-negative-e19323a8?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 09:48:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Smiths Group Shares Rise After Better-Than-Expected Results",
+      "description": "The  industrial-engineering company was one of the top gainers in the FTSE 100 index after it projected an acceleration in top-line growth for the year ahead.",
+      "link": "https://www.wsj.com/business/earnings/smiths-group-shares-rise-after-better-than-expected-results-f3fb3473?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 08:02:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Oil Prices Gain as Hopes Fade for U.S.-Iran Talks",
+      "description": "Oil prices rose on fading optimism about talks between the U.S. and Iran at this week’s United Nations meeting, while Asian equities inched higher as artificial-intelligence sentiment strengthened.",
+      "link": "https://www.wsj.com/finance/stocks/oil-prices-gain-as-hopes-fade-for-u-s-iran-talks-42bc5a49?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 06:37:00 GMT",
+      "tickers": []
     },
     {
       "title": "Health Care Roundup: Market Talk",
       "description": "Find insight on Lundbeck, HaItian International, Telix Pharmaceuticals and more in the latest Market Talks covering Health Care.",
       "link": "https://www.wsj.com/business/health-care-roundup-market-talk-b994d3f6?mod=rss_markets_main",
       "pubDate": "Mon, 21 Sep 2026 20:56:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Tech, Media & Telecom Roundup: Market Talk",
-      "description": "Find insight on Meta’s AI assistant, the AI trade, software investments and more in the latest Market Talks covering Technology, Media and Telecom.",
-      "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-6af76ecb?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 20:54:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on Banco Santander, Societe Generale, Liontrust Asset Management and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-6bd2bcd1?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 20:53:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Treasury Yields Change Little Despite Falling Oil Prices",
-      "description": "Treasury yields were little changed after a volatile stretch, despite a sharp drop in oil prices.",
-      "link": "https://www.wsj.com/finance/citi-raises-10-year-u-s-treasury-yield-forecast-ee0a5651?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 19:58:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "U.S. Stocks Rise, Nasdaq Hits Record, as Oil Slides, AI Bets Surge",
-      "description": "Stocks rose as oil futures tumbled due to hopes of a resumption in U.S.-Iran negotiations, causing a relief rally that pushed high-risk technology stocks to record highs.",
-      "link": "https://www.wsj.com/finance/stocks/u-s-stocks-rise-nasdaq-hits-record-as-oil-slides-ai-bets-surge-6f886ab6?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 20:46:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Bitcoin Jumps Above $86,000 to 8-Month High",
-      "description": "The flagship cryptocurrency continued its red-hot rebound, and was up over 30% since Aug. 19 and is holding firmly above the $80,000 level that had proved a stubborn cap in recent weeks.",
-      "link": "https://www.wsj.com/finance/currencies/bitcoin-jumps-above-85-000-to-8-month-high-050f3578?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 18:57:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Rally in Tech Shares Unlocked By Drop in Oil Prices",
-      "description": "Stocks kicked off the week on an upbeat note, bolstered by falling oil prices and optimism around this week’s talks between Washington and Beijing.",
-      "link": "https://www.wsj.com/finance/stocks/global-stocks-rally-yields-lower-as-oil-prices-extend-falls-8b63390a?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 18:42:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "European Chip Stocks Open Week With Early Gains",
-      "description": "Shares of European semiconductor companies started the new week in green territory, building on gains from Friday, while in Asia In Asia, Samsung Electronics closed up 5%.",
-      "link": "https://www.wsj.com/finance/stocks/chip-boom-to-boost-korean-companies-cash-goldman-sachs-says-8862719a?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 08:16:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Wall Street Ends Volatile Week with Quiet Finish",
-      "description": "The Dow Industrials fell for a third-straight week, while the Nasdaq composite eked out a small gain.",
-      "link": "https://www.wsj.com/finance/stocks/wall-street-ends-volatile-week-with-quiet-finish-8aa4d4f2?mod=rss_markets_main",
-      "pubDate": "Fri, 18 Sep 2026 21:36:00 GMT",
       "tickers": []
     },
     {
@@ -236,6 +234,20 @@
       "tickers": []
     },
     {
+      "title": "Brent Falls Below $100 a Barrel on Hormuz Diplomacy Hopes",
+      "description": "Oil futures fell, with Brent crude dropping below $100 a barrel on Hormuz diplomacy hopes.",
+      "link": "https://www.wsj.com/finance/commodities-futures/oil-edges-higher-focus-on-signs-of-diplomacy-in-mideast-conflict-2712f57a?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:18:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Gold Falls as U.S. Treasury Yields, Crude Rise",
+      "description": "Gold futures traded lower but remained within the $4,300-$4,400 range, as rising Treasury yields and a rebound in crude prices weighed on the precious metal.",
+      "link": "https://www.wsj.com/finance/commodities-futures/gold-rises-as-strong-fundamentals-support-9f92da11?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 07:38:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "Basic Materials Roundup: Market Talk",
       "description": "Find insight on gold futures, Artemis Gold,  NexGen Energy and more in the latest Market Talks covering Basic Materials .",
       "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-f98efba2?mod=rss_markets_main",
@@ -257,31 +269,17 @@
       "tickers": []
     },
     {
-      "title": "Oil Futures Extend Losses on Hopes for Diplomacy",
-      "description": "Oil futures extended their slide to four sessions on easing concerns about oil flows out of the Middle East and expectations for renewed diplomatic efforts to bring the U.S. and Iran back to the negotiating table.",
-      "link": "https://www.wsj.com/finance/commodities-futures/oil-declines-as-concerns-over-extended-supply-disruptions-ease-f7ff8ec9?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 19:50:00 GMT",
+      "title": "Continued Dollar Strength Depends on Further Fed Rate Rise Signals",
+      "description": "The dollar fell after earlier reaching a seven-week high, and Commerzbank said it would need further signs of Fed interest rate rises for the dollar to defend recent gains.",
+      "link": "https://www.wsj.com/finance/currencies/asian-currencies-mixed-on-hopes-for-u-s-iran-negotiations-95e21ec2?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 11:11:00 GMT",
       "tickers": []
     },
     {
-      "title": "Gold Settles Lower After Three Sessions of Gains",
-      "description": "Gold futures settled lower, snapping a three-session winning streak amid &#x201c;several conflicting fundamental factors are shaping the market between support and pressure,&#x201d; XS.com said.",
-      "link": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-investors-monitor-central-bank-clues-on-rates-77edee32?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 18:17:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Euro Could Trade in Record Narrow Range Vs Dollar",
-      "description": "The euro was steady against the dollar and Deutsche Bank said it could continue to trade between $1.13 and $1.20 during the rest of this year, marking the narrowest range on record.",
+      "title": "WSJ Dollar Index Rises 0.09% to 96.19",
+      "description": "The WSJ Dollar Index rose 0.1% &#x2014; up five of the past six trading days.",
       "link": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-as-focus-turns-to-trump-xi-meeting-2caa497e?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 13:34:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Crypto Blew Its Big Moment&#x2014;and the Blame Game Has Begun",
-      "description": "Coinbase CEO Brian Armstrong was at the center of a protracted fight over the role of digital assets in mainstream finance.",
-      "link": "https://www.wsj.com/finance/currencies/crypto-blew-its-big-momentand-the-blame-game-has-begun-dff66a10?mod=rss_markets_main",
-      "pubDate": "Sun, 20 Sep 2026 21:35:00 GMT",
+      "pubDate": "Mon, 21 Sep 2026 21:22:00 GMT",
       "tickers": []
     }
   ],
@@ -296,14 +294,14 @@
         "price": 227.3,
         "changePct": 2.368942532876968,
         "volume": 3200199,
-        "avgVolume": 3301732.153846154,
-        "rvol": 0.9692485189242626,
+        "avgVolume": 3273244.846153846,
+        "rvol": 0.9776839651211314,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/NVDA",
-        "catalystHeadline": "NVDA Price Prediction: $240 or Bust — The Setup Is Tighter Than It Looks",
-        "catalystUrl": "https://blockchain.news/news/20260921-price-prediction-nvda-240-or-bust-the-setup-is",
+        "catalystHeadline": "US Daily Equity Opening News - Texas halts data centre permits; NVDA ups SB Energy stake; SSNLF considers expanding 4nm foundry capacity; MSFT Xbox plans more job cuts; CMS plans Medicare lab payment reform; DELL insider selling; CRM, GME insider buying",
+        "catalystUrl": "https://www.newsquawk.com/headlines/us-daily-equity-opening-news---texas-halts-data-centre-permits-nvda-ups-sb-energy-stake-ssnlf-considers-expanding-4nm-foundry-capacity-msft-xbox-plans-more-job-cuts-cms-plans-medicare-lab-payment-reform-dell-insider-selling-crm-gme-insider-buying",
         "sector": "Technology",
         "industry": "Semiconductors"
       },
@@ -313,14 +311,14 @@
         "price": 73.36,
         "changePct": 2.1798175360401113,
         "volume": 1900080,
-        "avgVolume": 1543753.2307692308,
-        "rvol": 1.2308184767673112,
+        "avgVolume": 1518695.1153846155,
+        "rvol": 1.2511266947209463,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/NFLX",
-        "catalystHeadline": "NFLX Price Prediction: Analyst Civil War at $71.83 — $57 Downgrade Meets $110 Bull Case, and the Chart Is Breaking Down",
-        "catalystUrl": "https://blockchain.news/news/20260921-price-prediction-nflx-analyst-civil-war-at-7183-57",
+        "catalystHeadline": "PSKY-WBD $110B Merger To Close In ‘Approximately Two Weeks,’ Says CEO After Settlement With State Prosecutors",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/psky-wbd-110b-merger-to-close-in-approximately-two-weeks-says-ceo-after-settlement-with-state-prosecutors-articleshow-kd23e4l",
         "sector": "Communication Services",
         "industry": "Entertainment"
       },
@@ -330,14 +328,14 @@
         "price": 741.29,
         "changePct": 11.406844106463874,
         "volume": 1771591,
-        "avgVolume": 611508.9230769231,
-        "rvol": 2.8970811923494164,
+        "avgVolume": 667006.1923076923,
+        "rvol": 2.656033812625774,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/META",
-        "catalystHeadline": "Amazon blocks Meta’s Muse AI agent from its retail site - The Economic Times",
-        "catalystUrl": "https://economictimes.indiatimes.com/tech/artificial-intelligence/amazon-blocks-metas-muse-ai-agent-from-its-retail-site/articleshow/134396800.cms",
+        "catalystHeadline": "FILE PHOTO: Meta smart glasses",
+        "catalystUrl": "https://www.channelnewsasia.com/business/analysisfrom-smart-glasses-ai-pins-privacy-fears-challenge-techs-next-big-bet-6401996",
         "sector": "Communication Services",
         "industry": "Internet Content & Information"
       },
@@ -347,14 +345,14 @@
         "price": 9.315,
         "changePct": 38.2047477744807,
         "volume": 1298285,
-        "avgVolume": 351955.6923076923,
-        "rvol": 3.6887739802912254,
+        "avgVolume": 393966.6153846154,
+        "rvol": 3.2954188230709125,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/CRML",
-        "catalystHeadline": "Trump, Greenland Deal Sparks CRML Trading Frenzy: These ETFs Rocket 75%",
-        "catalystUrl": "https://www.benzinga.com/etfs/specialty-etfs/26/09/61906393/trump-greenland-deal-sparks-crml-trading-frenzy-these-etfs-rocket-75",
+        "catalystHeadline": "Nasdaq Ends Nearly 3% Higher As AI Stocks Pop, AMD Enters $1 Trillion Club — AMD, ARM, META, AMZN, PSKY In Focus",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/nasdaq-ends-nearly-3-higher-as-ai-stocks-pop-amd-enters-1-trillion-club-amd-arm-meta-amzn-psky-in-focus-articleshow-qt1skv3",
         "sector": "Basic Materials",
         "industry": "Industrial Materials"
       },
@@ -364,14 +362,14 @@
         "price": 9.06,
         "changePct": 216.78321678321683,
         "volume": 1231889,
-        "avgVolume": 43172.38461538462,
-        "rvol": 28.534189412391466,
+        "avgVolume": 88855.61538461539,
+        "rvol": 13.863940896337445,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/GRML",
-        "catalystHeadline": "Greenland Stocks Explode After Trump&apos;s Denmark Deal — GRML Up 245%",
-        "catalystUrl": "https://www.benzinga.com/trading-ideas/movers/26/09/61907836/greenland-stocks-explode-after-trumps-denmark-deal-grml-up-245",
+        "catalystHeadline": "GRML Stock Explodes On Greenland Security Deal And Rare Earths Hype",
+        "catalystUrl": "https://stockstotrade.com/news/greenland-mines-ltd-grml-news-2026_09_22/",
         "sector": "Basic Materials",
         "industry": "Other Precious Metals"
       },
@@ -381,14 +379,14 @@
         "price": 615.535,
         "changePct": 9.978827376113355,
         "volume": 1152911,
-        "avgVolume": 499479.42307692306,
-        "rvol": 2.3082252175630553,
+        "avgVolume": 528369.1153846154,
+        "rvol": 2.182018150627071,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/AMD",
-        "catalystHeadline": "AMD joins $US1 trillion club as chipmakers rally on AI-driven demand",
-        "catalystUrl": "https://www.afr.com/world/north-america/amd-joins-us1-trillion-club-as-chipmakers-rally-on-ai-driven-demand-20260922-p60zbc",
+        "catalystHeadline": "AMD Open-Source Linux Driver Update Adds GDDR7 Memory Support",
+        "catalystUrl": "https://www.a90skid.com/amd-open-source-linux-driver-update-adds-gddr7-memory-support/",
         "sector": "Technology",
         "industry": "Semiconductors"
       },
@@ -398,14 +396,14 @@
         "price": 258.405,
         "changePct": 1.8545526212061427,
         "volume": 1152149,
-        "avgVolume": 1181126.6153846155,
-        "rvol": 0.9754661227618011,
+        "avgVolume": 1178345.5384615385,
+        "rvol": 0.9777683730226187,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/AMZN",
-        "catalystHeadline": "AMZN Price Prediction: AWS Reacceleration Sets Up a $300 Break — But This Week&apos;s Pivot Is Everything",
-        "catalystUrl": "https://blockchain.news/news/20260921-price-prediction-amzn-aws-reacceleration-sets-up-a-300",
+        "catalystHeadline": "Amazon Blocks Meta’s Muse AI From Shopping — Elon Musk Says AMZN ‘Won’t Be Able to Tell’ Humans From Agents",
+        "catalystUrl": "https://www.benzinga.com/markets/tech/26/09/61914047/amazon-blocks-metas-muse-ai-from-shopping-elon-musk-says-amzn-wont-be-able-to-tell-humans-from-agents",
         "sector": "Consumer Cyclical",
         "industry": "Specialty Retail"
       },
@@ -415,14 +413,14 @@
         "price": 339,
         "changePct": 0.9739969618443337,
         "volume": 929958,
-        "avgVolume": 1231213.2692307692,
-        "rvol": 0.7553183702942173,
+        "avgVolume": 1215131.6153846155,
+        "rvol": 0.7653146278361362,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/AAPL",
-        "catalystHeadline": "AAPL Price Prediction: Earnings Tailwind Meets a Ceiling — Can $335 Hold Before the October Report?",
-        "catalystUrl": "https://blockchain.news/news/20260921-price-prediction-aapl-earnings-tailwind-meets-a-ceiling-can",
+        "catalystHeadline": "Apple Stock Analysis: Bullish Momentum Nears 52-Week High",
+        "catalystUrl": "https://bitcoinethereumnews.com/tech/apple-stock-analysis-bullish-momentum-nears-52-week-high/?utm_source=rss&utm_medium=rss&utm_campaign=apple-stock-analysis-bullish-momentum-nears-52-week-high",
         "sector": "Technology",
         "industry": "Consumer Electronics"
       },
@@ -432,14 +430,14 @@
         "price": 355.35,
         "changePct": 1.7524267674598415,
         "volume": 825627,
-        "avgVolume": 716240.9230769231,
-        "rvol": 1.152722461672759,
+        "avgVolume": 722495.1153846154,
+        "rvol": 1.142744057944922,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/GOOGL",
-        "catalystHeadline": "Alphabet (GOOGL) Stock Climbs 2% Following Googlebook Pre-Order Launch at $899",
-        "catalystUrl": "https://bitcoinethereumnews.com/tech/alphabet-googl-stock-climbs-2-following-googlebook-pre-order-launch-at-899/?utm_source=rss&utm_medium=rss&utm_campaign=alphabet-googl-stock-climbs-2-following-googlebook-pre-order-launch-at-899",
+        "catalystHeadline": "MediaTek Announces Dimensity CX C10 Max For Googlebooks",
+        "catalystUrl": "https://www.lowyat.net/2026/404964/mediatek-dimensity-cx-c10-max/",
         "sector": "Communication Services",
         "industry": "Internet Content & Information"
       },
@@ -449,14 +447,14 @@
         "price": 375.18,
         "changePct": 2.9865495470765837,
         "volume": 798726,
-        "avgVolume": 769511.4230769231,
-        "rvol": 1.0379650984338364,
+        "avgVolume": 767776.0384615385,
+        "rvol": 1.0403111844965607,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/TSLA",
-        "catalystHeadline": "Sunrun and Tesla Dispatch 580 Megawatts To California’s Grid During Heat Wave, Marking Largest Residential Distributed Power Plant Event In History",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/21/tmt-newswire/globenewswire/sunrun-and-tesla-dispatch-580-megawatts-to-californias-grid-during-heat-wave-marking-largest-residential-distributed-power-plant-event-in-history/2429413",
+        "catalystHeadline": "Tesla (TSLA) Stock Climbs After Fitch Rating, With October Catalysts Still Ahead",
+        "catalystUrl": "https://cryptocurrency.com.tr/tesla-tsla-stock-climbs-after-fitch-rating-with-october-catalysts-still-ahead-386367",
         "sector": "Consumer Cyclical",
         "industry": "Auto - Manufacturers"
       },
@@ -466,14 +464,14 @@
         "price": 501.64,
         "changePct": 1.7319002230784757,
         "volume": 798550,
-        "avgVolume": 581694.3461538461,
-        "rvol": 1.3728000027505856,
+        "avgVolume": 584228.1923076923,
+        "rvol": 1.3668460552130153,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/MSFT",
-        "catalystHeadline": "MSFT Price Prediction: Azure&apos;s 43% Growth Deserves Better Than $495 — Here&apos;s the Path to $550+",
-        "catalystUrl": "https://blockchain.news/news/20260921-price-prediction-msft-azures-43-growth-deserves-better-than",
+        "catalystHeadline": "Microsoft (MSFT) is reportedly planning another round of Xbox layoffs, as part of a larger restructuring, The Verge reports citing sources",
+        "catalystUrl": "https://www.newsquawk.com/headlines/microsoft-msft-is-reportedly-planning-another-round-of-xbox-layoffs-as-part-of-a-larger-restructuring-the-verge-reports-citing-sources",
         "sector": "Technology",
         "industry": "Software - Infrastructure"
       },
@@ -483,8 +481,8 @@
         "price": 7.645,
         "changePct": 30.460750853242306,
         "volume": 757782,
-        "avgVolume": 296904.92307692306,
-        "rvol": 2.5522715896619586,
+        "avgVolume": 314796.1923076923,
+        "rvol": 2.4072146312980767,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -500,14 +498,14 @@
         "price": 148.58,
         "changePct": 0.6605467294468499,
         "volume": 670156,
-        "avgVolume": 805834.8846153846,
-        "rvol": 0.8316294228436852,
+        "avgVolume": 804790.2692307692,
+        "rvol": 0.8327088753701574,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/ORCL",
-        "catalystHeadline": "BE Stock Jumps Premarket Ahead Of S&P 500 Inclusion: US Army Awards Power Leases To Indelible-Bloom Coalition",
-        "catalystUrl": "https://newsable.asianetnews.com/markets/be-stock-jumps-premarket-ahead-of-s-p-500-inclusion-us-army-awards-power-leases-to-indelible-bloom-coalition-articleshow-edz8e9c",
+        "catalystHeadline": "Momentum Weakens, ORCL Stock Gains 0.64%: Explained",
+        "catalystUrl": "https://journalarta.com/en/2026/09/22/momentum-weakens-orcl-stock-gains-0-64-today/",
         "sector": "Technology",
         "industry": "Software - Infrastructure"
       },
@@ -517,14 +515,14 @@
         "price": 107.46,
         "changePct": 0.731158605174341,
         "volume": 622806,
-        "avgVolume": 982887.8461538461,
-        "rvol": 0.6336491008990618,
+        "avgVolume": 977601.4230769231,
+        "rvol": 0.6370755865307227,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/WMT",
-        "catalystHeadline": "Daily US Conference Calendar - 21st September 2026: COHR, LITE, CSCO, WMT",
-        "catalystUrl": "https://www.newsquawk.com/headlines/daily-us-conference-calendar---21st-september-2026-cohr-lite-csco-wmt",
+        "catalystHeadline": "WMT Stock Gains 0.67% Today, Momentum: What to Know",
+        "catalystUrl": "https://journalarta.com/en/2026/09/22/wmt-stock-gains-0-67-today-momentum-gains/",
         "sector": "Consumer Defensive",
         "industry": "Discount Stores"
       },
@@ -534,8 +532,8 @@
         "price": 7.81,
         "changePct": 33.73287671232876,
         "volume": 611076,
-        "avgVolume": 20417.5,
-        "rvol": 29.929031468103343,
+        "avgVolume": 42122.57692307692,
+        "rvol": 14.50708965683486,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -551,14 +549,14 @@
         "price": 350.81,
         "changePct": 1.878956844978808,
         "volume": 569006,
-        "avgVolume": 578870.1153846154,
-        "rvol": 0.9829597087110613,
+        "avgVolume": 561646.4615384615,
+        "rvol": 1.0131035072158725,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/GOOG",
-        "catalystHeadline": "Google Stock Climbs to $351.82 as Bullish Trend Faces a Key Test",
-        "catalystUrl": "https://cryptocurrency.com.tr/google-stock-climbs-to-351-82-as-bullish-trend-faces-a-key-test-385451",
+        "catalystHeadline": "Qualcomm Snapdragon X Elite Chips To Power Googlebooks",
+        "catalystUrl": "https://www.lowyat.net/2026/404915/qualcomm-snapdragon-x-elite-googlebooks/",
         "sector": "Communication Services",
         "industry": "Internet Content & Information"
       },
@@ -568,8 +566,8 @@
         "price": 158.3,
         "changePct": -2.9965071389178175,
         "volume": 545430,
-        "avgVolume": 395594.1923076923,
-        "rvol": 1.3787613938876173,
+        "avgVolume": 406626.8846153846,
+        "rvol": 1.3413525289059645,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -585,14 +583,14 @@
         "price": 362.59,
         "changePct": 1.3557332140660718,
         "volume": 535715,
-        "avgVolume": 813172.9230769231,
-        "rvol": 0.658795915108604,
+        "avgVolume": 816091.8461538461,
+        "rvol": 0.656439593808917,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/AVGO",
-        "catalystHeadline": "AMD Stock’s Relentless Rally Pushes It Into The Trillion-Dollar Club, Albeit Briefly – Chip Stocks Light Up Wall Street",
-        "catalystUrl": "https://newsable.asianetnews.com/markets/amd-stock-s-relentless-rally-pushes-it-into-the-trillion-dollar-club-albeit-briefly-chip-stocks-light-up-wall-street-articleshow-u48hccu",
+        "catalystHeadline": "Broadcom's AI business continues to accelerate, supporting AVGO stock",
+        "catalystUrl": "https://roboforex.com/beginners/analytics/forex-forecast/stocks/stocks-forecast-broadcom-avgo/",
         "sector": "Technology",
         "industry": "Semiconductors"
       },
@@ -602,14 +600,14 @@
         "price": 236.515,
         "changePct": -0.5863561851120215,
         "volume": 377956,
-        "avgVolume": 618046.2692307692,
-        "rvol": 0.6115335029372645,
+        "avgVolume": 605952,
+        "rvol": 0.6237391740599916,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/CRM",
-        "catalystHeadline": "Rising Above the Competition",
-        "catalystUrl": "https://www.rismedia.com/2026/09/21/rising-above-the-competition/",
+        "catalystHeadline": "Análise de mercado Software CRM para Varejo por tipo e aplicação até 2035",
+        "catalystUrl": "https://fnonline.com.br/empresas/analise-de-mercado-software-crm-para-varejo-por-tipo-e-aplicacao-ate-2035/2112797/",
         "sector": "Technology",
         "industry": "Software - Application"
       },
@@ -619,14 +617,14 @@
         "price": 201.1,
         "changePct": 1.4273465476370526,
         "volume": 265064,
-        "avgVolume": 231655.38461538462,
-        "rvol": 1.144216873871002,
+        "avgVolume": 237342.57692307694,
+        "rvol": 1.1167991998583027,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/BA",
-        "catalystHeadline": "MẬT KHU LÊ HỒNG PHONG | Nguyễn Bắc Sơn",
-        "catalystUrl": "https://nguyenthiphuongtram.com/2026/09/22/mat-khu-le-hong-phong-nguyen-bac-son/",
+        "catalystHeadline": "Red Sox should want to face Yankees’ Aaron Judge in postseason",
+        "catalystUrl": "https://www.overthemonster.com/red-sox-analysis/109178/red-sox-should-want-to-face-yankees-aaron-judge-in-postseason",
         "sector": "Industrials",
         "industry": "Aerospace & Defense"
       },
@@ -636,14 +634,14 @@
         "price": 146.115,
         "changePct": -0.14010388190266818,
         "volume": 255950,
-        "avgVolume": 409885.53846153844,
-        "rvol": 0.6244426211295011,
+        "avgVolume": 404059.23076923075,
+        "rvol": 0.6334467338185377,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/PG",
-        "catalystHeadline": "NEET PG 2026 Result Due on September 30; No Announcement Yet on Answer Key",
-        "catalystUrl": "https://india-employmentnews.com/education-career/neet-pg-2026-result-due-on-september-30;-no-announcement/cid19281425.htm",
+        "catalystHeadline": "सब्सिडी पर मेडिकल PG की पढ़ाई की तो सरकारी सेवा करनी होगी, पोस्टिंग में देरी से नहीं टूटेगा बॉन्ड; इलाहाबाद HC का बड़ा �",
+        "catalystUrl": "https://girlsglobe.in/%e0%a4%b8%e0%a4%ac%e0%a5%8d%e0%a4%b8%e0%a4%bf%e0%a4%a1%e0%a5%80-%e0%a4%aa%e0%a4%b0-%e0%a4%ae%e0%a5%87%e0%a4%a1%e0%a4%bf%e0%a4%95%e0%a4%b2-pg-%e0%a4%95%e0%a5%80-%e0%a4%aa%e0%a4%a2%e0%a4%bc%e0%a4%be/",
         "sector": "Consumer Defensive",
         "industry": "Household & Personal Products"
       },
@@ -653,14 +651,14 @@
         "price": 352.12,
         "changePct": 0.7770352456318691,
         "volume": 233991,
-        "avgVolume": 201895.96153846153,
-        "rvol": 1.1589682043017207,
+        "avgVolume": 203867.92307692306,
+        "rvol": 1.1477578054871878,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/JPM",
-        "catalystHeadline": "JPM Sep 21: Chase Builds on Freedom Flex’s Everyday Rewards…",
-        "catalystUrl": "https://newsquantified.com/tickers/jpm/news/chase-builds-on-freedom-flex-s-everyday-rewards-with-more-2026-09-21",
+        "catalystHeadline": "JPM Stock Gains 0.68%, Testing Support: Full Details",
+        "catalystUrl": "https://journalarta.com/en/2026/09/22/jpm-stock-gains-0-68-testing-support-level-in-focus/",
         "sector": "Financial Services",
         "industry": "Banks - Diversified"
       },
@@ -670,8 +668,8 @@
         "price": 249.49,
         "changePct": 0.2511401764008599,
         "volume": 223614,
-        "avgVolume": 180083.26923076922,
-        "rvol": 1.2417255692612286,
+        "avgVolume": 180074.92307692306,
+        "rvol": 1.2417831210427797,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -687,14 +685,14 @@
         "price": 369.895,
         "changePct": 0.6161085874384534,
         "volume": 187576,
-        "avgVolume": 215152.23076923078,
-        "rvol": 0.8718292128757491,
+        "avgVolume": 215784.03846153847,
+        "rvol": 0.8692765291508515,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/V",
-        "catalystHeadline": "CR-V e:HEV RS: Honda still knows how to make driving fun",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/fast-times/cr-v-ehev-rs-honda-still-knows-how-to-make-driving-fun/2429209",
+        "catalystHeadline": "Midland and SOQUEM Discover New Copper, Gold and Silver Boulders and Showings on Nachicapau",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/midland-and-soquem-discover-new-copper-gold-and-silver-boulders-and-showings-on-nachicapau/2430223",
         "sector": "Financial Services",
         "industry": "Financial - Credit Services"
       },
@@ -704,8 +702,8 @@
         "price": 377.53,
         "changePct": 0.1565235846553762,
         "volume": 167686,
-        "avgVolume": 178061.26923076922,
-        "rvol": 0.9417320269837975,
+        "avgVolume": 175322.65384615384,
+        "rvol": 0.9564422869570807,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -721,8 +719,8 @@
         "price": 269.55,
         "changePct": -0.14077723854332436,
         "volume": 165951,
-        "avgVolume": 217751.84615384616,
-        "rvol": 0.7621106453570649,
+        "avgVolume": 217364.1923076923,
+        "rvol": 0.7634698164317986,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -738,14 +736,14 @@
         "price": 297.24,
         "changePct": -0.8952238059514885,
         "volume": 161774,
-        "avgVolume": 145936.88461538462,
-        "rvol": 1.1085203060648714,
+        "avgVolume": 147595.88461538462,
+        "rvol": 1.0960603706638683,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/HD",
-        "catalystHeadline": "A 2005 Nintendo GameCube Classic Is Back From The Dead",
-        "catalystUrl": "https://screenrant.com/nintendo-gamecube-mario-strikers-pc-version-unofficial/",
+        "catalystHeadline": "Durabook Announces the Z14I-DX3 Rugged Mobile Laptop, a Triple-display, Workstation-class, Edge AI Laptop",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/pr-newswire/durabook-announces-the-z14i-dx3-rugged-mobile-laptop-a-triple-display-workstation-class-edge-ai-laptop/2430091",
         "sector": "Consumer Cyclical",
         "industry": "Home Improvement"
       },
@@ -755,14 +753,14 @@
         "price": 107.98,
         "changePct": 33.754490276229404,
         "volume": 157995,
-        "avgVolume": 42701.92307692308,
-        "rvol": 3.699950461607746,
+        "avgVolume": 47730.96153846154,
+        "rvol": 3.3101155917985827,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/GRAL",
-        "catalystHeadline": "GRAL Stock Breaks Out As Traders Eye Fresh Momentum",
-        "catalystUrl": "https://www.timothysykes.com/news/grail-inc-gral-news-2026_09_21-3/",
+        "catalystHeadline": "Z powodu automatom bonusowym mozna miec wysokie korzysci fiskalne podczas gry",
+        "catalystUrl": "https://justafive.com/z-powodu-automatom-bonusowym-mozna-miec-wysokie-korzysci-fiskalne-podczas-gry/?utm_source=rss&utm_medium=rss&utm_campaign=z-powodu-automatom-bonusowym-mozna-miec-wysokie-korzysci-fiskalne-podczas-gry",
         "sector": "Healthcare",
         "industry": "Medical - Diagnostics & Research"
       },
@@ -772,14 +770,14 @@
         "price": 567.755,
         "changePct": 0.47338429956819467,
         "volume": 140375,
-        "avgVolume": 112095.38461538461,
-        "rvol": 1.252281710631056,
+        "avgVolume": 113068.57692307692,
+        "rvol": 1.241503199385805,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/MA",
-        "catalystHeadline": "Xenon to Present at TD Cowen Novel Mechanisms in Neuropsychiatry & Epilepsy Summit",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/xenon-to-present-at-td-cowen-novel-mechanisms-in-neuropsychiatry-epilepsy-summit/2429813",
+        "catalystHeadline": "Travel dreams come alive at 4th Travel Sale Expo",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/travel-dreams-come-alive-at-4th-travel-sale-expo/2430112",
         "sector": "Financial Services",
         "industry": "Financial - Credit Services"
       },
@@ -789,8 +787,8 @@
         "price": 15.66,
         "changePct": 76.15298087739032,
         "volume": 97929,
-        "avgVolume": 91.5,
-        "rvol": 1070.2622950819673,
+        "avgVolume": 3845.4615384615386,
+        "rvol": 25.466123902302414,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -806,14 +804,14 @@
         "price": 898.345,
         "changePct": 0.2902611792418627,
         "volume": 95899,
-        "avgVolume": 56612.57692307692,
-        "rvol": 1.69395221366277,
+        "avgVolume": 58569.57692307692,
+        "rvol": 1.6373517624337655,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/COST",
-        "catalystHeadline": "Forward Industries’ SOL Holdings Rise to Approximately 8.16 Million SOL",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/forward-industries-sol-holdings-rise-to-approximately-816-million-sol/2429811",
+        "catalystHeadline": "Australians are at risk of being ‘priced out’ of parenthood, expert warns",
+        "catalystUrl": "https://www.brisbanetimes.com.au/national/australians-are-at-risk-of-being-priced-out-of-parenthood-expert-warns-20260922-p60z9c.html",
         "sector": "Consumer Defensive",
         "industry": "Discount Stores"
       },
@@ -823,8 +821,8 @@
         "price": 26.75,
         "changePct": 35.64908722109534,
         "volume": 30154,
-        "avgVolume": 8152.153846153846,
-        "rvol": 3.69889977165072,
+        "avgVolume": 8359.884615384615,
+        "rvol": 3.606987582640541,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -840,14 +838,14 @@
         "price": 11.045,
         "changePct": -36.376728110599075,
         "volume": 5877,
-        "avgVolume": 217.73076923076923,
-        "rvol": 26.992050874403816,
+        "avgVolume": 438.9230769230769,
+        "rvol": 13.389589905362776,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/SMX",
-        "catalystHeadline": "Harrison, Coker, Snyder, Norfolk and More on Pulpmx Show Tonight - Racer X",
-        "catalystUrl": "https://racerxonline.com/2026/09/21/harrison-coker-snyder-norfolk-and-more-on-pulpmx-show-tonight",
+        "catalystHeadline": "Inaugural Philippine International Truck Show officially slated for October 22 to 24",
+        "catalystUrl": "https://www.topgear.com.ph/news/industry-news/pits-2026-official-dates-a6941-20260922",
         "sector": "Industrials",
         "industry": "Specialty Business Services"
       },
@@ -857,8 +855,8 @@
         "price": 29.205,
         "changePct": 43.72539370078739,
         "volume": 5712,
-        "avgVolume": 667.5,
-        "rvol": 8.557303370786517,
+        "avgVolume": 887.1923076923077,
+        "rvol": 6.438288464039537,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -874,8 +872,8 @@
         "price": 6.04,
         "changePct": 20.19900497512437,
         "volume": 2256,
-        "avgVolume": 1320.5384615384614,
-        "rvol": 1.708394011766762,
+        "avgVolume": 1296.576923076923,
+        "rvol": 1.7399661831449675,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -891,14 +889,14 @@
         "price": 20.17,
         "changePct": 24.96902106567535,
         "volume": 2217,
-        "avgVolume": 263.4230769230769,
-        "rvol": 8.41611914148051,
+        "avgVolume": 348.6923076923077,
+        "rvol": 6.358041032428855,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/TSUI",
-        "catalystHeadline": "2 brothers arrested after street brawl in Tsuen Wan over inheritance dispute",
-        "catalystUrl": "https://www.thestandard.com.hk/news/article/343413/2-brothers-arrested-after-street-brawl-in-Tsuen-Wan-over-inheritance-dispute",
+        "catalystHeadline": "Aqua Restaurant Group Unveils Twin Sky-High Dining Venues in Tsim Sha Tsui",
+        "catalystUrl": "https://lolleroll.com/aqua-restaurant-group-unveils-twin-sky-high-dining-venues-in-tsim-sha-tsui/",
         "sector": "Financial Services",
         "industry": "Asset Management"
       },
@@ -908,14 +906,14 @@
         "price": 27.12,
         "changePct": 34.99253359880538,
         "volume": 1506,
-        "avgVolume": 66.23076923076923,
-        "rvol": 22.738675958188153,
+        "avgVolume": 124.15384615384616,
+        "rvol": 12.130111524163569,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/GAVA",
-        "catalystHeadline": "Military Rescues 58 Captives, Defuses 12 IEDs, neutralise 7 terrorists, seize weapons in one week – DHQ",
-        "catalystUrl": "https://reportcircle.com/35768-2/",
+        "catalystHeadline": "Ruthless’ Nadège August helps ECOLUXE close out Emmy week",
+        "catalystUrl": "https://reel360.com/article/ruthless-nadege-august-helps-ecoluxe-close-out-emmy-week/",
         "sector": "Financial Services",
         "industry": "Asset Management - Cryptocurrency"
       },
@@ -925,14 +923,14 @@
         "price": 30.135,
         "changePct": 45.2989392478303,
         "volume": 1392,
-        "avgVolume": 61.69230769230769,
-        "rvol": 22.56359102244389,
+        "avgVolume": 107.53846153846153,
+        "rvol": 12.944206008583691,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/BAVA",
-        "catalystHeadline": "Bavarian Nordic - Transactions in Connection with Share Buy-Back Program",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/21/tmt-newswire/globenewswire/bavarian-nordic-transactions-in-connection-with-share-buy-back-program/2429162",
+        "catalystHeadline": "Kolkata Aaj Ka Panchang, 22 September 2026: Tithi, Rahu Kaal & Shubh Muhurat",
+        "catalystUrl": "https://www.newsfolo.com/lifestyle/kolkata-aaj-ka-panchang-22-september-2026/168993/",
         "sector": "Financial Services",
         "industry": "Asset Management"
       },
@@ -942,8 +940,8 @@
         "price": 23.09,
         "changePct": 36.70811130846655,
         "volume": 1145,
-        "avgVolume": 106.5,
-        "rvol": 10.751173708920188,
+        "avgVolume": 150.53846153846155,
+        "rvol": 7.6060296371997955,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -959,8 +957,8 @@
         "price": 38.32,
         "changePct": 54.82828282828282,
         "volume": 401,
-        "avgVolume": 183.26923076923077,
-        "rvol": 2.18803777544596,
+        "avgVolume": 198.69230769230768,
+        "rvol": 2.0181958962446767,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -999,8 +997,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/SUIS",
-        "catalystHeadline": "Retour d’une Légende au FC Metz : Robert Pirès nommé…",
-        "catalystUrl": "https://topupsportnews.co.uk/2026/09/21/retour-dune-legende-au-fc-metz-robert-pires-nomme/",
+        "catalystHeadline": "Après avoir fui les talibans, Fariba Hashimi décroche l'argent aux Jeux asiatiques",
+        "catalystUrl": "https://www.upday.com/fr/international/apres-avoir-fui-les-talibans-fariba-hashimi-decroche-largent-aux-jeux-asiatiques/d247dg4",
         "sector": "Financial Services",
         "industry": "Asset Management - Cryptocurrency"
       },
@@ -1084,8 +1082,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/LINT",
-        "catalystHeadline": "Kasom odabrao za duele protiv Albanije",
-        "catalystUrl": "https://cetinjskilist.com/kasom-odabrao-za-duele-protiv-albanije/",
+        "catalystHeadline": "Relatório de Investigação do Mercado de Mercado de filmes retráteis POF | Análise do Setor e Previsão para 2035",
+        "catalystUrl": "https://fnonline.com.br/comunicado-de-imprensa/relatorio-de-investigacao-do-mercado-de-mercado-de-filmes-retrateis-pof-analise-do-setor-e-previsao-para-2035/2112361/",
         "sector": "Financial Services",
         "industry": "Asset Management - Leveraged"
       },
@@ -1101,8 +1099,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/METU",
-        "catalystHeadline": "Teoatriksės žingsnis 1-99 vulkan spiele promo Stebuklų knyga OSRS 2026",
-        "catalystUrl": "https://justafive.com/teoatrikses-zingsnis-1-99-vulkan-spiele-promo-stebuklu-knyga-osrs-2026/?utm_source=rss&utm_medium=rss&utm_campaign=teoatrikses-zingsnis-1-99-vulkan-spiele-promo-stebuklu-knyga-osrs-2026",
+        "catalystHeadline": "Oyo Police nab suspect over kidnap, kill threat",
+        "catalystUrl": "https://thenationonlineng.net/oyo-police-nab-suspect-over-kidnap-kill-threat/",
         "sector": "Financial Services",
         "industry": "Asset Management - Leveraged"
       },
@@ -1135,8 +1133,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/PUL",
-        "catalystHeadline": "Valideyn hər il eyni test kitabına niyə pul ödəməlidir? – Deputatdan TƏKLİF",
-        "catalystUrl": "https://soz6.com/news/valideyn-her-il-eyni-test-kitabina-niye-pul-odemelidir-deputatdan-teklif",
+        "catalystHeadline": "Lənkəranda evdən 75 min 500 manat pul oğurlanıb",
+        "catalystUrl": "https://soz6.com/news/lenkeranda-evden-75-min-500-manat-pul-ogurlanib",
         "sector": "Financial Services",
         "industry": "Asset Management"
       },
@@ -1154,8 +1152,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/SUPX",
         "catalystHeadline": "SuperX Continues Share Repurchases to Demonstrate Confidence in Long-Term Growth, Substantial APAC Orders Validate Growth Potential",
         "catalystUrl": "https://www.manilatimes.net/2026/09/03/tmt-newswire/pr-newswire/superx-continues-share-repurchases-to-demonstrate-confidence-in-long-term-growth-substantial-apac-orders-validate-growth-potential/2418133",
-        "sector": null,
-        "industry": null
+        "sector": "Technology",
+        "industry": "Software - Infrastructure"
       },
       {
         "ticker": "AMUU",
@@ -1171,8 +1169,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/AMUU",
         "catalystHeadline": "Direxion Daily AMD Bull 2X Shares (NASDAQ:AMUU) Short Interest Update",
         "catalystUrl": "https://www.marketbeat.com/instant-alerts/direxion-daily-amd-bull-2x-shares-nasdaqamuu-short-interest-update-2026-07-26/",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged"
       },
       {
         "ticker": "AMDG",
@@ -1188,8 +1186,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/AMDG",
         "catalystHeadline": "Did Caleb Williams leak the Bears' new alternate uniform with gift to Pope Leo XIV? Here's what we know",
         "catalystUrl": "https://www.cbssports.com/nfl/news/caleb-williams-pope-leo-bears-jersey/",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged"
       },
       {
         "ticker": "AMDL",
@@ -1205,8 +1203,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/AMDL",
         "catalystHeadline": "AMDL: Bullish On AMD, But The Leverage Changes The Thesis",
         "catalystUrl": "https://seekingalpha.com/article/4946277-amdl-bullish-on-amd-but-the-leverage-changes-the-thesis",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged"
       },
       {
         "ticker": "CUE",
@@ -1220,10 +1218,10 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/CUE",
-        "catalystHeadline": "Tivoli Avenida Liberdade Lisbon unveils redesigned rooms and suites with city-inspired details",
-        "catalystUrl": "https://wildbayco.com/tivoli-avenida-liberdade-lisbon-redesigned-rooms/",
-        "sector": null,
-        "industry": null
+        "catalystHeadline": "Bollywood Filmmaker Sanjay Gupta Just Found Your Next Obsession And It Is A Gritty Masterpiece",
+        "catalystUrl": "https://www.socialnews.xyz/2026/09/22/bollywood-filmmaker-sanjay-gupta-just-found-your-next-obsession-and-it-is-a-gritty-masterpiece/?utm_source=rss&utm_medium=rss&utm_campaign=bollywood-filmmaker-sanjay-gupta-just-found-your-next-obsession-and-it-is-a-gritty-masterpiece",
+        "sector": "Healthcare",
+        "industry": "Biotechnology"
       },
       {
         "ticker": "DAMD",
@@ -1277,6 +1275,23 @@
         "industry": "Medical - Diagnostics & Research"
       },
       {
+        "ticker": "AUC",
+        "name": "ATIF Holdings Limited Ordinary Shares",
+        "price": 7.66,
+        "changePct": -17.89925,
+        "volume": 0,
+        "avgVolume": null,
+        "rvol": null,
+        "hasProfileData": false,
+        "megaCap": false,
+        "source": "Financial Modeling Prep (free tier, licensed API)",
+        "sourceUrl": "https://financialmodelingprep.com/quote/AUC",
+        "catalystHeadline": "Joyce Banda at UNGA 81: Calls for action, not more commitments on women, peace, security in DRC, Great Lakes",
+        "catalystUrl": "https://www.maravipost.com/joyce-banda-at-unga-81-calls-for-action-not-more-commitments-on-women-peace-security-in-drc-great-lakes/",
+        "sector": "Financial Services",
+        "industry": "Asset Management"
+      },
+      {
         "ticker": "AEHL",
         "name": "Antelope Enterprise Holdings Limited",
         "price": 6.92,
@@ -1324,8 +1339,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/NVOX",
         "catalystHeadline": "NVOX Launches US Clinical Network to Address Clinician Time Bottleneck in ADHD Assessment",
         "catalystUrl": "https://www.prnewswire.com/news-releases/nvox-launches-us-clinical-network-to-address-clinician-time-bottleneck-in-adhd-assessment-302857782.html",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management"
       },
       {
         "ticker": "SCTX",
@@ -1341,14 +1356,14 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/SCTX",
         "catalystHeadline": "Scribe Therapeutics Reports Second Quarter 2026 Financial Results and Recent Corporate Highlights",
         "catalystUrl": "https://www.biospace.com/press-releases/scribe-therapeutics-reports-second-quarter-2026-financial-results-and-recent-corporate-highlights",
-        "sector": null,
-        "industry": null
+        "sector": "Healthcare",
+        "industry": "Biotechnology"
       },
       {
         "ticker": "SOXS",
         "name": "Direxion Daily Semiconductor Bear 3X ETF",
-        "price": 35.3313,
-        "changePct": -14.84382,
+        "price": 35.33,
+        "changePct": -14.84695,
         "volume": 0,
         "avgVolume": null,
         "rvol": null,
@@ -1358,8 +1373,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/SOXS",
         "catalystHeadline": "People have been sharing the worst mistakes they made at work - 23 total cock-ups that will make you feel like employee of the month",
         "catalystUrl": "https://www.thepoke.com/2026/09/21/people-have-been-sharing-the-worst-mistakes-they-made-at-work-23-total-cock-ups-that-will-make-you-feel-like-employee-of-the-month/",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged"
       },
       {
         "ticker": "LFT",
@@ -1373,10 +1388,10 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/LFT",
-        "catalystHeadline": "40th Garment Technology Expo 2026 Inaugurated In Bengaluru, Setting The Stage For Smarter, Automated And Future-Ready Garment Manufacturing – Outlook Business",
-        "catalystUrl": "https://www.outlookbusiness.com/spotlight/news-wire/40th-garment-technology-expo-2026-inaugurated-in-bengaluru-setting-the-stage-for-smarter-automated-and-future-ready-garment-manufacturing",
-        "sector": null,
-        "industry": null
+        "catalystHeadline": "Cancer can stay silent for years: Doctor reveals the regular tests that may help spot warning signs early",
+        "catalystUrl": "https://timesofindia.indiatimes.com/health/cancer-can-stay-silent-for-years-doctor-reveals-the-regular-tests-that-may-help-spot-warning-signs-early/photostory/134400073.cms",
+        "sector": "Real Estate",
+        "industry": "REIT - Mortgage"
       },
       {
         "ticker": "VNCE",
@@ -1392,8 +1407,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/VNCE",
         "catalystHeadline": "Drake's OVO Celebrates University of Alabama, Other College Football Teams in New Collection",
         "catalystUrl": "https://www.complex.com/style/a/tracewilliamcowen/drake-ovo-alabama-football-collection",
-        "sector": null,
-        "industry": null
+        "sector": "Consumer Cyclical",
+        "industry": "Apparel - Manufacturers"
       },
       {
         "ticker": "BRVE",
@@ -1409,8 +1424,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/BRVE",
         "catalystHeadline": "Braveheart Bio to Participate in Stifel Cardiometabolic Forum",
         "catalystUrl": "https://www.manilatimes.net/2026/09/17/tmt-newswire/globenewswire/braveheart-bio-to-participate-in-stifel-cardiometabolic-forum/2427012",
-        "sector": null,
-        "industry": null
+        "sector": "Healthcare",
+        "industry": "Biotechnology"
       },
       {
         "ticker": "WBD",
@@ -1424,10 +1439,10 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/WBD",
-        "catalystHeadline": "AEW Media Partner WBD Moves Closer to Paramount Merger After Major Hurdle Cleared",
-        "catalystUrl": "https://www.newslocker.com/en-us/sport/wrestling/aew-media-partner-wbd-moves-closer-to-paramount-merger-after-major-hurdle-cleared/",
-        "sector": null,
-        "industry": null
+        "catalystHeadline": "Women Board of Directors and PwC Middle East to host ‘Reaffirmation’ — bringing together accomplished Emirati women leaders",
+        "catalystUrl": "https://mid-east.info/women-board-of-directors-and-pwc-middle-east-to-host-reaffirmation-bringing-together-accomplished-emirati-women-leaders/",
+        "sector": "Communication Services",
+        "industry": "Entertainment"
       },
       {
         "ticker": "INTC",
@@ -1441,8 +1456,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/INTC",
-        "catalystHeadline": "Nasdaq Jumps 599 Points to Hit a New High: Stock Market Today",
-        "catalystUrl": "https://www.kiplinger.com/investing/stocks/nasdaq-jumps-599-points-to-hit-a-new-high-stock-market-today",
+        "catalystHeadline": "Machine learning algorithm sets Intel (INTC) stock price for October 1, 2026",
+        "catalystUrl": "https://bitcoinethereumnews.com/finance/machine-learning-algorithm-sets-intel-intc-stock-price-for-october-1-2026/?utm_source=rss&utm_medium=rss&utm_campaign=machine-learning-algorithm-sets-intel-intc-stock-price-for-october-1-2026",
         "sector": "Technology",
         "industry": "Semiconductors"
       },
@@ -1475,8 +1490,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/NOK",
-        "catalystHeadline": "Alcohol-Related Cancer Deaths in US Surge Since 1990 – Archyde",
-        "catalystUrl": "https://www.archyde.com/alcohol-related-cancer-deaths-in-us-surge-since-1990/",
+        "catalystHeadline": "U.S. pre-market trading saw broad declines in the semiconductor, storage, and optical communication sectors, with NOK falling more than 1%.",
+        "catalystUrl": "https://www.lookonchain.com/feeds/73630",
         "sector": "Technology",
         "industry": "Communication Equipment"
       },
@@ -1492,8 +1507,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/SPCX",
-        "catalystHeadline": "SpaceX (SPCX) launches Grok 4.7, twice as fast and half the price of comparable models; is priced at USD 2 per million input tokens and USD 6 per million output tokens",
-        "catalystUrl": "https://www.newsquawk.com/headlines/spacex-spcx-launches-grok-47-twice-as-fast-and-half-the-price-of-comparable-models-is-priced-at-usd-2-per-million-input-tokens-and-usd-6-per-million-output-tokens",
+        "catalystHeadline": "Jupiter Exchange launches perps markets for SPCX, HYPE, and ZEC on Solana",
+        "catalystUrl": "https://cryptocurrency.com.tr/jupiter-exchange-launches-perps-markets-for-spcx-hype-and-zec-on-solana-386292",
         "sector": "Industrials",
         "industry": "Aerospace & Defense"
       },
@@ -1509,10 +1524,10 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/AAL",
-        "catalystHeadline": "AAL Stock Climbs As American Airlines Talks “Durable” Revenue Growth",
-        "catalystUrl": "https://stockstotrade.com/news/american-airlines-group-inc-aal-news-2026_09_21-2/",
-        "sector": null,
-        "industry": null
+        "catalystHeadline": "Nevertheless, the US decision to &quot;blacklist&quot; AAL after a campaign in the Ukrainian media raises serious questions, given that the company has been working in the American interest for decades",
+        "catalystUrl": "https://news-pravda.com/world/2026/09/22/2610865.html",
+        "sector": "Industrials",
+        "industry": "Airlines, Airports & Air Services"
       },
       {
         "ticker": "IBIT",
@@ -1526,16 +1541,16 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/IBIT",
-        "catalystHeadline": "Bitcoin Surges Above $86,000 to Reach Eight-Month High on Short Squeeze",
-        "catalystUrl": "https://www.newsy-today.com/bitcoin-surges-above-86000-to-reach-eight-month-high-on-short-squeeze/",
+        "catalystHeadline": "Bitcoin ETFs Smash 2026 Record With $998.9M Daily Haul",
+        "catalystUrl": "https://cryptocurrency.com.tr/bitcoin-etfs-smash-2026-record-with-998-9m-daily-haul-386321",
         "sector": "Financial Services",
         "industry": "Asset Management - Cryptocurrency"
       },
       {
         "ticker": "TSLL",
         "name": "Direxion Daily TSLA Bull 2X ETF",
-        "price": 10.1838,
-        "changePct": 5.75078,
+        "price": 10.19,
+        "changePct": 5.81516,
         "volume": 0,
         "avgVolume": null,
         "rvol": null,
@@ -1560,8 +1575,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/PSKY",
-        "catalystHeadline": "Nasdaq Jumps 599 Points to Hit a New High: Stock Market Today",
-        "catalystUrl": "https://www.kiplinger.com/investing/stocks/nasdaq-jumps-599-points-to-hit-a-new-high-stock-market-today",
+        "catalystHeadline": "Paramount (PSKY) Stock Drops 3% While Warner Bros. (WBD) Soars 11% on Merger News",
+        "catalystUrl": "https://cryptocurrency.com.tr/paramount-psky-stock-drops-3-while-warner-bros-wbd-soars-11-on-merger-news-386297",
         "sector": "Communication Services",
         "industry": "Entertainment"
       },
@@ -1577,10 +1592,10 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/SOFI",
-        "catalystHeadline": "Is Aaron Donald playing tonight vs Giants? Latest on Rams DT’s return to SoFi Stadium after two-year retirement",
-        "catalystUrl": "https://www.hindustantimes.com/sports/us-sports/is-aaron-donald-playing-tonight-vs-giants-latest-on-rams-dt-s-return-to-sofi-stadium-after-two-year-retirement-101790020258316.html",
-        "sector": null,
-        "industry": null
+        "catalystHeadline": "What did Aaron Donald do in his first game back?",
+        "catalystUrl": "https://thearchv.ca/nfl/questions/2026-09-22/",
+        "sector": "Financial Services",
+        "industry": "Financial - Credit Services"
       },
       {
         "ticker": "SOXL",
@@ -1596,8 +1611,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/SOXL",
         "catalystHeadline": "Binance Launches Foreign Exchange Perpetual Futures, Expanding 24/7 Access to the Largest Financial Market - The Tribune",
         "catalystUrl": "https://www.tribuneindia.com/news/business/binance-launches-foreign-exchange-perpetual-futures-expanding-24-7-access-to-the-largest-financial-market/",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged"
       },
       {
         "ticker": "SQQQ",
@@ -1613,8 +1628,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/SQQQ",
         "catalystHeadline": "ETF Flows Report for 08/25/2026",
         "catalystUrl": "https://www.etfchannel.com/article/202608/etf-flows-report-for-08-25-2026-gld-gdxj-pplt-tfflowreport08252026.htm/",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged"
       },
       {
         "ticker": "TQQQ",
@@ -1630,8 +1645,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/TQQQ",
         "catalystHeadline": "QLD Doubles the Nasdaq-100 Instead of Tripling It. That 2X Middle Ground Is Why It Survives Crashes TQQQ Doesn’t",
         "catalystUrl": "https://finance.yahoo.com/markets/options/articles/qld-doubles-nasdaq-100-instead-105534783.html",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management"
       },
       {
         "ticker": "BMNR",
@@ -1645,8 +1660,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/BMNR",
-        "catalystHeadline": "Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.98 Million Tokens, and Total Crypto and Total Cash Holdings of $17.1 Billion",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/21/tmt-newswire/pr-newswire/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-598-million-tokens-and-total-crypto-and-total-cash-holdings-of-171-billion/2429464",
+        "catalystHeadline": "Bitmine Immersion Technologies (BMNR) maakt bekend dat het 5,98 miljoen ETH-tokens in bezit heeft en dat het totale bezit aan cryptovaluta en contanten 17,1 miljard USD bedraagt.",
+        "catalystUrl": "https://www.newslocker.com/en-us/profession/pr-public-relations/bitmine-immersion-technologies-bmnr-maakt-bekend-dat-het-598-miljoen-eth-tokens-in-bezit-heeft-en-dat-het-totale-bezit-aan-cryptovaluta-en-contanten-171-miljard-usd-bedraagt/",
         "sector": "Financial Services",
         "industry": "Financial - Capital Markets"
       },
@@ -1662,10 +1677,10 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/AUR",
-        "catalystHeadline": "Aurora Innovation AUR Stock Draws Bullish Analyst Wave",
-        "catalystUrl": "https://stockstotrade.com/news/aurora-innovation-inc-aur-news-2026_09_21-2/",
-        "sector": null,
-        "industry": null
+        "catalystHeadline": "जेल सुधार, जेल अधिनियम और नियमावली | राजस्थान GK मॉक टेस्ट – 25 MCQ",
+        "catalystUrl": "https://studyhub.net.in/quiz/jel-sudhar-jel-adhiniym-aur-niymavli-free-mock-test/",
+        "sector": "Technology",
+        "industry": "Software - Application"
       },
       {
         "ticker": "MARA",
@@ -1679,8 +1694,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/MARA",
-        "catalystHeadline": "Mara Sadé Signs With AEW After WWE Talks and TNA Offer — Report",
-        "catalystUrl": "https://www.newslocker.com/en-us/sport/wrestling/mara-sad-signs-with-aew-after-wwe-talks-and-tna-offer-report/",
+        "catalystHeadline": "Orlando Bloom's Scene With Mara Sisters Explained Amid Backlash",
+        "catalystUrl": "https://soz6.com/news/orlando-bloom-s-scene-with-mara-sisters-explained-amid-backlash",
         "sector": "Financial Services",
         "industry": "Financial - Capital Markets"
       },
@@ -1698,8 +1713,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/TSLG",
         "catalystHeadline": null,
         "catalystUrl": null,
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management"
       },
       {
         "ticker": "ONDS",
@@ -1721,8 +1736,8 @@
       {
         "ticker": "SPY",
         "name": "State Street SPDR S&P 500 ETF",
-        "price": 773.51,
-        "changePct": 1.55181,
+        "price": 773.5,
+        "changePct": 1.5505,
         "volume": 0,
         "avgVolume": null,
         "rvol": null,
@@ -1730,8 +1745,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/SPY",
-        "catalystHeadline": "'Months, Not Years': European Spy Chiefs Warn Putin Preparing Imminent Strike On NATO Soil",
-        "catalystUrl": "https://www.newslocker.com/en-uk/news/business/months-not-years-european-spy-chiefs-warn-putin-preparing-imminent-strike-on-nato-soil/",
+        "catalystHeadline": "The Black Manta? UFO-like object over Iran fuels US spy jet mystery",
+        "catalystUrl": "https://www.indiatoday.in/world/story/iran-war-mysterious-ufo-speculation-us-black-manta-aircraft-3000222-2026-09-22",
         "sector": "Financial Services",
         "industry": "Asset Management"
       },
@@ -1747,10 +1762,10 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/NVO",
-        "catalystHeadline": "Novo Resources Releases Updated Corporate Presentation",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/novo-resources-releases-updated-corporate-presentation/2429821",
-        "sector": null,
-        "industry": null
+        "catalystHeadline": "„Akcija za čiste obale“ 24. septembra istovremeno u četiri crnogorska grada",
+        "catalystUrl": "https://cetinjskilist.com/akcija-za-ciste-obale-24-septembra-istovremeno-u-cetiri-crnogorska-grada/",
+        "sector": "Healthcare",
+        "industry": "Drug Manufacturers - General"
       },
       {
         "ticker": "F",
@@ -1764,8 +1779,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/F",
-        "catalystHeadline": "Host Digital Inc. Announces Closing of Common Stock Offering",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/host-digital-inc-announces-closing-of-common-stock-offering/2429832",
+        "catalystHeadline": "DALI Alliance Announces DALI 27 Inaugural Global Summit + Expo",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/dali-alliance-announces-dali-27-inaugural-global-summit-expo/2430228",
         "sector": "Consumer Cyclical",
         "industry": "Auto - Manufacturers"
       },
@@ -1798,8 +1813,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/NU",
-        "catalystHeadline": "NU Stock In Focus As Nubank Pushes Into U.S. Market",
-        "catalystUrl": "https://stockstotrade.com/news/nu-holdings-ltd-nu-news-2026_09_21/",
+        "catalystHeadline": "Gostivar, 60-vjeçari gjendet pa jetë në stadiumin e Ravenit, polici plagoset rëndë gjatë këqyrjes",
+        "catalystUrl": "https://albeu.com/maqedoni/gostivar-60-vjecari-gjendet-pa-jete-ne-stadiumin-e-ravenit-polici-plagoset-rende-gjate-keqyrjes/1022635/",
         "sector": "Financial Services",
         "industry": "Banks - Regional"
       },
@@ -1815,8 +1830,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/PATH",
-        "catalystHeadline": "Peñafrancia Festival: Following Inâ to Naga",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/fast-times/peafrancia-festival-following-ina-to-naga/2429212",
+        "catalystHeadline": "HighLife Raises $90+ Million to start its US Pivotal Study and accelerate Commercial Expansion in Europe",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/highlife-raises-90-million-to-start-its-us-pivotal-study-and-accelerate-commercial-expansion-in-europe/2429989",
         "sector": null,
         "industry": null
       },
@@ -1832,8 +1847,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/QQQ",
-        "catalystHeadline": "QQQ Price Prediction: Bulls Push Into Resistance as Fed Hawkishness Collides With AI Momentum — $736 or $715 Next?",
-        "catalystUrl": "https://blockchain.news/news/20260921-price-prediction-qqq-bulls-push-into-resistance-as-fed",
+        "catalystHeadline": "Why is QQQ rising? AI stocks rally as Treasury yields fall below 5%",
+        "catalystUrl": "https://www.hindustantimes.com/business/why-is-qqq-rising-ai-stocks-rally-as-treasury-yields-fall-below-5-101790076467209.html",
         "sector": null,
         "industry": null
       },
@@ -1849,8 +1864,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/PCG",
-        "catalystHeadline": "Estrada urges PH to protest China’s acts",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/news/national/estrada-urges-ph-to-protest-chinas-acts/2429699",
+        "catalystHeadline": "Repairs on damaged BFAR vessel in collision with Chinese ship estimated at P1.4M",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/news/repairs-on-damaged-bfar-vessel-in-collision-with-chinese-ship-estimated-at-p14m/2430006",
         "sector": null,
         "industry": null
       },
@@ -1875,7 +1890,7 @@
     "rawMoveCounts": {
       "up20": 27,
       "down20": 2,
-      "poolSize": 71,
+      "poolSize": 72,
       "upMovers": [
         {
           "ticker": "GRML",
@@ -1889,8 +1904,8 @@
         },
         {
           "ticker": "TXXS",
-          "price": 39.16,
-          "changePct": 56.33
+          "price": 38.5067,
+          "changePct": 53.72
         },
         {
           "ticker": "SVRN",
@@ -2016,8 +2031,8 @@
       "downMovers": [
         {
           "ticker": "SMX",
-          "price": 11.4,
-          "changePct": -32.98
+          "price": 10.98,
+          "changePct": -35.45
         },
         {
           "ticker": "CUE",
@@ -2034,59 +2049,59 @@
   },
   "buzz": [
     {
-      "ticker": "SPY",
-      "name": "SPDR S&P 500 ETF Trust",
-      "price": 773.11,
+      "ticker": "VKTX",
+      "name": "Viking Therapeutics Inc",
+      "price": 40,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/SPY",
-      "catalystHeadline": "'Months, Not Years': European Spy Chiefs Warn Putin Preparing Imminent Strike On NATO Soil",
-      "catalystUrl": "https://www.newslocker.com/en-uk/news/business/months-not-years-european-spy-chiefs-warn-putin-preparing-imminent-strike-on-nato-soil/"
+      "sourceUrl": "https://stocktwits.com/symbol/VKTX",
+      "catalystHeadline": "Shay Boloor: VKTX rises 42 percent as VK2735 shows strong weight loss results",
+      "catalystUrl": "https://tradersunion.com/news/market-voices/show/3428338-vktx-weight-loss-gains/"
     },
     {
-      "ticker": "MSTR",
-      "name": "Strategy",
-      "price": 169.1,
+      "ticker": "GME",
+      "name": "GameStop Corp",
+      "price": 23.82,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/MSTR",
-      "catalystHeadline": "US crypto-related concept stocks rose broadly, with MSTR up nearly 10%.",
-      "catalystUrl": "https://www.lookonchain.com/feeds/73473"
+      "sourceUrl": "https://stocktwits.com/symbol/GME",
+      "catalystHeadline": "GameStop CEO Ryan Cohen buys $26.4 million of GME stock",
+      "catalystUrl": "https://soz6.com/news/gamestop-ceo-ryan-cohen-buys-26-4-million-of-gme-stock"
     },
     {
-      "ticker": "INTC",
-      "name": "Intel Corp",
-      "price": 121.99,
+      "ticker": "BB",
+      "name": "BlackBerry Ltd",
+      "price": 9.01,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/INTC",
-      "catalystHeadline": "Nasdaq Jumps 599 Points to Hit a New High: Stock Market Today",
-      "catalystUrl": "https://www.kiplinger.com/investing/stocks/nasdaq-jumps-599-points-to-hit-a-new-high-stock-market-today"
+      "sourceUrl": "https://stocktwits.com/symbol/BB",
+      "catalystHeadline": "Bigg Boss 20 Honest REVIEW: Aman Gandhi's Entertaining Side &amp; Natural Humour Are Highlights Of BB 20",
+      "catalystUrl": "https://www.filmibeat.com/television/news/2026/bigg-boss-20-honest-review-aman-gandhi-entertaining-side-natural-humour-are-highlights-of-bb-20-532055.html"
     },
     {
-      "ticker": "META",
-      "name": "Meta Platforms Inc",
-      "price": 740.84,
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices Inc",
+      "price": 605.02,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/META",
-      "catalystHeadline": "Amazon blocks Meta’s Muse AI agent from its retail site - The Economic Times",
-      "catalystUrl": "https://economictimes.indiatimes.com/tech/artificial-intelligence/amazon-blocks-metas-muse-ai-agent-from-its-retail-site/articleshow/134396800.cms"
+      "sourceUrl": "https://stocktwits.com/symbol/AMD",
+      "catalystHeadline": "AMD Open-Source Linux Driver Update Adds GDDR7 Memory Support",
+      "catalystUrl": "https://www.a90skid.com/amd-open-source-linux-driver-update-adds-gddr7-memory-support/"
     },
     {
-      "ticker": "PSKY",
-      "name": "Paramount Skydance Corp. - Ordinary Shares - Class B",
-      "price": 9.99,
+      "ticker": "MAAS",
+      "name": "Highest Performances Holdings Inc. - ADR",
+      "price": 15.86,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/PSKY",
-      "catalystHeadline": "Nasdaq Jumps 599 Points to Hit a New High: Stock Market Today",
-      "catalystUrl": "https://www.kiplinger.com/investing/stocks/nasdaq-jumps-599-points-to-hit-a-new-high-stock-market-today"
+      "sourceUrl": "https://stocktwits.com/symbol/MAAS",
+      "catalystHeadline": "From Dal Baati Chaat to Laal Maas Seekh: How One8 Commune Is Speaking Jaipur’s Culinary Language",
+      "catalystUrl": "https://hospibuz.com/home-interviews/restaurants-opinion/from-dal-baati-chaat-to-laal-maas-seekh-how-one8-commune-is-speaking-jaipurs-culinary-language-12552738"
     }
   ],
   "breadthHistory": [
@@ -2131,6 +2146,12 @@
       "up20": 27,
       "down20": 2,
       "poolSize": 71
+    },
+    {
+      "date": "2026-09-22",
+      "up20": 27,
+      "down20": 2,
+      "poolSize": 72
     }
   ]
 }
