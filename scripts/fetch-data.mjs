@@ -34,7 +34,25 @@ async function fetchFmpSector(ticker, key) {
     const data = await res.json();
     const p = Array.isArray(data) ? data[0] : null;
     if (!p) return null;
-    return { sector: p.sector || null, industry: p.industry || null, mktCap: p.marketCap != null ? p.marketCap : (p.mktCap != null ? p.mktCap : null) };
+    let float = null;
+    // Float comes from a separate, dedicated FMP endpoint — not part of the
+    // profile response above. One more request per new ticker, same 20/run
+    // cap already protecting the free-tier budget, so this doesn't add any
+    // new risk of blowing through it.
+    try {
+      const floatRes = await fetch(`https://financialmodelingprep.com/stable/shares-float?symbol=${ticker}&apikey=${key}`);
+      if (floatRes.ok) {
+        const floatData = await floatRes.json();
+        const f = Array.isArray(floatData) ? floatData[0] : null;
+        if (f && f.floatShares != null) float = f.floatShares;
+      }
+    } catch (e) { /* float stays null, not fatal */ }
+    return {
+      sector: p.sector || null,
+      industry: p.industry || null,
+      mktCap: p.marketCap != null ? p.marketCap : (p.mktCap != null ? p.mktCap : null),
+      float
+    };
   } catch (e) {
     return null;
   }
@@ -45,10 +63,79 @@ async function updateSectorCache(tickers, cache, key, maxNewLookups) {
   const toFetch = unknown.slice(0, maxNewLookups);
   for (const ticker of toFetch) {
     const result = await fetchFmpSector(ticker, key);
-    cache[ticker] = result || { sector: null, industry: null, mktCap: null }; // cache the miss too, so we don't retry it forever
+    cache[ticker] = result || { sector: null, industry: null, mktCap: null, float: null }; // cache the miss too, so we don't retry it forever
     await new Promise(r => setTimeout(r, 120));
   }
   if (toFetch.length) console.log(`[diag] Sector cache: looked up ${toFetch.length} new ticker(s), ${unknown.length - toFetch.length} more still unknown (next run), ${tickers.length - unknown.length} already cached`);
+  return cache;
+}
+
+// Short interest / short ratio ("days to cover") have no free API we could
+// find — not from FMP, and the one official free FINRA download turned out
+// to be OTC-only, which doesn't cover the NYSE/Nasdaq-listed names Stocks In
+// Play actually surfaces. This scrapes Finviz's public stock-quote page
+// instead, which is a real tradeoff worth stating plainly: it likely
+// violates Finviz's terms of service, and it WILL break silently if Finviz
+// changes their page layout, since there's no stable API contract behind
+// it — chosen deliberately anyway, after weighing the alternatives.
+// Cached for 12 days (short interest itself only updates ~2x/month per
+// FINRA's reporting cycle, so daily re-scraping would be pointless), and
+// capped at a small number of new lookups per run to avoid hammering
+// Finviz's servers.
+async function loadFinvizCache(cachePath) {
+  try {
+    const raw = await readFile(cachePath, "utf8");
+    return JSON.parse(raw);
+  } catch (e) {
+    return {};
+  }
+}
+function parseFinvizNumber(raw) {
+  if (!raw) return null;
+  const m = raw.match(/^([\d.,]+)([BMK]?)$/i);
+  if (!m) return null;
+  let n = parseFloat(m[1].replace(/,/g, ""));
+  const suffix = m[2].toUpperCase();
+  if (suffix === "B") n *= 1e9;
+  else if (suffix === "M") n *= 1e6;
+  else if (suffix === "K") n *= 1e3;
+  return n;
+}
+async function fetchFinvizShortInterest(ticker) {
+  try {
+    const res = await fetch(`https://finviz.com/quote.ashx?t=${ticker}`, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; personal-use trading terminal)" }
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    // Strip tags rather than depend on exact markup — the human-readable
+    // labels ("Short Float", "Short Ratio") are far more stable across a
+    // Finviz redesign than any specific table/class structure would be.
+    const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+    const shortFloatMatch = text.match(/Short Float\s+([\d.,]+%)/i);
+    const shortRatioMatch = text.match(/Short Ratio\s+([\d.,]+)/i);
+    const floatMatch = text.match(/Shs Float\s+([\d.,]+[BMK]?)/i);
+    if (!shortFloatMatch && !shortRatioMatch && !floatMatch) return null;
+    return {
+      shortInterestPct: shortFloatMatch ? shortFloatMatch[1] : null,
+      daysToCover: shortRatioMatch ? parseFloat(shortRatioMatch[1]) : null,
+      finvizFloat: floatMatch ? parseFinvizNumber(floatMatch[1]) : null
+    };
+  } catch (e) {
+    return null;
+  }
+}
+async function updateFinvizCache(tickers, cache, maxNewLookups) {
+  const STALE_MS = 12 * 24 * 60 * 60 * 1000; // 12 days — matches FINRA's ~2x/month cadence
+  const now = Date.now();
+  const needsFetch = tickers.filter(t => !cache[t] || (now - new Date(cache[t].fetchedAt || 0).getTime()) > STALE_MS);
+  const toFetch = needsFetch.slice(0, maxNewLookups);
+  for (const ticker of toFetch) {
+    const result = await fetchFinvizShortInterest(ticker);
+    cache[ticker] = { ...(result || {}), fetchedAt: new Date().toISOString() };
+    await new Promise(r => setTimeout(r, 500)); // slower than FMP calls — being deliberately gentler with a scrape than a licensed API
+  }
+  if (toFetch.length) console.log(`[diag] Finviz short-interest cache: scraped ${toFetch.length} ticker(s) (${needsFetch.length - toFetch.length} more due, next run) — best-effort, no guaranteed uptime`);
   return cache;
 }
 
@@ -618,6 +705,21 @@ async function main() {
     c.sector = s?.sector || null;
     c.industry = s?.industry || null;
   });
+
+  // Short interest / days-to-cover / a second float reading, scraped from
+  // Finviz (see updateFinvizCache above for why, and the honest caveats).
+  // Scoped to the Stocks In Play candidate pool specifically — the movers
+  // that would actually show up on that tab — rather than every screener
+  // candidate, since this is a slower, heavier-weight, higher-risk lookup
+  // than the FMP calls above and there's no reason to spend it on names
+  // that wouldn't be shown there anyway.
+  const finvizCachePath = path.join(process.cwd(), "data", "finviz-cache.json");
+  let finvizCache = await loadFinvizCache(finvizCachePath);
+  const sipTickers = screener.candidates
+    .filter(c => c.price > 0.99 && (c.volume || 0) >= 50000 && Math.abs(c.changePct || 0) > 3)
+    .map(c => c.ticker);
+  finvizCache = await updateFinvizCache(sipTickers, finvizCache, 15);
+  await writeFile(finvizCachePath, JSON.stringify(finvizCache, null, 2));
 
   // 20%-study history — the full daily ticker list (not just the up20/down20
   // counts already in breadthHistory above), enriched with sector/industry/
