@@ -952,8 +952,8 @@
     "up": [
       {
         "ticker": "JAGX",
-        "price": 33.2658,
-        "changePct": 1145.91,
+        "price": 34.46,
+        "changePct": 1190.64,
         "sector": "Healthcare",
         "industry": "Biotechnology",
         "mktCap": 14441682
@@ -984,8 +984,8 @@
       },
       {
         "ticker": "BFLY",
-        "price": 9.9395,
-        "changePct": 22.11,
+        "price": 9.93,
+        "changePct": 21.99,
         "sector": "Healthcare",
         "industry": "Medical - Devices",
         "mktCap": 2646741616
@@ -1010,8 +1010,8 @@
       },
       {
         "ticker": "AIFU",
-        "price": 8.37,
-        "changePct": -23.7,
+        "price": 8.55,
+        "changePct": -22.06,
         "sector": "Financial Services",
         "industry": "Insurance - Brokers",
         "mktCap": 49598159

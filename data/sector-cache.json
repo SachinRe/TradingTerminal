@@ -963,5 +963,85 @@
     "sector": "Healthcare",
     "industry": "Biotechnology",
     "mktCap": 2229703828
+  },
+  "FDRX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 555581
+  },
+  "GSHD": {
+    "sector": "Financial Services",
+    "industry": "Insurance - Brokers",
+    "mktCap": 1710334134
+  },
+  "QNST": {
+    "sector": "Communication Services",
+    "industry": "Advertising Agencies",
+    "mktCap": 877765254
+  },
+  "GDXD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 92044264
+  },
+  "CORO": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 8102550790
+  },
+  "IUSB": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Bonds",
+    "mktCap": 42361949070
+  },
+  "ACWX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Global",
+    "mktCap": 11928452167
+  },
+  "XLF": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 55718672461
+  },
+  "MBB": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Bonds",
+    "mktCap": 39032320182
+  },
+  "IEMG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Global",
+    "mktCap": 171679361404
+  },
+  "RIG": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Drilling",
+    "mktCap": 5580309353
+  },
+  "RKT": {
+    "sector": "Financial Services",
+    "industry": "Financial - Mortgages",
+    "mktCap": 35977940704
+  },
+  "HL": {
+    "sector": "Basic Materials",
+    "industry": "Other Precious Metals",
+    "mktCap": 12763649360
+  },
+  "QID": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 196897053
+  },
+  "UNG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 454402860
+  },
+  "BAC": {
+    "sector": "Financial Services",
+    "industry": "Banks - Diversified",
+    "mktCap": 398828358000
   }
 }
