@@ -838,5 +838,30 @@
     "sector": "Healthcare",
     "industry": "Drug Manufacturers - General",
     "mktCap": 176825035089
+  },
+  "SMCI": {
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "mktCap": 26651167600
+  },
+  "PATH": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 7228678263
+  },
+  "QQQ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 528323571877
+  },
+  "PCG": {
+    "sector": "Utilities",
+    "industry": "Regulated Electric",
+    "mktCap": 34680629818
+  },
+  "HYG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Bonds",
+    "mktCap": 16987899825
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T12:02:35.753Z",
+  "generatedAt": "2026-09-22T12:46:32.762Z",
   "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
@@ -157,17 +157,24 @@
       "tickers": []
     },
     {
+      "title": "AI Stock Rally Loses Steam, Oil Prices Fall Below $100",
+      "description": "Nasdaq futures were flat after a global rally in AI-linked stocks stalled, and oil prices reversed course to fall on rising hopes for a diplomatic settlement to reopen Hormuz.",
+      "link": "https://www.wsj.com/finance/stocks/ai-stock-rally-loses-steam-oil-prices-turn-negative-e19323a8?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 12:36:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Auto & Transport Roundup: Market Talk",
+      "description": "Find insight on Volvo Car, Uber Technologies, Kuehne + Nagel and more in the latest Market Talks covering Auto and Transport.",
+      "link": "https://www.wsj.com/business/auto-transport-roundup-market-talk-83121414?mod=rss_markets_main",
+      "pubDate": "Tue, 22 Sep 2026 12:01:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "European Utilities to Gain From Higher Natural Gas Prices",
       "description": "A basket of European utilities stocks rose and Bank of America said European utilities’ earnings will benefit from higher-for-longer natural gas prices on the continent.",
       "link": "https://www.wsj.com/finance/stocks/nikkei-could-rally-on-modest-catalysts-as-shorts-pile-up-39640022?mod=rss_markets_main",
       "pubDate": "Tue, 22 Sep 2026 11:06:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "AI Stock Rally Loses Steam, Oil Prices Turn Negative",
-      "description": "Nasdaq futures were flat after a global rally in AI-linked stocks stalled in European trade, and oil prices reversed course to fall on rising hopes for a diplomatic settlement to reopen Hormuz.",
-      "link": "https://www.wsj.com/finance/stocks/ai-stock-rally-loses-steam-oil-prices-turn-negative-e19323a8?mod=rss_markets_main",
-      "pubDate": "Tue, 22 Sep 2026 09:48:00 GMT",
       "tickers": []
     },
     {
@@ -182,13 +189,6 @@
       "description": "Oil prices rose on fading optimism about talks between the U.S. and Iran at this week’s United Nations meeting, while Asian equities inched higher as artificial-intelligence sentiment strengthened.",
       "link": "https://www.wsj.com/finance/stocks/oil-prices-gain-as-hopes-fade-for-u-s-iran-talks-42bc5a49?mod=rss_markets_main",
       "pubDate": "Tue, 22 Sep 2026 06:37:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Health Care Roundup: Market Talk",
-      "description": "Find insight on Lundbeck, HaItian International, Telix Pharmaceuticals and more in the latest Market Talks covering Health Care.",
-      "link": "https://www.wsj.com/business/health-care-roundup-market-talk-b994d3f6?mod=rss_markets_main",
-      "pubDate": "Mon, 21 Sep 2026 20:56:00 GMT",
       "tickers": []
     },
     {
@@ -291,8 +291,8 @@
       {
         "ticker": "NVDA",
         "name": "NVIDIA Corporation",
-        "price": 227.3,
-        "changePct": 2.368942532876968,
+        "price": 226.24,
+        "changePct": 1.8915510718789486,
         "volume": 3200199,
         "avgVolume": 3273244.846153846,
         "rvol": 0.9776839651211314,
@@ -300,8 +300,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/NVDA",
-        "catalystHeadline": "US Daily Equity Opening News - Texas halts data centre permits; NVDA ups SB Energy stake; SSNLF considers expanding 4nm foundry capacity; MSFT Xbox plans more job cuts; CMS plans Medicare lab payment reform; DELL insider selling; CRM, GME insider buying",
-        "catalystUrl": "https://www.newsquawk.com/headlines/us-daily-equity-opening-news---texas-halts-data-centre-permits-nvda-ups-sb-energy-stake-ssnlf-considers-expanding-4nm-foundry-capacity-msft-xbox-plans-more-job-cuts-cms-plans-medicare-lab-payment-reform-dell-insider-selling-crm-gme-insider-buying",
+        "catalystHeadline": "Nvidia (NVDA) Stock Jumps as Jensen Huang Takes On the AI Regulation Camp",
+        "catalystUrl": "https://cryptocurrency.com.tr/nvidia-nvda-stock-jumps-as-jensen-huang-takes-on-the-ai-regulation-camp-386368",
         "sector": "Technology",
         "industry": "Semiconductors"
       },
@@ -342,8 +342,8 @@
       {
         "ticker": "CRML",
         "name": "Critical Metals Corp.",
-        "price": 9.315,
-        "changePct": 38.2047477744807,
+        "price": 9.01,
+        "changePct": 33.67952522255192,
         "volume": 1298285,
         "avgVolume": 393966.6153846154,
         "rvol": 3.2954188230709125,
@@ -351,8 +351,8 @@
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/CRML",
-        "catalystHeadline": "Nasdaq Ends Nearly 3% Higher As AI Stocks Pop, AMD Enters $1 Trillion Club — AMD, ARM, META, AMZN, PSKY In Focus",
-        "catalystUrl": "https://newsable.asianetnews.com/markets/nasdaq-ends-nearly-3-higher-as-ai-stocks-pop-amd-enters-1-trillion-club-amd-arm-meta-amzn-psky-in-focus-articleshow-qt1skv3",
+        "catalystHeadline": "REE, Critical Metals Demand Surging as Western Nations Race to Secure Alternatives",
+        "catalystUrl": "https://financialpost.com/globe-newswire/ree-critical-metals-demand-surging-as-western-nations-race-to-secure-alternatives",
         "sector": "Basic Materials",
         "industry": "Industrial Materials"
       },
@@ -368,16 +368,16 @@
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/GRML",
-        "catalystHeadline": "GRML Stock Explodes On Greenland Security Deal And Rare Earths Hype",
-        "catalystUrl": "https://stockstotrade.com/news/greenland-mines-ltd-grml-news-2026_09_22/",
+        "catalystHeadline": "REE, Critical Metals Demand Surging as Western Nations Race to Secure Alternatives",
+        "catalystUrl": "https://financialpost.com/globe-newswire/ree-critical-metals-demand-surging-as-western-nations-race-to-secure-alternatives",
         "sector": "Basic Materials",
         "industry": "Other Precious Metals"
       },
       {
         "ticker": "AMD",
         "name": "Advanced Micro Devices, Inc.",
-        "price": 615.535,
-        "changePct": 9.978827376113355,
+        "price": 606.12,
+        "changePct": 8.296631140730957,
         "volume": 1152911,
         "avgVolume": 528369.1153846154,
         "rvol": 2.182018150627071,
@@ -393,8 +393,8 @@
       {
         "ticker": "AMZN",
         "name": "AMZN",
-        "price": 258.405,
-        "changePct": 1.8545526212061427,
+        "price": 259,
+        "changePct": 2.089081592432011,
         "volume": 1152149,
         "avgVolume": 1178345.5384615385,
         "rvol": 0.9777683730226187,
@@ -410,8 +410,8 @@
       {
         "ticker": "AAPL",
         "name": "AAPL",
-        "price": 339,
-        "changePct": 0.9739969618443337,
+        "price": 340.37,
+        "changePct": 1.382062967265358,
         "volume": 929958,
         "avgVolume": 1215131.6153846155,
         "rvol": 0.7653146278361362,
@@ -427,8 +427,8 @@
       {
         "ticker": "GOOGL",
         "name": "GOOGL",
-        "price": 355.35,
-        "changePct": 1.7524267674598415,
+        "price": 356.33,
+        "changePct": 2.033044125647844,
         "volume": 825627,
         "avgVolume": 722495.1153846154,
         "rvol": 1.142744057944922,
@@ -436,16 +436,16 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/GOOGL",
-        "catalystHeadline": "MediaTek Announces Dimensity CX C10 Max For Googlebooks",
-        "catalystUrl": "https://www.lowyat.net/2026/404964/mediatek-dimensity-cx-c10-max/",
+        "catalystHeadline": "Nasdaq, S&P 500 Futures Pause After Record AI-Driven Rally: AMD, META, BABA, GME, HOOD, GRAB, VKTX Stocks In Focus",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/nasdaq-s-p-500-futures-pause-after-record-ai-driven-rally-amd-meta-baba-gme-hood-grab-vktx-stocks-in-focus-articleshow-ycvbeve",
         "sector": "Communication Services",
         "industry": "Internet Content & Information"
       },
       {
         "ticker": "TSLA",
         "name": "TSLA",
-        "price": 375.18,
-        "changePct": 2.9865495470765837,
+        "price": 377.7,
+        "changePct": 3.6782871259950527,
         "volume": 798726,
         "avgVolume": 767776.0384615385,
         "rvol": 1.0403111844965607,
@@ -453,8 +453,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/TSLA",
-        "catalystHeadline": "Tesla (TSLA) Stock Climbs After Fitch Rating, With October Catalysts Still Ahead",
-        "catalystUrl": "https://cryptocurrency.com.tr/tesla-tsla-stock-climbs-after-fitch-rating-with-october-catalysts-still-ahead-386367",
+        "catalystHeadline": "X Now Lets Users Trade Crypto and Stocks From the Timeline: Here’s How",
+        "catalystUrl": "https://bitcoinethereumnews.com/crypto/x-now-lets-users-trade-crypto-and-stocks-from-the-timeline-heres-how/?utm_source=rss&utm_medium=rss&utm_campaign=x-now-lets-users-trade-crypto-and-stocks-from-the-timeline-heres-how",
         "sector": "Consumer Cyclical",
         "industry": "Auto - Manufacturers"
       },
@@ -504,8 +504,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/ORCL",
-        "catalystHeadline": "Momentum Weakens, ORCL Stock Gains 0.64%: Explained",
-        "catalystUrl": "https://journalarta.com/en/2026/09/22/momentum-weakens-orcl-stock-gains-0-64-today/",
+        "catalystHeadline": "Nasdaq, S&P 500 Futures Pause After Record AI-Driven Rally: AMD, META, BABA, GME, HOOD, GRAB, VKTX Stocks In Focus",
+        "catalystUrl": "https://newsable.asianetnews.com/markets/nasdaq-s-p-500-futures-pause-after-record-ai-driven-rally-amd-meta-baba-gme-hood-grab-vktx-stocks-in-focus-articleshow-ycvbeve",
         "sector": "Technology",
         "industry": "Software - Infrastructure"
       },
@@ -546,8 +546,8 @@
       {
         "ticker": "GOOG",
         "name": "GOOG",
-        "price": 350.81,
-        "changePct": 1.878956844978808,
+        "price": 352.1,
+        "changePct": 2.2535865714119905,
         "volume": 569006,
         "avgVolume": 561646.4615384615,
         "rvol": 1.0131035072158725,
@@ -580,8 +580,8 @@
       {
         "ticker": "AVGO",
         "name": "AVGO",
-        "price": 362.59,
-        "changePct": 1.3557332140660718,
+        "price": 362,
+        "changePct": 1.1908089674064937,
         "volume": 535715,
         "avgVolume": 816091.8461538461,
         "rvol": 0.656439593808917,
@@ -623,8 +623,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/BA",
-        "catalystHeadline": "Red Sox should want to face Yankees’ Aaron Judge in postseason",
-        "catalystUrl": "https://www.overthemonster.com/red-sox-analysis/109178/red-sox-should-want-to-face-yankees-aaron-judge-in-postseason",
+        "catalystHeadline": "“For Years to Come”: 21-Year-Old Called Yankees’ Future Star in a Bold Prediction by Ex-MLB Pro",
+        "catalystUrl": "https://www.essentiallysports.com/mlb-baseball-news-for-years-to-come-twenty-one-year-old-called-yankees-future-star-in-a-bold-prediction-by-ex-mlb-pro/",
         "sector": "Industrials",
         "industry": "Aerospace & Defense"
       },
@@ -682,8 +682,8 @@
       {
         "ticker": "V",
         "name": "V",
-        "price": 369.895,
-        "changePct": 0.6161085874384534,
+        "price": 370.73,
+        "changePct": 0.8432391262954663,
         "volume": 187576,
         "avgVolume": 215784.03846153847,
         "rvol": 0.8692765291508515,
@@ -691,8 +691,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/V",
-        "catalystHeadline": "Midland and SOQUEM Discover New Copper, Gold and Silver Boulders and Showings on Nachicapau",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/midland-and-soquem-discover-new-copper-gold-and-silver-boulders-and-showings-on-nachicapau/2430223",
+        "catalystHeadline": "French Army Technical Section (STAT) Awards Novacium a Contract to Supply High-Capacity Prototype Batteries for Tactical Radios",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/french-army-technical-section-stat-awards-novacium-a-contract-to-supply-high-capacity-prototype-batteries-for-tactical-radios/2430281",
         "sector": "Financial Services",
         "industry": "Financial - Credit Services"
       },
@@ -725,8 +725,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/JNJ",
-        "catalystHeadline": "JNJ Sep 21: CAPLYTA® (lumateperone) shows significant and…",
-        "catalystUrl": "https://newsquantified.com/tickers/jnj/news/caplyta-lumateperone-shows-significant-rapid-improvement-2026-09-21",
+        "catalystHeadline": "JNJ Sep 22: DePuy Synthes Showcases Next-Generation Trauma…",
+        "catalystUrl": "https://newsquantified.com/tickers/jnj/news/depuy-synthes-showcases-next-generation-trauma-innovations-2026-09-22",
         "sector": "Healthcare",
         "industry": "Drug Manufacturers - General"
       },
@@ -784,8 +784,8 @@
       {
         "ticker": "VEEE",
         "name": "Twin Vee Powercats Co.",
-        "price": 15.66,
-        "changePct": 76.15298087739032,
+        "price": 17.17,
+        "changePct": 93.13835770528685,
         "volume": 97929,
         "avgVolume": 3845.4615384615386,
         "rvol": 25.466123902302414,
@@ -810,8 +810,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/COST",
-        "catalystHeadline": "Australians are at risk of being ‘priced out’ of parenthood, expert warns",
-        "catalystUrl": "https://www.brisbanetimes.com.au/national/australians-are-at-risk-of-being-priced-out-of-parenthood-expert-warns-20260922-p60z9c.html",
+        "catalystHeadline": "Algorhythm’s CEO Andrew Thompson Issues Shareholder Update Outlining Strategic Vision",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/algorhythms-ceo-andrew-thompson-issues-shareholder-update-outlining-strategic-vision/2430296",
         "sector": "Consumer Defensive",
         "industry": "Discount Stores"
       },
@@ -997,8 +997,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/SUIS",
-        "catalystHeadline": "Après avoir fui les talibans, Fariba Hashimi décroche l'argent aux Jeux asiatiques",
-        "catalystUrl": "https://www.upday.com/fr/international/apres-avoir-fui-les-talibans-fariba-hashimi-decroche-largent-aux-jeux-asiatiques/d247dg4",
+        "catalystHeadline": "Mini amusement salle de jeu : roman , ! idees à l’égard de maximaliser totaux des possibiltes",
+        "catalystUrl": "https://justafive.com/mini-amusement-salle-de-jeu-roman-idees-a-legard-de-maximaliser-totaux-des-possibiltes/?utm_source=rss&utm_medium=rss&utm_campaign=mini-amusement-salle-de-jeu-roman-idees-a-legard-de-maximaliser-totaux-des-possibiltes",
         "sector": "Financial Services",
         "industry": "Asset Management - Cryptocurrency"
       },
@@ -1218,8 +1218,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/CUE",
-        "catalystHeadline": "Bollywood Filmmaker Sanjay Gupta Just Found Your Next Obsession And It Is A Gritty Masterpiece",
-        "catalystUrl": "https://www.socialnews.xyz/2026/09/22/bollywood-filmmaker-sanjay-gupta-just-found-your-next-obsession-and-it-is-a-gritty-masterpiece/?utm_source=rss&utm_medium=rss&utm_campaign=bollywood-filmmaker-sanjay-gupta-just-found-your-next-obsession-and-it-is-a-gritty-masterpiece",
+        "catalystHeadline": "Silver Rate in Pakistan Dips to Rs. 7,038, Slipping Below Rs. 7,100",
+        "catalystUrl": "https://timesofkarachi.pk/98964-silver-rate-pakistan-falls-rs62-per-tola/",
         "sector": "Healthcare",
         "industry": "Biotechnology"
       },
@@ -1439,8 +1439,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/WBD",
-        "catalystHeadline": "Women Board of Directors and PwC Middle East to host ‘Reaffirmation’ — bringing together accomplished Emirati women leaders",
-        "catalystUrl": "https://mid-east.info/women-board-of-directors-and-pwc-middle-east-to-host-reaffirmation-bringing-together-accomplished-emirati-women-leaders/",
+        "catalystHeadline": "Warner Bros. Discovery (WBD) Jumps 11% as Paramount (PSKY) Sinks 3% Following Merger Settlement",
+        "catalystUrl": "https://bitcoinethereumnews.com/tech/warner-bros-discovery-wbd-jumps-11-as-paramount-psky-sinks-3-following-merger-settlement/?utm_source=rss&utm_medium=rss&utm_campaign=warner-bros-discovery-wbd-jumps-11-as-paramount-psky-sinks-3-following-merger-settlement",
         "sector": "Communication Services",
         "industry": "Entertainment"
       },
@@ -1507,8 +1507,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/SPCX",
-        "catalystHeadline": "Jupiter Exchange launches perps markets for SPCX, HYPE, and ZEC on Solana",
-        "catalystUrl": "https://cryptocurrency.com.tr/jupiter-exchange-launches-perps-markets-for-spcx-hype-and-zec-on-solana-386292",
+        "catalystHeadline": "SpaceX (SPCX) Stock: Morgan Stanley Says Power Scaling Is Its Biggest AI Edge",
+        "catalystUrl": "https://cryptocurrency.com.tr/spacex-spcx-stock-morgan-stanley-says-power-scaling-is-its-biggest-ai-edge-386371",
         "sector": "Industrials",
         "industry": "Aerospace & Defense"
       },
@@ -1575,8 +1575,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/PSKY",
-        "catalystHeadline": "Paramount (PSKY) Stock Drops 3% While Warner Bros. (WBD) Soars 11% on Merger News",
-        "catalystUrl": "https://cryptocurrency.com.tr/paramount-psky-stock-drops-3-while-warner-bros-wbd-soars-11-on-merger-news-386297",
+        "catalystHeadline": "Warner Bros. Discovery (WBD) Jumps 11% as Paramount (PSKY) Sinks 3% Following Merger Settlement",
+        "catalystUrl": "https://bitcoinethereumnews.com/tech/warner-bros-discovery-wbd-jumps-11-as-paramount-psky-sinks-3-following-merger-settlement/?utm_source=rss&utm_medium=rss&utm_campaign=warner-bros-discovery-wbd-jumps-11-as-paramount-psky-sinks-3-following-merger-settlement",
         "sector": "Communication Services",
         "industry": "Entertainment"
       },
@@ -1677,8 +1677,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/AUR",
-        "catalystHeadline": "जेल सुधार, जेल अधिनियम और नियमावली | राजस्थान GK मॉक टेस्ट – 25 MCQ",
-        "catalystUrl": "https://studyhub.net.in/quiz/jel-sudhar-jel-adhiniym-aur-niymavli-free-mock-test/",
+        "catalystHeadline": "Are Sidharth Malhotra-Kiara Advani Expecting Their Second Child? Salman Khan’s ‘Another One Soon’ Remark Sparks Buzz",
+        "catalystUrl": "https://odishabytes.com/are-sidharth-malhotra-kiara-advani-expecting-their-second-child-salman-khans-another-one-soon-remark-sparks-buzz/",
         "sector": "Technology",
         "industry": "Software - Application"
       },
@@ -1779,8 +1779,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/F",
-        "catalystHeadline": "DALI Alliance Announces DALI 27 Inaugural Global Summit + Expo",
-        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/dali-alliance-announces-dali-27-inaugural-global-summit-expo/2430228",
+        "catalystHeadline": "U.S. Ice Cream Makers Join Rollins, Kennedy to Highlight Industry-Wide Action on Artificial Colors",
+        "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/us-ice-cream-makers-join-rollins-kennedy-to-highlight-industry-wide-action-on-artificial-colors/2430266",
         "sector": "Consumer Cyclical",
         "industry": "Auto - Manufacturers"
       },
@@ -1798,8 +1798,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/SMCI",
         "catalystHeadline": "SMCI gains as buyers show control",
         "catalystUrl": "https://tradersunion.com/news/stocks/show/3419787-supermicro-gains-4-76percent-today-to/",
-        "sector": null,
-        "industry": null
+        "sector": "Technology",
+        "industry": "Computer Hardware"
       },
       {
         "ticker": "NU",
@@ -1813,8 +1813,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/NU",
-        "catalystHeadline": "Gostivar, 60-vjeçari gjendet pa jetë në stadiumin e Ravenit, polici plagoset rëndë gjatë këqyrjes",
-        "catalystUrl": "https://albeu.com/maqedoni/gostivar-60-vjecari-gjendet-pa-jete-ne-stadiumin-e-ravenit-polici-plagoset-rende-gjate-keqyrjes/1022635/",
+        "catalystHeadline": "Gostivar: 60-year-old found dead at Raven stadium, police officer seriously injured during investigation",
+        "catalystUrl": "https://albeu.com/english/gostivar-60-year-old-found-dead-at-raven-stadium-police-officer-seriously-injured-during-investigation/1022672/",
         "sector": "Financial Services",
         "industry": "Banks - Regional"
       },
@@ -1832,8 +1832,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/PATH",
         "catalystHeadline": "HighLife Raises $90+ Million to start its US Pivotal Study and accelerate Commercial Expansion in Europe",
         "catalystUrl": "https://www.manilatimes.net/2026/09/22/tmt-newswire/globenewswire/highlife-raises-90-million-to-start-its-us-pivotal-study-and-accelerate-commercial-expansion-in-europe/2429989",
-        "sector": null,
-        "industry": null
+        "sector": "Technology",
+        "industry": "Software - Infrastructure"
       },
       {
         "ticker": "QQQ",
@@ -1849,8 +1849,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/QQQ",
         "catalystHeadline": "Why is QQQ rising? AI stocks rally as Treasury yields fall below 5%",
         "catalystUrl": "https://www.hindustantimes.com/business/why-is-qqq-rising-ai-stocks-rally-as-treasury-yields-fall-below-5-101790076467209.html",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management"
       },
       {
         "ticker": "PCG",
@@ -1866,8 +1866,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/PCG",
         "catalystHeadline": "Repairs on damaged BFAR vessel in collision with Chinese ship estimated at P1.4M",
         "catalystUrl": "https://www.manilatimes.net/2026/09/22/news/repairs-on-damaged-bfar-vessel-in-collision-with-chinese-ship-estimated-at-p14m/2430006",
-        "sector": null,
-        "industry": null
+        "sector": "Utilities",
+        "industry": "Regulated Electric"
       },
       {
         "ticker": "HYG",
@@ -1883,8 +1883,8 @@
         "sourceUrl": "https://financialmodelingprep.com/quote/HYG",
         "catalystHeadline": "HYG vs JNK: The Two Biggest Junk Bond ETFs Look Identical, but the Cheaper One Pays More",
         "catalystUrl": "https://finance.yahoo.com/markets/options/articles/hyg-vs-jnk-two-biggest-221524983.html",
-        "sector": null,
-        "industry": null
+        "sector": "Financial Services",
+        "industry": "Asset Management - Bonds"
       }
     ],
     "rawMoveCounts": {
@@ -2051,57 +2051,57 @@
     {
       "ticker": "VKTX",
       "name": "Viking Therapeutics Inc",
-      "price": 40,
+      "price": 38.58,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
       "sourceUrl": "https://stocktwits.com/symbol/VKTX",
-      "catalystHeadline": "Shay Boloor: VKTX rises 42 percent as VK2735 shows strong weight loss results",
-      "catalystUrl": "https://tradersunion.com/news/market-voices/show/3428338-vktx-weight-loss-gains/"
+      "catalystHeadline": "Viking Therapeutics lifts Vktx Stock 22% in study",
+      "catalystUrl": "https://www.el-balad.com/17053048"
+    },
+    {
+      "ticker": "BB",
+      "name": "BlackBerry Ltd",
+      "price": 9.12,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/BB",
+      "catalystHeadline": "BB governor urges India to boost imports from Bangladesh",
+      "catalystUrl": "https://www.thedailystar.net/business/news/bb-governor-urges-india-boost-imports-bangladesh-4279916"
+    },
+    {
+      "ticker": "SOFI",
+      "name": "SoFi Technologies Inc",
+      "price": 18.01,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/SOFI",
+      "catalystHeadline": "What did Aaron Donald do in his first game back?",
+      "catalystUrl": "https://thearchv.ca/nfl/questions/2026-09-22/"
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc",
+      "price": 340.52,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/AAPL",
+      "catalystHeadline": "Apple Stock Analysis: Bullish Momentum Nears 52-Week High",
+      "catalystUrl": "https://bitcoinethereumnews.com/tech/apple-stock-analysis-bullish-momentum-nears-52-week-high/?utm_source=rss&utm_medium=rss&utm_campaign=apple-stock-analysis-bullish-momentum-nears-52-week-high"
     },
     {
       "ticker": "GME",
       "name": "GameStop Corp",
-      "price": 23.82,
+      "price": 23.61,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
       "sourceUrl": "https://stocktwits.com/symbol/GME",
       "catalystHeadline": "GameStop CEO Ryan Cohen buys $26.4 million of GME stock",
       "catalystUrl": "https://soz6.com/news/gamestop-ceo-ryan-cohen-buys-26-4-million-of-gme-stock"
-    },
-    {
-      "ticker": "BB",
-      "name": "BlackBerry Ltd",
-      "price": 9.01,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/BB",
-      "catalystHeadline": "Bigg Boss 20 Honest REVIEW: Aman Gandhi's Entertaining Side &amp; Natural Humour Are Highlights Of BB 20",
-      "catalystUrl": "https://www.filmibeat.com/television/news/2026/bigg-boss-20-honest-review-aman-gandhi-entertaining-side-natural-humour-are-highlights-of-bb-20-532055.html"
-    },
-    {
-      "ticker": "AMD",
-      "name": "Advanced Micro Devices Inc",
-      "price": 605.02,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/AMD",
-      "catalystHeadline": "AMD Open-Source Linux Driver Update Adds GDDR7 Memory Support",
-      "catalystUrl": "https://www.a90skid.com/amd-open-source-linux-driver-update-adds-gddr7-memory-support/"
-    },
-    {
-      "ticker": "MAAS",
-      "name": "Highest Performances Holdings Inc. - ADR",
-      "price": 15.86,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/MAAS",
-      "catalystHeadline": "From Dal Baati Chaat to Laal Maas Seekh: How One8 Commune Is Speaking Jaipur’s Culinary Language",
-      "catalystUrl": "https://hospibuz.com/home-interviews/restaurants-opinion/from-dal-baati-chaat-to-laal-maas-seekh-how-one8-commune-is-speaking-jaipurs-culinary-language-12552738"
     }
   ],
   "breadthHistory": [
