@@ -143,9 +143,14 @@ async function fetchFinvizShortInterest(ticker) {
   }
 }
 async function updateFinvizCache(tickers, cache, maxNewLookups) {
-  const STALE_MS = 12 * 24 * 60 * 60 * 1000; // 12 days — matches FINRA's ~2x/month cadence
+  const STALE_MS = 12 * 24 * 60 * 60 * 1000; // 12 days — matches FINRA's ~2x/month cadence, applies only to genuine successes
+  const RETRY_MS = 60 * 60 * 1000; // 1 hour — a failed/blocked attempt retries next run, not 12 days later
   const now = Date.now();
-  const needsFetch = tickers.filter(t => !cache[t] || (now - new Date(cache[t].fetchedAt || 0).getTime()) > STALE_MS);
+  const needsFetch = tickers.filter(t => {
+    if (!cache[t]) return true;
+    const age = now - new Date(cache[t].fetchedAt || 0).getTime();
+    return cache[t].success ? age > STALE_MS : age > RETRY_MS;
+  });
   const toFetch = needsFetch.slice(0, maxNewLookups);
   let succeeded = 0;
   const failureSamples = [];
@@ -153,15 +158,18 @@ async function updateFinvizCache(tickers, cache, maxNewLookups) {
     const { data, diag } = await fetchFinvizShortInterest(ticker);
     if (data) succeeded++;
     else if (failureSamples.length < 3) failureSamples.push(`${ticker}: ${diag}`);
-    cache[ticker] = { ...(data || {}), fetchedAt: new Date().toISOString() };
+    cache[ticker] = { ...(data || {}), success: !!data, fetchedAt: new Date().toISOString() };
     await new Promise(r => setTimeout(r, 500)); // slower than FMP calls — being deliberately gentler with a scrape than a licensed API
   }
   if (toFetch.length) {
     console.log(`[diag] Finviz short-interest cache: attempted ${toFetch.length}, ${succeeded} succeeded, ${toFetch.length - succeeded} failed (${needsFetch.length - toFetch.length} more due, next run) — best-effort, no guaranteed uptime`);
     if (failureSamples.length) console.log(`[diag] Finviz failure sample(s): ${failureSamples.join(" | ")}`);
+  } else {
+    console.log(`[diag] Finviz short-interest cache: nothing due this run (${tickers.length} candidate(s) checked, all fresh or already failed-and-waiting-to-retry)`);
   }
   return cache;
 }
+
 
 
 const TARGET_SLOTS = [
