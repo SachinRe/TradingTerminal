@@ -1644,7 +1644,7 @@
           <div style="height:2px;background:#ea580c;width:100%;max-width:640px;margin:10px 0 16px;"></div>
           <div style="font-size:30px;font-weight:700;color:#e5e7eb;line-height:1.5;">A repeatable operating system that manufactures consistency and turns raw setups into A+ execution.</div>
 
-          <svg viewBox="0 0 900 400" style="width:100%;max-width:820px;display:block;margin:20px 0 0 0;" role="img">
+          <svg viewBox="0 0 900 400" style="width:100%;max-width:1200px;display:block;margin:20px 0 0 0;" role="img">
             <title>The Trade Factory production line: named setups flow in on the left, get filtered at the Setup station, and survivors split into two paths — Home Run setups head to the Home Run output, Single setups head to the Singles output.</title>
             <style>
               @keyframes tfSmoke { 0% { transform: translateY(0) scale(1); opacity: 0.55; } 100% { transform: translateY(-32px) scale(1.6); opacity: 0; } }
@@ -1841,8 +1841,7 @@
             <text x="450" y="215" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">Home Run setups (gold) and Single setups (blue) run the same process, then split —</text>
             <text x="450" y="232" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">each only ever reaches its own output.</text>
           </svg>
-          <div class="note" style="max-width:820px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. The detailed product line — every setup, its scan, watchlist count, and live performance — is below.</div>
-          <div class="note" style="max-width:820px;margin:12px auto 0;background:transparent;border:none;padding:0;">The detailed product line — every setup, its scan, watchlist count, and live performance — is below.</div>
+          <div class="note" style="max-width:1200px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. The detailed product line — every setup, its scan, watchlist count, and live performance — is below.</div>
         </div>
       </div>
       <div class="panel">
@@ -8484,12 +8483,15 @@ Question: ${question}`;
       const monthRows = monthKeys.map(m => {
         const md = months[m];
         const pnl = md.days.reduce((a, d) => a + d.dayPnl, 0);
-        // Defensive floor: a starting equity under $100 makes % meaningless
-        // (and, pre-fix, is exactly what produced a -26645% reading) — show
-        // it as unreliable rather than a technically-computed but absurd
-        // number. $100 is well below any real account's scale, so this
-        // never hides a genuine, if large, monthly swing.
-        const pct = Math.abs(md.startEquity) >= 100 ? (pnl / md.startEquity) * 100 : null;
+        // Guard requires startEquity to be a real, positive number — not
+        // just "far from zero". A negative starting equity is the actual
+        // bug the screenshot caught: dividing a genuine +$103,747 gain by
+        // a negative base produces a negative percentage, which is
+        // mathematically consistent but nonsensical to display. Math.abs()
+        // here was the mistake — it let large negative bases straight
+        // through since they're "far from zero" in magnitude even though
+        // the sign itself is what breaks the result.
+        const pct = md.startEquity >= 100 ? (pnl / md.startEquity) * 100 : null;
         const tradingDays = md.days.filter(d => d.dayPnl !== 0).length;
         return { month: m, pnl, pct, tradingDays };
       }).sort((a, b) => b.month.localeCompare(a.month)); // newest first
@@ -8711,21 +8713,22 @@ Question: ${question}`;
           <div style="font-size:15px;color:var(--muted);text-transform:uppercase;">${label}</div>
           <div style="font-size:27px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div>
         </div>`;
+      const money = (n) => (n < 0 ? "-$" : "$") + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const equity = points.length ? points[points.length - 1].equity : baselineCap + sum;
       const sqnTooltip = "SQN (System Quality Number) measures how consistent your $ P&L is, not just whether you're profitable — it's mean P&L divided by the standard deviation of P&L, scaled by √(number of trades). A high average with wildly inconsistent results scores lower than a smaller, steadier edge.\n\nScale: <1.6 Poor · 1.6–2.0 Below avg · 2.0–2.5 Average · 2.5–3.0 Good · 3.0–5.0 Excellent · 5.0–7.0 Superb · 7.0+ Holy grail.\n\nThis version uses raw $ P&L, not true R-multiples (that needs a consistent risk amount recorded per trade), so treat it as a directional read, not the textbook Van Tharp number.";
       el.innerHTML =
         metric("Trades", list.length) +
         metric("Win rate", winRate.toFixed(1) + "%", winRate >= 50 ? "pos" : "neg") +
         metric("Loss rate", lossRate.toFixed(1) + "%", "neg") +
-        metric("Expectancy $", expectancy.toFixed(2), expectancy >= 0 ? "pos" : "neg") +
-        metric("Avg win $", avgWin.toFixed(2), "pos") +
-        metric("Avg loss $", avgLoss.toFixed(2), "neg") +
-        metric("Avg trade $", avgTrade.toFixed(2), avgTrade >= 0 ? "pos" : "neg") +
-        metric("Net P&L $", sum.toFixed(2), sum >= 0 ? "pos" : "neg") +
+        metric("Expectancy $", money(expectancy), expectancy >= 0 ? "pos" : "neg") +
+        metric("Avg win $", money(avgWin), "pos") +
+        metric("Avg loss $", money(avgLoss), "neg") +
+        metric("Avg trade $", money(avgTrade), avgTrade >= 0 ? "pos" : "neg") +
+        metric("Net P&L $", money(sum), sum >= 0 ? "pos" : "neg") +
         metric("Profit factor", profitFactor === Infinity ? "∞" : profitFactor.toFixed(2), profitFactor >= 1 ? "pos" : "neg") +
-        metric("Max drawdown $", maxDd.toFixed(2), "neg") +
-        metric("Equity $", equity.toFixed(2), equity >= baselineCap ? "pos" : "neg") +
-        metric("Baseline $", baselineCap ? baselineCap.toLocaleString() : "Set in Positions", "") +
+        metric("Max drawdown $", money(maxDd), "neg") +
+        metric("Equity $", money(equity), equity >= baselineCap ? "pos" : "neg") +
+        metric("Baseline $", baselineCap ? money(baselineCap) : "Set in Positions", "") +
         metric("SQN ($ P&L)", sqn != null ? sqn.toFixed(2) + " · " + sqnLabel(sqn) : "Need 2+ trades", sqn != null ? (sqn >= 2 ? "pos" : "neg") : "", sqnTooltip) +
         metric("Avg hold days", avgHoldDays != null ? avgHoldDays.toFixed(1) + "d" : "No date data", "");
 
