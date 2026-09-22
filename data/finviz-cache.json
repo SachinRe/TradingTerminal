@@ -1,0 +1,62 @@
+{
+  "BFLY": {
+    "shortInterestPct": "15.76%",
+    "daysToCover": 4.74,
+    "finvizFloat": 216130000,
+    "fetchedAt": "2026-09-22T22:36:34.840Z"
+  },
+  "VKTX": {
+    "shortInterestPct": "19.65%",
+    "daysToCover": 9.63,
+    "finvizFloat": 112930000,
+    "fetchedAt": "2026-09-22T22:36:35.416Z"
+  },
+  "XNDU": {
+    "shortInterestPct": "30.77%",
+    "daysToCover": 3.23,
+    "finvizFloat": 16010000.000000002,
+    "fetchedAt": "2026-09-22T22:36:35.988Z"
+  },
+  "JPM": {
+    "shortInterestPct": "1.00%",
+    "daysToCover": 3.36,
+    "finvizFloat": 2650000000,
+    "fetchedAt": "2026-09-22T22:36:36.571Z"
+  },
+  "GRML": {
+    "shortInterestPct": "22.43%",
+    "daysToCover": 0.17,
+    "finvizFloat": 2870000,
+    "fetchedAt": "2026-09-22T22:36:37.150Z"
+  },
+  "MAZE": {
+    "shortInterestPct": "17.17%",
+    "daysToCover": 10.79,
+    "finvizFloat": 34460000,
+    "fetchedAt": "2026-09-22T22:36:37.725Z"
+  },
+  "ADBE": {
+    "shortInterestPct": "4.38%",
+    "daysToCover": 3.14,
+    "finvizFloat": 396680000,
+    "fetchedAt": "2026-09-22T22:36:38.307Z"
+  },
+  "DNA": {
+    "shortInterestPct": "13.99%",
+    "daysToCover": 5.99,
+    "finvizFloat": 49070000,
+    "fetchedAt": "2026-09-22T22:36:38.884Z"
+  },
+  "VICR": {
+    "shortInterestPct": "6.93%",
+    "daysToCover": 2.01,
+    "finvizFloat": 25710000,
+    "fetchedAt": "2026-09-22T22:36:39.477Z"
+  },
+  "JAGX": {
+    "shortInterestPct": "4.75%",
+    "daysToCover": 0.56,
+    "finvizFloat": 340000,
+    "fetchedAt": "2026-09-22T22:36:40.047Z"
+  }
+}

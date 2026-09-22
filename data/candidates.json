@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T22:20:16.346Z",
+  "generatedAt": "2026-09-22T22:36:40.550Z",
   "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
@@ -385,8 +385,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/META",
-        "catalystHeadline": "Pakistan and Kenya Commit to Strengthening Bilateral Ties at UNGA 81st Session",
-        "catalystUrl": "https://1millionbacklinks.com/pakistan-and-kenya-commit-to-strengthening-bilateral-ties-at-unga-81st-session.html",
+        "catalystHeadline": "Turkey Stands Firmly by Pakistan Amidst Global Challenges!",
+        "catalystUrl": "https://1millionbacklinks.com/turkey-stands-firmly-by-pakistan-amidst-global-challenges.html",
         "sector": "Communication Services",
         "industry": "Internet Content & Information"
       },
@@ -708,8 +708,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/HD",
-        "catalystHeadline": "Bei dem Nv Spielsaal Konsequent hilft vor allem nachfolgende Beschaffenheit auf mehreren Merkmale",
-        "catalystUrl": "https://justafive.com/bei-dem-nv-spielsaal-konsequent-hilft-vor-allem-nachfolgende-beschaffenheit-auf-mehreren-merkmale/?utm_source=rss&utm_medium=rss&utm_campaign=bei-dem-nv-spielsaal-konsequent-hilft-vor-allem-nachfolgende-beschaffenheit-auf-mehreren-merkmale",
+        "catalystHeadline": "CLdN Orders Two New RoRo Vessels from Long-Standing Partner HD Hyundai Heavy Industries",
+        "catalystUrl": "https://www.newslocker.com/en-uk/news/world_news/cldn-orders-two-new-roro-vessels-from-long-standing-partner-hd-hyundai-heavy-industries/",
         "sector": "Consumer Cyclical",
         "industry": "Home Improvement"
       },
@@ -1320,8 +1320,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/WBD",
-        "catalystHeadline": "Kara Swisher to ditch CNN ASAP in wake of Paramount-WBD settlement: &#039;F--k these guys!&#039;",
-        "catalystUrl": "https://nypost.com/2026/09/22/media/kara-swisher-to-ditch-cnn-asap-after-paramount-wbd-settlement/",
+        "catalystHeadline": "Trump DOJ Official Minimizes State AGs’ Paramount-WBD Settlement, Says It Yielded No New Antitrust Related Commitments",
+        "catalystUrl": "https://deadline.com/2026/09/trump-doj-weighs-in-paramount-warner-bros-settlement-1237110779/",
         "sector": "Communication Services",
         "industry": "Entertainment"
       },
@@ -1796,8 +1796,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/MARA",
-        "catalystHeadline": "Mara Unbound",
-        "catalystUrl": "https://skidrowgamereloaded.co/20645/mara-unbound",
+        "catalystHeadline": "Kamalanathan wants written confirmation on Bumiputera equity rule for tuition centres",
+        "catalystUrl": "https://mykmu.net/2026/09/23/kamalanathan-wants-written-confirmation-on-bumiputera-equity-rule-for-tuition-centres/",
         "sector": "Financial Services",
         "industry": "Financial - Capital Markets"
       },
@@ -1903,42 +1903,9 @@
   },
   "buzz": [
     {
-      "ticker": "INFQ",
-      "name": "Infleqtion Inc.",
-      "price": 14.6,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/INFQ",
-      "catalystHeadline": "As Infleqtion Teams Up With Cisco, Here’s How You Should Play INFQ Stock Now",
-      "catalystUrl": "https://finance.yahoo.com/markets/stocks/articles/infleqtion-teams-cisco-play-infq-214331803.html"
-    },
-    {
-      "ticker": "VKTX",
-      "name": "Viking Therapeutics Inc",
-      "price": 41.86,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/VKTX",
-      "catalystHeadline": "Viking Therapeutics, Inc. (VKTX) Discusses Top Line Data from VK2735 Maintenance Study in Obesity and Type 2 Diabetes Transcript",
-      "catalystUrl": "https://seekingalpha.com/article/4948777-viking-therapeutics-inc-vktx-discusses-top-line-data-from-vk2735-maintenance-study-in-obesity?source=feed_all_articles"
-    },
-    {
-      "ticker": "QBTS",
-      "name": "D-Wave Quantum Inc",
-      "price": 18.54,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/QBTS",
-      "catalystHeadline": "D-Wave Appoints Bernard Gavgani to Board of Directors and Cybersecurity Committee",
-      "catalystUrl": "https://investingnews.com/d-wave-appoints-bernard-gavgani-to-board-of-directors-and-cybersecurity-committee/"
-    },
-    {
       "ticker": "IONQ",
       "name": "IonQ Inc",
-      "price": 44.98,
+      "price": 45.26,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -1947,15 +1914,48 @@
       "catalystUrl": "https://www.investing.com/news/stock-market-news/afterhours-movers-kbh-wor-ionq-tlsi-innv-432SI-4911670"
     },
     {
-      "ticker": "OMER",
-      "name": "Omeros Corp",
-      "price": 20.97,
+      "ticker": "IBRX",
+      "name": "ImmunityBio Inc",
+      "price": 9.3,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/OMER",
-      "catalystHeadline": "NTRA Stock Hits All-Time High, OMER Stock Scales 5-Year Peak – What’s Driving Investors’ Enthusiasm Today?",
-      "catalystUrl": "https://newsable.asianetnews.com/markets/ntra-stock-hits-all-time-high-omer-stock-scales-5-year-peak-what-s-driving-investors-enthusiasm-today-articleshow-ldg0esc"
+      "sourceUrl": "https://stocktwits.com/symbol/IBRX",
+      "catalystHeadline": "Dow Futures Slip While S&P 500, Nasdaq Futures Climb After AI Rally: GME, IBRX, AMD, PSKY Stocks In Focus",
+      "catalystUrl": "https://newsable.asianetnews.com/markets/dow-futures-slip-while-s-p-500-nasdaq-futures-climb-after-ai-rally-gme-ibrx-amd-psky-stocks-in-focus-articleshow-qfy1iu0"
+    },
+    {
+      "ticker": "VKTX",
+      "name": "Viking Therapeutics Inc",
+      "price": 41.76,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/VKTX",
+      "catalystHeadline": "Viking Therapeutics, Inc. (VKTX) Discusses Top Line Data from VK2735 Maintenance Study in Obesity and Type 2 Diabetes Transcript",
+      "catalystUrl": "https://seekingalpha.com/article/4948777-viking-therapeutics-inc-vktx-discusses-top-line-data-from-vk2735-maintenance-study-in-obesity?source=feed_all_articles"
+    },
+    {
+      "ticker": "BB",
+      "name": "BlackBerry Ltd",
+      "price": 8.68,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/BB",
+      "catalystHeadline": "Jamuna Bank signs pacts with BB for three refinance schemes",
+      "catalystUrl": "https://www.thedailystar.net/business/organisation-news/news/jamuna-bank-signs-pacts-bb-three-refinance-schemes-4280586"
+    },
+    {
+      "ticker": "XNDU",
+      "name": "Xanadu Quantum Technologies Ltd. - Ordinary Shares - Class B (Sub Voting)",
+      "price": 5.99,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/XNDU",
+      "catalystHeadline": "Xanadu Appoints Tara Deakin as Chief People Officer to Lead Next Phase of Global Growth",
+      "catalystUrl": "https://www.manilatimes.net/2026/09/23/tmt-newswire/globenewswire/xanadu-appoints-tara-deakin-as-chief-people-officer-to-lead-next-phase-of-global-growth/2430849"
     }
   ],
   "breadthHistory": [
