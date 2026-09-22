@@ -59,7 +59,12 @@ async function fetchFmpSector(ticker, key) {
 }
 async function updateSectorCache(tickers, cache, key, maxNewLookups) {
   if (!key) return cache;
-  const unknown = tickers.filter(t => !cache[t]);
+  // "Unknown" means either never cached at all, OR cached by an older
+  // version of this script before the float field existed — cache[t].float
+  // === undefined (not null) distinguishes "never fetched" from "fetched
+  // and genuinely came back empty", the same way a missing sector/industry
+  // is already distinguished from one that was looked up and found absent.
+  const unknown = tickers.filter(t => !cache[t] || cache[t].float === undefined);
   const toFetch = unknown.slice(0, maxNewLookups);
   for (const ticker of toFetch) {
     const result = await fetchFmpSector(ticker, key);
@@ -102,11 +107,13 @@ function parseFinvizNumber(raw) {
   return n;
 }
 async function fetchFinvizShortInterest(ticker) {
+  let status = null;
   try {
     const res = await fetch(`https://finviz.com/quote.ashx?t=${ticker}`, {
       headers: { "User-Agent": "Mozilla/5.0 (compatible; personal-use trading terminal)" }
     });
-    if (!res.ok) return null;
+    status = res.status;
+    if (!res.ok) return { data: null, diag: `HTTP ${status}` };
     const html = await res.text();
     // Strip tags rather than depend on exact markup — the human-readable
     // labels ("Short Float", "Short Ratio") are far more stable across a
@@ -115,14 +122,24 @@ async function fetchFinvizShortInterest(ticker) {
     const shortFloatMatch = text.match(/Short Float\s+([\d.,]+%)/i);
     const shortRatioMatch = text.match(/Short Ratio\s+([\d.,]+)/i);
     const floatMatch = text.match(/Shs Float\s+([\d.,]+[BMK]?)/i);
-    if (!shortFloatMatch && !shortRatioMatch && !floatMatch) return null;
+    if (!shortFloatMatch && !shortRatioMatch && !floatMatch) {
+      // Got a 200 but none of the expected labels appeared — most likely a
+      // bot-detection/challenge page rather than the real quote page.
+      // Captured so the run log says so plainly instead of us having to
+      // guess at this exact failure mode again.
+      const looksBlocked = /captcha|cloudflare|access denied|are you a robot|unusual traffic/i.test(text);
+      return { data: null, diag: `HTTP 200 but no fields matched (${text.length} chars)${looksBlocked ? " — looks like a bot-block/challenge page" : ""}` };
+    }
     return {
-      shortInterestPct: shortFloatMatch ? shortFloatMatch[1] : null,
-      daysToCover: shortRatioMatch ? parseFloat(shortRatioMatch[1]) : null,
-      finvizFloat: floatMatch ? parseFinvizNumber(floatMatch[1]) : null
+      data: {
+        shortInterestPct: shortFloatMatch ? shortFloatMatch[1] : null,
+        daysToCover: shortRatioMatch ? parseFloat(shortRatioMatch[1]) : null,
+        finvizFloat: floatMatch ? parseFinvizNumber(floatMatch[1]) : null
+      },
+      diag: "ok"
     };
   } catch (e) {
-    return null;
+    return { data: null, diag: `error: ${e.message}` };
   }
 }
 async function updateFinvizCache(tickers, cache, maxNewLookups) {
@@ -130,14 +147,22 @@ async function updateFinvizCache(tickers, cache, maxNewLookups) {
   const now = Date.now();
   const needsFetch = tickers.filter(t => !cache[t] || (now - new Date(cache[t].fetchedAt || 0).getTime()) > STALE_MS);
   const toFetch = needsFetch.slice(0, maxNewLookups);
+  let succeeded = 0;
+  const failureSamples = [];
   for (const ticker of toFetch) {
-    const result = await fetchFinvizShortInterest(ticker);
-    cache[ticker] = { ...(result || {}), fetchedAt: new Date().toISOString() };
+    const { data, diag } = await fetchFinvizShortInterest(ticker);
+    if (data) succeeded++;
+    else if (failureSamples.length < 3) failureSamples.push(`${ticker}: ${diag}`);
+    cache[ticker] = { ...(data || {}), fetchedAt: new Date().toISOString() };
     await new Promise(r => setTimeout(r, 500)); // slower than FMP calls — being deliberately gentler with a scrape than a licensed API
   }
-  if (toFetch.length) console.log(`[diag] Finviz short-interest cache: scraped ${toFetch.length} ticker(s) (${needsFetch.length - toFetch.length} more due, next run) — best-effort, no guaranteed uptime`);
+  if (toFetch.length) {
+    console.log(`[diag] Finviz short-interest cache: attempted ${toFetch.length}, ${succeeded} succeeded, ${toFetch.length - succeeded} failed (${needsFetch.length - toFetch.length} more due, next run) — best-effort, no guaranteed uptime`);
+    if (failureSamples.length) console.log(`[diag] Finviz failure sample(s): ${failureSamples.join(" | ")}`);
+  }
   return cache;
 }
+
 
 const TARGET_SLOTS = [
   { label: "4:00am PT", minutes: 4 * 60 },
