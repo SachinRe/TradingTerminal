@@ -1279,7 +1279,7 @@
       <div id="home-landing" class="home-sub active">
         <div class="panel" style="overflow:hidden;">
           <div class="panel-body" style="padding:0;">
-            <div style="position:relative;height:460px;background:#0a1220;overflow:hidden;">
+            <div style="position:relative;height:620px;background:#0a1220;overflow:hidden;">
               <svg class="home-bg-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;">
                 <defs>
                   <linearGradient id="homeSky" x1="0" y1="0" x2="0" y2="1">
@@ -1310,23 +1310,23 @@
               </svg>
 
               <div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px;">
-                  <img src="assets/moonjelly-logo-transparent.png" alt="" style="height:32px;width:32px;">
-                  <span style="font-size:12px;font-weight:700;letter-spacing:3px;color:#94a3b8;">THE TRADING TERMINAL</span>
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:34px;">
+                  <img src="assets/moonjelly-logo-transparent.png" alt="" style="height:44px;width:44px;">
+                  <span style="font-size:16px;font-weight:700;letter-spacing:3px;color:#94a3b8;">THE TRADING TERMINAL</span>
                 </div>
 
                 <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
-                  <div style="width:130px;height:30px;background:#1e293b;border:1px solid #334155;border-radius:6px 6px 3px 3px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,0.4);">
-                    <div style="width:90px;height:5px;background:#0a1220;border-radius:3px;"></div>
+                  <div style="width:180px;height:40px;background:#1e293b;border:1px solid #334155;border-radius:8px 8px 4px 4px;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 14px rgba(0,0,0,0.4);">
+                    <div style="width:124px;height:7px;background:#0a1220;border-radius:4px;"></div>
                   </div>
-                  <div id="home-quote-card" class="home-quote-card" style="margin-top:14px;min-height:130px;width:100%;max-width:560px;background:#111827;border:1px solid #eab308;border-radius:12px;padding:24px 30px;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
-                    <div style="font-family:Cambria,Georgia,serif;font-size:36px;font-weight:800;color:#eab308;line-height:1;margin-bottom:4px;">&ldquo;</div>
-                    <div id="home-landing-text" style="font-family:Cambria,Georgia,serif;font-size:19px;font-style:italic;color:#f1f5f9;line-height:1.4;"></div>
-                    <div id="home-landing-attr" style="font-size:12px;color:#94a3b8;margin-top:10px;"></div>
+                  <div id="home-quote-card" class="home-quote-card" style="margin-top:18px;min-height:180px;width:100%;max-width:760px;background:#111827;border:1px solid #eab308;border-radius:14px;padding:32px 40px;box-shadow:0 12px 36px rgba(0,0,0,0.5);">
+                    <div style="font-family:Cambria,Georgia,serif;font-size:48px;font-weight:800;color:#eab308;line-height:1;margin-bottom:6px;">&ldquo;</div>
+                    <div id="home-landing-text" style="font-family:Cambria,Georgia,serif;font-size:26px;font-style:italic;color:#f1f5f9;line-height:1.4;"></div>
+                    <div id="home-landing-attr" style="font-size:16px;color:#94a3b8;margin-top:14px;"></div>
                   </div>
                 </div>
 
-                <div style="font-size:12px;color:#64748b;font-style:italic;margin-top:20px;">Manufacturing consistency, one principle at a time.</div>
+                <div style="font-size:16px;color:#64748b;font-style:italic;margin-top:26px;">Manufacturing consistency, one principle at a time.</div>
               </div>
             </div>
           </div>
@@ -8458,18 +8458,23 @@ Question: ${question}`;
       }
       const points = equityChartState.points;
 
+      // Single forward pass, tracking running equity directly, rather than
+      // grouping first and then looking dates back up afterward — the
+      // previous version's date-lookup approach was still fragile (it could
+      // misalign whenever two points shared a date, which is exactly what
+      // produced the earlier -26645% reading) even after fixing the one
+      // specific case that caused that. This can't misalign: each month's
+      // start is simply whatever the running equity was the instant before
+      // its first point arrived, no lookup involved.
       const months = {};
+      let prevEquity = points.length ? points[0].equity - points[0].dayPnl : 0;
       points.forEach(p => {
         const m = p.date.slice(0, 7);
-        if (!months[m]) months[m] = { days: [] };
+        if (!months[m]) months[m] = { days: [], startEquity: prevEquity };
         months[m].days.push(p);
+        prevEquity = p.equity;
       });
       const monthKeys = Object.keys(months).sort();
-      monthKeys.forEach(m => {
-        const firstDate = months[m].days[0].date;
-        const firstIdxGlobal = points.findIndex(p => p.date === firstDate);
-        months[m].startEquity = firstIdxGlobal > 0 ? points[firstIdxGlobal - 1].equity : (months[m].days[0].equity - months[m].days[0].dayPnl);
-      });
 
       const monthLabel = (m) => {
         const [y, mo] = m.split("-").map(Number);
