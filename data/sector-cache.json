@@ -2,62 +2,74 @@
   "NVDA": {
     "sector": "Technology",
     "industry": "Semiconductors",
-    "mktCap": 5312634140000
+    "mktCap": 5543460270000,
+    "float": 23225466000
   },
   "NFLX": {
     "sector": "Communication Services",
     "industry": "Entertainment",
-    "mktCap": 313586321325
+    "mktCap": 300469910328,
+    "float": 4137578095
   },
   "AMZN": {
     "sector": "Consumer Cyclical",
     "industry": "Specialty Retail",
-    "mktCap": 2702075949000
+    "mktCap": 2742845358000,
+    "float": 9789154627
   },
   "AAPL": {
     "sector": "Technology",
     "industry": "Consumer Electronics",
-    "mktCap": 4949638972000
+    "mktCap": 4990029201000,
+    "float": 14576491739
   },
   "AMD": {
     "sector": "Technology",
     "industry": "Semiconductors",
-    "mktCap": 888823754000
+    "mktCap": 1017119362000,
+    "float": 1622056292
   },
   "TSLA": {
     "sector": "Consumer Cyclical",
     "industry": "Auto - Manufacturers",
-    "mktCap": 1446324255683
+    "mktCap": 1496483507587,
+    "float": 2819226425
   },
   "WMT": {
     "sector": "Consumer Defensive",
     "industry": "Discount Stores",
-    "mktCap": 849843363200
+    "mktCap": 876343769600,
+    "float": 4374476531
   },
   "CRM": {
     "sector": "Technology",
     "industry": "Software - Application",
-    "mktCap": 198894150000
+    "mktCap": 191056320000,
+    "float": null
   },
   "GOOGL": {
     "sector": "Communication Services",
     "industry": "Internet Content & Information",
-    "mktCap": 4203426312966
+    "mktCap": 4249777399192,
+    "float": 10927015800
   },
   "ORCL": {
     "sector": "Technology",
     "industry": "Software - Infrastructure",
-    "mktCap": 433741172600
+    "mktCap": 429535686400,
+    "float": null
   },
   "AVGO": {
     "sector": "Technology",
     "industry": "Semiconductors",
-    "mktCap": 1652307534000
+    "mktCap": 1734328213200,
+    "float": null
   },
   "MSFT": {
     "sector": "Technology",
     "industry": "Software - Infrastructure",
-    "mktCap": 3696067512500
+    "mktCap": 3697923900000,
+    "float": 7414481428
   },
   "BA": {
     "sector": "Industrials",
@@ -67,7 +79,8 @@
   "META": {
     "sector": "Communication Services",
     "industry": "Internet Content & Information",
-    "mktCap": 1738175561577
+    "mktCap": 1876465870029,
+    "float": 2199588508
   },
   "SDGR": {
     "sector": "Technology",
@@ -77,7 +90,8 @@
   "GOOG": {
     "sector": "Communication Services",
     "industry": "Internet Content & Information",
-    "mktCap": 4170866954703.0005
+    "mktCap": 4216133870848.9995,
+    "float": null
   },
   "DAIC": {
     "sector": "Technology",
@@ -87,12 +101,14 @@
   "XOM": {
     "sector": "Energy",
     "industry": "Oil & Gas Integrated",
-    "mktCap": 676790318000
+    "mktCap": 657684357400,
+    "float": 4134790974
   },
   "JPM": {
     "sector": "Financial Services",
     "industry": "Banks - Diversified",
-    "mktCap": 935979638100
+    "mktCap": 911033400000,
+    "float": 2667540628
   },
   "PG": {
     "sector": "Consumer Defensive",
@@ -647,7 +663,8 @@
   "GRML": {
     "sector": "Basic Materials",
     "industry": "Other Precious Metals",
-    "mktCap": 28359711
+    "mktCap": 42599778,
+    "float": null
   },
   "NUAI": {
     "sector": "Technology",
@@ -867,17 +884,20 @@
   "BFLY": {
     "sector": "Healthcare",
     "industry": "Medical - Devices",
-    "mktCap": 2646741616
+    "mktCap": 2644211907,
+    "float": null
   },
   "VKTX": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 4765272313
+    "mktCap": 4765272313,
+    "float": null
   },
   "XNDU": {
     "sector": "Technology",
     "industry": "Software - Infrastructure",
-    "mktCap": 130859200
+    "mktCap": 130859200,
+    "float": null
   },
   "MAZE": {
     "sector": "Healthcare",

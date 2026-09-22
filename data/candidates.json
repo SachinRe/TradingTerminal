@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T22:36:40.550Z",
+  "generatedAt": "2026-09-22T22:50:49.694Z",
   "generatedSlot": "Manual run",
   "wsjHeadlines": [
     {
@@ -640,8 +640,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/V",
-        "catalystHeadline": "Trump v the media – The Latest",
-        "catalystUrl": "https://www.newslocker.com/en-uk/news/world_news/trump-v-the-media-the-latest/",
+        "catalystHeadline": "AFL 2026: Andrew Dillon on whether Wharfie Time will be allowed on grand final day, Fremantle Dockers v Brisbane Lions, Simon Goodwin out of North Melbourne coaching search, latest news",
+        "catalystUrl": "https://www.foxsports.com.au/afl/teams/fremantle-dockers/afl-2026-andrew-dillon-on-whether-wharfie-time-will-be-allowed-on-grand-final-day-fremantle-dockers-v-brisbane-lions-simon-goodwin-out-of-north-melbourne-coaching-search-latest-news/news-story/e6ee08d3f4e0eeb58274e9d8b201ac1a",
         "sector": "Financial Services",
         "industry": "Financial - Credit Services"
       },
@@ -657,8 +657,8 @@
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
         "sourceUrl": "https://financialmodelingprep.com/quote/PG",
-        "catalystHeadline": "The PG&amp;amp;amp;E Corporation Foundation and California Fire Foundation Award $1 Million in Wildfire Safety Grants",
-        "catalystUrl": "https://www.newslocker.com/en-us/profession/pr-public-relations/the-pgampampe-corporation-foundation-and-california-fire-foundation-award-1-million-in-wildfire-safety-grants/",
+        "catalystHeadline": "Commuting on this entire stretch of road is tormenting!",
+        "catalystUrl": "https://www.thehansindia.com/news/cities/hyderabad/commuting-on-this-entire-stretch-of-road-is-tormenting-1124699",
         "sector": "Consumer Defensive",
         "industry": "Household & Personal Products"
       },
@@ -1320,8 +1320,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/WBD",
-        "catalystHeadline": "Trump DOJ Official Minimizes State AGs’ Paramount-WBD Settlement, Says It Yielded No New Antitrust Related Commitments",
-        "catalystUrl": "https://deadline.com/2026/09/trump-doj-weighs-in-paramount-warner-bros-settlement-1237110779/",
+        "catalystHeadline": "Paramount will need to release way more movies to make this merger work",
+        "catalystUrl": "https://www.theverge.com/entertainment/999056/paramount-warner-bros-discovery-merger-annual-film-quota-guardrails",
         "sector": "Communication Services",
         "industry": "Entertainment"
       },
@@ -1796,8 +1796,8 @@
         "megaCap": false,
         "source": "Financial Modeling Prep (free tier, licensed API)",
         "sourceUrl": "https://financialmodelingprep.com/quote/MARA",
-        "catalystHeadline": "Kamalanathan wants written confirmation on Bumiputera equity rule for tuition centres",
-        "catalystUrl": "https://mykmu.net/2026/09/23/kamalanathan-wants-written-confirmation-on-bumiputera-equity-rule-for-tuition-centres/",
+        "catalystHeadline": "Ekonomi Malaysia Berkembang Positif Dalam Era Ketidaktentuan Geopolitik Global",
+        "catalystUrl": "https://mykmu.net/2026/09/23/ekonomi-malaysia-berkembang-positif-dalam-era-ketidaktentuan-geopolitik-global/",
         "sector": "Financial Services",
         "industry": "Financial - Capital Markets"
       },
@@ -1905,7 +1905,7 @@
     {
       "ticker": "IONQ",
       "name": "IonQ Inc",
-      "price": 45.26,
+      "price": 45.63,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -1914,20 +1914,9 @@
       "catalystUrl": "https://www.investing.com/news/stock-market-news/afterhours-movers-kbh-wor-ionq-tlsi-innv-432SI-4911670"
     },
     {
-      "ticker": "IBRX",
-      "name": "ImmunityBio Inc",
-      "price": 9.3,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/IBRX",
-      "catalystHeadline": "Dow Futures Slip While S&P 500, Nasdaq Futures Climb After AI Rally: GME, IBRX, AMD, PSKY Stocks In Focus",
-      "catalystUrl": "https://newsable.asianetnews.com/markets/dow-futures-slip-while-s-p-500-nasdaq-futures-climb-after-ai-rally-gme-ibrx-amd-psky-stocks-in-focus-articleshow-qfy1iu0"
-    },
-    {
       "ticker": "VKTX",
       "name": "Viking Therapeutics Inc",
-      "price": 41.76,
+      "price": 41.8,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -1936,26 +1925,37 @@
       "catalystUrl": "https://seekingalpha.com/article/4948777-viking-therapeutics-inc-vktx-discusses-top-line-data-from-vk2735-maintenance-study-in-obesity?source=feed_all_articles"
     },
     {
-      "ticker": "BB",
-      "name": "BlackBerry Ltd",
-      "price": 8.68,
+      "ticker": "INOD",
+      "name": "Innodata Inc",
+      "price": 72.38,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/BB",
-      "catalystHeadline": "Jamuna Bank signs pacts with BB for three refinance schemes",
-      "catalystUrl": "https://www.thedailystar.net/business/organisation-news/news/jamuna-bank-signs-pacts-bb-three-refinance-schemes-4280586"
+      "sourceUrl": "https://stocktwits.com/symbol/INOD",
+      "catalystHeadline": "Meta&apos;s (META) Muse could be big win for Innodata (INOD), Hunterbrook says",
+      "catalystUrl": "https://www.newsquawk.com/headlines/metas-meta-muse-could-be-big-win-for-innodata-inod-hunterbrook-says"
     },
     {
-      "ticker": "XNDU",
-      "name": "Xanadu Quantum Technologies Ltd. - Ordinary Shares - Class B (Sub Voting)",
-      "price": 5.99,
+      "ticker": "OMER",
+      "name": "Omeros Corp",
+      "price": 21,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/XNDU",
-      "catalystHeadline": "Xanadu Appoints Tara Deakin as Chief People Officer to Lead Next Phase of Global Growth",
-      "catalystUrl": "https://www.manilatimes.net/2026/09/23/tmt-newswire/globenewswire/xanadu-appoints-tara-deakin-as-chief-people-officer-to-lead-next-phase-of-global-growth/2430849"
+      "sourceUrl": "https://stocktwits.com/symbol/OMER",
+      "catalystHeadline": "NTRA Stock Hits All-Time High, OMER Stock Scales 5-Year Peak – What’s Driving Investors’ Enthusiasm Today?",
+      "catalystUrl": "https://newsable.asianetnews.com/markets/ntra-stock-hits-all-time-high-omer-stock-scales-5-year-peak-what-s-driving-investors-enthusiasm-today-articleshow-ldg0esc"
+    },
+    {
+      "ticker": "IBRX",
+      "name": "ImmunityBio Inc",
+      "price": 9.29,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/IBRX",
+      "catalystHeadline": "Dow Futures Slip While S&P 500, Nasdaq Futures Climb After AI Rally: GME, IBRX, AMD, PSKY Stocks In Focus",
+      "catalystUrl": "https://newsable.asianetnews.com/markets/dow-futures-slip-while-s-p-500-nasdaq-futures-climb-after-ai-rally-gme-ibrx-amd-psky-stocks-in-focus-articleshow-qfy1iu0"
     }
   ],
   "breadthHistory": [
