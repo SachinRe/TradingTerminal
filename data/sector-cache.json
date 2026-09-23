@@ -202,7 +202,8 @@
   "SVRN": {
     "sector": "Industrials",
     "industry": "Marine Shipping",
-    "mktCap": 26617829
+    "mktCap": 63646437,
+    "float": null
   },
   "HCWC": {
     "sector": "Consumer Defensive",
@@ -217,7 +218,8 @@
   "IPEXU": {
     "sector": "Financial Services",
     "industry": "Shell Companies",
-    "mktCap": 106242969
+    "mktCap": 97707969,
+    "float": null
   },
   "NGHT": {
     "sector": "Financial Services",
@@ -695,7 +697,8 @@
   "VEEE": {
     "sector": "Consumer Cyclical",
     "industry": "Auto - Recreational Vehicles",
-    "mktCap": 917013
+    "mktCap": 797333,
+    "float": null
   },
   "ARMG": {
     "sector": "Financial Services",
@@ -705,7 +708,8 @@
   "SMX": {
     "sector": "Industrials",
     "industry": "Specialty Business Services",
-    "mktCap": 691946
+    "mktCap": 580870,
+    "float": null
   },
   "TSUI": {
     "sector": "Financial Services",
@@ -765,12 +769,14 @@
   "PUL": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 1388775
+    "mktCap": 1338153,
+    "float": null
   },
   "SUPX": {
     "sector": "Technology",
     "industry": "Software - Infrastructure",
-    "mktCap": 278589391
+    "mktCap": 238250656,
+    "float": null
   },
   "AMUU": {
     "sector": "Financial Services",
@@ -967,72 +973,86 @@
   "TANH": {
     "sector": "Consumer Defensive",
     "industry": "Household & Personal Products",
-    "mktCap": 10048072
+    "mktCap": 10048072,
+    "float": null
   },
   "BALY": {
     "sector": "Consumer Cyclical",
     "industry": "Gambling, Resorts & Casinos",
-    "mktCap": 602559679
+    "mktCap": 602559679,
+    "float": null
   },
   "SGRY": {
     "sector": "Healthcare",
     "industry": "Medical - Care Facilities",
-    "mktCap": 2066450400
+    "mktCap": 2066450400,
+    "float": null
   },
   "HVII": {
     "sector": "Financial Services",
     "industry": "Shell Companies",
-    "mktCap": 236291836
+    "mktCap": 236291836,
+    "float": null
   },
   "EVER": {
     "sector": "Communication Services",
     "industry": "Internet Content & Information",
-    "mktCap": 688937152
+    "mktCap": 688937152,
+    "float": null
   },
   "NTRB": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 82174445
+    "mktCap": 82174445,
+    "float": null
   },
   "EHLD": {
     "sector": "Industrials",
     "industry": "Marine Shipping",
-    "mktCap": 31715085
+    "mktCap": 31546088,
+    "float": null
   },
   "CLDX": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 2229703828
+    "mktCap": 2229703828,
+    "float": null
   },
   "FDRX": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 555581
+    "mktCap": 555581,
+    "float": null
   },
   "GSHD": {
     "sector": "Financial Services",
     "industry": "Insurance - Brokers",
-    "mktCap": 1710334134
+    "mktCap": 1710334134,
+    "float": null
   },
   "QNST": {
     "sector": "Communication Services",
     "industry": "Advertising Agencies",
-    "mktCap": 877765254
+    "mktCap": 877765254,
+    "float": null
   },
   "GDXD": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 92044264
+    "mktCap": 92044264,
+    "float": null
   },
   "CORO": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 8102550790
+    "mktCap": 8102550790,
+    "float": null
   },
   "IUSB": {
     "sector": "Financial Services",
     "industry": "Asset Management - Bonds",
-    "mktCap": 42361949070
+    "mktCap": 42361949070,
+    "float": null
   },
   "ACWX": {
     "sector": "Financial Services",

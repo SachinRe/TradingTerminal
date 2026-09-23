@@ -1,62 +1,72 @@
 {
   "BFLY": {
     "shortInterestPct": "15.76%",
-    "daysToCover": 4.74,
+    "daysToCover": 4.86,
     "finvizFloat": 216130000,
-    "fetchedAt": "2026-09-22T22:36:34.840Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:20.770Z"
   },
   "VKTX": {
     "shortInterestPct": "19.65%",
-    "daysToCover": 9.63,
+    "daysToCover": 7.66,
     "finvizFloat": 112930000,
-    "fetchedAt": "2026-09-22T22:36:35.416Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:21.769Z"
   },
   "XNDU": {
     "shortInterestPct": "30.77%",
-    "daysToCover": 3.23,
+    "daysToCover": 2.44,
     "finvizFloat": 16010000.000000002,
-    "fetchedAt": "2026-09-22T22:36:35.988Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:22.445Z"
   },
   "JPM": {
     "shortInterestPct": "1.00%",
     "daysToCover": 3.36,
     "finvizFloat": 2650000000,
-    "fetchedAt": "2026-09-22T22:36:36.571Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:23.349Z"
   },
   "GRML": {
     "shortInterestPct": "22.43%",
-    "daysToCover": 0.17,
+    "daysToCover": 0.12,
     "finvizFloat": 2870000,
-    "fetchedAt": "2026-09-22T22:36:37.150Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:23.989Z"
   },
   "MAZE": {
     "shortInterestPct": "17.17%",
-    "daysToCover": 10.79,
+    "daysToCover": 9.93,
     "finvizFloat": 34460000,
-    "fetchedAt": "2026-09-22T22:36:37.725Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:24.682Z"
   },
   "ADBE": {
     "shortInterestPct": "4.38%",
     "daysToCover": 3.14,
     "finvizFloat": 396680000,
-    "fetchedAt": "2026-09-22T22:36:38.307Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:25.611Z"
   },
   "DNA": {
     "shortInterestPct": "13.99%",
-    "daysToCover": 5.99,
+    "daysToCover": 5.8,
     "finvizFloat": 49070000,
-    "fetchedAt": "2026-09-22T22:36:38.884Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:26.275Z"
   },
   "VICR": {
     "shortInterestPct": "6.93%",
-    "daysToCover": 2.01,
+    "daysToCover": 1.97,
     "finvizFloat": 25710000,
-    "fetchedAt": "2026-09-22T22:36:39.477Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:26.928Z"
   },
   "JAGX": {
     "shortInterestPct": "4.75%",
-    "daysToCover": 0.56,
+    "daysToCover": 0.03,
     "finvizFloat": 340000,
-    "fetchedAt": "2026-09-22T22:36:40.047Z"
+    "success": true,
+    "fetchedAt": "2026-09-23T12:39:27.590Z"
   }
 }
