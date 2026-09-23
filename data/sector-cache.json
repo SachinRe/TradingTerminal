@@ -213,7 +213,8 @@
   "MTC": {
     "sector": "Financial Services",
     "industry": "Financial - Capital Markets",
-    "mktCap": 165225828
+    "mktCap": 182226961,
+    "float": null
   },
   "IPEXU": {
     "sector": "Financial Services",
@@ -350,7 +351,8 @@
   "TJGC": {
     "sector": "Communication Services",
     "industry": "Advertising Agencies",
-    "mktCap": 70990664
+    "mktCap": 109647936,
+    "float": null
   },
   "TXXH": {
     "sector": "Financial Services",
@@ -420,7 +422,8 @@
   "TXXD": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 261481
+    "mktCap": 285745,
+    "float": null
   },
   "CRCG": {
     "sector": "Financial Services",
@@ -455,7 +458,8 @@
   "SECZ": {
     "sector": "Technology",
     "industry": "Software - Application",
-    "mktCap": 1607961411
+    "mktCap": 2189847993,
+    "float": null
   },
   "AUC": {
     "sector": "Financial Services",
@@ -1103,5 +1107,101 @@
     "sector": "Financial Services",
     "industry": "Banks - Diversified",
     "mktCap": 398828358000
+  },
+  "WHLR": {
+    "sector": "Real Estate",
+    "industry": "REIT - Retail",
+    "mktCap": 16063,
+    "float": null
+  },
+  "ALKT": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 1561887910,
+    "float": null
+  },
+  "VOYG": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 1869930308,
+    "float": null
+  },
+  "INNV": {
+    "sector": "Healthcare",
+    "industry": "Medical - Care Facilities",
+    "mktCap": 1222994934,
+    "float": null
+  },
+  "CGEM": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1124374110,
+    "float": null
+  },
+  "ARTL": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 5042412,
+    "float": null
+  },
+  "RAPP": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1649550712,
+    "float": null
+  },
+  "CBIO": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 515186448,
+    "float": null
+  },
+  "VWAV": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 152531099,
+    "float": null
+  },
+  "RDIB": {
+    "sector": "Communication Services",
+    "industry": "Entertainment",
+    "mktCap": 78493221,
+    "float": null
+  },
+  "GRNQ": {
+    "sector": "Industrials",
+    "industry": "Consulting Services",
+    "mktCap": 20864937,
+    "float": null
+  },
+  "LABD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 16903535,
+    "float": null
+  },
+  "PBM": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 127142,
+    "float": null
+  },
+  "HBNB": {
+    "sector": "Real Estate",
+    "industry": "Real Estate - Services",
+    "mktCap": 1233350674,
+    "float": null
+  },
+  "MDRR": {
+    "sector": "Real Estate",
+    "industry": "REIT - Diversified",
+    "mktCap": 14696461,
+    "float": null
+  },
+  "QMCO": {
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "mktCap": 1121385742,
+    "float": null
   }
 }

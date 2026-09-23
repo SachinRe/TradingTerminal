@@ -1038,86 +1038,62 @@
     "date": "2026-09-23",
     "up": [
       {
+        "ticker": "ARTL",
+        "price": 12.85,
+        "changePct": 209.64,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 5042412
+      },
+      {
+        "ticker": "WHLR",
+        "price": 5.2881,
+        "changePct": 182.79,
+        "sector": "Real Estate",
+        "industry": "REIT - Retail",
+        "mktCap": 16063
+      },
+      {
+        "ticker": "TJGC",
+        "price": 20.93,
+        "changePct": 23.85,
+        "sector": "Communication Services",
+        "industry": "Advertising Agencies",
+        "mktCap": 109647936
+      },
+      {
+        "ticker": "MTC",
+        "price": 7.3088,
+        "changePct": 21.21,
+        "sector": "Financial Services",
+        "industry": "Financial - Capital Markets",
+        "mktCap": 182226961
+      }
+    ],
+    "down": [
+      {
         "ticker": "JAGX",
-        "price": 34.46,
-        "changePct": 1190.64,
+        "price": 9.39,
+        "changePct": -72.75,
         "sector": "Healthcare",
         "industry": "Biotechnology",
         "mktCap": 14960120
       },
       {
+        "ticker": "HVII",
+        "price": 5.5,
+        "changePct": -39.43,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 236291836
+      },
+      {
         "ticker": "GRML",
-        "price": 14.15,
-        "changePct": 50.21,
+        "price": 10.87,
+        "changePct": -23.18,
         "sector": "Basic Materials",
         "industry": "Other Precious Metals",
         "mktCap": 42599778
-      },
-      {
-        "ticker": "VKTX",
-        "price": 40.85,
-        "changePct": 35.67,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 4765272313
-      },
-      {
-        "ticker": "MAZE",
-        "price": 28.38,
-        "changePct": 26.75,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 1570698479
-      },
-      {
-        "ticker": "BFLY",
-        "price": 9.93,
-        "changePct": 21.99,
-        "sector": "Healthcare",
-        "industry": "Medical - Devices",
-        "mktCap": 2644211907
-      },
-      {
-        "ticker": "AUC",
-        "price": 9.2,
-        "changePct": 20.1,
-        "sector": "Financial Services",
-        "industry": "Asset Management",
-        "mktCap": 94883032
-      }
-    ],
-    "down": [
-      {
-        "ticker": "NFE",
-        "price": 8.15,
-        "changePct": -24.68,
-        "sector": "Energy",
-        "industry": "Oil & Gas Midstream",
-        "mktCap": 46558448
-      },
-      {
-        "ticker": "AIFU",
-        "price": 8.55,
-        "changePct": -22.06,
-        "sector": "Financial Services",
-        "industry": "Insurance - Brokers",
-        "mktCap": 50664786
-      },
-      {
-        "ticker": "XNDU",
-        "price": 5.78,
-        "changePct": -21.57,
-        "sector": "Technology",
-        "industry": "Software - Infrastructure",
-        "mktCap": 130859200
-      },
-      {
-        "ticker": "EDRY",
-        "price": 54.08,
-        "changePct": -20.44,
-        "sector": "Industrials",
-        "industry": "Marine Shipping",
-        "mktCap": 156320782
       }
     ]
   }

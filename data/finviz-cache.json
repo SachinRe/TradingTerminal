@@ -68,5 +68,47 @@
     "finvizFloat": 340000,
     "success": true,
     "fetchedAt": "2026-09-23T12:39:27.590Z"
+  },
+  "GOOGL": {
+    "shortInterestPct": "1.33%",
+    "daysToCover": 2.65,
+    "finvizFloat": 5850000000,
+    "success": true,
+    "fetchedAt": "2026-09-23T17:26:41.546Z"
+  },
+  "GOOG": {
+    "shortInterestPct": "0.88%",
+    "daysToCover": 2.31,
+    "finvizFloat": 5130000000,
+    "success": true,
+    "fetchedAt": "2026-09-23T17:26:42.683Z"
+  },
+  "WHLR": {
+    "shortInterestPct": "11.51%",
+    "daysToCover": 0.16,
+    "finvizFloat": 550000,
+    "success": true,
+    "fetchedAt": "2026-09-23T17:26:43.664Z"
+  },
+  "ALKT": {
+    "shortInterestPct": "10.53%",
+    "daysToCover": 4,
+    "finvizFloat": 60850000,
+    "success": true,
+    "fetchedAt": "2026-09-23T17:26:44.663Z"
+  },
+  "VOYG": {
+    "shortInterestPct": "17.42%",
+    "daysToCover": 5.63,
+    "finvizFloat": 52680000,
+    "success": true,
+    "fetchedAt": "2026-09-23T17:26:45.599Z"
+  },
+  "INNV": {
+    "shortInterestPct": "4.82%",
+    "daysToCover": 3.4,
+    "finvizFloat": 21280000,
+    "success": true,
+    "fetchedAt": "2026-09-23T17:26:46.684Z"
   }
 }
