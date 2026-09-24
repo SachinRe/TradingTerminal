@@ -110,5 +110,47 @@
     "finvizFloat": 21280000,
     "success": true,
     "fetchedAt": "2026-09-23T17:26:46.684Z"
+  },
+  "AMZN": {
+    "shortInterestPct": "0.94%",
+    "daysToCover": 2.03,
+    "finvizFloat": 9820000000,
+    "success": true,
+    "fetchedAt": "2026-09-24T13:04:46.490Z"
+  },
+  "ORCL": {
+    "shortInterestPct": "2.48%",
+    "daysToCover": 1.35,
+    "finvizFloat": 1800000000,
+    "success": true,
+    "fetchedAt": "2026-09-24T13:04:47.255Z"
+  },
+  "AVGO": {
+    "shortInterestPct": "1.08%",
+    "daysToCover": 2.17,
+    "finvizFloat": 4680000000,
+    "success": true,
+    "fetchedAt": "2026-09-24T13:04:48.030Z"
+  },
+  "CGEM": {
+    "shortInterestPct": "21.39%",
+    "daysToCover": 12.55,
+    "finvizFloat": 48500000,
+    "success": true,
+    "fetchedAt": "2026-09-24T13:04:48.795Z"
+  },
+  "ARTL": {
+    "shortInterestPct": "6.53%",
+    "daysToCover": 0.08,
+    "finvizFloat": 550000,
+    "success": true,
+    "fetchedAt": "2026-09-24T13:04:49.551Z"
+  },
+  "RAPP": {
+    "shortInterestPct": "7.76%",
+    "daysToCover": 5.79,
+    "finvizFloat": 28790000,
+    "success": true,
+    "fetchedAt": "2026-09-24T13:04:50.313Z"
   }
 }

@@ -177,7 +177,8 @@
   "TRVG": {
     "sector": "Technology",
     "industry": "Software - Application",
-    "mktCap": 472119381
+    "mktCap": 371202981,
+    "float": null
   },
   "AEHL": {
     "sector": "Basic Materials",
@@ -475,7 +476,8 @@
   "JXG": {
     "sector": "Consumer Cyclical",
     "industry": "Travel Services",
-    "mktCap": 1490230
+    "mktCap": 1832250,
+    "float": null
   },
   "SION": {
     "sector": "Healthcare",
@@ -545,7 +547,8 @@
   "INTC": {
     "sector": "Technology",
     "industry": "Semiconductors",
-    "mktCap": 547778372524
+    "mktCap": 618394368982,
+    "float": 4601086360
   },
   "NOK": {
     "sector": "Technology",
@@ -565,7 +568,8 @@
   "BITO": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 2224518442
+    "mktCap": 2312113948,
+    "float": null
   },
   "MARA": {
     "sector": "Financial Services",
@@ -815,7 +819,8 @@
   "SOXS": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 112147736
+    "mktCap": 106846669,
+    "float": null
   },
   "LFT": {
     "sector": "Real Estate",
@@ -835,12 +840,14 @@
   "WBD": {
     "sector": "Communication Services",
     "industry": "Entertainment",
-    "mktCap": 77219810422
+    "mktCap": 77119524954,
+    "float": null
   },
   "AAL": {
     "sector": "Industrials",
     "industry": "Airlines, Airports & Air Services",
-    "mktCap": 8982932235
+    "mktCap": 8837298846,
+    "float": 651412902
   },
   "SOFI": {
     "sector": "Financial Services",
@@ -900,7 +907,8 @@
   "HYG": {
     "sector": "Financial Services",
     "industry": "Asset Management - Bonds",
-    "mktCap": 16987899825
+    "mktCap": 16862671280,
+    "float": null
   },
   "BFLY": {
     "sector": "Healthcare",
@@ -1091,7 +1099,8 @@
   "HL": {
     "sector": "Basic Materials",
     "industry": "Other Precious Metals",
-    "mktCap": 12763649360
+    "mktCap": 12253908240,
+    "float": null
   },
   "QID": {
     "sector": "Financial Services",
@@ -1202,6 +1211,72 @@
     "sector": "Technology",
     "industry": "Computer Hardware",
     "mktCap": 1121385742,
+    "float": null
+  },
+  "IPDN": {
+    "sector": "Industrials",
+    "industry": "Staffing & Employment Services",
+    "mktCap": 2610689,
+    "float": null
+  },
+  "DBGI": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Retail",
+    "mktCap": 1168888,
+    "float": null
+  },
+  "FSLY": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 4640225000,
+    "float": null
+  },
+  "CTEV": {
+    "sector": "Healthcare",
+    "industry": "Medical - Healthcare Information Services",
+    "mktCap": 426876637,
+    "float": null
+  },
+  "KPLT": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 33831912,
+    "float": null
+  },
+  "MBAI": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 5486022,
+    "float": null
+  },
+  "USGG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 10845972,
+    "float": null
+  },
+  "IMUX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 127633455,
+    "float": null
+  },
+  "GDXU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 652290564,
+    "float": null
+  },
+  "HIMZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 48217965,
+    "float": null
+  },
+  "IONQ": {
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "mktCap": 15878903588,
     "float": null
   }
 }
