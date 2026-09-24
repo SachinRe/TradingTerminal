@@ -1101,78 +1101,70 @@
     "date": "2026-09-24",
     "up": [
       {
-        "ticker": "WHLR",
-        "price": 5.44,
-        "changePct": 190.91,
-        "sector": "Real Estate",
-        "industry": "REIT - Retail",
-        "mktCap": 16063
-      },
-      {
-        "ticker": "ARTL",
-        "price": 7.31,
-        "changePct": 76.14,
+        "ticker": "APUS",
+        "price": 5.68,
+        "changePct": 148.03,
         "sector": "Healthcare",
         "industry": "Biotechnology",
-        "mktCap": 5042412
+        "mktCap": 8526511
       },
       {
-        "ticker": "IPDN",
-        "price": 5.42,
-        "changePct": 38.97,
+        "ticker": "SRZN",
+        "price": 31.4802,
+        "changePct": 94.8,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 237183731
+      },
+      {
+        "ticker": "SVRN",
+        "price": 44.72,
+        "changePct": 37.39,
         "sector": "Industrials",
-        "industry": "Staffing & Employment Services",
-        "mktCap": 2610689
+        "industry": "Marine Shipping",
+        "mktCap": 63646437
       },
       {
-        "ticker": "TJGC",
-        "price": 23.28,
-        "changePct": 37.75,
-        "sector": "Communication Services",
-        "industry": "Advertising Agencies",
-        "mktCap": 109647936
+        "ticker": "GRML",
+        "price": 15.09,
+        "changePct": 34.85,
+        "sector": "Basic Materials",
+        "industry": "Other Precious Metals",
+        "mktCap": 42599778
       },
       {
-        "ticker": "DBGI",
-        "price": 5.71,
-        "changePct": 21.23,
-        "sector": "Consumer Cyclical",
-        "industry": "Apparel - Retail",
-        "mktCap": 1168888
+        "ticker": "PUL",
+        "price": 57.2799,
+        "changePct": 31.62,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1338153
+      },
+      {
+        "ticker": "AVX",
+        "price": 5.165,
+        "changePct": 25.98,
+        "sector": "Industrials",
+        "industry": "Specialty Business Services",
+        "mktCap": 38616731
+      },
+      {
+        "ticker": "LTCC",
+        "price": 17.98,
+        "changePct": 20.4,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 9162335
       }
     ],
     "down": [
       {
-        "ticker": "JAGX",
-        "price": 8.91,
-        "changePct": -74.14,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 14960120
-      },
-      {
-        "ticker": "CGEM",
-        "price": 16.87,
-        "changePct": -22.15,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 1124374110
-      },
-      {
-        "ticker": "NFE",
-        "price": 6.4,
-        "changePct": -21.47,
-        "sector": "Energy",
-        "industry": "Oil & Gas Midstream",
-        "mktCap": 46558448
-      },
-      {
-        "ticker": "GRML",
-        "price": 11.19,
-        "changePct": -20.92,
-        "sector": "Basic Materials",
-        "industry": "Other Precious Metals",
-        "mktCap": 42599778
+        "ticker": "TRT",
+        "price": 7.455,
+        "changePct": -34.89,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "mktCap": 75439996
       }
     ]
   }

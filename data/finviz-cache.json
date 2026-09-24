@@ -152,5 +152,54 @@
     "finvizFloat": 28790000,
     "success": true,
     "fetchedAt": "2026-09-24T13:04:50.313Z"
+  },
+  "META": {
+    "shortInterestPct": "1.31%",
+    "daysToCover": 1.5,
+    "finvizFloat": 2200000000,
+    "success": true,
+    "fetchedAt": "2026-09-24T17:31:39.496Z"
+  },
+  "P": {
+    "shortInterestPct": "2.41%",
+    "daysToCover": 1.83,
+    "finvizFloat": 316270000,
+    "success": true,
+    "fetchedAt": "2026-09-24T17:31:40.409Z"
+  },
+  "APUS": {
+    "shortInterestPct": "3.56%",
+    "daysToCover": 0.18,
+    "finvizFloat": 560000,
+    "success": true,
+    "fetchedAt": "2026-09-24T17:31:41.218Z"
+  },
+  "SRZN": {
+    "shortInterestPct": "23.74%",
+    "daysToCover": 6.65,
+    "finvizFloat": 6090000,
+    "success": true,
+    "fetchedAt": "2026-09-24T17:31:41.954Z"
+  },
+  "SGMT": {
+    "shortInterestPct": "17.61%",
+    "daysToCover": 8.23,
+    "finvizFloat": 57420000,
+    "success": true,
+    "fetchedAt": "2026-09-24T17:31:42.743Z"
+  },
+  "AVX": {
+    "shortInterestPct": "0.15%",
+    "daysToCover": 0.09,
+    "finvizFloat": 6080000,
+    "success": true,
+    "fetchedAt": "2026-09-24T17:31:43.492Z"
+  },
+  "TRT": {
+    "shortInterestPct": "12.40%",
+    "daysToCover": 2.8,
+    "finvizFloat": 6860000,
+    "success": true,
+    "fetchedAt": "2026-09-24T17:31:44.298Z"
   }
 }

@@ -363,7 +363,8 @@
   "TXXS": {
     "sector": "Financial Services",
     "industry": "Asset Management - Cryptocurrency",
-    "mktCap": 64219030
+    "mktCap": 97985145,
+    "float": null
   },
   "MSTP": {
     "sector": "Financial Services",
@@ -659,7 +660,8 @@
   "P": {
     "sector": "Technology",
     "industry": "Computer Hardware",
-    "mktCap": 34540203550
+    "mktCap": 42052556550,
+    "float": null
   },
   "PURR": {
     "sector": "Financial Services",
@@ -814,7 +816,8 @@
   "SCTX": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 453905381
+    "mktCap": 367655267,
+    "float": null
   },
   "SOXS": {
     "sector": "Financial Services",
@@ -1277,6 +1280,108 @@
     "sector": "Technology",
     "industry": "Computer Hardware",
     "mktCap": 15878903588,
+    "float": null
+  },
+  "APUS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 8526511,
+    "float": null
+  },
+  "SRZN": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 237183731,
+    "float": null
+  },
+  "SGMT": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 285400251,
+    "float": null
+  },
+  "AVX": {
+    "sector": "Industrials",
+    "industry": "Specialty Business Services",
+    "mktCap": 38616731,
+    "float": null
+  },
+  "TRT": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 75439996,
+    "float": null
+  },
+  "NBIL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 248870540,
+    "float": null
+  },
+  "NBIG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 21611378,
+    "float": null
+  },
+  "LTCC": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 9162335,
+    "float": null
+  },
+  "IPEX": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 95810922,
+    "float": null
+  },
+  "CDNA": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 3224075344,
+    "float": null
+  },
+  "RKLX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 45303660,
+    "float": null
+  },
+  "BOIL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 300751640,
+    "float": null
+  },
+  "ALP": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 2414629,
+    "float": null
+  },
+  "GIBO": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 83871469,
+    "float": null
+  },
+  "TSSI": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 290986554,
+    "float": null
+  },
+  "VOGX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 320942240,
+    "float": null
+  },
+  "KOLD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 102194562,
     "float": null
   }
 }
