@@ -201,5 +201,26 @@
     "finvizFloat": 6860000,
     "success": true,
     "fetchedAt": "2026-09-24T17:31:44.298Z"
+  },
+  "MSFT": {
+    "shortInterestPct": "0.92%",
+    "daysToCover": 2.05,
+    "finvizFloat": 7310000000,
+    "success": true,
+    "fetchedAt": "2026-09-25T14:54:51.384Z"
+  },
+  "AESI": {
+    "shortInterestPct": "29.97%",
+    "daysToCover": 7.36,
+    "finvizFloat": 80100000,
+    "success": true,
+    "fetchedAt": "2026-09-25T14:54:52.046Z"
+  },
+  "INLF": {
+    "shortInterestPct": "1.26%",
+    "daysToCover": 0,
+    "finvizFloat": 980000,
+    "success": true,
+    "fetchedAt": "2026-09-25T14:54:52.692Z"
   }
 }

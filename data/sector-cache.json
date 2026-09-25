@@ -193,7 +193,8 @@
   "PUR": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 1113000
+    "mktCap": 1126200,
+    "float": null
   },
   "SMCL": {
     "sector": "Financial Services",
@@ -450,7 +451,8 @@
   "BTDL": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 1217886
+    "mktCap": 964800,
+    "float": null
   },
   "LGHL": {
     "sector": "Financial Services",
@@ -493,7 +495,8 @@
   "GAUZ": {
     "sector": "Technology",
     "industry": "Hardware, Equipment & Parts",
-    "mktCap": 5791630
+    "mktCap": 5163735,
+    "float": null
   },
   "WFCF": {
     "sector": "Industrials",
@@ -625,7 +628,8 @@
   "TSLL": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 4490607701
+    "mktCap": 4586202154,
+    "float": null
   },
   "CRWV": {
     "sector": "Technology",
@@ -860,17 +864,20 @@
   "SOXL": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 39277029065
+    "mktCap": 41576975437,
+    "float": null
   },
   "SQQQ": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 1569911509
+    "mktCap": 1546312873,
+    "float": null
   },
   "TQQQ": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 48452404054
+    "mktCap": 48405001626,
+    "float": null
   },
   "AUR": {
     "sector": "Technology",
@@ -1382,6 +1389,84 @@
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
     "mktCap": 102194562,
+    "float": null
+  },
+  "AESI": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Equipment & Services",
+    "mktCap": 1627519726,
+    "float": null
+  },
+  "INLF": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 22124,
+    "float": null
+  },
+  "STRZ": {
+    "sector": "Communication Services",
+    "industry": "Entertainment",
+    "mktCap": 338305705,
+    "float": null
+  },
+  "AIIR": {
+    "sector": "Consumer Defensive",
+    "industry": "Tobacco",
+    "mktCap": 1331208780,
+    "float": null
+  },
+  "BEG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 15567161,
+    "float": null
+  },
+  "ATGL": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 82417500,
+    "float": null
+  },
+  "SRL": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 85543163,
+    "float": null
+  },
+  "MAAS": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 6773382975,
+    "float": null
+  },
+  "ALM": {
+    "sector": "Basic Materials",
+    "industry": "Industrial Materials",
+    "mktCap": 3897196370,
+    "float": null
+  },
+  "LGCY": {
+    "sector": "Consumer Defensive",
+    "industry": "Education & Training Services",
+    "mktCap": 120194361,
+    "float": null
+  },
+  "RPGL": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 889348,
+    "float": null
+  },
+  "GLND": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Exploration & Production",
+    "mktCap": 255165666,
+    "float": null
+  },
+  "SPDN": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 206467795,
     "float": null
   }
 }
