@@ -222,5 +222,12 @@
     "finvizFloat": 980000,
     "success": true,
     "fetchedAt": "2026-09-25T14:54:52.692Z"
+  },
+  "MSGY": {
+    "shortInterestPct": "8.41%",
+    "daysToCover": 0.17,
+    "finvizFloat": 1490000,
+    "success": true,
+    "fetchedAt": "2026-09-25T17:30:55.029Z"
   }
 }

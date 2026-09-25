@@ -536,7 +536,8 @@
   "SPCX": {
     "sector": "Industrials",
     "industry": "Aerospace & Defense",
-    "mktCap": 2014307793395
+    "mktCap": 1959338452847,
+    "float": null
   },
   "FTFT": {
     "sector": "Technology",
@@ -557,7 +558,8 @@
   "NOK": {
     "sector": "Technology",
     "industry": "Communication Equipment",
-    "mktCap": 57735535480
+    "mktCap": 56007790129,
+    "float": 5699859627
   },
   "TTD": {
     "sector": "Communication Services",
@@ -583,7 +585,8 @@
   "IBIT": {
     "sector": "Financial Services",
     "industry": "Asset Management - Cryptocurrency",
-    "mktCap": 76738764962
+    "mktCap": 78969391774,
+    "float": null
   },
   "T": {
     "sector": "Communication Services",
@@ -618,7 +621,8 @@
   "NU": {
     "sector": "Financial Services",
     "industry": "Banks - Regional",
-    "mktCap": 66108588000
+    "mktCap": 65769569230,
+    "float": null
   },
   "SKHY": {
     "sector": "Technology",
@@ -654,7 +658,8 @@
   "ONDS": {
     "sector": "Technology",
     "industry": "Communication Equipment",
-    "mktCap": 4211107313
+    "mktCap": 4404852440,
+    "float": null
   },
   "SMR": {
     "sector": "Industrials",
@@ -897,12 +902,14 @@
   "SMCI": {
     "sector": "Technology",
     "industry": "Computer Hardware",
-    "mktCap": 26651167600
+    "mktCap": 27893163760,
+    "float": null
   },
   "PATH": {
     "sector": "Technology",
     "industry": "Software - Infrastructure",
-    "mktCap": 7228678263
+    "mktCap": 6646235092,
+    "float": null
   },
   "QQQ": {
     "sector": "Financial Services",
@@ -1115,12 +1122,14 @@
   "QID": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 196897053
+    "mktCap": 195766327,
+    "float": null
   },
   "UNG": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 454402860
+    "mktCap": 462562040,
+    "float": null
   },
   "BAC": {
     "sector": "Financial Services",
@@ -1467,6 +1476,72 @@
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
     "mktCap": 206467795,
+    "float": null
+  },
+  "MSGY": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 12455766,
+    "float": null
+  },
+  "DLLL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 186166922,
+    "float": null
+  },
+  "HOST": {
+    "sector": "Consumer Defensive",
+    "industry": "Grocery Stores",
+    "mktCap": 5554830,
+    "float": null
+  },
+  "KRSA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 153594625,
+    "float": null
+  },
+  "BBUL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 780612,
+    "float": null
+  },
+  "WNC": {
+    "sector": "Industrials",
+    "industry": "Agricultural - Machinery",
+    "mktCap": 531620095,
+    "float": null
+  },
+  "RWM": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 95188045,
+    "float": null
+  },
+  "TLT": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Bonds",
+    "mktCap": 39959018582,
+    "float": null
+  },
+  "IREN": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 15671395092,
+    "float": null
+  },
+  "LQD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Bonds",
+    "mktCap": 32130740325,
+    "float": null
+  },
+  "XLE": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 40668173587,
     "float": null
   }
 }

@@ -1172,38 +1172,47 @@
     "date": "2026-09-25",
     "up": [
       {
-        "ticker": "INLF",
-        "price": 5.18,
-        "changePct": 75.59,
+        "ticker": "MSGY",
+        "price": 7.22,
+        "changePct": 266.5,
         "sector": "Industrials",
-        "industry": "Industrial - Machinery",
-        "mktCap": 22124
+        "industry": "Engineering & Construction",
+        "mktCap": 12455766
       },
       {
         "ticker": "APUS",
-        "price": 6.76,
-        "changePct": 37.4,
+        "price": 6.5562,
+        "changePct": 33.26,
         "sector": "Healthcare",
         "industry": "Biotechnology",
         "mktCap": 8526511
       },
       {
-        "ticker": "JAGX",
-        "price": 9.23,
-        "changePct": 30.74,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 14960120
-      },
-      {
         "ticker": "AIFU",
-        "price": 11.32,
-        "changePct": 24.4,
+        "price": 11.405,
+        "changePct": 25.33,
         "sector": "Financial Services",
         "industry": "Insurance - Brokers",
         "mktCap": 50664786
+      },
+      {
+        "ticker": "TXXS",
+        "price": 45.36,
+        "changePct": 20.25,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 97985145
       }
     ],
-    "down": []
+    "down": [
+      {
+        "ticker": "HOST",
+        "price": 6,
+        "changePct": -25,
+        "sector": "Consumer Defensive",
+        "industry": "Grocery Stores",
+        "mktCap": 5554830
+      }
+    ]
   }
 ]
