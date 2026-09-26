@@ -1214,5 +1214,84 @@
         "mktCap": 5554830
       }
     ]
+  },
+  {
+    "date": "2026-09-26",
+    "up": [
+      {
+        "ticker": "MSGY",
+        "price": 8.07,
+        "changePct": 309.64,
+        "sector": "Industrials",
+        "industry": "Engineering & Construction",
+        "mktCap": 12455766
+      },
+      {
+        "ticker": "INLF",
+        "price": 5.1,
+        "changePct": 72.88,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 22124
+      },
+      {
+        "ticker": "APUS",
+        "price": 7.25,
+        "changePct": 47.36,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 8526511
+      },
+      {
+        "ticker": "WHLR",
+        "price": 5.2,
+        "changePct": 39.04,
+        "sector": "Real Estate",
+        "industry": "REIT - Retail",
+        "mktCap": 16063
+      },
+      {
+        "ticker": "AIFU",
+        "price": 12.02,
+        "changePct": 32.09,
+        "sector": "Financial Services",
+        "industry": "Insurance - Brokers",
+        "mktCap": 50664786
+      },
+      {
+        "ticker": "TXXS",
+        "price": 46.3788,
+        "changePct": 22.96,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 97985145
+      },
+      {
+        "ticker": "YDES",
+        "price": 5.73,
+        "changePct": 20.13,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 405863613
+      }
+    ],
+    "down": [
+      {
+        "ticker": "WYY",
+        "price": 5.47,
+        "changePct": -50.59,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 54082875
+      },
+      {
+        "ticker": "HOST",
+        "price": 6.14,
+        "changePct": -23.25,
+        "sector": "Consumer Defensive",
+        "industry": "Grocery Stores",
+        "mktCap": 5554830
+      }
+    ]
   }
 ]

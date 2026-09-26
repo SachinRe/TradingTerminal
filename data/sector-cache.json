@@ -303,7 +303,8 @@
   "CCG": {
     "sector": "Technology",
     "industry": "Software - Application",
-    "mktCap": 28549393
+    "mktCap": 26661830,
+    "float": null
   },
   "RKLZ": {
     "sector": "Financial Services",
@@ -580,7 +581,8 @@
   "MARA": {
     "sector": "Financial Services",
     "industry": "Financial - Capital Markets",
-    "mktCap": 5048021460
+    "mktCap": 4784944813,
+    "float": null
   },
   "IBIT": {
     "sector": "Financial Services",
@@ -643,12 +645,14 @@
   "SPY": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 811381304362
+    "mktCap": 821671505625,
+    "float": 0
   },
   "CMCSA": {
     "sector": "Communication Services",
     "industry": "Telecommunications Services",
-    "mktCap": 80695996580
+    "mktCap": 77750628191,
+    "float": null
   },
   "BMNR": {
     "sector": "Financial Services",
@@ -753,12 +757,14 @@
   "GSUI": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 3204145
+    "mktCap": 3538398,
+    "float": null
   },
   "SUIS": {
     "sector": "Financial Services",
     "industry": "Asset Management - Cryptocurrency",
-    "mktCap": 30756230
+    "mktCap": 34368621,
+    "float": null
   },
   "NXTT": {
     "sector": "Technology",
@@ -1542,6 +1548,66 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 40668173587,
+    "float": null
+  },
+  "ONT": {
+    "sector": "Industrials",
+    "industry": "Waste Management",
+    "mktCap": 505949178,
+    "float": null
+  },
+  "WYY": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 54082875,
+    "float": null
+  },
+  "YDES": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 405863613,
+    "float": null
+  },
+  "VHC": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 43365406,
+    "float": null
+  },
+  "TCAN": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 221313,
+    "float": null
+  },
+  "BVC": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 1906800000,
+    "float": null
+  },
+  "TMS": {
+    "sector": "Financial Services",
+    "industry": "Financial - Conglomerates",
+    "mktCap": 575886192,
+    "float": null
+  },
+  "VTEB": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Bonds",
+    "mktCap": 46718910556,
+    "float": null
+  },
+  "NKE": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Footwear & Accessories",
+    "mktCap": 52903251294,
+    "float": 1176918861
+  },
+  "FTXN": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Global",
+    "mktCap": 124287445,
     "float": null
   }
 }
