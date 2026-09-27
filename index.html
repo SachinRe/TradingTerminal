@@ -1277,7 +1277,8 @@
       </div>
 
       <div id="home-landing" class="home-sub active">
-        <div class="panel" style="overflow:hidden;">
+        <div style="display:flex;gap:20px;align-items:stretch;flex-wrap:wrap;">
+        <div class="panel" style="overflow:hidden;flex:1 1 620px;">
           <div class="panel-body" style="padding:0;">
             <div style="position:relative;height:620px;background:#0a1220;overflow:hidden;">
               <svg class="home-bg-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;">
@@ -1333,14 +1334,14 @@
         </div>
 
         <!-- Time / Money / Opportunity principle banner -->
-        <div class="panel" style="overflow:hidden;">
-          <div class="panel-body" style="padding:0;">
-            <div style="width:100%;box-sizing:border-box;background:linear-gradient(180deg, #0a1220 0%, #0f1b2e 100%);display:flex;flex-wrap:wrap;">
+        <div class="panel" style="overflow:hidden;flex:1 1 460px;">
+          <div class="panel-body" style="padding:0;height:100%;">
+            <div style="width:100%;height:100%;box-sizing:border-box;background:linear-gradient(180deg, #0a1220 0%, #0f1b2e 100%);display:flex;flex-wrap:wrap;">
 
               <!-- Left: the principle, in words -->
-              <div style="flex:1 1 420px;min-width:340px;box-sizing:border-box;padding:44px 40px;display:flex;flex-direction:column;justify-content:center;gap:18px;border-right:1px solid #1f2937;">
+              <div style="flex:1 1 340px;min-width:300px;box-sizing:border-box;padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:16px;border-right:1px solid #1f2937;">
 
-                <div style="font-size:12px;font-weight:700;letter-spacing:2.5px;color:#eab308;text-transform:uppercase;">Home Principle</div>
+                <div style="font-size:12px;font-weight:700;letter-spacing:2.5px;color:#eab308;text-transform:uppercase;">My Mantra</div>
 
                 <div style="font-family:Cambria,Georgia,serif;font-size:30px;font-weight:800;color:#f1f5f9;line-height:1.25;">
                   Time is finite.<br>Money &amp; Opportunity aren't.
@@ -1373,7 +1374,7 @@
               </div>
 
               <!-- Right: the three ropes -->
-              <div style="flex:1 1 460px;min-width:340px;position:relative;display:flex;align-items:center;justify-content:center;min-height:480px;">
+              <div style="flex:1 1 340px;min-width:300px;position:relative;display:flex;align-items:center;justify-content:center;min-height:440px;">
                 <svg viewBox="0 0 760 560" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="max-height:560px;">
                   <defs>
                     <pattern id="twistRed" patternUnits="userSpaceOnUse" width="16" height="16" patternTransform="rotate(58)">
@@ -1391,62 +1392,63 @@
 
                     <linearGradient id="ropeFadeV" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-                      <stop offset="0.09" stop-color="#fff" stop-opacity="1"/>
-                      <stop offset="0.91" stop-color="#fff" stop-opacity="1"/>
+                      <stop offset="0.13" stop-color="#fff" stop-opacity="1"/>
+                      <stop offset="0.87" stop-color="#fff" stop-opacity="1"/>
                       <stop offset="1" stop-color="#fff" stop-opacity="0"/>
                     </linearGradient>
-                    <mask id="maskMoneyRope"><rect x="360" y="-40" width="40" height="640" fill="url(#ropeFadeV)"/></mask>
-                    <mask id="maskOppRope"><rect x="600" y="-40" width="40" height="640" fill="url(#ropeFadeV)"/></mask>
+                    <mask id="maskMoneyRope"><rect x="360" y="92" width="40" height="378" fill="url(#ropeFadeV)"/></mask>
+                    <mask id="maskOppRope"><rect x="600" y="92" width="40" height="378" fill="url(#ropeFadeV)"/></mask>
                   </defs>
 
                   <!-- ===== TIME — finite, cut short, frayed ends ===== -->
-                  <text x="140" y="42" text-anchor="middle" font-size="19" font-weight="800" letter-spacing="1.5" fill="#e5e7eb">TIME</text>
-                  <rect x="97" y="54" width="86" height="22" rx="11" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-width="1"/>
-                  <text x="140" y="69" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="#fca5a5">FINITE</text>
+                  <text x="140" y="32" text-anchor="middle" font-size="25" font-weight="800" letter-spacing="1" fill="#e5e7eb">TIME</text>
+                  <rect x="97" y="44" width="86" height="24" rx="12" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-width="1"/>
+                  <text x="140" y="60" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="1" fill="#fca5a5">FINITE</text>
 
                   <g stroke="#f87171" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.85">
-                    <path d="M140,168 C133,142 121,122 104,104"/>
-                    <path d="M140,168 C137,138 131,114 122,90"/>
-                    <path d="M140,168 C140,136 140,110 140,82"/>
-                    <path d="M140,168 C143,138 149,114 158,90"/>
-                    <path d="M140,168 C147,142 159,122 176,104"/>
+                    <path d="M140,201 C133,178 121,160 104,144"/>
+                    <path d="M140,201 C137,174 131,152 122,130"/>
+                    <path d="M140,201 C140,172 140,148 140,122"/>
+                    <path d="M140,201 C143,174 149,152 158,130"/>
+                    <path d="M140,201 C147,178 159,160 176,144"/>
                   </g>
                   <g stroke="#f87171" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.85">
-                    <path d="M140,392 C133,418 121,438 104,456"/>
-                    <path d="M140,392 C137,422 131,446 122,470"/>
-                    <path d="M140,392 C140,424 140,450 140,478"/>
-                    <path d="M140,392 C143,422 149,446 158,470"/>
-                    <path d="M140,392 C147,418 159,438 176,456"/>
+                    <path d="M140,361 C133,384 121,402 104,418"/>
+                    <path d="M140,361 C137,388 131,410 122,432"/>
+                    <path d="M140,361 C140,390 140,414 140,440"/>
+                    <path d="M140,361 C143,388 149,410 158,432"/>
+                    <path d="M140,361 C147,384 159,402 176,418"/>
                   </g>
-                  <rect x="120" y="168" width="40" height="224" rx="20" fill="url(#twistRed)"/>
-                  <rect x="136" y="168" width="4" height="224" rx="2" fill="#fff" opacity="0.14"/>
+                  <rect x="120" y="201" width="40" height="160" rx="20" fill="url(#twistRed)"/>
+                  <rect x="136" y="201" width="4" height="160" rx="2" fill="#fff" opacity="0.14"/>
 
-                  <!-- ===== MONEY — infinite, runs off both edges ===== -->
-                  <text x="380" y="42" text-anchor="middle" font-size="19" font-weight="800" letter-spacing="1.5" fill="#e5e7eb">MONEY</text>
-                  <rect x="325" y="54" width="110" height="22" rx="11" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1"/>
-                  <text x="380" y="69" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="#86efac">INFINITE</text>
+                  <!-- ===== MONEY — infinite, but contained (fades, doesn't cross the header) ===== -->
+                  <text x="380" y="32" text-anchor="middle" font-size="25" font-weight="800" letter-spacing="1" fill="#e5e7eb">MONEY</text>
+                  <rect x="325" y="44" width="110" height="24" rx="12" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1"/>
+                  <text x="380" y="60" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="1" fill="#86efac">INFINITE</text>
                   <g mask="url(#maskMoneyRope)">
-                    <rect x="360" y="-40" width="40" height="640" fill="url(#twistGreen)"/>
-                    <rect x="376" y="-40" width="4" height="640" fill="#fff" opacity="0.14"/>
+                    <rect x="360" y="92" width="40" height="378" fill="url(#twistGreen)"/>
+                    <rect x="376" y="92" width="4" height="378" fill="#fff" opacity="0.14"/>
                   </g>
-                  <text x="380" y="118" text-anchor="middle" font-size="20" fill="#bbf7d0" opacity="0.8">&#8734;</text>
-                  <text x="380" y="472" text-anchor="middle" font-size="20" fill="#bbf7d0" opacity="0.8">&#8734;</text>
+                  <text x="380" y="160" text-anchor="middle" font-size="20" fill="#bbf7d0" opacity="0.8">&#8734;</text>
+                  <text x="380" y="410" text-anchor="middle" font-size="20" fill="#bbf7d0" opacity="0.8">&#8734;</text>
 
-                  <!-- ===== OPPORTUNITY — infinite, runs off both edges ===== -->
-                  <text x="620" y="42" text-anchor="middle" font-size="19" font-weight="800" letter-spacing="1.5" fill="#e5e7eb">OPPORTUNITY</text>
-                  <rect x="547" y="54" width="146" height="22" rx="11" fill="rgba(6,182,212,0.12)" stroke="#06b6d4" stroke-width="1"/>
-                  <text x="620" y="69" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="#67e8f9">INFINITE</text>
+                  <!-- ===== OPPORTUNITY — infinite, but contained (fades, doesn't cross the header) ===== -->
+                  <text x="620" y="32" text-anchor="middle" font-size="25" font-weight="800" letter-spacing="1" fill="#e5e7eb">OPPORTUNITY</text>
+                  <rect x="547" y="44" width="146" height="24" rx="12" fill="rgba(6,182,212,0.12)" stroke="#06b6d4" stroke-width="1"/>
+                  <text x="620" y="60" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="1" fill="#67e8f9">INFINITE</text>
                   <g mask="url(#maskOppRope)">
-                    <rect x="600" y="-40" width="40" height="640" fill="url(#twistCyan)"/>
-                    <rect x="616" y="-40" width="4" height="640" fill="#fff" opacity="0.14"/>
+                    <rect x="600" y="92" width="40" height="378" fill="url(#twistCyan)"/>
+                    <rect x="616" y="92" width="4" height="378" fill="#fff" opacity="0.14"/>
                   </g>
-                  <text x="620" y="118" text-anchor="middle" font-size="20" fill="#a5f3fc" opacity="0.8">&#8734;</text>
-                  <text x="620" y="472" text-anchor="middle" font-size="20" fill="#a5f3fc" opacity="0.8">&#8734;</text>
+                  <text x="620" y="160" text-anchor="middle" font-size="20" fill="#a5f3fc" opacity="0.8">&#8734;</text>
+                  <text x="620" y="410" text-anchor="middle" font-size="20" fill="#a5f3fc" opacity="0.8">&#8734;</text>
                 </svg>
               </div>
 
             </div>
           </div>
+        </div>
         </div>
       </div><!-- end home-landing -->
 
