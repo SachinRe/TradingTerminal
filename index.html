@@ -2238,17 +2238,77 @@
         <div class="panel">
           <div class="panel-header">20% Study</div>
           <div class="panel-body">
-            <div class="note" style="margin-bottom:8px;">Study of stocks that moved ≥20% — patterns, common traits, what preceded the move. Add your findings below as you build this out.</div>
-            <textarea id="research-20pct" rows="8" style="width:100%;" placeholder="e.g. Notes on stocks that went up/down 20%+: common float size, sector clustering, catalyst types, days-to-peak after the move..."></textarea>
-            <div style="margin-top:8px;"><button class="btn btn-accent" onclick="saveResearchField('20pct')">Save</button> <span class="muted" id="research-20pct-status" style="font-size:22px;"></span></div>
+            <div class="note" style="margin-bottom:8px;">Study of stocks that moved ≥20% — patterns, common traits, what preceded the move.</div>
+            <textarea id="research-20pct" rows="4" style="width:100%;" placeholder="e.g. Notes on stocks that went up/down 20%+: common float size, catalyst types, days-to-peak after the move..."></textarea>
+            <div style="margin-top:8px;"><button class="btn btn-accent" onclick="saveResearchField('20pct')">Save Notes</button> <span class="muted" id="research-20pct-status" style="font-size:22px;"></span></div>
+
+            <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+              <div style="font-weight:700;margin-bottom:8px;">Log Today's ≥20% Movers</div>
+              <div class="form-row" style="padding:0;">
+                <div class="form-group"><label>Date</label><input type="date" id="study-20pct-date" onchange="setStudyViewDate('20pct', this.value)" style="width:170px" /></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
+                <div class="form-group">
+                  <label style="color:#22c55e;">Bullish tickers (comma / newline separated)</label>
+                  <textarea id="study-20pct-bullish" rows="3" style="width:100%;" placeholder="AAPL, NVDA, TSLA"></textarea>
+                </div>
+                <div class="form-group">
+                  <label style="color:#ef4444;">Bearish tickers (comma / newline separated)</label>
+                  <textarea id="study-20pct-bearish" rows="3" style="width:100%;" placeholder="XYZ, ABC"></textarea>
+                </div>
+              </div>
+              <div style="margin-top:8px;">
+                <button class="btn btn-accent" onclick="addStudyBatch('20pct')">Add Entries</button>
+                <span class="muted" id="study-20pct-add-status" style="font-size:22px;margin-left:8px;"></span>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+              <div id="study-20pct-day-view"></div>
+            </div>
+
+            <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+              <div style="font-weight:700;margin-bottom:10px;">Weekly Summary</div>
+              <div id="study-20pct-weekly"></div>
+            </div>
           </div>
         </div>
         <div class="panel">
           <div class="panel-header">50% Study</div>
           <div class="panel-body">
-            <div class="note" style="margin-bottom:8px;">Study of stocks that moved ≥50% — the bigger, rarer moves. Add your findings below as you build this out.</div>
-            <textarea id="research-50pct" rows="8" style="width:100%;" placeholder="e.g. Notes on stocks that went up 50%+: how many were already-known EP setups vs. surprises, typical hold time before giving back gains..."></textarea>
-            <div style="margin-top:8px;"><button class="btn btn-accent" onclick="saveResearchField('50pct')">Save</button> <span class="muted" id="research-50pct-status" style="font-size:22px;"></span></div>
+            <div class="note" style="margin-bottom:8px;">Study of stocks that moved ≥50% — the bigger, rarer moves.</div>
+            <textarea id="research-50pct" rows="4" style="width:100%;" placeholder="e.g. Notes on stocks that went up 50%+: how many were already-known EP setups vs. surprises, typical hold time before giving back gains..."></textarea>
+            <div style="margin-top:8px;"><button class="btn btn-accent" onclick="saveResearchField('50pct')">Save Notes</button> <span class="muted" id="research-50pct-status" style="font-size:22px;"></span></div>
+
+            <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+              <div style="font-weight:700;margin-bottom:8px;">Log Today's ≥50% Movers</div>
+              <div class="form-row" style="padding:0;">
+                <div class="form-group"><label>Date</label><input type="date" id="study-50pct-date" onchange="setStudyViewDate('50pct', this.value)" style="width:170px" /></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
+                <div class="form-group">
+                  <label style="color:#22c55e;">Bullish tickers (comma / newline separated)</label>
+                  <textarea id="study-50pct-bullish" rows="3" style="width:100%;" placeholder="AAPL, NVDA, TSLA"></textarea>
+                </div>
+                <div class="form-group">
+                  <label style="color:#ef4444;">Bearish tickers (comma / newline separated)</label>
+                  <textarea id="study-50pct-bearish" rows="3" style="width:100%;" placeholder="XYZ, ABC"></textarea>
+                </div>
+              </div>
+              <div style="margin-top:8px;">
+                <button class="btn btn-accent" onclick="addStudyBatch('50pct')">Add Entries</button>
+                <span class="muted" id="study-50pct-add-status" style="font-size:22px;margin-left:8px;"></span>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+              <div id="study-50pct-day-view"></div>
+            </div>
+
+            <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+              <div style="font-weight:700;margin-bottom:10px;">Weekly Summary</div>
+              <div id="study-50pct-weekly"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -6575,7 +6635,262 @@
       ["20pct", "50pct"].forEach(key => {
         const el = document.getElementById("research-" + key);
         if (el) el.value = localStorage.getItem("tt_research_" + key) || "";
+        const dateEl = document.getElementById("study-" + key + "-date");
+        if (dateEl && !dateEl.value) dateEl.value = getStudyViewDate(key);
+        renderStudy(key);
       });
+    }
+
+    // ---- 20%/50% Study: daily ticker log + sector doughnut + weekly rollup ----
+    const STUDY_CONFIG = {
+      "20pct": { storageKey: "tt_study_20pct" },
+      "50pct": { storageKey: "tt_study_50pct" }
+    };
+    const SECTOR_COLORS = {
+      "Technology": "#06b6d4", "Healthcare": "#22c55e", "Financials": "#eab308",
+      "Consumer Discretionary": "#f97316", "Consumer Staples": "#a3e635",
+      "Energy": "#ef4444", "Industrials": "#8b5cf6", "Communication Services": "#ec4899",
+      "Materials": "#14b8a6", "Utilities": "#64748b", "Real Estate": "#f59e0b",
+      "ETF / Index": "#3b82f6", "ETF / Leveraged": "#6366f1", "Other": "#94a3b8",
+      "Unclassified": "#475569"
+    };
+    function sectorColor(s) { return SECTOR_COLORS[s] || "#475569"; }
+
+    function getStudyEntries(key) {
+      try { return JSON.parse(localStorage.getItem(STUDY_CONFIG[key].storageKey) || "[]"); }
+      catch (e) { return []; }
+    }
+    function saveStudyEntries(key, list) {
+      localStorage.setItem(STUDY_CONFIG[key].storageKey, JSON.stringify(list));
+    }
+    let studyViewDate = { "20pct": null, "50pct": null };
+    function getStudyViewDate(key) {
+      return studyViewDate[key] || new Date().toISOString().slice(0, 10);
+    }
+    function setStudyViewDate(key, val) {
+      studyViewDate[key] = val || null;
+      renderStudy(key);
+    }
+
+    async function addStudyBatch(key) {
+      const dateEl = document.getElementById("study-" + key + "-date");
+      const bullEl = document.getElementById("study-" + key + "-bullish");
+      const bearEl = document.getElementById("study-" + key + "-bearish");
+      const statusEl = document.getElementById("study-" + key + "-add-status");
+      const date = (dateEl && dateEl.value) || new Date().toISOString().slice(0, 10);
+      const parseList = (raw) => (raw || "").split(/[\s,]+/).map(t => t.trim().toUpperCase()).filter(Boolean);
+      const bullTickers = parseList(bullEl ? bullEl.value : "");
+      const bearTickers = parseList(bearEl ? bearEl.value : "");
+      if (!bullTickers.length && !bearTickers.length) {
+        if (statusEl) statusEl.textContent = "Enter at least one ticker";
+        return;
+      }
+      if (statusEl) statusEl.textContent = "Adding…";
+      let mktCaps = {};
+      try { mktCaps = await loadSipMktCapCache(); } catch (e) { mktCaps = {}; }
+      const sectorMap = getSectorMap();
+      const list = getStudyEntries(key);
+      const existingKeys = new Set(list.map(e => e.date + "|" + e.ticker + "|" + e.direction));
+      let added = 0, skipped = 0;
+      const addOnes = (tickers, direction) => {
+        tickers.forEach(ticker => {
+          const dupKey = date + "|" + ticker + "|" + direction;
+          if (existingKeys.has(dupKey)) { skipped++; return; }
+          const auto = (mktCaps[ticker] && mktCaps[ticker].sector) || sectorMap[ticker] || "";
+          list.push({
+            id: key + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7),
+            date, ticker, direction, sector: auto || "Unclassified"
+          });
+          existingKeys.add(dupKey);
+          added++;
+        });
+      };
+      addOnes(bullTickers, "Bullish");
+      addOnes(bearTickers, "Bearish");
+      saveStudyEntries(key, list);
+      if (bullEl) bullEl.value = "";
+      if (bearEl) bearEl.value = "";
+      studyViewDate[key] = date;
+      if (dateEl) dateEl.value = date;
+      if (statusEl) {
+        statusEl.textContent = added
+          ? `Added ${added} ticker(s)` + (skipped ? ` · ${skipped} already logged for this date` : "")
+          : "No new tickers — already logged for this date";
+        setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 4000);
+      }
+      renderStudy(key);
+    }
+
+    function updateStudyEntrySector(key, id, sector) {
+      const list = getStudyEntries(key);
+      const e = list.find(x => x.id === id);
+      if (!e) return;
+      e.sector = sector;
+      saveStudyEntries(key, list);
+      if (sector && sector !== "Unclassified") assignSector(e.ticker, sector);
+      renderStudy(key);
+    }
+    function updateStudyEntryDirection(key, id, direction) {
+      const list = getStudyEntries(key);
+      const e = list.find(x => x.id === id);
+      if (!e) return;
+      e.direction = direction;
+      saveStudyEntries(key, list);
+      renderStudy(key);
+    }
+    function deleteStudyEntry(key, id) {
+      saveStudyEntries(key, getStudyEntries(key).filter(x => x.id !== id));
+      renderStudy(key);
+    }
+
+    // Renders a ring chart from stroke-dasharray segments on stacked circles —
+    // no charting library, so it stays inside this single self-contained file.
+    function buildDoughnutSVG(segments, opts) {
+      opts = opts || {};
+      const size = opts.size || 180;
+      const stroke = opts.stroke || 26;
+      const r = (size - stroke) / 2;
+      const cx = size / 2, cy = size / 2;
+      const circumference = 2 * Math.PI * r;
+      const total = segments.reduce((a, s) => a + s.value, 0);
+      if (!total) {
+        return `<div style="width:${size}px;height:${size}px;border-radius:50%;border:${stroke}px solid #1f2937;display:flex;align-items:center;justify-content:center;">
+          <span class="muted" style="font-size:20px;">No data</span>
+        </div>`;
+      }
+      let offsetAcc = 0;
+      const arcs = segments.filter(s => s.value > 0).map(s => {
+        const frac = s.value / total;
+        const len = frac * circumference;
+        const dash = `${len} ${circumference - len}`;
+        const dashoffset = -offsetAcc;
+        offsetAcc += len;
+        return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="${stroke}" stroke-dasharray="${dash}" stroke-dashoffset="${dashoffset}" transform="rotate(-90 ${cx} ${cy})" />`;
+      }).join("");
+      return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#1f2937" stroke-width="${stroke}" />
+        ${arcs}
+        <text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="30" font-weight="800" fill="#e5e7eb">${total}</text>
+        <text x="${cx}" y="${cy + 20}" text-anchor="middle" font-size="16" fill="#94a3b8">stocks</text>
+      </svg>`;
+    }
+    function buildDoughnutLegend(segments) {
+      const total = segments.reduce((a, s) => a + s.value, 0) || 1;
+      const rows = segments.filter(s => s.value > 0).sort((a, b) => b.value - a.value).map(s => {
+        const pct = Math.round(s.value / total * 100);
+        return `<div style="display:flex;align-items:center;gap:8px;font-size:22px;color:var(--text);margin-bottom:4px;">
+          <span style="width:12px;height:12px;border-radius:50%;background:${s.color};flex-shrink:0;display:inline-block;"></span>
+          <span style="flex-grow:1;">${s.label}</span>
+          <span class="muted">${s.value} · ${pct}%</span>
+        </div>`;
+      }).join("");
+      return `<div>${rows}</div>`;
+    }
+    function sectorSegmentsFromEntries(entries) {
+      const bySector = {};
+      entries.forEach(e => { const s = e.sector || "Unclassified"; bySector[s] = (bySector[s] || 0) + 1; });
+      return Object.entries(bySector).map(([label, value]) => ({ label, value, color: sectorColor(label) }));
+    }
+
+    function renderStudy(key) {
+      const cfg = STUDY_CONFIG[key];
+      if (!cfg) return;
+      const dateEl = document.getElementById("study-" + key + "-date");
+      const viewDate = getStudyViewDate(key);
+      if (dateEl && dateEl.value !== viewDate) dateEl.value = viewDate;
+      const all = getStudyEntries(key);
+      const dayEntries = all.filter(e => e.date === viewDate);
+      renderStudyDayView(key, viewDate, dayEntries);
+      renderStudyWeekly(key, all);
+    }
+
+    function renderStudyDayView(key, viewDate, entries) {
+      const el = document.getElementById("study-" + key + "-day-view");
+      if (!el) return;
+      const bullish = entries.filter(e => e.direction === "Bullish");
+      const bearish = entries.filter(e => e.direction === "Bearish");
+      const segments = sectorSegmentsFromEntries(entries);
+      const sectorOptions = SECTOR_LIST.concat(["Unclassified"]);
+
+      const rowsHtml = entries.length ? entries.map(e => `
+        <tr>
+          <td><span class="ticker">${e.ticker}</span></td>
+          <td>
+            <select onchange="updateStudyEntryDirection('${key}','${e.id}', this.value)" style="width:110px;color:${e.direction === "Bullish" ? "#22c55e" : "#ef4444"};">
+              <option value="Bullish" ${e.direction === "Bullish" ? "selected" : ""}>Bullish</option>
+              <option value="Bearish" ${e.direction === "Bearish" ? "selected" : ""}>Bearish</option>
+            </select>
+          </td>
+          <td>
+            <select onchange="updateStudyEntrySector('${key}','${e.id}', this.value)" style="width:200px;">
+              ${sectorOptions.map(s => `<option value="${s}" ${e.sector === s ? "selected" : ""}>${s}</option>`).join("")}
+            </select>
+          </td>
+          <td><button class="btn btn-sm" onclick="deleteStudyEntry('${key}','${e.id}')">Remove</button></td>
+        </tr>`).join("") : `<tr><td colspan="4" class="muted">No entries logged for ${viewDate} yet — add tickers above.</td></tr>`;
+
+      el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+          <div style="font-weight:700;">Entries — ${viewDate}</div>
+          <div style="font-size:22px;"><span class="pos">Bullish ${bullish.length}</span> &nbsp;·&nbsp; <span class="neg">Bearish ${bearish.length}</span> &nbsp;·&nbsp; <span class="muted">Total ${entries.length}</span></div>
+        </div>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
+          <div>${buildDoughnutSVG(segments, {})}</div>
+          <div style="min-width:240px;">${entries.length ? buildDoughnutLegend(segments) : `<div class="muted" style="font-size:22px;">Sector breakdown appears once you log tickers.</div>`}</div>
+        </div>
+        <table><thead><tr><th>Ticker</th><th>Direction</th><th>Sector</th><th></th></tr></thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      `;
+    }
+
+    function getWeekStart(dateStr) {
+      const d = new Date(dateStr + "T00:00:00");
+      const day = d.getDay();
+      const diff = (day === 0 ? -6 : 1) - day; // back up to Monday
+      d.setDate(d.getDate() + diff);
+      return d.toISOString().slice(0, 10);
+    }
+    function formatWeekLabel(weekStartStr) {
+      const start = new Date(weekStartStr + "T00:00:00");
+      return "Week of " + start.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    }
+
+    function renderStudyWeekly(key, all) {
+      const el = document.getElementById("study-" + key + "-weekly");
+      if (!el) return;
+      if (!all.length) {
+        el.innerHTML = `<div class="muted" style="font-size:22px;">No entries logged yet — weekly summaries appear once you log tickers above.</div>`;
+        return;
+      }
+      const byWeek = {};
+      all.forEach(e => {
+        const wk = getWeekStart(e.date);
+        if (!byWeek[wk]) byWeek[wk] = [];
+        byWeek[wk].push(e);
+      });
+      const weeks = Object.keys(byWeek).sort((a, b) => b.localeCompare(a)); // most recent first
+
+      el.innerHTML = weeks.map(wk => {
+        const entries = byWeek[wk];
+        const bullish = entries.filter(e => e.direction === "Bullish").length;
+        const bearish = entries.filter(e => e.direction === "Bearish").length;
+        const total = entries.length;
+        const segments = sectorSegmentsFromEntries(entries);
+        const sectorSummary = segments.slice().sort((a, b) => b.value - a.value)
+          .map(s => `${s.label} ${Math.round(s.value / total * 100)}%`).join(", ");
+        return `
+          <div style="border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:12px;">
+            <div style="font-weight:700;margin-bottom:6px;">${formatWeekLabel(wk)}</div>
+            <div style="font-size:22px;margin-bottom:10px;">
+              <span class="pos">#Bullish: ${bullish}</span> &nbsp;·&nbsp; <span class="neg">#Bearish: ${bearish}</span> &nbsp;·&nbsp; <span class="muted">${sectorSummary}</span>
+            </div>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;">
+              <div>${buildDoughnutSVG(segments, { size: 130, stroke: 20 })}</div>
+              <div style="min-width:220px;">${buildDoughnutLegend(segments)}</div>
+            </div>
+          </div>`;
+      }).join("");
     }
 
     // ---- Weekly Process checklist — simple editable list, since the user
