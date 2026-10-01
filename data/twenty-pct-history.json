@@ -1293,5 +1293,60 @@
         "mktCap": 5554830
       }
     ]
+  },
+  {
+    "date": "2026-10-01",
+    "up": [
+      {
+        "ticker": "NXL",
+        "price": 7.58,
+        "changePct": 77.1,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 5554258
+      },
+      {
+        "ticker": "WFCF",
+        "price": 13.69,
+        "changePct": 23.89,
+        "sector": "Industrials",
+        "industry": "Specialty Business Services",
+        "mktCap": 69390833
+      },
+      {
+        "ticker": "BTLN",
+        "price": 6.06,
+        "changePct": 20,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 16260538
+      }
+    ],
+    "down": [
+      {
+        "ticker": "CTVA",
+        "price": 12.295,
+        "changePct": -84.17,
+        "sector": "Basic Materials",
+        "industry": "Agricultural Inputs",
+        "mktCap": 8218660806
+      },
+      {
+        "ticker": "NKTR",
+        "price": 48.1177,
+        "changePct": -20.53,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1378026303
+      },
+      {
+        "ticker": "SVRN",
+        "price": 39.77,
+        "changePct": -20.43,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 63646437
+      }
+    ]
   }
 ]

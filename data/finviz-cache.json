@@ -236,5 +236,33 @@
     "finvizFloat": 32000000,
     "success": true,
     "fetchedAt": "2026-09-26T17:22:49.670Z"
+  },
+  "CTVA": {
+    "shortInterestPct": "3.10%",
+    "daysToCover": 4.64,
+    "finvizFloat": 666160000,
+    "success": true,
+    "fetchedAt": "2026-10-01T17:20:45.648Z"
+  },
+  "ACN": {
+    "shortInterestPct": "4.06%",
+    "daysToCover": 3.85,
+    "finvizFloat": 610590000,
+    "success": true,
+    "fetchedAt": "2026-10-01T17:20:46.294Z"
+  },
+  "NKTR": {
+    "shortInterestPct": "17.35%",
+    "daysToCover": 6.18,
+    "finvizFloat": 33060000.000000004,
+    "success": true,
+    "fetchedAt": "2026-10-01T17:20:46.924Z"
+  },
+  "NXL": {
+    "shortInterestPct": "1.92%",
+    "daysToCover": 1.14,
+    "finvizFloat": 650000,
+    "success": true,
+    "fetchedAt": "2026-10-01T17:20:47.556Z"
   }
 }

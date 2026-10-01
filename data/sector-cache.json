@@ -324,7 +324,8 @@
   "NOEMU": {
     "sector": "Financial Services",
     "industry": "Shell Companies",
-    "mktCap": 92739600
+    "mktCap": 89559000,
+    "float": null
   },
   "CONI": {
     "sector": "Financial Services",
@@ -502,7 +503,8 @@
   "WFCF": {
     "sector": "Industrials",
     "industry": "Specialty Business Services",
-    "mktCap": 55583214
+    "mktCap": 69390833,
+    "float": null
   },
   "WNTR": {
     "sector": "Financial Services",
@@ -1140,7 +1142,8 @@
   "BAC": {
     "sector": "Financial Services",
     "industry": "Banks - Diversified",
-    "mktCap": 398828358000
+    "mktCap": 381157848900,
+    "float": 7075946019
   },
   "WHLR": {
     "sector": "Real Estate",
@@ -1608,6 +1611,108 @@
     "sector": "Financial Services",
     "industry": "Asset Management - Global",
     "mktCap": 124287445,
+    "float": null
+  },
+  "CTVA": {
+    "sector": "Basic Materials",
+    "industry": "Agricultural Inputs",
+    "mktCap": 8218660806,
+    "float": null
+  },
+  "ACN": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 131953076964,
+    "float": null
+  },
+  "NKTR": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1378026303,
+    "float": null
+  },
+  "NXL": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 5554258,
+    "float": null
+  },
+  "INGN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 165966783,
+    "float": null
+  },
+  "AGMB": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 470017749,
+    "float": null
+  },
+  "XRPN": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 769665000,
+    "float": null
+  },
+  "CCEC": {
+    "sector": "Industrials",
+    "industry": "Marine Shipping",
+    "mktCap": 1278612975,
+    "float": null
+  },
+  "MGRT": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 1560608500,
+    "float": null
+  },
+  "BTLN": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 16260538,
+    "float": null
+  },
+  "EFOR": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 1523150000,
+    "float": null
+  },
+  "EFXT": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Equipment & Services",
+    "mktCap": 3143835483,
+    "float": null
+  },
+  "ADVB": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 9315576,
+    "float": null
+  },
+  "DMRC": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 146209504,
+    "float": null
+  },
+  "FICO": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 14304112163,
+    "float": null
+  },
+  "MUU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1960056414,
+    "float": null
+  },
+  "XLU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 20459884949,
     "float": null
   }
 }
