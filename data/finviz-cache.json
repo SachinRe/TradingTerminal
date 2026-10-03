@@ -264,5 +264,37 @@
     "finvizFloat": 650000,
     "success": true,
     "fetchedAt": "2026-10-01T17:20:47.556Z"
+  },
+  "SDEV": {
+    "shortInterestPct": "66.24%",
+    "daysToCover": 0.18,
+    "finvizFloat": 1830000,
+    "success": true,
+    "fetchedAt": "2026-10-03T17:36:32.899Z"
+  },
+  "TSLA": {
+    "shortInterestPct": "2.44%",
+    "daysToCover": 1.79,
+    "finvizFloat": 2820000000,
+    "success": true,
+    "fetchedAt": "2026-10-03T17:36:33.491Z"
+  },
+  "MXL": {
+    "shortInterestPct": "5.68%",
+    "daysToCover": 1.56,
+    "finvizFloat": 85220000,
+    "success": true,
+    "fetchedAt": "2026-10-03T17:36:34.073Z"
+  },
+  "IART": {
+    "shortInterestPct": "10.23%",
+    "daysToCover": 8.04,
+    "finvizFloat": 66500000,
+    "success": true,
+    "fetchedAt": "2026-10-03T17:36:34.644Z"
+  },
+  "SPCF": {
+    "success": false,
+    "fetchedAt": "2026-10-03T17:36:35.344Z"
   }
 }

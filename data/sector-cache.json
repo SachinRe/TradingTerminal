@@ -293,7 +293,8 @@
   "PMI": {
     "sector": "Healthcare",
     "industry": "Medical - Devices",
-    "mktCap": 11536000
+    "mktCap": 11906800,
+    "float": null
   },
   "HFSP": {
     "sector": "Financial Services",
@@ -387,7 +388,8 @@
   "GEMG": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 932681
+    "mktCap": 746539,
+    "float": null
   },
   "COIA": {
     "sector": "Financial Services",
@@ -1713,6 +1715,114 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 20459884949,
+    "float": null
+  },
+  "SDEV": {
+    "sector": "Healthcare",
+    "industry": "Medical - Pharmaceuticals",
+    "mktCap": 377364339,
+    "float": null
+  },
+  "MXL": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 9607129723,
+    "float": null
+  },
+  "IART": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 986155376,
+    "float": null
+  },
+  "SPCF": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 184000,
+    "float": null
+  },
+  "SPAX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 22089200,
+    "float": null
+  },
+  "CABO": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 69265499,
+    "float": null
+  },
+  "IMOS": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 2915429195,
+    "float": null
+  },
+  "TERG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 1265144,
+    "float": null
+  },
+  "BGM": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - Specialty & Generic",
+    "mktCap": 118500736,
+    "float": null
+  },
+  "FVN": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 60389720,
+    "float": null
+  },
+  "LOFF": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 1395000,
+    "float": null
+  },
+  "SYNA": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 4730490064,
+    "float": null
+  },
+  "IMC": {
+    "sector": "Basic Materials",
+    "industry": "Industrial Materials",
+    "mktCap": 957461000,
+    "float": null
+  },
+  "ECHX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 3182014,
+    "float": null
+  },
+  "WOLF": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 1833575688,
+    "float": null
+  },
+  "OPTX": {
+    "sector": "Technology",
+    "industry": "Hardware, Equipment & Parts",
+    "mktCap": 368158085,
+    "float": null
+  },
+  "LOFD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 1011600,
+    "float": null
+  },
+  "STI": {
+    "sector": "Industrials",
+    "industry": "Electrical Equipment & Parts",
+    "mktCap": 45112077,
     "float": null
   }
 }

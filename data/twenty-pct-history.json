@@ -1348,5 +1348,60 @@
         "mktCap": 63646437
       }
     ]
+  },
+  {
+    "date": "2026-10-03",
+    "up": [
+      {
+        "ticker": "SDEV",
+        "price": 7.48,
+        "changePct": 104.37,
+        "sector": "Healthcare",
+        "industry": "Medical - Pharmaceuticals",
+        "mktCap": 377364339
+      },
+      {
+        "ticker": "XRPN",
+        "price": 39.42,
+        "changePct": 68.25,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 769665000
+      },
+      {
+        "ticker": "RPGL",
+        "price": 37.19,
+        "changePct": 41.95,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 889348
+      },
+      {
+        "ticker": "PMI",
+        "price": 5.78,
+        "changePct": 33.8,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 11906800
+      }
+    ],
+    "down": [
+      {
+        "ticker": "NXL",
+        "price": 5.73,
+        "changePct": -24.11,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 5554258
+      },
+      {
+        "ticker": "IART",
+        "price": 12.68,
+        "changePct": -21.19,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 986155376
+      }
+    ]
   }
 ]
