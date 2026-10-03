@@ -2781,6 +2781,12 @@
 
     <!-- TRADING OPERATIONS -->
     <div id="trading-operations" class="section">
+      <div class="steps">
+        <div class="step-tab active" data-to-sub="to-upload" onclick="switchTOSub(this)">Upload &amp; Baseline</div>
+        <div class="step-tab" data-to-sub="to-scanner" onclick="switchTOSub(this)">Scanner</div>
+      </div>
+
+      <div id="to-upload" class="to-sub" style="display:block;">
       <div class="panel">
         <div class="panel-header">
           Upload Trading File From Brokerage
@@ -2812,6 +2818,57 @@
           <div style="font-size:26px;" id="baseline-status">Not set</div>
           <div class="note">This is set in one place now — Performance Dashboard → Account Snapshot → Edit values → Starting Date / Starting Portfolio Value. Go there to set or change it; shown here read-only so there's a single source of truth instead of two forms that could disagree.</div>
         </div>
+      </div>
+      </div>
+
+      <div id="to-scanner" class="to-sub" style="display:none;">
+      <div class="panel">
+        <div class="panel-header">
+          Scanner Watchlist
+          <span class="tag">Upload Excel or text · edit/delete right here</span>
+        </div>
+        <div class="panel-body">
+          <div class="form-row">
+            <input type="file" id="scanner-file" accept=".xlsx,.xls,.csv,.txt" style="font-size:24px;color:var(--muted);" onchange="handleScannerWatchlistUpload(event)" />
+            <span class="muted" style="font-size:22px;">.xlsx/.xls (first column, or any column headed Ticker/Symbol) or .csv/.txt (one ticker per line or comma-separated)</span>
+          </div>
+          <div class="form-row" style="margin-top:10px;">
+            <div class="form-group"><label>Add ticker</label>
+              <input type="text" id="scanner-add-input" placeholder="e.g. NVDA" style="width:140px;text-transform:uppercase;" onkeydown="if(event.key==='Enter'){addScannerTicker();}" />
+            </div>
+            <button class="btn btn-sm btn-accent" onclick="addScannerTicker()">Add</button>
+            <button class="btn btn-sm" onclick="toggleScannerBulkEdit()">Bulk edit…</button>
+            <button class="btn btn-sm" onclick="clearScannerWatchlist()">Clear all</button>
+          </div>
+          <div id="scanner-bulk-edit" style="display:none;margin-top:10px;padding:12px;background:#0f172a;border:1px solid var(--border);border-radius:8px;">
+            <div class="note" style="margin-bottom:8px;">Paste one ticker per line or comma-separated — this replaces the entire list below.</div>
+            <textarea id="scanner-bulk-textarea" rows="6" style="width:100%;font-size:24px;background:#0b1220;color:var(--text);border:1px solid var(--border);border-radius:6px;"></textarea>
+            <div class="form-row" style="margin-top:8px;">
+              <button class="btn btn-sm btn-accent" onclick="saveScannerBulkEdit()">Save list</button>
+              <button class="btn btn-sm" onclick="toggleScannerBulkEdit()">Cancel</button>
+            </div>
+          </div>
+          <div id="scanner-watchlist-body" style="margin-top:12px;"></div>
+          <div id="scanner-upload-status" class="muted" style="font-size:22px;margin-top:6px;"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          Run Scanner
+          <span class="tag">15-min higher-low + EMA21/EMA50 cross + EMA21-vs-SMA130 setup</span>
+        </div>
+        <div class="panel-body">
+          <div class="form-row">
+            <button class="btn btn-accent" onclick="runScannerNow()">Run Scanner Now</button>
+            <span class="muted" id="scanner-run-status" style="font-size:22px;margin-left:8px;"></span>
+          </div>
+          <div class="note">
+            <strong>What this does today:</strong> pushes your watchlist above to the repo (<code>data/scanner-watchlist.json</code>) using the same GitHub token/connection as "Refresh Data Now" on Qualify, then triggers the scheduled Action so it has your current list.
+            <strong>What's not built yet:</strong> the server-side scan itself — pulling 15-min bars per ticker and flagging the higher-low / EMA21-EMA50 cross / EMA21-vs-SMA130 setup — doesn't run yet, so <code>data/scanner-results.json</code> won't exist until that's added. This is deliberately shipped honestly in two steps: watchlist management now, detection logic next.
+          </div>
+          <div id="scanner-results-body" style="margin-top:12px;"></div>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -5627,6 +5684,236 @@
       }
     }
 
+    // ===== SCANNER =====
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
+
+    // Accepts a flat array of raw cell/line values (strings, numbers, whatever
+    // a spreadsheet cell or a line of text could be) and returns a deduped,
+    // uppercased list of plausible ticker symbols. Shared by both the Excel
+    // path (flattened sheet cells) and the plain-text path (one call with the
+    // whole file content as a single string) because splitting on
+    // comma/semicolon/newline/tab covers both one-per-line and comma-separated
+    // layouts the same way.
+    function extractTickers(values) {
+      const seen = new Set();
+      const out = [];
+      const skipWords = new Set(["TICKER", "TICKERS", "SYMBOL", "SYMBOLS", "STOCK", "STOCKS", "NAME", "COMPANY", "WATCHLIST"]);
+      (values || []).forEach(v => {
+        if (v === null || v === undefined) return;
+        String(v).split(/[,;\n\r\t]+/).forEach(piece => {
+          const t = piece.trim().toUpperCase();
+          if (!t) return;
+          if (skipWords.has(t)) return;
+          if (!/^[A-Z][A-Z.\-]{0,9}$/.test(t)) return;
+          if (seen.has(t)) return;
+          seen.add(t);
+          out.push(t);
+        });
+      });
+      return out;
+    }
+
+    function getScannerWatchlist() {
+      try { return JSON.parse(localStorage.getItem("tt_scanner_watchlist") || "[]"); }
+      catch (e) { return []; }
+    }
+    function saveScannerWatchlist(list) {
+      localStorage.setItem("tt_scanner_watchlist", JSON.stringify(list));
+      renderScannerWatchlist();
+    }
+
+    let xlsxLibPromise = null;
+    function loadXlsxLib() {
+      if (window.XLSX) return Promise.resolve();
+      if (xlsxLibPromise) return xlsxLibPromise;
+      xlsxLibPromise = new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error("Could not load the Excel-reading library from the CDN."));
+        document.head.appendChild(s);
+      });
+      return xlsxLibPromise;
+    }
+
+    function handleScannerWatchlistUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      const status = document.getElementById("scanner-upload-status");
+      if (!file) return;
+      const name = file.name.toLowerCase();
+      const isExcel = name.endsWith(".xlsx") || name.endsWith(".xls");
+      if (status) status.textContent = "Reading " + file.name + "…";
+
+      const finish = (tickers) => {
+        if (!tickers.length) {
+          if (status) status.textContent = "Couldn't find any tickers in " + file.name + " — check the file and try again.";
+          return;
+        }
+        const existing = getScannerWatchlist();
+        const merged = Array.from(new Set([...existing, ...tickers]));
+        saveScannerWatchlist(merged);
+        if (status) status.textContent = "Added " + tickers.length + " ticker(s) from " + file.name + " (" + merged.length + " total).";
+        event.target.value = "";
+      };
+
+      if (isExcel) {
+        loadXlsxLib().then(() => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            try {
+              const wb = XLSX.read(reader.result, { type: "array" });
+              const ws = wb.Sheets[wb.SheetNames[0]];
+              const rows = XLSX.utils.sheet_to_json(ws, { header: 1 });
+              finish(extractTickers(rows.flat()));
+            } catch (e) {
+              if (status) status.textContent = "Couldn't read that Excel file (" + e.message + ").";
+            }
+          };
+          reader.onerror = () => { if (status) status.textContent = "Couldn't read " + file.name + "."; };
+          reader.readAsArrayBuffer(file);
+        }).catch(e => { if (status) status.textContent = e.message; });
+      } else {
+        const reader = new FileReader();
+        reader.onload = () => { finish(extractTickers([reader.result])); };
+        reader.onerror = () => { if (status) status.textContent = "Couldn't read " + file.name + "."; };
+        reader.readAsText(file);
+      }
+    }
+
+    function addScannerTicker() {
+      const input = document.getElementById("scanner-add-input");
+      if (!input) return;
+      const tickers = extractTickers([input.value]);
+      if (!tickers.length) { alert("Enter a valid ticker (letters, '.', '-' only)."); return; }
+      const list = getScannerWatchlist();
+      const merged = Array.from(new Set([...list, ...tickers]));
+      saveScannerWatchlist(merged);
+      input.value = "";
+    }
+    function removeScannerTicker(ticker) {
+      const list = getScannerWatchlist().filter(t => t !== ticker);
+      saveScannerWatchlist(list);
+    }
+    function clearScannerWatchlist() {
+      if (!getScannerWatchlist().length) return;
+      if (!confirm("Clear the entire scanner watchlist? This can't be undone.")) return;
+      saveScannerWatchlist([]);
+    }
+    function toggleScannerBulkEdit() {
+      const el = document.getElementById("scanner-bulk-edit");
+      if (!el) return;
+      el.style.display = el.style.display === "none" ? "block" : "none";
+      if (el.style.display === "block") {
+        document.getElementById("scanner-bulk-textarea").value = getScannerWatchlist().join("\n");
+      }
+    }
+    function saveScannerBulkEdit() {
+      const textarea = document.getElementById("scanner-bulk-textarea");
+      const tickers = extractTickers([textarea ? textarea.value : ""]);
+      saveScannerWatchlist(tickers);
+      toggleScannerBulkEdit();
+    }
+
+    function renderScannerWatchlist() {
+      const body = document.getElementById("scanner-watchlist-body");
+      if (!body) return;
+      const list = getScannerWatchlist();
+      if (!list.length) {
+        body.innerHTML = `<div class="wl-empty">No tickers yet. Upload an Excel/text file above, or add them one at a time.</div>`;
+        return;
+      }
+      let html = `<div style="font-size:22px;color:var(--muted);margin-bottom:6px;">${list.length} ticker(s)</div><div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+      list.forEach(t => {
+        html += `<span style="display:inline-flex;align-items:center;gap:6px;background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:4px 6px 4px 12px;font-size:22px;">
+          <span class="ticker">${escapeHtml(t)}</span>
+          <button class="btn btn-sm" style="padding:2px 8px;" title="Remove ${escapeHtml(t)}" onclick="removeScannerTicker('${escapeHtml(t).replace(/'/g, "\\'")}')">&times;</button>
+        </span>`;
+      });
+      html += `</div>`;
+      body.innerHTML = html;
+    }
+
+    async function pushScannerWatchlistToRepo(list) {
+      const token = getGithubToken();
+      if (!token) throw new Error("No GitHub token saved — open Qualify → \"One-click setup…\" and save a fine-grained token first.");
+      const path = "data/scanner-watchlist.json";
+      const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+      const headers = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
+      let sha = null;
+      try {
+        const getRes = await fetch(apiUrl + `?ref=${GITHUB_BRANCH}`, { headers });
+        if (getRes.ok) { const getData = await getRes.json(); sha = getData.sha; }
+      } catch (e) { /* file may not exist yet — that's fine, we'll create it */ }
+      const content = JSON.stringify({ tickers: list, updatedAt: new Date().toISOString() }, null, 2);
+      const body = {
+        message: "Update scanner watchlist (" + list.length + " tickers) via Trading Terminal",
+        content: btoa(unescape(encodeURIComponent(content))),
+        branch: GITHUB_BRANCH
+      };
+      if (sha) body.sha = sha;
+      const putRes = await fetch(apiUrl, { method: "PUT", headers: { ...headers, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      if (!putRes.ok) {
+        const errText = await putRes.text().catch(() => "");
+        throw new Error("HTTP " + putRes.status + (errText ? " — " + errText.slice(0, 200) : ""));
+      }
+    }
+
+    async function runScannerNow() {
+      const status = document.getElementById("scanner-run-status");
+      const list = getScannerWatchlist();
+      if (!list.length) { if (status) status.textContent = "Add at least one ticker to the watchlist first."; return; }
+      if (status) status.textContent = "Pushing watchlist (" + list.length + " tickers) to repo…";
+      try {
+        await pushScannerWatchlistToRepo(list);
+        const token = getGithubToken();
+        const workflowUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW_FILE}`;
+        if (!token) {
+          window.open(workflowUrl, "_blank");
+          if (status) status.textContent = "Watchlist pushed. Opened GitHub's Run-workflow page — click \"Run workflow\" there.";
+          return;
+        }
+        if (status) status.textContent = "Watchlist pushed. Triggering Action…";
+        const res = await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW_FILE}/dispatches`,
+          { method: "POST", headers: { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify({ ref: GITHUB_BRANCH }) }
+        );
+        if (res.status === 204) {
+          if (status) status.textContent = "Watchlist pushed and Action triggered. Note: the server-side detection logic (higher-low / EMA cross / EMA-vs-SMA) isn't built yet, so this syncs the list but scanner-results.json won't appear until that's added.";
+        } else {
+          const errText = await res.text().catch(() => "");
+          throw new Error("HTTP " + res.status + (errText ? " — " + errText.slice(0, 200) : ""));
+        }
+      } catch (e) {
+        if (status) status.textContent = "Failed: " + e.message;
+      }
+    }
+
+    async function loadScannerResults() {
+      try {
+        const res = await fetch("data/scanner-results.json", { cache: "no-store" });
+        if (!res.ok) { renderScannerResults(null); return; }
+        renderScannerResults(await res.json());
+      } catch (e) {
+        renderScannerResults(null);
+      }
+    }
+    function renderScannerResults(data) {
+      const body = document.getElementById("scanner-results-body");
+      if (!body) return;
+      if (!data || !Array.isArray(data.candidates) || !data.candidates.length) {
+        body.innerHTML = `<div class="wl-empty">No scanner results yet — the detection engine isn't built server-side. Watchlist upload/edit/delete above is fully working; "Run Scanner Now" keeps the list synced so it's ready the moment detection logic ships.</div>`;
+        return;
+      }
+      let html = `<table><thead><tr><th>Ticker</th><th>Flagged</th><th>Notes</th></tr></thead><tbody>`;
+      data.candidates.forEach(c => {
+        html += `<tr><td class="ticker">${escapeHtml(c.ticker || "")}</td><td>${escapeHtml(c.flaggedAt || "")}</td><td>${escapeHtml(c.notes || "")}</td></tr>`;
+      });
+      html += `</tbody></table>`;
+      body.innerHTML = html;
+    }
+
     let lastDataGeneratedAt = null;
     let lastDataGeneratedSlot = null;
     let lastBreadthHistory = [];
@@ -6478,6 +6765,21 @@
         renderStocksInPlay();
         renderSipTop5();
         renderSipTop5History();
+      }
+    }
+    function switchTOSub(el) {
+      const sub = el.getAttribute("data-to-sub");
+      document.querySelectorAll("#trading-operations > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll(".to-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
+      const panel = document.getElementById(sub);
+      if (panel) {
+        panel.style.display = "block";
+        panel.classList.add("active");
+      }
+      if (sub === "to-scanner") {
+        renderScannerWatchlist();
+        loadScannerResults();
       }
     }
     function switchWatchSub(el) {
@@ -9729,6 +10031,7 @@ Question: ${question}`;
     setInterval(loadLiveWatchlistData, 5 * 60 * 1000);
     renderGithubTokenStatus();
     renderAlpacaClientKeyStatus();
+    renderScannerWatchlist();
     initTickerBadgeObserver();
     loadBaselineUI();
     updateExecRiskVisibility();
