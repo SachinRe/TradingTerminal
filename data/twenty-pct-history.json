@@ -1403,5 +1403,76 @@
         "mktCap": 986155376
       }
     ]
+  },
+  {
+    "date": "2026-10-09",
+    "up": [
+      {
+        "ticker": "WFF",
+        "price": 7.7551,
+        "changePct": 278.3,
+        "sector": "Industrials",
+        "industry": "Manufacturing - Textiles",
+        "mktCap": 39421987
+      },
+      {
+        "ticker": "VEEA",
+        "price": 5.731,
+        "changePct": 48.09,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 15653228
+      },
+      {
+        "ticker": "MRNX",
+        "price": 175.92,
+        "changePct": 22.16,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 7376943
+      },
+      {
+        "ticker": "CUE",
+        "price": 27.185,
+        "changePct": 21.74,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 196920103
+      }
+    ],
+    "down": [
+      {
+        "ticker": "AIOK",
+        "price": 6.545,
+        "changePct": -38.77,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 28273850
+      },
+      {
+        "ticker": "CABO",
+        "price": 10.155,
+        "changePct": -33.97,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 69265499
+      },
+      {
+        "ticker": "ALISU",
+        "price": 27.89,
+        "changePct": -30.27,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 38125630
+      },
+      {
+        "ticker": "BBCI",
+        "price": 5.815,
+        "changePct": -22.47,
+        "sector": "Financial Services",
+        "industry": "Financial - Diversified",
+        "mktCap": 6
+      }
+    ]
   }
 ]

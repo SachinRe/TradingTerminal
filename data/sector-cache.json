@@ -320,7 +320,8 @@
   "VEEA": {
     "sector": "Technology",
     "industry": "Information Technology Services",
-    "mktCap": 14688681
+    "mktCap": 15653228,
+    "float": null
   },
   "NOEMU": {
     "sector": "Financial Services",
@@ -435,7 +436,8 @@
   "CRCG": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 6424962
+    "mktCap": 5558643,
+    "float": null
   },
   "GEMI": {
     "sector": "Financial Services",
@@ -778,7 +780,8 @@
   "MRNX": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 4791574
+    "mktCap": 7376943,
+    "float": null
   },
   "LINT": {
     "sector": "Financial Services",
@@ -825,7 +828,8 @@
   "CUE": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 74291525
+    "mktCap": 196920103,
+    "float": null
   },
   "NVOX": {
     "sector": "Financial Services",
@@ -1823,6 +1827,102 @@
     "sector": "Industrials",
     "industry": "Electrical Equipment & Parts",
     "mktCap": 45112077,
+    "float": null
+  },
+  "WFF": {
+    "sector": "Industrials",
+    "industry": "Manufacturing - Textiles",
+    "mktCap": 39421987,
+    "float": null
+  },
+  "QNCX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 9518770,
+    "float": null
+  },
+  "RZAI": {
+    "sector": "Industrials",
+    "industry": "Security & Protection Services",
+    "mktCap": 142253903,
+    "float": null
+  },
+  "MF": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 16216837,
+    "float": null
+  },
+  "AIOK": {
+    "sector": "Industrials",
+    "industry": "Marine Shipping",
+    "mktCap": 28273850,
+    "float": null
+  },
+  "ALISU": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 38125630,
+    "float": null
+  },
+  "BBCI": {
+    "sector": "Financial Services",
+    "industry": "Financial - Diversified",
+    "mktCap": 6,
+    "float": null
+  },
+  "TDOT": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 229282022,
+    "float": null
+  },
+  "BULG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 353590,
+    "float": null
+  },
+  "ABSI": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1733605720,
+    "float": null
+  },
+  "KLRA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1479431938,
+    "float": null
+  },
+  "NVAX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 2060409631,
+    "float": null
+  },
+  "FEDU": {
+    "sector": "Consumer Defensive",
+    "industry": "Education & Training Services",
+    "mktCap": 2668465,
+    "float": null
+  },
+  "SNAG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 3921425,
+    "float": null
+  },
+  "QETA": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 49170454,
+    "float": null
+  },
+  "CRCA": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 111267833,
     "float": null
   }
 }

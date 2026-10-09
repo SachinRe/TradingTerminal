@@ -49,11 +49,11 @@
     "fetchedAt": "2026-09-23T12:39:25.611Z"
   },
   "DNA": {
-    "shortInterestPct": "13.99%",
-    "daysToCover": 5.8,
-    "finvizFloat": 49070000,
+    "shortInterestPct": "14.59%",
+    "daysToCover": 4.01,
+    "finvizFloat": 49110000,
     "success": true,
-    "fetchedAt": "2026-09-23T12:39:26.275Z"
+    "fetchedAt": "2026-10-09T17:25:02.272Z"
   },
   "VICR": {
     "shortInterestPct": "6.93%",
@@ -119,11 +119,11 @@
     "fetchedAt": "2026-09-24T13:04:46.490Z"
   },
   "ORCL": {
-    "shortInterestPct": "2.48%",
-    "daysToCover": 1.35,
+    "shortInterestPct": "2.82%",
+    "daysToCover": 1.6,
     "finvizFloat": 1800000000,
     "success": true,
-    "fetchedAt": "2026-09-24T13:04:47.255Z"
+    "fetchedAt": "2026-10-09T17:25:00.456Z"
   },
   "AVGO": {
     "shortInterestPct": "1.08%",
@@ -296,5 +296,26 @@
   "SPCF": {
     "success": false,
     "fetchedAt": "2026-10-03T17:36:35.344Z"
+  },
+  "WFF": {
+    "shortInterestPct": "0.90%",
+    "daysToCover": 0.13,
+    "finvizFloat": 38480000,
+    "success": true,
+    "fetchedAt": "2026-10-09T17:24:59.854Z"
+  },
+  "VEEA": {
+    "shortInterestPct": "76.54%",
+    "daysToCover": 0.18,
+    "finvizFloat": 1590000,
+    "success": true,
+    "fetchedAt": "2026-10-09T17:25:01.053Z"
+  },
+  "FSLY": {
+    "shortInterestPct": "14.47%",
+    "daysToCover": 3.4,
+    "finvizFloat": 149010000,
+    "success": true,
+    "fetchedAt": "2026-10-09T17:25:01.664Z"
   }
 }
