@@ -112,11 +112,11 @@
     "fetchedAt": "2026-09-23T17:26:46.684Z"
   },
   "AMZN": {
-    "shortInterestPct": "0.94%",
-    "daysToCover": 2.03,
+    "shortInterestPct": "0.88%",
+    "daysToCover": 2.21,
     "finvizFloat": 9820000000,
     "success": true,
-    "fetchedAt": "2026-09-24T13:04:46.490Z"
+    "fetchedAt": "2026-10-10T17:27:39.565Z"
   },
   "ORCL": {
     "shortInterestPct": "2.82%",
@@ -317,5 +317,19 @@
     "finvizFloat": 149010000,
     "success": true,
     "fetchedAt": "2026-10-09T17:25:01.664Z"
+  },
+  "KLRA": {
+    "shortInterestPct": "15.31%",
+    "daysToCover": 10.11,
+    "finvizFloat": 56710000,
+    "success": true,
+    "fetchedAt": "2026-10-10T17:27:40.224Z"
+  },
+  "CABO": {
+    "shortInterestPct": "31.87%",
+    "daysToCover": 4.1,
+    "finvizFloat": 4630000,
+    "success": true,
+    "fetchedAt": "2026-10-10T17:27:40.889Z"
   }
 }

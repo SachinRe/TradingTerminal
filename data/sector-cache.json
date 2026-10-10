@@ -183,7 +183,8 @@
   "AEHL": {
     "sector": "Basic Materials",
     "industry": "Construction Materials",
-    "mktCap": 11980366
+    "mktCap": 9621335,
+    "float": null
   },
   "IONZ": {
     "sector": "Financial Services",
@@ -599,7 +600,8 @@
   "T": {
     "sector": "Communication Services",
     "industry": "Telecommunications Services",
-    "mktCap": 174153491850
+    "mktCap": 151986010200,
+    "float": 6837653021
   },
   "PSKY": {
     "sector": "Communication Services",
@@ -906,7 +908,8 @@
   "TSLG": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 38544155
+    "mktCap": 39686769,
+    "float": null
   },
   "NVO": {
     "sector": "Healthcare",
@@ -1923,6 +1926,108 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 111267833,
+    "float": null
+  },
+  "CD": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 687983299,
+    "float": null
+  },
+  "BAFN": {
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "mktCap": 22095176,
+    "float": null
+  },
+  "CCI": {
+    "sector": "Real Estate",
+    "industry": "REIT - Specialty",
+    "mktCap": 34802680000,
+    "float": null
+  },
+  "SVC": {
+    "sector": "Real Estate",
+    "industry": "REIT - Hotel & Motel",
+    "mktCap": 925992839,
+    "float": null
+  },
+  "ZSQR": {
+    "sector": "Technology",
+    "industry": "Software - Services",
+    "mktCap": 299982247,
+    "float": null
+  },
+  "MRNA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 89276850000,
+    "float": 372347352
+  },
+  "PICS": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 1762390530,
+    "float": null
+  },
+  "TRIB": {
+    "sector": "Healthcare",
+    "industry": "Medical - Specialties",
+    "mktCap": 138819707,
+    "float": null
+  },
+  "PHOS": {
+    "sector": "Basic Materials",
+    "industry": "Other Precious Metals",
+    "mktCap": 2706417168,
+    "float": null
+  },
+  "COE": {
+    "sector": "Consumer Defensive",
+    "industry": "Education & Training Services",
+    "mktCap": 72124884,
+    "float": null
+  },
+  "SEQUX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 1242141915,
+    "float": null
+  },
+  "CDNL": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 322987146,
+    "float": null
+  },
+  "GLIBA": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 73310835,
+    "float": null
+  },
+  "ALHC": {
+    "sector": "Healthcare",
+    "industry": "Medical - Healthcare Plans",
+    "mktCap": 1565097075,
+    "float": null
+  },
+  "TMUS": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 159377548260,
+    "float": null
+  },
+  "VZ": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 173912074000,
+    "float": 4173213335
+  },
+  "EWZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 8731946521,
     "float": null
   }
 }
