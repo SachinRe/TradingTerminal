@@ -936,7 +936,8 @@
   "PCG": {
     "sector": "Utilities",
     "industry": "Regulated Electric",
-    "mktCap": 34680629818
+    "mktCap": 35189850812,
+    "float": null
   },
   "HYG": {
     "sector": "Financial Services",
@@ -2029,5 +2030,47 @@
     "industry": "Asset Management",
     "mktCap": 8731946521,
     "float": null
+  },
+  "ASTS": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 20737253430,
+    "float": null
+  },
+  "SNAP": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 10534453026,
+    "float": 1066721130
+  },
+  "ITUB": {
+    "sector": "Financial Services",
+    "industry": "Banks",
+    "mktCap": 111980083217,
+    "float": null
+  },
+  "CRGY": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Exploration & Production",
+    "mktCap": 4181304377,
+    "float": null
+  },
+  "JOBY": {
+    "sector": "Industrials",
+    "industry": "Airlines, Airports & Air Services",
+    "mktCap": 5351017115,
+    "float": null
+  },
+  "MDT": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 113258824000,
+    "float": null
+  },
+  "PLTR": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 479993433500,
+    "float": 2193497664
   }
 }

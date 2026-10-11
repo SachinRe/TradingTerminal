@@ -1569,5 +1569,100 @@
         "mktCap": 687983299
       }
     ]
+  },
+  {
+    "date": "2026-10-11",
+    "up": [
+      {
+        "ticker": "WFF",
+        "price": 12.29,
+        "changePct": 499.51,
+        "sector": "Industrials",
+        "industry": "Manufacturing - Textiles",
+        "mktCap": 39421987
+      },
+      {
+        "ticker": "VEEA",
+        "price": 5.7,
+        "changePct": 47.29,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 15653228
+      },
+      {
+        "ticker": "QETA",
+        "price": 16.41,
+        "changePct": 41.47,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 49170454
+      },
+      {
+        "ticker": "MRNX",
+        "price": 183.82,
+        "changePct": 27.64,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 7376943
+      },
+      {
+        "ticker": "CUE",
+        "price": 27.66,
+        "changePct": 23.87,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 196920103
+      },
+      {
+        "ticker": "HIMZ",
+        "price": 29.08,
+        "changePct": 20.32,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 48217965
+      }
+    ],
+    "down": [
+      {
+        "ticker": "SEQUX",
+        "price": 51.45,
+        "changePct": -74.78,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1242141915
+      },
+      {
+        "ticker": "ALISU",
+        "price": 23.1,
+        "changePct": -42.25,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 38125630
+      },
+      {
+        "ticker": "XRPN",
+        "price": 17.09,
+        "changePct": -29.38,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 769665000
+      },
+      {
+        "ticker": "CABO",
+        "price": 11.14,
+        "changePct": -27.57,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 69265499
+      },
+      {
+        "ticker": "CD",
+        "price": 8.66,
+        "changePct": -20.62,
+        "sector": "Financial Services",
+        "industry": "Financial - Capital Markets",
+        "mktCap": 687983299
+      }
+    ]
   }
 ]
