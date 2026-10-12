@@ -189,7 +189,8 @@
   "IONZ": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 15187254
+    "mktCap": 17538250,
+    "float": null
   },
   "PUR": {
     "sector": "Financial Services",
@@ -233,7 +234,8 @@
   "IONL": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 4924379
+    "mktCap": 3859136,
+    "float": null
   },
   "SMCX": {
     "sector": "Financial Services",
@@ -243,7 +245,8 @@
   "IONX": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 10250453
+    "mktCap": 7941871,
+    "float": null
   },
   "GNRC": {
     "sector": "Industrials",
@@ -269,7 +272,8 @@
   "RGTZ": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 15913621
+    "mktCap": 21695535,
+    "float": null
   },
   "FLNC": {
     "sector": "Utilities",
@@ -555,7 +559,8 @@
   "AGNC": {
     "sector": "Real Estate",
     "industry": "REIT - Mortgage",
-    "mktCap": 11330069100
+    "mktCap": 9964032400,
+    "float": null
   },
   "INTC": {
     "sector": "Technology",
@@ -577,7 +582,8 @@
   "F": {
     "sector": "Consumer Cyclical",
     "industry": "Auto - Manufacturers",
-    "mktCap": 52676140426
+    "mktCap": 47851149516,
+    "float": 3876381624
   },
   "BITO": {
     "sector": "Financial Services",
@@ -676,7 +682,8 @@
   "SMR": {
     "sector": "Industrials",
     "industry": "Electrical Equipment & Parts",
-    "mktCap": 2462949768
+    "mktCap": 1997792185,
+    "float": null
   },
   "P": {
     "sector": "Technology",
@@ -880,7 +887,8 @@
   "SOFI": {
     "sector": "Financial Services",
     "industry": "Financial - Credit Services",
-    "mktCap": 21768097800
+    "mktCap": 19536001926,
+    "float": 1259508295
   },
   "SOXL": {
     "sector": "Financial Services",
@@ -1129,7 +1137,8 @@
   "RKT": {
     "sector": "Financial Services",
     "industry": "Financial - Mortgages",
-    "mktCap": 35977940704
+    "mktCap": 30697034180,
+    "float": 507243083
   },
   "HL": {
     "sector": "Basic Materials",
@@ -2072,5 +2081,71 @@
     "industry": "Software - Infrastructure",
     "mktCap": 479993433500,
     "float": 2193497664
+  },
+  "CTNM": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 322224970,
+    "float": null
+  },
+  "NRR": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 571800,
+    "float": null
+  },
+  "ARL": {
+    "sector": "Real Estate",
+    "industry": "Real Estate - Services",
+    "mktCap": 310926000,
+    "float": null
+  },
+  "INLX": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 24317918,
+    "float": null
+  },
+  "BKHA": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 53996501,
+    "float": null
+  },
+  "FIGS": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Manufacturers",
+    "mktCap": 2966759036,
+    "float": null
+  },
+  "SKK": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 10031550,
+    "float": null
+  },
+  "MMED": {
+    "sector": "Healthcare",
+    "industry": "Medical - Equipment & Services",
+    "mktCap": 5279845204,
+    "float": null
+  },
+  "CCC": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 4470469803,
+    "float": null
+  },
+  "KORU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1174138576,
+    "float": null
+  },
+  "CMG": {
+    "sector": "Consumer Cyclical",
+    "industry": "Restaurants",
+    "mktCap": 38994992000,
+    "float": null
   }
 }

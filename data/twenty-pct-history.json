@@ -1664,5 +1664,68 @@
         "mktCap": 687983299
       }
     ]
+  },
+  {
+    "date": "2026-10-12",
+    "up": [
+      {
+        "ticker": "WFF",
+        "price": 17.28,
+        "changePct": 40.6,
+        "sector": "Industrials",
+        "industry": "Manufacturing - Textiles",
+        "mktCap": 39421987
+      }
+    ],
+    "down": [
+      {
+        "ticker": "SEQUX",
+        "price": 51.45,
+        "changePct": -74.78,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1242141915
+      },
+      {
+        "ticker": "ALISU",
+        "price": 14.17,
+        "changePct": -38.66,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 38125630
+      },
+      {
+        "ticker": "CTNM",
+        "price": 8.565,
+        "changePct": -35.99,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 322224970
+      },
+      {
+        "ticker": "QETA",
+        "price": 11.6,
+        "changePct": -29.31,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 49170454
+      },
+      {
+        "ticker": "BBCI",
+        "price": 5.05,
+        "changePct": -26.92,
+        "sector": "Financial Services",
+        "industry": "Financial - Diversified",
+        "mktCap": 6
+      },
+      {
+        "ticker": "AIOK",
+        "price": 6.59,
+        "changePct": -24.25,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 28273850
+      }
+    ]
   }
 ]
