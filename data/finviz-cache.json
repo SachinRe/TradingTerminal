@@ -383,10 +383,31 @@
   },
   "CRWG": {
     "success": false,
-    "fetchedAt": "2026-10-14T17:35:00.622Z"
+    "fetchedAt": "2026-10-14T20:55:21.533Z"
   },
   "NBIG": {
     "success": false,
     "fetchedAt": "2026-10-14T17:35:01.294Z"
+  },
+  "WMT": {
+    "shortInterestPct": "1.83%",
+    "daysToCover": 3.44,
+    "finvizFloat": 4430000000,
+    "success": true,
+    "fetchedAt": "2026-10-14T20:55:20.025Z"
+  },
+  "PWP": {
+    "shortInterestPct": "11.77%",
+    "daysToCover": 5.5,
+    "finvizFloat": 70700000,
+    "success": true,
+    "fetchedAt": "2026-10-14T20:55:20.749Z"
+  },
+  "BLZE": {
+    "shortInterestPct": "11.80%",
+    "daysToCover": 2.95,
+    "finvizFloat": 58570000,
+    "success": true,
+    "fetchedAt": "2026-10-14T20:55:22.412Z"
   }
 }

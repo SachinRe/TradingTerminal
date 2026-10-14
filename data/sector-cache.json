@@ -322,7 +322,8 @@
   "DAMD": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 14319446
+    "mktCap": 12272060,
+    "float": null
   },
   "VEEA": {
     "sector": "Technology",
@@ -359,7 +360,8 @@
   "SMST": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 8772063
+    "mktCap": 8061554,
+    "float": null
   },
   "TJGC": {
     "sector": "Communication Services",
@@ -942,7 +944,8 @@
   "QQQ": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 528323571877
+    "mktCap": 519402629532,
+    "float": null
   },
   "PCG": {
     "sector": "Utilities",
@@ -1120,7 +1123,8 @@
   "XLF": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 55718672461
+    "mktCap": 55423810873,
+    "float": null
   },
   "MBB": {
     "sector": "Financial Services",
@@ -1135,7 +1139,8 @@
   "RIG": {
     "sector": "Energy",
     "industry": "Oil & Gas Drilling",
-    "mktCap": 5580309353
+    "mktCap": 5671789834,
+    "float": null
   },
   "RKT": {
     "sector": "Financial Services",
@@ -2251,6 +2256,48 @@
     "sector": "Consumer Cyclical",
     "industry": "Residential Construction",
     "mktCap": 694164353,
+    "float": null
+  },
+  "PWP": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 1254179372,
+    "float": null
+  },
+  "NXGL": {
+    "sector": "Healthcare",
+    "industry": "Medical - Instruments & Supplies",
+    "mktCap": 115692,
+    "float": null
+  },
+  "RFAI": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 250730138,
+    "float": null
+  },
+  "SKDD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 13635300,
+    "float": null
+  },
+  "ITG": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 740399856,
+    "float": null
+  },
+  "CIFR": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 4125405377,
+    "float": null
+  },
+  "WULF": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 5718446723,
     "float": null
   }
 }
