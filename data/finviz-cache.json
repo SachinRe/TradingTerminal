@@ -126,11 +126,11 @@
     "fetchedAt": "2026-10-09T17:25:00.456Z"
   },
   "AVGO": {
-    "shortInterestPct": "1.08%",
-    "daysToCover": 2.17,
+    "shortInterestPct": "1.16%",
+    "daysToCover": 2.44,
     "finvizFloat": 4680000000,
     "success": true,
-    "fetchedAt": "2026-09-24T13:04:48.030Z"
+    "fetchedAt": "2026-10-14T17:34:57.580Z"
   },
   "CGEM": {
     "shortInterestPct": "21.39%",
@@ -338,5 +338,55 @@
     "finvizFloat": 29620000,
     "success": true,
     "fetchedAt": "2026-10-12T21:13:18.184Z"
+  },
+  "NVDA": {
+    "shortInterestPct": "1.34%",
+    "daysToCover": 2.62,
+    "finvizFloat": 23190000000,
+    "success": true,
+    "fetchedAt": "2026-10-14T17:34:55.530Z"
+  },
+  "SKYD": {
+    "shortInterestPct": "22.48%",
+    "daysToCover": 6.56,
+    "finvizFloat": 536710000.00000006,
+    "success": true,
+    "fetchedAt": "2026-10-14T17:34:56.221Z"
+  },
+  "BSP": {
+    "shortInterestPct": "8.74%",
+    "daysToCover": 8.59,
+    "finvizFloat": 230410000,
+    "success": true,
+    "fetchedAt": "2026-10-14T17:34:56.901Z"
+  },
+  "LQDA": {
+    "shortInterestPct": "16.32%",
+    "daysToCover": 4.83,
+    "finvizFloat": 77450000,
+    "success": true,
+    "fetchedAt": "2026-10-14T17:34:58.257Z"
+  },
+  "AMD": {
+    "shortInterestPct": "2.42%",
+    "daysToCover": 1.72,
+    "finvizFloat": 1620000000,
+    "success": true,
+    "fetchedAt": "2026-10-14T17:34:58.944Z"
+  },
+  "UNH": {
+    "shortInterestPct": "1.78%",
+    "daysToCover": 3.1,
+    "finvizFloat": 895450000,
+    "success": true,
+    "fetchedAt": "2026-10-14T17:34:59.946Z"
+  },
+  "CRWG": {
+    "success": false,
+    "fetchedAt": "2026-10-14T17:35:00.622Z"
+  },
+  "NBIG": {
+    "success": false,
+    "fetchedAt": "2026-10-14T17:35:01.294Z"
   }
 }

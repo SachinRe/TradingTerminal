@@ -1727,5 +1727,116 @@
         "mktCap": 28273850
       }
     ]
+  },
+  {
+    "date": "2026-10-14",
+    "up": [
+      {
+        "ticker": "AEHL",
+        "price": 27.3401,
+        "changePct": 219.77,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 9621335
+      },
+      {
+        "ticker": "BSP",
+        "price": 55.5429,
+        "changePct": 46.71,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 37122799190
+      },
+      {
+        "ticker": "LQDA",
+        "price": 34.04,
+        "changePct": 26.97,
+        "sector": "Healthcare",
+        "industry": "Medical - Pharmaceuticals",
+        "mktCap": 3024000006
+      },
+      {
+        "ticker": "FMFC",
+        "price": 5.97,
+        "changePct": 20.36,
+        "sector": "Consumer Cyclical",
+        "industry": "Personal Products & Services",
+        "mktCap": 2452692
+      }
+    ],
+    "down": [
+      {
+        "ticker": "BKHA",
+        "price": 6.66,
+        "changePct": -46.63,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 53996501
+      },
+      {
+        "ticker": "CRWG",
+        "price": 9.8,
+        "changePct": -31.37,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5100257
+      },
+      {
+        "ticker": "SKYD",
+        "price": 6.76,
+        "changePct": -25.52,
+        "sector": "Communication Services",
+        "industry": "Broadcasting",
+        "mktCap": 7376894104
+      },
+      {
+        "ticker": "HUTG",
+        "price": 8.59,
+        "changePct": -24.91,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 2502073
+      },
+      {
+        "ticker": "BTDL",
+        "price": 7.55,
+        "changePct": -24.04,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 964800
+      },
+      {
+        "ticker": "DLLL",
+        "price": 28.1,
+        "changePct": -23.41,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 186166922
+      },
+      {
+        "ticker": "CABO",
+        "price": 9.01,
+        "changePct": -23.19,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 69265499
+      },
+      {
+        "ticker": "NBIG",
+        "price": 10.7893,
+        "changePct": -20.84,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 21611378
+      },
+      {
+        "ticker": "NBIL",
+        "price": 15.69,
+        "changePct": -20.84,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 248870540
+      }
+    ]
   }
 ]

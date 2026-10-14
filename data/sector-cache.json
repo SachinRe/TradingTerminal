@@ -267,7 +267,8 @@
   "QBTZ": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 6593037
+    "mktCap": 12559606,
+    "float": null
   },
   "RGTZ": {
     "sector": "Financial Services",
@@ -315,7 +316,8 @@
   "RKLZ": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 71271
+    "mktCap": 81175,
+    "float": null
   },
   "DAMD": {
     "sector": "Financial Services",
@@ -654,7 +656,8 @@
   "CRWV": {
     "sector": "Technology",
     "industry": "Software - Infrastructure",
-    "mktCap": 44387606768
+    "mktCap": 35827606381,
+    "float": null
   },
   "SPY": {
     "sector": "Financial Services",
@@ -2146,6 +2149,108 @@
     "sector": "Consumer Cyclical",
     "industry": "Restaurants",
     "mktCap": 38994992000,
+    "float": null
+  },
+  "SKYD": {
+    "sector": "Communication Services",
+    "industry": "Broadcasting",
+    "mktCap": 7376894104,
+    "float": null
+  },
+  "BSP": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 37122799190,
+    "float": null
+  },
+  "LQDA": {
+    "sector": "Healthcare",
+    "industry": "Medical - Pharmaceuticals",
+    "mktCap": 3024000006,
+    "float": null
+  },
+  "CRWG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 5100257,
+    "float": null
+  },
+  "HUTG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 2502073,
+    "float": null
+  },
+  "RIOX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 3629370,
+    "float": null
+  },
+  "FMFC": {
+    "sector": "Consumer Cyclical",
+    "industry": "Personal Products & Services",
+    "mktCap": 2452692,
+    "float": null
+  },
+  "SMCZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1420214,
+    "float": null
+  },
+  "ALIS": {
+    "sector": "Financial Services",
+    "industry": "Financial - Conglomerates",
+    "mktCap": 73199580,
+    "float": null
+  },
+  "PLRZ": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 12322422,
+    "float": null
+  },
+  "HIBS": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 20059521,
+    "float": null
+  },
+  "DFNS": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 6507588,
+    "float": null
+  },
+  "ZSL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 76616293,
+    "float": null
+  },
+  "SMXT": {
+    "sector": "Energy",
+    "industry": "Solar",
+    "mktCap": 27409997,
+    "float": null
+  },
+  "BLZE": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 627666021,
+    "float": null
+  },
+  "HEOMX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 102420951,
+    "float": null
+  },
+  "DFH": {
+    "sector": "Consumer Cyclical",
+    "industry": "Residential Construction",
+    "mktCap": 694164353,
     "float": null
   }
 }
