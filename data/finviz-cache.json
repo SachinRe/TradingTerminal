@@ -42,11 +42,11 @@
     "fetchedAt": "2026-09-23T12:39:24.682Z"
   },
   "ADBE": {
-    "shortInterestPct": "4.38%",
-    "daysToCover": 3.14,
-    "finvizFloat": 396680000,
+    "shortInterestPct": "4.56%",
+    "daysToCover": 3.53,
+    "finvizFloat": 388510000,
     "success": true,
-    "fetchedAt": "2026-09-23T12:39:25.611Z"
+    "fetchedAt": "2026-10-15T17:19:16.598Z"
   },
   "DNA": {
     "shortInterestPct": "14.59%",
@@ -409,5 +409,47 @@
     "finvizFloat": 58570000,
     "success": true,
     "fetchedAt": "2026-10-14T20:55:22.412Z"
+  },
+  "NFLX": {
+    "shortInterestPct": "1.99%",
+    "daysToCover": 2.24,
+    "finvizFloat": 4130000000,
+    "success": true,
+    "fetchedAt": "2026-10-15T17:19:12.978Z"
+  },
+  "FMC": {
+    "shortInterestPct": "25.20%",
+    "daysToCover": 7.63,
+    "finvizFloat": 115190000,
+    "success": true,
+    "fetchedAt": "2026-10-15T17:19:13.713Z"
+  },
+  "VSTM": {
+    "shortInterestPct": "18.25%",
+    "daysToCover": 5.42,
+    "finvizFloat": 82000000,
+    "success": true,
+    "fetchedAt": "2026-10-15T17:19:14.432Z"
+  },
+  "HD": {
+    "shortInterestPct": "1.15%",
+    "daysToCover": 2.61,
+    "finvizFloat": 996890000,
+    "success": true,
+    "fetchedAt": "2026-10-15T17:19:15.146Z"
+  },
+  "CRM": {
+    "shortInterestPct": "4.13%",
+    "daysToCover": 2.54,
+    "finvizFloat": 797050000,
+    "success": true,
+    "fetchedAt": "2026-10-15T17:19:15.872Z"
+  },
+  "MAN": {
+    "shortInterestPct": "9.69%",
+    "daysToCover": 4.13,
+    "finvizFloat": 45690000,
+    "success": true,
+    "fetchedAt": "2026-10-15T17:19:17.316Z"
   }
 }

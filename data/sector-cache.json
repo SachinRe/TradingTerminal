@@ -2299,5 +2299,95 @@
     "industry": "Financial - Capital Markets",
     "mktCap": 5718446723,
     "float": null
+  },
+  "FMC": {
+    "sector": "Basic Materials",
+    "industry": "Agricultural Inputs",
+    "mktCap": 661823825,
+    "float": null
+  },
+  "VSTM": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 823674123,
+    "float": null
+  },
+  "MAN": {
+    "sector": "Industrials",
+    "industry": "Staffing & Employment Services",
+    "mktCap": 1986486704,
+    "float": null
+  },
+  "NRXS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 95815739,
+    "float": null
+  },
+  "RGC": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - Specialty & Generic",
+    "mktCap": 5365464880,
+    "float": null
+  },
+  "PTLE": {
+    "sector": "Industrials",
+    "industry": "General Transportation",
+    "mktCap": 53759806,
+    "float": null
+  },
+  "ATII": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 245597000,
+    "float": null
+  },
+  "HECO": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 67836833,
+    "float": null
+  },
+  "AKTX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 19492081,
+    "float": null
+  },
+  "IAM": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 172500000,
+    "float": null
+  },
+  "REAX": {
+    "sector": "Real Estate",
+    "industry": "Real Estate - Services",
+    "mktCap": 342281272,
+    "float": null
+  },
+  "BETR": {
+    "sector": "Financial Services",
+    "industry": "Financial - Mortgages",
+    "mktCap": 124010226,
+    "float": null
+  },
+  "GTBP": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 8948686,
+    "float": null
+  },
+  "RKLB": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 31736140421,
+    "float": null
+  },
+  "NBIS": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 43068000000,
+    "float": null
   }
 }

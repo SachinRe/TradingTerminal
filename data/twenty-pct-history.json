@@ -1886,5 +1886,68 @@
         "mktCap": 1338153
       }
     ]
+  },
+  {
+    "date": "2026-10-15",
+    "up": [
+      {
+        "ticker": "RPGL",
+        "price": 24.09,
+        "changePct": 55.52,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 889348
+      },
+      {
+        "ticker": "RGC",
+        "price": 10.69,
+        "changePct": 31.81,
+        "sector": "Healthcare",
+        "industry": "Drug Manufacturers - Specialty & Generic",
+        "mktCap": 5365464880
+      },
+      {
+        "ticker": "AKTX",
+        "price": 8.91,
+        "changePct": 22.39,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 19492081
+      },
+      {
+        "ticker": "RKLZ",
+        "price": 24.68,
+        "changePct": 20.86,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 81175
+      }
+    ],
+    "down": [
+      {
+        "ticker": "FMC",
+        "price": 5.275,
+        "changePct": -34.8,
+        "sector": "Basic Materials",
+        "industry": "Agricultural Inputs",
+        "mktCap": 661823825
+      },
+      {
+        "ticker": "RKLX",
+        "price": 9.48,
+        "changePct": -21,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 45303660
+      },
+      {
+        "ticker": "HECO",
+        "price": 53,
+        "changePct": -20.59,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 67836833
+      }
+    ]
   }
 ]
