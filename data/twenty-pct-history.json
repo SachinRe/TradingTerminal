@@ -1949,5 +1949,76 @@
         "mktCap": 67836833
       }
     ]
+  },
+  {
+    "date": "2026-10-16",
+    "up": [
+      {
+        "ticker": "IAM",
+        "price": 23.49,
+        "changePct": 24.22,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 172500000
+      },
+      {
+        "ticker": "CTY",
+        "price": 22.225,
+        "changePct": 23.47,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 215951940
+      }
+    ],
+    "down": [
+      {
+        "ticker": "RPGL",
+        "price": 6.5822,
+        "changePct": -50.62,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 889348
+      },
+      {
+        "ticker": "CRWG",
+        "price": 8.465,
+        "changePct": -22.98,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5100257
+      },
+      {
+        "ticker": "NBIG",
+        "price": 8.7873,
+        "changePct": -21.05,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 21611378
+      },
+      {
+        "ticker": "NBIL",
+        "price": 12.7742,
+        "changePct": -21,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 248870540
+      },
+      {
+        "ticker": "OKTG",
+        "price": 44.28,
+        "changePct": -20.73,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1289788
+      },
+      {
+        "ticker": "ALISU",
+        "price": 9.41,
+        "changePct": -20.52,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 38125630
+      }
+    ]
   }
 ]

@@ -451,5 +451,9 @@
     "finvizFloat": 45690000,
     "success": true,
     "fetchedAt": "2026-10-15T17:19:17.316Z"
+  },
+  "MSTX": {
+    "success": false,
+    "fetchedAt": "2026-10-16T17:40:46.636Z"
   }
 }

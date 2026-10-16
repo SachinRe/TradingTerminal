@@ -201,7 +201,8 @@
   "SMCL": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 40448233
+    "mktCap": 26878173,
+    "float": null
   },
   "SVRN": {
     "sector": "Industrials",
@@ -240,7 +241,8 @@
   "SMCX": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 47176533
+    "mktCap": 27479104,
+    "float": null
   },
   "IONX": {
     "sector": "Financial Services",
@@ -355,7 +357,8 @@
   "MSTX": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 54206509
+    "mktCap": 44485127,
+    "float": null
   },
   "SMST": {
     "sector": "Financial Services",
@@ -383,7 +386,8 @@
   "MSTP": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 56060
+    "mktCap": 46267,
+    "float": null
   },
   "CONX": {
     "sector": "Financial Services",
@@ -419,7 +423,8 @@
   "MST": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 1336269
+    "mktCap": 1106696,
+    "float": null
   },
   "FWDI": {
     "sector": "Financial Services",
@@ -2388,6 +2393,66 @@
     "sector": "Technology",
     "industry": "Software - Application",
     "mktCap": 43068000000,
+    "float": null
+  },
+  "CTY": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 215951940,
+    "float": null
+  },
+  "OKTG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1289788,
+    "float": null
+  },
+  "PLTZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 17651483,
+    "float": null
+  },
+  "BMNZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 20457442,
+    "float": null
+  },
+  "TCXB": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 110700000,
+    "float": null
+  },
+  "EGG": {
+    "sector": "Industrials",
+    "industry": "Consulting Services",
+    "mktCap": 145907087,
+    "float": null
+  },
+  "AIQD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 24572500,
+    "float": null
+  },
+  "WEBS": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 9858520,
+    "float": null
+  },
+  "RTSN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Pharmaceuticals",
+    "mktCap": 52500000,
+    "float": null
+  },
+  "VRNS": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 5590259805,
     "float": null
   }
 }
