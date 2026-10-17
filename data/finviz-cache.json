@@ -455,5 +455,9 @@
   "MSTX": {
     "success": false,
     "fetchedAt": "2026-10-16T17:40:46.636Z"
+  },
+  "SMCX": {
+    "success": false,
+    "fetchedAt": "2026-10-17T20:54:14.348Z"
   }
 }

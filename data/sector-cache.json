@@ -342,7 +342,8 @@
   "CONI": {
     "sector": "Financial Services",
     "industry": "Asset Management",
-    "mktCap": 6505783
+    "mktCap": 5870105,
+    "float": null
   },
   "XENE": {
     "sector": "Healthcare",
@@ -439,7 +440,8 @@
   "MRAL": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 13553869
+    "mktCap": 4579210,
+    "float": null
   },
   "TXXD": {
     "sector": "Financial Services",
@@ -2453,6 +2455,12 @@
     "sector": "Technology",
     "industry": "Software - Infrastructure",
     "mktCap": 5590259805,
+    "float": null
+  },
+  "JG": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 50457176,
     "float": null
   }
 }
