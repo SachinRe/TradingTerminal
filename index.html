@@ -3020,6 +3020,18 @@
         </div>
       </div>
 
+      <div class="panel" id="dash-risk-panel">
+        <div class="panel-header">
+          Portfolio Risk Metrics
+          <span class="tag">Return-risk, tail risk, and live open-risk vs. your rules</span>
+        </div>
+        <div class="panel-body" id="dash-risk-open" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;"></div>
+        <div class="panel-body" id="dash-risk-stats" style="padding-top:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;"></div>
+        <div class="panel-body" style="padding-top:0;">
+          <div class="note" id="dash-risk-note"></div>
+        </div>
+      </div>
+
       <div class="grid-2">
         <div class="panel">
           <div class="panel-header">
@@ -9779,6 +9791,135 @@ Question: ${question}`;
       if (tooltip) tooltip.style.display = "none";
     }
 
+
+    // ---- Portfolio risk metrics (pure functions + renderer) ----
+    const RISK_RULES = { heatMaxPct: 6, positionsMax: 8, perSectorMax: 3, riskPerTradePct: 1 };
+    function computeRiskStats(points, trades) {
+      // points: [{date, equity}] daily equity path; trades: [{pnl}]
+      const out = { days: 0, vol: null, sharpe: null, sortino: null, var95: null, cvar95: null,
+        maxDdPct: 0, curDdPct: 0, maxDdDays: 0, calmar: null, recovery: null, payoff: null,
+        maxLossStreak: 0, kelly: null, ruin: null };
+      const rets = [];
+      for (let i = 1; i < points.length; i++) {
+        const prev = points[i - 1].equity;
+        if (prev > 0) rets.push((points[i].equity - prev) / prev);
+      }
+      out.days = rets.length;
+      if (rets.length >= 2) {
+        const mean = rets.reduce((a, b) => a + b, 0) / rets.length;
+        const sd = Math.sqrt(rets.reduce((a, r) => a + (r - mean) ** 2, 0) / (rets.length - 1));
+        const downs = rets.filter(r => r < 0);
+        const dd = Math.sqrt(rets.reduce((a, r) => a + Math.min(r, 0) ** 2, 0) / rets.length);
+        out.vol = sd * Math.sqrt(252) * 100;
+        out.sharpe = sd > 0 ? (mean / sd) * Math.sqrt(252) : null;
+        out.sortino = dd > 0 ? (mean / dd) * Math.sqrt(252) : null;
+        if (rets.length >= 20) {
+          const sorted = [...rets].sort((a, b) => a - b);
+          const k = Math.max(1, Math.floor(sorted.length * 0.05));
+          out.var95 = -sorted[k - 1] * 100;
+          out.cvar95 = -(sorted.slice(0, k).reduce((a, b) => a + b, 0) / k) * 100;
+        }
+        out.annRet = mean * 252 * 100;
+      }
+      let peak = points.length ? points[0].equity : 0, peakIdx = 0;
+      points.forEach((pt, i) => {
+        if (pt.equity > peak) { peak = pt.equity; peakIdx = i; }
+        const d = peak > 0 ? (peak - pt.equity) / peak * 100 : 0;
+        if (d > out.maxDdPct) out.maxDdPct = d;
+        out.curDdPct = d;
+        if (d > 0) out.maxDdDays = Math.max(out.maxDdDays, i - peakIdx);
+      });
+      const wins = trades.filter(t => t.pnl > 0), losses = trades.filter(t => t.pnl < 0);
+      const net = trades.reduce((a, t) => a + t.pnl, 0);
+      const avgW = wins.length ? wins.reduce((a, t) => a + t.pnl, 0) / wins.length : 0;
+      const avgL = losses.length ? Math.abs(losses.reduce((a, t) => a + t.pnl, 0) / losses.length) : 0;
+      out.payoff = avgL > 0 ? avgW / avgL : null;
+      const startEq = points.length ? points[0].equity : 0;
+      const endEq = points.length ? points[points.length - 1].equity : 0;
+      let maxDdAbs = 0, pk = startEq;
+      points.forEach(pt => { if (pt.equity > pk) pk = pt.equity; maxDdAbs = Math.max(maxDdAbs, pk - pt.equity); });
+      out.recovery = maxDdAbs > 0 ? net / maxDdAbs : null;
+      if (out.annRet != null && out.maxDdPct > 0) out.calmar = out.annRet / out.maxDdPct;
+      let run = 0;
+      trades.forEach(t => { if (t.pnl < 0) { run++; out.maxLossStreak = Math.max(out.maxLossStreak, run); } else run = 0; });
+      if (trades.length >= 10 && avgL > 0) {
+        const w = wins.length / trades.length, r = out.payoff;
+        out.kelly = w - (1 - w) / r;          // Kelly fraction = W - (1-W)/R
+        // simple gambler's-ruin style estimate: ((1-edge)/(1+edge))^units, edge = W-(1-W)... in payoff-adjusted terms
+        const edge = (w * avgW - (1 - w) * avgL) / (w * avgW + (1 - w) * avgL);
+        out.ruin = edge > 0 ? Math.pow((1 - edge) / (1 + edge), 20) * 100 : 100; // 20 "units" of risk capital (=5%/trade)
+      }
+      return out;
+    }
+    function computeOpenRisk(positions, equity, sectorOf) {
+      let heat = 0, noStop = 0, priced = 0, totalValue = 0;
+      const bySector = {}, rows = [];
+      positions.forEach(p => {
+        const px = p.currentPrice != null ? p.currentPrice : p.entry;
+        const value = (p.qty || 0) * (px || 0);
+        totalValue += value;
+        const sec = sectorOf(p.ticker);
+        bySector[sec] = bySector[sec] || { n: 0, value: 0 };
+        bySector[sec].n++; bySector[sec].value += value;
+        let risk = null;
+        if (p.stop != null && !isNaN(p.stop)) { risk = Math.max(0, (px - p.stop) * p.qty); heat += risk; }
+        else noStop++;
+        priced++;
+        rows.push({ ticker: p.ticker, value, risk });
+      });
+      rows.sort((a, b) => b.value - a.value);
+      const top = rows[0] || null;
+      const sectors = Object.entries(bySector).sort((a, b) => b[1].value - a[1].value);
+      return {
+        n: positions.length, heat, heatPct: equity > 0 ? heat / equity * 100 : 0, noStop,
+        exposurePct: equity > 0 ? totalValue / equity * 100 : 0,
+        topTicker: top ? top.ticker : null, topPct: top && equity > 0 ? top.value / equity * 100 : 0,
+        topSector: sectors[0] ? sectors[0][0] : null, topSectorN: sectors[0] ? sectors[0][1].n : 0,
+        topSectorPct: sectors[0] && totalValue > 0 ? sectors[0][1].value / totalValue * 100 : 0,
+        maxSectorN: sectors.reduce((m, [, v]) => Math.max(m, v.n), 0)
+      };
+    }
+    function renderPortfolioRisk(points, list, equity) {
+      const o = document.getElementById("dash-risk-open"), st = document.getElementById("dash-risk-stats"),
+        note = document.getElementById("dash-risk-note");
+      if (!o || !st) return;
+      const card = (label, val, cls, tip) =>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:16px;" title="${(tip || "").replace(/"/g, "&quot;")}">
+          <div style="font-size:15px;color:var(--muted);text-transform:uppercase;">${label}</div>
+          <div style="font-size:27px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div></div>`;
+      const f = (v, d = 2, suf = "") => (v == null || !isFinite(v)) ? "n/a" : v.toFixed(d) + suf;
+      const R = RISK_RULES;
+      const open = computeOpenRisk(getOpenPositionsWithUnrealized(), equity, getTickerSector);
+      o.innerHTML = open.n === 0
+        ? `<div class="wl-empty" style="grid-column:1/-1;">No open positions — live heat and concentration appear here once you have open positions.</div>`
+        : card("Open risk (heat)", f(open.heatPct, 2, "%") + " · " + "$" + open.heat.toFixed(0), open.heatPct > R.heatMaxPct ? "neg" : "pos",
+            "Sum of (price − stop) × shares across open positions that have a stop, as % of equity. Guideline: stay under " + R.heatMaxPct + "%.") +
+          card("Positions", open.n + " / " + R.positionsMax, open.n > R.positionsMax ? "neg" : "", "Guideline: 5–8 concurrent positions.") +
+          card("Stops missing", String(open.noStop), open.noStop ? "neg" : "pos", "Open positions with no stop are NOT counted in heat — real risk is higher than shown.") +
+          card("Gross exposure", f(open.exposurePct, 1, "%"), "", "Market value of open positions as % of equity.") +
+          card("Largest position", (open.topTicker || "—") + " · " + f(open.topPct, 1, "%"), open.topPct > 25 ? "neg" : "", "Single-name concentration as % of equity.") +
+          card("Top sector", (open.topSector || "—") + " · " + open.topSectorN + " name(s)", open.maxSectorN > R.perSectorMax ? "neg" : "", "Guideline: 2–3 names per sector. " + f(open.topSectorPct, 0, "%") + " of exposure.");
+      const s = computeRiskStats(points, list);
+      const few = s.days < 20;
+      st.innerHTML =
+        card("Sharpe (ann.)", f(s.sharpe), s.sharpe != null ? (s.sharpe >= 1 ? "pos" : "neg") : "", "Mean daily return ÷ stdev × √252, risk-free = 0.") +
+        card("Sortino (ann.)", f(s.sortino), s.sortino != null ? (s.sortino >= 1 ? "pos" : "neg") : "", "Like Sharpe but penalises only downside volatility.") +
+        card("Volatility (ann.)", f(s.vol, 1, "%"), "", "Stdev of daily equity returns × √252.") +
+        card("Max drawdown %", f(-s.maxDdPct, 2, "%"), s.maxDdPct > 0 ? "neg" : "", "Largest peak-to-trough fall of the equity path.") +
+        card("Longest drawdown", s.maxDdDays + " days", "", "Longest stretch (in equity-curve points) below a prior peak.") +
+        card("Calmar", f(s.calmar), "", "Annualised return ÷ max drawdown %. Needs a meaningful history.") +
+        card("Recovery factor", f(s.recovery), s.recovery != null ? (s.recovery >= 1 ? "pos" : "neg") : "", "Net P&L ÷ max $ drawdown.") +
+        card("VaR 95% (1-day)", s.var95 != null ? f(s.var95, 2, "%") : "need 20+ days", "", "Historical: the 5th-percentile worst daily return.") +
+        card("CVaR 95%", s.cvar95 != null ? f(s.cvar95, 2, "%") : "need 20+ days", "", "Average of the worst 5% of days (expected shortfall).") +
+        card("Payoff ratio", f(s.payoff), s.payoff != null ? (s.payoff >= 1 ? "pos" : "neg") : "", "Average win ÷ average loss.") +
+        card("Max losing streak", String(s.maxLossStreak), "", "Longest run of consecutive losing trades.") +
+        card("Kelly fraction", s.kelly != null ? f(s.kelly * 100, 1, "%") : "need 10+ trades", s.kelly != null ? (s.kelly > 0 ? "pos" : "neg") : "", "W − (1−W)/payoff. Theoretical max bet; practitioners use ¼–½ Kelly or less. Negative = no edge.") +
+        card("Risk of ruin (est.)", s.ruin != null ? f(s.ruin, 2, "%") : "need 10+ trades", "", "Rough estimate assuming 5% risk per trade (20 units of capital) and your historical win rate/payoff. Treat as directional only.");
+      if (note) note.innerHTML = "Open-risk cards use live positions and stops (" + R.heatMaxPct + "% heat, " + R.positionsMax + " positions, " + R.perSectorMax + " per sector come from the Playbook risk rules). Return-based stats use your equity path, which only has points on days with closed trades"
+        + (few ? ` — currently <strong>${s.days}</strong> return observation(s), so Sharpe/Sortino/volatility are unstable and VaR is hidden until 20+.` : ".")
+        + " Figures are estimates for decision support, not guarantees.";
+    }
+
     function renderDashboard() {
       const el = document.getElementById("dash-metrics");
       const by = document.getElementById("dash-by-type");
@@ -9825,6 +9966,7 @@ Question: ${question}`;
           { date: new Date().toISOString().slice(0, 10), equity: currentValueOnly, dayPnl: unrealizedOnly }
         ]);
         renderPerformanceCalendar();
+        renderPortfolioRisk([], [], getCurrentPortfolioValueComputed());
         return;
       }
       const wins = list.filter(t => t.pnl > 0);
@@ -9881,6 +10023,7 @@ Question: ${question}`;
       renderEquityCurve(points);
       renderPerformanceCalendar();
       renderWeeklyHoldDaysChart(list);
+      renderPortfolioRisk(points, list, getCurrentPortfolioValueComputed());
 
       if (by) {
         const types = {};
