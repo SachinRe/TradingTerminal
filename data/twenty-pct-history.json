@@ -2099,5 +2099,84 @@
         "mktCap": 1289788
       }
     ]
+  },
+  {
+    "date": "2026-10-18",
+    "up": [
+      {
+        "ticker": "PMI",
+        "price": 12.75,
+        "changePct": 27.5,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 11906800
+      }
+    ],
+    "down": [
+      {
+        "ticker": "RPGL",
+        "price": 6.89,
+        "changePct": -48.31,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 889348
+      },
+      {
+        "ticker": "NBIL",
+        "price": 12.21,
+        "changePct": -24.49,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 248870540
+      },
+      {
+        "ticker": "NBIG",
+        "price": 8.41,
+        "changePct": -24.44,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 21611378
+      },
+      {
+        "ticker": "CRWG",
+        "price": 8.36,
+        "changePct": -23.93,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5100257
+      },
+      {
+        "ticker": "RIOX",
+        "price": 10.13,
+        "changePct": -22.73,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 3629370
+      },
+      {
+        "ticker": "HUTG",
+        "price": 7.2222,
+        "changePct": -22.59,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 2502073
+      },
+      {
+        "ticker": "ALISU",
+        "price": 9.4,
+        "changePct": -20.61,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 38125630
+      },
+      {
+        "ticker": "OKTG",
+        "price": 44.4005,
+        "changePct": -20.51,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1289788
+      }
+    ]
   }
 ]
