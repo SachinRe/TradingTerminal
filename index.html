@@ -3023,10 +3023,15 @@
       <div class="panel" id="dash-risk-panel">
         <div class="panel-header">
           Portfolio Risk Metrics
-          <span class="tag">Return-risk, tail risk, and live open-risk vs. your rules</span>
+          <span class="tag">Progressive exposure, open heat, fragility and cycle performance, all as % of equity</span>
+          <label style="font-size:20px;font-weight:400;margin-left:auto;">NER ceiling %
+            <input type="number" id="prm-ceiling" step="0.25" min="0.25" style="width:110px" onchange="savePrmCeiling(this.value)" />
+          </label>
         </div>
-        <div class="panel-body" id="dash-risk-open" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;"></div>
-        <div class="panel-body" id="dash-risk-stats" style="padding-top:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;"></div>
+        <div class="panel-body" id="dash-risk-prm" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;"></div>
+        <div class="panel-body" style="padding-top:0;"><div class="note" id="dash-risk-prm-note"></div></div>
+        <div class="panel-header" style="font-size:22px;">Return-based statistics</div>
+        <div class="panel-body" id="dash-risk-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;"></div>
         <div class="panel-body" style="padding-top:0;">
           <div class="note" id="dash-risk-note"></div>
         </div>
@@ -9793,7 +9798,19 @@ Question: ${question}`;
 
 
     // ---- Portfolio risk metrics (pure functions + renderer) ----
-    const RISK_RULES = { heatMaxPct: 6, positionsMax: 8, perSectorMax: 3, riskPerTradePct: 1 };
+    // Framework: Portfolio-Level Risk Management (NER / NE Δ / NE-CE / Open Heat / UER / FER).
+    // Position risk %EC = (current stop − current price) × shares ÷ equity (negative = loss if stopped).
+    // A position is "core" (financed) when its stop is at/above cost basis; otherwise it is "new".
+    function getPrmCfg() {
+      try { const c = JSON.parse(localStorage.getItem("tt_prm_cfg") || "null"); if (c && c.ceil > 0) return c; } catch (e) {}
+      return { ceil: 2 };
+    }
+    function savePrmCeiling(v) {
+      const n = parseFloat(v);
+      if (!(n > 0)) return;
+      try { localStorage.setItem("tt_prm_cfg", JSON.stringify({ ceil: n })); } catch (e) {}
+      renderDashboard();
+    }
     function computeRiskStats(points, trades) {
       // points: [{date, equity}] daily equity path; trades: [{pnl}]
       const out = { days: 0, vol: null, sharpe: null, sortino: null, var95: null, cvar95: null,
@@ -9851,73 +9868,140 @@ Question: ${question}`;
       }
       return out;
     }
-    function computeOpenRisk(positions, equity, sectorOf) {
-      let heat = 0, noStop = 0, priced = 0, totalValue = 0;
-      const bySector = {}, rows = [];
+    function computePRM(positions, equity, closedPnl, startEquity) {
+      const pct = v => equity > 0 ? v / equity * 100 : 0;
+      const nw = { val: 0, risk: 0, unreal: 0, n: 0 }, co = { val: 0, risk: 0, unreal: 0, cost: 0, n: 0 };
+      let totalVal = 0, openUnreal = 0, openRisk = 0, uerVal = 0, ferVal = 0, noStop = 0, noPrice = 0;
       positions.forEach(p => {
-        const px = p.currentPrice != null ? p.currentPrice : p.entry;
-        const value = (p.qty || 0) * (px || 0);
-        totalValue += value;
-        const sec = sectorOf(p.ticker);
-        bySector[sec] = bySector[sec] || { n: 0, value: 0 };
-        bySector[sec].n++; bySector[sec].value += value;
-        let risk = null;
-        if (p.stop != null && !isNaN(p.stop)) { risk = Math.max(0, (px - p.stop) * p.qty); heat += risk; }
-        else noStop++;
-        priced++;
-        rows.push({ ticker: p.ticker, value, risk });
+        const entry = Number(p.entry) || 0, qty = Number(p.qty) || 0;
+        if (!qty || !entry) return;
+        const hasPx = p.currentPrice != null && !isNaN(p.currentPrice);
+        const px = hasPx ? Number(p.currentPrice) : entry;
+        if (!hasPx) noPrice++;
+        const val = qty * px, unreal = (px - entry) * qty, unrealPct = (px / entry - 1) * 100;
+        const hasStop = p.stop != null && p.stop !== "" && !isNaN(p.stop);
+        const stop = hasStop ? Number(p.stop) : null;
+        const risk = hasStop ? (stop - px) * qty : 0;
+        if (!hasStop) noStop++;
+        const core = hasStop && stop >= entry;
+        const b = core ? co : nw;
+        b.val += val; b.risk += risk; b.unreal += unreal; b.n++;
+        if (core) co.cost += entry * qty;
+        totalVal += val; openUnreal += unreal; openRisk += risk;
+        if (unrealPct < 5) uerVal += val;
+        if (hasStop && (px - stop) / px < 0.05) ferVal += val;
       });
-      rows.sort((a, b) => b.value - a.value);
-      const top = rows[0] || null;
-      const sectors = Object.entries(bySector).sort((a, b) => b[1].value - a[1].value);
-      return {
-        n: positions.length, heat, heatPct: equity > 0 ? heat / equity * 100 : 0, noStop,
-        exposurePct: equity > 0 ? totalValue / equity * 100 : 0,
-        topTicker: top ? top.ticker : null, topPct: top && equity > 0 ? top.value / equity * 100 : 0,
-        topSector: sectors[0] ? sectors[0][0] : null, topSectorN: sectors[0] ? sectors[0][1].n : 0,
-        topSectorPct: sectors[0] && totalValue > 0 ? sectors[0][1].value / totalValue * 100 : 0,
-        maxSectorN: sectors.reduce((m, [, v]) => Math.max(m, v.n), 0)
+      const startEq = startEquity > 0 ? startEquity : equity;
+      const out = {
+        n: positions.length, noStop, noPrice,
+        totalExposure: pct(totalVal),
+        nePct: totalVal > 0 ? nw.val / totalVal * 100 : 0, cePct: totalVal > 0 ? co.val / totalVal * 100 : 0,
+        ner: pct(nw.risk), nep: pct(nw.unreal), cp: pct(co.unreal),
+        cer: co.cost > 0 ? co.unreal / co.cost * 100 : null,
+        openHeat: pct(openRisk), openProfit: pct(openUnreal),
+        neCe: co.val > 0 ? nw.val / co.val : (nw.val > 0 ? Infinity : null),
+        uer: totalVal > 0 ? uerVal / totalVal * 100 : null,
+        fer: totalVal > 0 ? ferVal / totalVal * 100 : null,
+        closedEc: startEq > 0 ? closedPnl / startEq * 100 : 0,
+        newN: nw.n, coreN: co.n
       };
+      out.neDelta = out.ner + out.nep;
+      out.delta = out.openHeat + out.openProfit;
+      out.cycleDelta = out.closedEc + out.openProfit;
+      return out;
+    }
+    function prmLoopStatus(m, ceil) {
+      if (!m.n) return { tone: "", text: "No open positions — the control loop is idle." };
+      if (m.newN === 0) return { tone: "pos", text: "No unfinanced positions — NER is zero. Room to open a new layer, if the market agrees." };
+      if (-m.ner > ceil) return { tone: "neg", text: `Over ceiling: NER ${m.ner.toFixed(2)}% is beyond −${ceil}%. Don't add; bring it back in line.` };
+      if (m.neDelta <= -1.5 * ceil) return { tone: "neg", text: `Act: NE Δ ${m.neDelta.toFixed(2)}% has slid to −${(1.5 * ceil).toFixed(2)}% or worse — the tape isn't paying. Stop adding and close the weakest new names.` };
+      if (m.neDelta >= -ceil / 2) return { tone: "pos", text: `Push: NE Δ ${m.neDelta.toFixed(2)}% is at/above −${(ceil / 2).toFixed(2)}% — the new layer is paying. You can add, but the market must also agree.` };
+      return { tone: "", text: `Hold: NE Δ ${m.neDelta.toFixed(2)}% sits between the push (−${(ceil / 2).toFixed(2)}%) and act (−${(1.5 * ceil).toFixed(2)}%) lines. Let the layer prove itself.` };
+    }
+    function prmSnapshotDelta(openProfit, coreProfit) {
+      // "Since last reading" = vs. the most recent earlier-day snapshot (kept in localStorage).
+      const today = new Date().toISOString().slice(0, 10);
+      let snaps = {};
+      try { snaps = JSON.parse(localStorage.getItem("tt_prm_snaps") || "{}"); } catch (e) {}
+      const prior = Object.keys(snaps).filter(d => d < today).sort().pop();
+      const res = prior ? { since: prior, openD: openProfit - snaps[prior].openProfit, coreD: coreProfit - snaps[prior].coreProfit } : null;
+      snaps[today] = { openProfit, coreProfit };
+      const keys = Object.keys(snaps).sort();
+      while (keys.length > 120) delete snaps[keys.shift()];
+      try { localStorage.setItem("tt_prm_snaps", JSON.stringify(snaps)); } catch (e) {}
+      return res;
     }
     function renderPortfolioRisk(points, list, equity) {
-      const o = document.getElementById("dash-risk-open"), st = document.getElementById("dash-risk-stats"),
-        note = document.getElementById("dash-risk-note");
-      if (!o || !st) return;
-      const card = (label, val, cls, tip) =>
-        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:16px;" title="${(tip || "").replace(/"/g, "&quot;")}">
+      const stEl = document.getElementById("dash-risk-stats"), note = document.getElementById("dash-risk-note");
+      const box = document.getElementById("dash-risk-prm"), pnote = document.getElementById("dash-risk-prm-note");
+      if (!stEl || !box) return;
+      const esc = t => String(t).replace(/"/g, "&quot;");
+      const card = (label, val, cls, tip, sub) =>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:16px;" title="${esc(tip || "")}">
           <div style="font-size:15px;color:var(--muted);text-transform:uppercase;">${label}</div>
-          <div style="font-size:27px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div></div>`;
+          <div style="font-size:27px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div>
+          ${sub ? `<div style="font-size:15px;color:var(--muted);margin-top:4px;line-height:1.3;">${sub}</div>` : ""}</div>`;
+      const head = t => `<div style="grid-column:1/-1;font-size:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#eab308;margin-top:6px;">${t}</div>`;
       const f = (v, d = 2, suf = "") => (v == null || !isFinite(v)) ? "n/a" : v.toFixed(d) + suf;
-      const R = RISK_RULES;
-      const open = computeOpenRisk(getOpenPositionsWithUnrealized(), equity, getTickerSector);
-      o.innerHTML = open.n === 0
-        ? `<div class="wl-empty" style="grid-column:1/-1;">No open positions — live heat and concentration appear here once you have open positions.</div>`
-        : card("Open risk (heat)", f(open.heatPct, 2, "%") + " · " + "$" + open.heat.toFixed(0), open.heatPct > R.heatMaxPct ? "neg" : "pos",
-            "Sum of (price − stop) × shares across open positions that have a stop, as % of equity. Guideline: stay under " + R.heatMaxPct + "%.") +
-          card("Positions", open.n + " / " + R.positionsMax, open.n > R.positionsMax ? "neg" : "", "Guideline: 5–8 concurrent positions.") +
-          card("Stops missing", String(open.noStop), open.noStop ? "neg" : "pos", "Open positions with no stop are NOT counted in heat — real risk is higher than shown.") +
-          card("Gross exposure", f(open.exposurePct, 1, "%"), "", "Market value of open positions as % of equity.") +
-          card("Largest position", (open.topTicker || "—") + " · " + f(open.topPct, 1, "%"), open.topPct > 25 ? "neg" : "", "Single-name concentration as % of equity.") +
-          card("Top sector", (open.topSector || "—") + " · " + open.topSectorN + " name(s)", open.maxSectorN > R.perSectorMax ? "neg" : "", "Guideline: 2–3 names per sector. " + f(open.topSectorPct, 0, "%") + " of exposure.");
+      const sg = (v, d = 2) => (v == null || !isFinite(v)) ? "n/a" : (v > 0 ? "+" : "") + v.toFixed(d) + "%";
+      const tone = v => v == null || !isFinite(v) ? "" : (v >= 0 ? "pos" : "neg");
+      const cfg = getPrmCfg();
+      const inp = document.getElementById("prm-ceiling");
+      if (inp && document.activeElement !== inp) inp.value = cfg.ceil;
+      const baselineCap = (() => { try { const b = JSON.parse(localStorage.getItem("tt_baseline") || "null"); return b && b.capital ? Number(b.capital) : 0; } catch (e) { return 0; } })();
+      const closedPnl = list.reduce((a, t) => a + t.pnl, 0);
+      const m = computePRM(getOpenPositionsWithUnrealized(), equity, closedPnl, baselineCap || getPortfolioSnapshot().startValue);
+      const snap = m.n ? prmSnapshotDelta(m.openProfit, m.cp) : null;
+      const loop = prmLoopStatus(m, cfg.ceil);
+      const bandNeCe = m.neCe == null ? "" : (m.neCe <= 0.25 ? "pos" : (m.neCe <= 0.5 ? "" : "neg"));
+      const bandUer = m.uer == null ? "" : (m.uer <= 25 ? "pos" : (m.uer <= 50 ? "" : "neg"));
+      if (!m.n) {
+        box.innerHTML = `<div class="wl-empty" style="grid-column:1/-1;">No open positions — NER, Open Heat, UER and FER populate once you have open positions with stops (Watchlist → Open pos, or Schwab import).</div>`
+          + head("Cycle performance") + card("Closed EC", sg(m.closedEc), tone(m.closedEc), "Realized P&L on closed trades since baseline ÷ starting equity.", "What the cycle has banked");
+      } else box.innerHTML =
+        head("Progressive exposure — new (unfinanced) bucket") +
+        card("NE %", f(m.nePct, 0, "%"), "", "Share of total exposure in new positions (stop below cost basis).", "How fresh the portfolio is") +
+        card("NER", sg(m.ner), m.ner < -cfg.ceil ? "neg" : "", "New Exposure Risk: Σ (stop − price) × shares ÷ equity over new positions. Ceiling −" + cfg.ceil + "%.", "Unfinanced risk on · ceiling −" + cfg.ceil + "%") +
+        card("NEP", sg(m.nep), tone(m.nep), "Unrealized profit on new positions ÷ equity.", "Are new entries getting traction?") +
+        card("NE Δ", sg(m.neDelta), loop.tone, "NER + NEP. The control variable.", "Push ≥ −" + (cfg.ceil / 2).toFixed(2) + "% · act ≤ −" + (1.5 * cfg.ceil).toFixed(2) + "%") +
+        `<div style="grid-column:1/-1;background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-size:20px;" class="${loop.tone}"><strong>Control loop:</strong> ${loop.text} <span class="muted">(Can ≠ should: the tape must agree too.)</span></div>` +
+        head("Core (financed) bucket") +
+        card("CE %", f(m.cePct, 0, "%"), "", "Share of total exposure in core positions (stop at/above cost basis).", "How much is structurally protected") +
+        card("CER", m.cer == null ? "n/a" : sg(m.cer, 1), tone(m.cer), "Core unrealized P&L ÷ core cost basis.", "Core return on cost") +
+        card("CP", sg(m.cp), tone(m.cp), "Core unrealized profit ÷ equity.", "Cushion the cycle has built") +
+        card("CE Δ", snap ? sg(snap.coreD) : "need 2 days", snap ? tone(snap.coreD) : "", "Change in Core Profit since the last stored daily reading.", snap ? "vs. " + snap.since : "builds one reading per day you open the dashboard") +
+        card("NE/CE", m.neCe == null ? "n/a" : (isFinite(m.neCe) ? m.neCe.toFixed(2) + "x" : "∞"), bandNeCe, "New ÷ core exposure. Late-cycle: ≤0.25x typical, up to 0.5x in a real stress-test window, never beyond.", "≤0.25x typical · 0.5x hard ceiling") +
+        head("Open heat — worst case if every stop hits") +
+        card("Open Heat", sg(m.openHeat), "", "Σ (stop − price) × shares ÷ equity across ALL open positions. Core positions with stops above price contribute gains.", "Worst-case downside, net") +
+        card("Open Profit", sg(m.openProfit), tone(m.openProfit), "Unrealized profit on all open positions ÷ equity.", "Cushion absorbing the heat") +
+        card("Delta", sg(m.delta), tone(m.delta), "Open Heat + Open Profit. Positive = above water even if every stop fires.", m.delta >= 0 ? "Net long-cushion" : "Net at-risk") +
+        card("Total Exposure", f(m.totalExposure, 0, "%"), m.totalExposure > 100 ? "neg" : "", "Market value of open positions ÷ equity. A result, not a driver. Above 100% = margin (earn it: working portfolio, post-correction tape, YTD cushion).", m.totalExposure > 100 ? "On margin" : "A result, not a driver") +
+        head("Fragility") +
+        card("UER", m.uer == null ? "n/a" : f(m.uer, 0, "%"), bandUer, "Unproven Exposure Ratio: exposure in positions with unrealized P&L < 5% ÷ total exposure.", "How green? ≤25% clean · >50% critical") +
+        card("FER", m.fer == null ? "n/a" : f(m.fer, 0, "%"), "", "Fragile Exposure Ratio: exposure where (price − stop) ÷ price < 5% ÷ total exposure. Bands still developing; read it with Open Heat and UER.", "How close to stops? Both UER+FER high = danger") +
+        head("Cycle performance") +
+        card("Closed EC", sg(m.closedEc), tone(m.closedEc), "Realized P&L on closed trades since baseline ÷ starting equity.", "What the cycle has banked") +
+        card("Cycle OEP", sg(m.openProfit), tone(m.openProfit), "Open equity P&L on the active portfolio (same as Open Profit).", "Working but unrealized") +
+        card("Open Δ", snap ? sg(snap.openD) : "need 2 days", snap ? tone(snap.openD) : "", "Change in Open Profit since the last stored daily reading.", snap ? "vs. " + snap.since : "builds one reading per day") +
+        card("Cycle Δ", sg(m.cycleDelta), tone(m.cycleDelta), "Closed EC + Open Profit.", "Whole-cycle trend");
+      if (pnote) pnote.innerHTML = "Definitions follow your Portfolio-Level Risk Management framework. <strong>Thresholds (−2% NER ceiling, 0.25x/0.5x NE/CE, 25%/50% UER) are the author's</strong> — set your own NER ceiling above (per-trade risk × max unfinanced positions); push and act lines scale from it."
+        + " A position counts as core when its stop is at/above cost basis; trims (Path A) aren't tracked, so a trimmed position with a low stop still reads as new."
+        + (m.noStop ? ` <strong>${m.noStop} position(s) have no stop</strong> — they add no risk to NER/Open Heat, so true risk is higher.` : "")
+        + (m.noPrice ? ` ${m.noPrice} position(s) have no current price (valued at entry).` : "")
+        + " CER is core return on cost; Open Δ/CE Δ compare with the last day this dashboard was opened. Stops use each position's current stop.";
       const s = computeRiskStats(points, list);
       const few = s.days < 20;
-      st.innerHTML =
+      stEl.innerHTML =
         card("Sharpe (ann.)", f(s.sharpe), s.sharpe != null ? (s.sharpe >= 1 ? "pos" : "neg") : "", "Mean daily return ÷ stdev × √252, risk-free = 0.") +
         card("Sortino (ann.)", f(s.sortino), s.sortino != null ? (s.sortino >= 1 ? "pos" : "neg") : "", "Like Sharpe but penalises only downside volatility.") +
         card("Volatility (ann.)", f(s.vol, 1, "%"), "", "Stdev of daily equity returns × √252.") +
         card("Max drawdown %", f(-s.maxDdPct, 2, "%"), s.maxDdPct > 0 ? "neg" : "", "Largest peak-to-trough fall of the equity path.") +
-        card("Longest drawdown", s.maxDdDays + " days", "", "Longest stretch (in equity-curve points) below a prior peak.") +
-        card("Calmar", f(s.calmar), "", "Annualised return ÷ max drawdown %. Needs a meaningful history.") +
-        card("Recovery factor", f(s.recovery), s.recovery != null ? (s.recovery >= 1 ? "pos" : "neg") : "", "Net P&L ÷ max $ drawdown.") +
-        card("VaR 95% (1-day)", s.var95 != null ? f(s.var95, 2, "%") : "need 20+ days", "", "Historical: the 5th-percentile worst daily return.") +
-        card("CVaR 95%", s.cvar95 != null ? f(s.cvar95, 2, "%") : "need 20+ days", "", "Average of the worst 5% of days (expected shortfall).") +
+        card("VaR 95% (1-day)", s.var95 != null ? f(s.var95, 2, "%") : "need 20+ days", "", "Historical 5th-percentile daily return.") +
+        card("CVaR 95%", s.cvar95 != null ? f(s.cvar95, 2, "%") : "need 20+ days", "", "Average of the worst 5% of days.") +
         card("Payoff ratio", f(s.payoff), s.payoff != null ? (s.payoff >= 1 ? "pos" : "neg") : "", "Average win ÷ average loss.") +
-        card("Max losing streak", String(s.maxLossStreak), "", "Longest run of consecutive losing trades.") +
-        card("Kelly fraction", s.kelly != null ? f(s.kelly * 100, 1, "%") : "need 10+ trades", s.kelly != null ? (s.kelly > 0 ? "pos" : "neg") : "", "W − (1−W)/payoff. Theoretical max bet; practitioners use ¼–½ Kelly or less. Negative = no edge.") +
-        card("Risk of ruin (est.)", s.ruin != null ? f(s.ruin, 2, "%") : "need 10+ trades", "", "Rough estimate assuming 5% risk per trade (20 units of capital) and your historical win rate/payoff. Treat as directional only.");
-      if (note) note.innerHTML = "Open-risk cards use live positions and stops (" + R.heatMaxPct + "% heat, " + R.positionsMax + " positions, " + R.perSectorMax + " per sector come from the Playbook risk rules). Return-based stats use your equity path, which only has points on days with closed trades"
-        + (few ? ` — currently <strong>${s.days}</strong> return observation(s), so Sharpe/Sortino/volatility are unstable and VaR is hidden until 20+.` : ".")
-        + " Figures are estimates for decision support, not guarantees.";
+        card("Max losing streak", String(s.maxLossStreak), "", "Longest run of consecutive losing trades.");
+      if (note) note.innerHTML = "Return-based stats use your equity path, which only has points on days with closed trades"
+        + (few ? ` — currently <strong>${s.days}</strong> return observation(s), so these are unstable and VaR is hidden until 20+.` : ".");
     }
 
     function renderDashboard() {
