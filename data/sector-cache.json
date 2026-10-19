@@ -2462,5 +2462,77 @@
     "industry": "Software - Application",
     "mktCap": 50457176,
     "float": null
+  },
+  "CLF": {
+    "sector": "Basic Materials",
+    "industry": "Steel",
+    "mktCap": 8001823282,
+    "float": null
+  },
+  "SLN": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 925076872,
+    "float": null
+  },
+  "IRON": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 3039941904,
+    "float": null
+  },
+  "MTEX": {
+    "sector": "Consumer Defensive",
+    "industry": "Food Distribution",
+    "mktCap": 16220613,
+    "float": null
+  },
+  "CMCT": {
+    "sector": "Real Estate",
+    "industry": "REIT - Office",
+    "mktCap": 13091021,
+    "float": null
+  },
+  "PBLS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 3123191488,
+    "float": null
+  },
+  "ARQT": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 4069666882,
+    "float": null
+  },
+  "AXTI": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 3777016320,
+    "float": null
+  },
+  "CHWM": {
+    "sector": "Basic Materials",
+    "industry": "Industrial Materials",
+    "mktCap": 3237500,
+    "float": null
+  },
+  "AMRO": {
+    "sector": "Basic Materials",
+    "industry": "Industrial Materials",
+    "mktCap": 190669258487,
+    "float": null
+  },
+  "MVLL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 304525186,
+    "float": null
+  },
+  "APLD": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 5944930661,
+    "float": null
   }
 }

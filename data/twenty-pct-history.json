@@ -2178,5 +2178,44 @@
         "mktCap": 1289788
       }
     ]
+  },
+  {
+    "date": "2026-10-19",
+    "up": [
+      {
+        "ticker": "SLN",
+        "price": 19.59,
+        "changePct": 125.69,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 925076872
+      },
+      {
+        "ticker": "IRON",
+        "price": 79.17,
+        "changePct": 39.29,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 3039941904
+      },
+      {
+        "ticker": "RTSN",
+        "price": 17.44,
+        "changePct": 23.95,
+        "sector": "Healthcare",
+        "industry": "Medical - Pharmaceuticals",
+        "mktCap": 52500000
+      }
+    ],
+    "down": [
+      {
+        "ticker": "IAM",
+        "price": 17.2,
+        "changePct": -27.76,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 172500000
+      }
+    ]
   }
 ]

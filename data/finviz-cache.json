@@ -273,11 +273,11 @@
     "fetchedAt": "2026-10-03T17:36:32.899Z"
   },
   "TSLA": {
-    "shortInterestPct": "2.44%",
-    "daysToCover": 1.79,
+    "shortInterestPct": "2.51%",
+    "daysToCover": 1.88,
     "finvizFloat": 2820000000,
     "success": true,
-    "fetchedAt": "2026-10-03T17:36:33.491Z"
+    "fetchedAt": "2026-10-19T17:25:56.825Z"
   },
   "MXL": {
     "shortInterestPct": "5.68%",
@@ -459,5 +459,30 @@
   "SMCX": {
     "success": false,
     "fetchedAt": "2026-10-18T20:59:57.487Z"
+  },
+  "CLF": {
+    "shortInterestPct": "14.01%",
+    "daysToCover": 4.17,
+    "finvizFloat": 560600000,
+    "success": true,
+    "fetchedAt": "2026-10-19T17:25:55.213Z"
+  },
+  "SLN": {
+    "shortInterestPct": "4.89%",
+    "daysToCover": 2.11,
+    "finvizFloat": 51920000,
+    "success": true,
+    "fetchedAt": "2026-10-19T17:25:56.034Z"
+  },
+  "KORU": {
+    "success": false,
+    "fetchedAt": "2026-10-19T17:25:57.607Z"
+  },
+  "IRON": {
+    "shortInterestPct": "25.83%",
+    "daysToCover": 14.84,
+    "finvizFloat": 28150000,
+    "success": true,
+    "fetchedAt": "2026-10-19T17:25:58.386Z"
   }
 }
