@@ -2534,5 +2534,77 @@
     "industry": "Information Technology Services",
     "mktCap": 5944930661,
     "float": null
+  },
+  "BRZE": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 5168659260,
+    "float": null
+  },
+  "MYGN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 551085170,
+    "float": null
+  },
+  "SAIQ": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 159222872,
+    "float": null
+  },
+  "SLE": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 9390965,
+    "float": null
+  },
+  "NBTX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1234781061,
+    "float": null
+  },
+  "CPIX": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - Specialty & Generic",
+    "mktCap": 116119025,
+    "float": null
+  },
+  "FIGG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 12215996,
+    "float": null
+  },
+  "LVLU": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Retail",
+    "mktCap": 31357599,
+    "float": null
+  },
+  "MBRX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 6482678,
+    "float": null
+  },
+  "DIME": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 1451411,
+    "float": null
+  },
+  "TSEM": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 20289173570,
+    "float": null
+  },
+  "LYG": {
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "mktCap": 80048809248,
+    "float": null
   }
 }

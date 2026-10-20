@@ -2217,5 +2217,67 @@
         "mktCap": 172500000
       }
     ]
+  },
+  {
+    "date": "2026-10-20",
+    "up": [
+      {
+        "ticker": "SAIQ",
+        "price": 5.58,
+        "changePct": 63.64,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 159222872
+      },
+      {
+        "ticker": "ATGL",
+        "price": 7.09,
+        "changePct": 56.17,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 82417500
+      },
+      {
+        "ticker": "BRZE",
+        "price": 45.5,
+        "changePct": 51.46,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 5168659260
+      },
+      {
+        "ticker": "MYGN",
+        "price": 5.7761,
+        "changePct": 37.2,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 551085170
+      },
+      {
+        "ticker": "CCG",
+        "price": 5.95,
+        "changePct": 29.35,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 26661830
+      },
+      {
+        "ticker": "CD",
+        "price": 8.928,
+        "changePct": 27.73,
+        "sector": "Financial Services",
+        "industry": "Financial - Capital Markets",
+        "mktCap": 687983299
+      },
+      {
+        "ticker": "MBRX",
+        "price": 6.37,
+        "changePct": 20.19,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 6482678
+      }
+    ],
+    "down": []
   }
 ]

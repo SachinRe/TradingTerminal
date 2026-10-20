@@ -484,5 +484,23 @@
     "finvizFloat": 28150000,
     "success": true,
     "fetchedAt": "2026-10-19T17:25:58.386Z"
+  },
+  "BRZE": {
+    "shortInterestPct": "9.24%",
+    "daysToCover": 3.3,
+    "finvizFloat": 87730000,
+    "success": true,
+    "fetchedAt": "2026-10-20T17:29:24.089Z"
+  },
+  "MYGN": {
+    "shortInterestPct": "9.65%",
+    "daysToCover": 4.12,
+    "finvizFloat": 88600000,
+    "success": true,
+    "fetchedAt": "2026-10-20T17:29:24.730Z"
+  },
+  "SAIQ": {
+    "success": false,
+    "fetchedAt": "2026-10-20T17:29:26.638Z"
   }
 }
