@@ -435,7 +435,8 @@
   "BMNG": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 62213613
+    "mktCap": 53185914,
+    "float": null
   },
   "MRAL": {
     "sector": "Financial Services",
@@ -2605,6 +2606,90 @@
     "sector": "Financial Services",
     "industry": "Banks - Regional",
     "mktCap": 80048809248,
+    "float": null
+  },
+  "AVEX": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 587161581,
+    "float": null
+  },
+  "TKNO": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - Specialty & Generic",
+    "mktCap": 302533007,
+    "float": null
+  },
+  "NAKA": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 148092215,
+    "float": null
+  },
+  "ROLR": {
+    "sector": "Consumer Cyclical",
+    "industry": "Gambling, Resorts & Casinos",
+    "mktCap": 62315618,
+    "float": null
+  },
+  "AMTD": {
+    "sector": "Financial Services",
+    "industry": "Investment - Banking & Investment Services",
+    "mktCap": 6612286,
+    "float": null
+  },
+  "NETG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 353031,
+    "float": null
+  },
+  "ABTC": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 639357168,
+    "float": null
+  },
+  "ASST": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 3084405180,
+    "float": null
+  },
+  "ELMT": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 657885538,
+    "float": null
+  },
+  "HDVYX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 557297745,
+    "float": null
+  },
+  "RCUS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 2595957987,
+    "float": null
+  },
+  "GMTL": {
+    "sector": "Basic Materials",
+    "industry": "Other Precious Metals",
+    "mktCap": 209613386,
+    "float": null
+  },
+  "SFWL": {
+    "sector": "Industrials",
+    "industry": "Integrated Freight & Logistics",
+    "mktCap": 34923940,
+    "float": null
+  },
+  "KWEB": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Global",
+    "mktCap": 4413959165,
     "float": null
   }
 }

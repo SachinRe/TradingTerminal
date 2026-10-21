@@ -2279,5 +2279,84 @@
       }
     ],
     "down": []
+  },
+  {
+    "date": "2026-10-21",
+    "up": [
+      {
+        "ticker": "SVRN",
+        "price": 37.1548,
+        "changePct": 43.01,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 63646437
+      },
+      {
+        "ticker": "BETR",
+        "price": 15.4,
+        "changePct": 28.65,
+        "sector": "Financial Services",
+        "industry": "Financial - Mortgages",
+        "mktCap": 124010226
+      },
+      {
+        "ticker": "SMCL",
+        "price": 13.84,
+        "changePct": 20.35,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 26878173
+      },
+      {
+        "ticker": "SMCX",
+        "price": 9.835,
+        "changePct": 20.23,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 27479104
+      }
+    ],
+    "down": [
+      {
+        "ticker": "AVEX",
+        "price": 10.3932,
+        "changePct": -27.52,
+        "sector": "Industrials",
+        "industry": "Aerospace & Defense",
+        "mktCap": 587161581
+      },
+      {
+        "ticker": "GTBP",
+        "price": 5.52,
+        "changePct": -24.49,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 8948686
+      },
+      {
+        "ticker": "TKNO",
+        "price": 5.63,
+        "changePct": -23.82,
+        "sector": "Healthcare",
+        "industry": "Drug Manufacturers - Specialty & Generic",
+        "mktCap": 302533007
+      },
+      {
+        "ticker": "HDVYX",
+        "price": 12.86,
+        "changePct": -22.06,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 557297745
+      },
+      {
+        "ticker": "SMCZ",
+        "price": 5.34,
+        "changePct": -20.3,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1420214
+      }
+    ]
   }
 ]

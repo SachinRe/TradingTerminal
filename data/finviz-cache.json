@@ -454,11 +454,11 @@
   },
   "MSTX": {
     "success": false,
-    "fetchedAt": "2026-10-16T17:40:46.636Z"
+    "fetchedAt": "2026-10-21T17:37:18.649Z"
   },
   "SMCX": {
     "success": false,
-    "fetchedAt": "2026-10-18T20:59:57.487Z"
+    "fetchedAt": "2026-10-21T17:37:20.035Z"
   },
   "CLF": {
     "shortInterestPct": "14.01%",
@@ -502,5 +502,23 @@
   "SAIQ": {
     "success": false,
     "fetchedAt": "2026-10-20T17:29:26.638Z"
+  },
+  "AVEX": {
+    "shortInterestPct": "11.08%",
+    "daysToCover": 2.47,
+    "finvizFloat": 32439999.999999996,
+    "success": true,
+    "fetchedAt": "2026-10-21T17:37:17.233Z"
+  },
+  "TKNO": {
+    "shortInterestPct": "14.96%",
+    "daysToCover": 6.53,
+    "finvizFloat": 10930000,
+    "success": true,
+    "fetchedAt": "2026-10-21T17:37:17.929Z"
+  },
+  "SMCZ": {
+    "success": false,
+    "fetchedAt": "2026-10-21T17:37:19.335Z"
   }
 }
