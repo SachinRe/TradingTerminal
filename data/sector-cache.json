@@ -2691,5 +2691,11 @@
     "industry": "Asset Management - Global",
     "mktCap": 4413959165,
     "float": null
+  },
+  "IRLA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 35271641,
+    "float": null
   }
 }

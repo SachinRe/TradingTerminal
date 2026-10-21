@@ -458,7 +458,7 @@
   },
   "SMCX": {
     "success": false,
-    "fetchedAt": "2026-10-21T17:37:20.035Z"
+    "fetchedAt": "2026-10-21T20:51:16.712Z"
   },
   "CLF": {
     "shortInterestPct": "14.01%",
@@ -519,6 +519,20 @@
   },
   "SMCZ": {
     "success": false,
-    "fetchedAt": "2026-10-21T17:37:19.335Z"
+    "fetchedAt": "2026-10-21T20:51:15.534Z"
+  },
+  "RCUS": {
+    "shortInterestPct": "15.33%",
+    "daysToCover": 8.83,
+    "finvizFloat": 85500000,
+    "success": true,
+    "fetchedAt": "2026-10-21T20:51:14.541Z"
+  },
+  "BETR": {
+    "shortInterestPct": "45.22%",
+    "daysToCover": 4.88,
+    "finvizFloat": 8250000,
+    "success": true,
+    "fetchedAt": "2026-10-21T20:51:17.641Z"
   }
 }
