@@ -2350,5 +2350,140 @@
         "mktCap": 302533007
       }
     ]
+  },
+  {
+    "date": "2026-10-22",
+    "up": [
+      {
+        "ticker": "SAIQ",
+        "price": 7.41,
+        "changePct": 33.27,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 159222872
+      },
+      {
+        "ticker": "BHVN",
+        "price": 14.84,
+        "changePct": 26.3,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 2248286665
+      }
+    ],
+    "down": [
+      {
+        "ticker": "MRNX",
+        "price": 108.05,
+        "changePct": -49.27,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 7376943
+      },
+      {
+        "ticker": "AVTX",
+        "price": 7.9533,
+        "changePct": -35.13,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 424953307
+      },
+      {
+        "ticker": "NVEC",
+        "price": 69.24,
+        "changePct": -32.82,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "mktCap": 333764454
+      },
+      {
+        "ticker": "TTMI",
+        "price": 73.18,
+        "changePct": -28.36,
+        "sector": "Technology",
+        "industry": "Hardware, Equipment & Parts",
+        "mktCap": 7704478471
+      },
+      {
+        "ticker": "FPS",
+        "price": 23.795,
+        "changePct": -25.08,
+        "sector": "Industrials",
+        "industry": "Electrical Equipment & Parts",
+        "mktCap": 6179514687
+      },
+      {
+        "ticker": "MRNA",
+        "price": 185.24,
+        "changePct": -24.64,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 89276850000
+      },
+      {
+        "ticker": "PMI",
+        "price": 7.32,
+        "changePct": -23.99,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 11906800
+      },
+      {
+        "ticker": "KALU",
+        "price": 118.06,
+        "changePct": -23.31,
+        "sector": "Basic Materials",
+        "industry": "Aluminum",
+        "mktCap": 1934588056
+      },
+      {
+        "ticker": "MRNY",
+        "price": 35.0901,
+        "changePct": -23.19,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Income",
+        "mktCap": 263508967
+      },
+      {
+        "ticker": "GEVG",
+        "price": 15.7495,
+        "changePct": -22.59,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 6430347
+      },
+      {
+        "ticker": "CRS",
+        "price": 285.535,
+        "changePct": -22.44,
+        "sector": "Basic Materials",
+        "industry": "Steel",
+        "mktCap": 14134112720
+      },
+      {
+        "ticker": "PUR",
+        "price": 14.795,
+        "changePct": -22.05,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1126200
+      },
+      {
+        "ticker": "VSTL",
+        "price": 19.455,
+        "changePct": -20.98,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 7215190
+      },
+      {
+        "ticker": "BEG",
+        "price": 28.3085,
+        "changePct": -20.76,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 15567161
+      }
+    ]
   }
 ]

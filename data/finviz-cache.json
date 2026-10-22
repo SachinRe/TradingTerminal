@@ -113,17 +113,17 @@
   },
   "AMZN": {
     "shortInterestPct": "0.88%",
-    "daysToCover": 2.21,
+    "daysToCover": 2.22,
     "finvizFloat": 9820000000,
     "success": true,
-    "fetchedAt": "2026-10-10T17:27:39.565Z"
+    "fetchedAt": "2026-10-22T17:35:33.871Z"
   },
   "ORCL": {
-    "shortInterestPct": "2.82%",
-    "daysToCover": 1.6,
-    "finvizFloat": 1800000000,
+    "shortInterestPct": "2.61%",
+    "daysToCover": 1.61,
+    "finvizFloat": 1860000000,
     "success": true,
-    "fetchedAt": "2026-10-09T17:25:00.456Z"
+    "fetchedAt": "2026-10-22T17:35:36.026Z"
   },
   "AVGO": {
     "shortInterestPct": "1.16%",
@@ -501,7 +501,7 @@
   },
   "SAIQ": {
     "success": false,
-    "fetchedAt": "2026-10-20T17:29:26.638Z"
+    "fetchedAt": "2026-10-22T17:35:39.581Z"
   },
   "AVEX": {
     "shortInterestPct": "11.08%",
@@ -534,5 +534,61 @@
     "finvizFloat": 8250000,
     "success": true,
     "fetchedAt": "2026-10-21T20:51:17.641Z"
+  },
+  "FPS": {
+    "shortInterestPct": "7.44%",
+    "daysToCover": 1.74,
+    "finvizFloat": 190820000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:33.107Z"
+  },
+  "AVTX": {
+    "shortInterestPct": "23.73%",
+    "daysToCover": 11.8,
+    "finvizFloat": 48060000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:34.577Z"
+  },
+  "MRNA": {
+    "shortInterestPct": "8.45%",
+    "daysToCover": 1.59,
+    "finvizFloat": 365200000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:35.298Z"
+  },
+  "PG": {
+    "shortInterestPct": "1.05%",
+    "daysToCover": 2.76,
+    "finvizFloat": 2320000000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:36.742Z"
+  },
+  "BHVN": {
+    "shortInterestPct": "14.82%",
+    "daysToCover": 7.35,
+    "finvizFloat": 128560000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:37.461Z"
+  },
+  "TTMI": {
+    "shortInterestPct": "4.01%",
+    "daysToCover": 1.52,
+    "finvizFloat": 102980000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:38.165Z"
+  },
+  "JNJ": {
+    "shortInterestPct": "0.92%",
+    "daysToCover": 3.14,
+    "finvizFloat": 2410000000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:38.883Z"
+  },
+  "CRS": {
+    "shortInterestPct": "2.99%",
+    "daysToCover": 1.95,
+    "finvizFloat": 48200000,
+    "success": true,
+    "fetchedAt": "2026-10-22T17:35:40.296Z"
   }
 }

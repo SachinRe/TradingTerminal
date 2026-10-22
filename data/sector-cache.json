@@ -286,7 +286,8 @@
   "KRRO": {
     "sector": "Healthcare",
     "industry": "Biotechnology",
-    "mktCap": 117449731
+    "mktCap": 161318948,
+    "float": null
   },
   "HUBC": {
     "sector": "Technology",
@@ -2696,6 +2697,120 @@
     "sector": "Healthcare",
     "industry": "Biotechnology",
     "mktCap": 35271641,
+    "float": null
+  },
+  "FPS": {
+    "sector": "Industrials",
+    "industry": "Electrical Equipment & Parts",
+    "mktCap": 6179514687,
+    "float": null
+  },
+  "AVTX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 424953307,
+    "float": null
+  },
+  "BHVN": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 2248286665,
+    "float": null
+  },
+  "TTMI": {
+    "sector": "Technology",
+    "industry": "Hardware, Equipment & Parts",
+    "mktCap": 7704478471,
+    "float": null
+  },
+  "CRS": {
+    "sector": "Basic Materials",
+    "industry": "Steel",
+    "mktCap": 14134112720,
+    "float": null
+  },
+  "KALU": {
+    "sector": "Basic Materials",
+    "industry": "Aluminum",
+    "mktCap": 1934588056,
+    "float": null
+  },
+  "NVEC": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 333764454,
+    "float": null
+  },
+  "MRNY": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Income",
+    "mktCap": 263508967,
+    "float": null
+  },
+  "VSTL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 7215190,
+    "float": null
+  },
+  "GEVG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 6430347,
+    "float": null
+  },
+  "SPOG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 233301,
+    "float": null
+  },
+  "MLTX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1080122982,
+    "float": null
+  },
+  "VCRE": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 310585144,
+    "float": null
+  },
+  "TCX": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 125127699,
+    "float": null
+  },
+  "CTSO": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 19851930,
+    "float": null
+  },
+  "VITL": {
+    "sector": "Consumer Defensive",
+    "industry": "Agricultural Farm Products",
+    "mktCap": 403126785,
+    "float": null
+  },
+  "NAIL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 444312000,
+    "float": null
+  },
+  "EGBN": {
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "mktCap": 990385531,
+    "float": null
+  },
+  "KLAG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 7810380,
     "float": null
   }
 }
