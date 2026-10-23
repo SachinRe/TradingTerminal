@@ -2485,5 +2485,132 @@
         "mktCap": 15567161
       }
     ]
+  },
+  {
+    "date": "2026-10-23",
+    "up": [
+      {
+        "ticker": "LU",
+        "price": 8.185,
+        "changePct": 874.4,
+        "sector": "Financial Services",
+        "industry": "Financial - Credit Services",
+        "mktCap": 7102515470
+      },
+      {
+        "ticker": "AIOK",
+        "price": 12.2401,
+        "changePct": 188,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 28273850
+      },
+      {
+        "ticker": "BOLT",
+        "price": 6.82,
+        "changePct": 62.77,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 13134976
+      },
+      {
+        "ticker": "LYCA",
+        "price": 24.125,
+        "changePct": 34.03,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1256781236
+      },
+      {
+        "ticker": "SAIQ",
+        "price": 6.4405,
+        "changePct": 21.98,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 159222872
+      },
+      {
+        "ticker": "RHI",
+        "price": 45.43,
+        "changePct": 20.57,
+        "sector": "Industrials",
+        "industry": "Staffing & Employment Services",
+        "mktCap": 4650297846
+      }
+    ],
+    "down": [
+      {
+        "ticker": "KCAI",
+        "price": 15,
+        "changePct": -53.21,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Global",
+        "mktCap": 5429085
+      },
+      {
+        "ticker": "DAVI",
+        "price": 5.9801,
+        "changePct": -48.67,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 149750000
+      },
+      {
+        "ticker": "TANH",
+        "price": 15.5,
+        "changePct": -37.58,
+        "sector": "Consumer Defensive",
+        "industry": "Household & Personal Products",
+        "mktCap": 10048072
+      },
+      {
+        "ticker": "NANO",
+        "price": 6.85,
+        "changePct": -32.18,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 202691500
+      },
+      {
+        "ticker": "APXC",
+        "price": 6.2389,
+        "changePct": -29.82,
+        "sector": "Basic Materials",
+        "industry": "Other Precious Metals",
+        "mktCap": 99193029
+      },
+      {
+        "ticker": "BEG",
+        "price": 21.7,
+        "changePct": -26.32,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 15567161
+      },
+      {
+        "ticker": "ROMA",
+        "price": 5.28,
+        "changePct": -22.62,
+        "sector": "Industrials",
+        "industry": "Consulting Services",
+        "mktCap": 314500951
+      },
+      {
+        "ticker": "PHAT",
+        "price": 5.46,
+        "changePct": -22.11,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 441719100
+      },
+      {
+        "ticker": "LKQ",
+        "price": 17.5204,
+        "changePct": -22.03,
+        "sector": "Consumer Cyclical",
+        "industry": "Auto - Parts",
+        "mktCap": 4435126568
+      }
+    ]
   }
 ]

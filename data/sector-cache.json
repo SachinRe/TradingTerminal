@@ -640,7 +640,8 @@
   "BE": {
     "sector": "Industrials",
     "industry": "Electrical Equipment & Parts",
-    "mktCap": 78235207010
+    "mktCap": 55798140150,
+    "float": null
   },
   "JHX": {
     "sector": "Basic Materials",
@@ -2811,6 +2812,114 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 7810380,
+    "float": null
+  },
+  "LKQ": {
+    "sector": "Consumer Cyclical",
+    "industry": "Auto - Parts",
+    "mktCap": 4435126568,
+    "float": null
+  },
+  "PHAT": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 441719100,
+    "float": null
+  },
+  "RHI": {
+    "sector": "Industrials",
+    "industry": "Staffing & Employment Services",
+    "mktCap": 4650297846,
+    "float": null
+  },
+  "BOLT": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 13134976,
+    "float": null
+  },
+  "LYCA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1256781236,
+    "float": null
+  },
+  "LU": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 7102515470,
+    "float": null
+  },
+  "APXC": {
+    "sector": "Basic Materials",
+    "industry": "Other Precious Metals",
+    "mktCap": 99193029,
+    "float": null
+  },
+  "NANO": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 202691500,
+    "float": null
+  },
+  "ROMA": {
+    "sector": "Industrials",
+    "industry": "Consulting Services",
+    "mktCap": 314500951,
+    "float": null
+  },
+  "DAVI": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 149750000,
+    "float": null
+  },
+  "KCAI": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Global",
+    "mktCap": 5429085,
+    "float": null
+  },
+  "SAIH": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 52840518,
+    "float": null
+  },
+  "PANG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 8764600,
+    "float": null
+  },
+  "PALU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 30168490,
+    "float": null
+  },
+  "TGRZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 533995,
+    "float": null
+  },
+  "CRWL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 72701867,
+    "float": null
+  },
+  "CORT": {
+    "sector": "Healthcare",
+    "industry": "Medical - Pharmaceuticals",
+    "mktCap": 9615317100,
+    "float": null
+  },
+  "INFY": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 50627044548,
     "float": null
   }
 }

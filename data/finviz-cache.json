@@ -590,5 +590,37 @@
     "finvizFloat": 48200000,
     "success": true,
     "fetchedAt": "2026-10-22T17:35:40.296Z"
+  },
+  "LKQ": {
+    "shortInterestPct": "6.49%",
+    "daysToCover": 4.77,
+    "finvizFloat": 251070000,
+    "success": true,
+    "fetchedAt": "2026-10-23T17:24:33.944Z"
+  },
+  "PHAT": {
+    "shortInterestPct": "19.73%",
+    "daysToCover": 7.31,
+    "finvizFloat": 51230000,
+    "success": true,
+    "fetchedAt": "2026-10-23T17:24:34.648Z"
+  },
+  "RHI": {
+    "shortInterestPct": "19.98%",
+    "daysToCover": 9.71,
+    "finvizFloat": 98480000,
+    "success": true,
+    "fetchedAt": "2026-10-23T17:24:35.343Z"
+  },
+  "BOLT": {
+    "shortInterestPct": "1.57%",
+    "daysToCover": 0.93,
+    "finvizFloat": 1640000,
+    "success": true,
+    "fetchedAt": "2026-10-23T17:24:36.035Z"
+  },
+  "LYCA": {
+    "success": false,
+    "fetchedAt": "2026-10-23T17:24:36.719Z"
   }
 }
