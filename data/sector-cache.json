@@ -714,7 +714,8 @@
   "CDE": {
     "sector": "Basic Materials",
     "industry": "Gold",
-    "mktCap": 20363362728
+    "mktCap": 13914169803,
+    "float": null
   },
   "MSTR": {
     "sector": "Technology",
@@ -2920,6 +2921,30 @@
     "sector": "Technology",
     "industry": "Information Technology Services",
     "mktCap": 50627044548,
+    "float": null
+  },
+  "ADVGX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 11228150,
+    "float": null
+  },
+  "TNGX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 3935357400,
+    "float": null
+  },
+  "WGS": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 1674533375,
+    "float": null
+  },
+  "SPTI": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 10900609566,
     "float": null
   }
 }

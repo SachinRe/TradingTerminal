@@ -621,6 +621,10 @@
   },
   "LYCA": {
     "success": false,
-    "fetchedAt": "2026-10-23T17:24:36.719Z"
+    "fetchedAt": "2026-10-24T21:08:51.568Z"
+  },
+  "AIOK": {
+    "success": false,
+    "fetchedAt": "2026-10-24T21:08:52.299Z"
   }
 }
