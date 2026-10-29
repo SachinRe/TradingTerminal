@@ -377,7 +377,8 @@
   "TXXH": {
     "sector": "Financial Services",
     "industry": "Asset Management - Cryptocurrency",
-    "mktCap": 10575363
+    "mktCap": 9974734,
+    "float": null
   },
   "TXXS": {
     "sector": "Financial Services",
@@ -709,7 +710,8 @@
   "PURR": {
     "sector": "Financial Services",
     "industry": "Financial - Capital Markets",
-    "mktCap": 1896514000
+    "mktCap": 1605778000,
+    "float": null
   },
   "CDE": {
     "sector": "Basic Materials",
@@ -2945,6 +2947,114 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 10900609566,
+    "float": null
+  },
+  "ADT": {
+    "sector": "Industrials",
+    "industry": "Security & Protection Services",
+    "mktCap": 7248097300,
+    "float": null
+  },
+  "IOVA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 4271244747,
+    "float": null
+  },
+  "BHC": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - Specialty & Generic",
+    "mktCap": 3253717809,
+    "float": null
+  },
+  "TDOC": {
+    "sector": "Healthcare",
+    "industry": "Medical - Healthcare Information Services",
+    "mktCap": 1606086560,
+    "float": null
+  },
+  "GKOS": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 14081226447,
+    "float": null
+  },
+  "CROX": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Footwear & Accessories",
+    "mktCap": 7209984138,
+    "float": null
+  },
+  "GGLL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 581926500,
+    "float": null
+  },
+  "PCLA": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 9871233,
+    "float": null
+  },
+  "CLMB": {
+    "sector": "Technology",
+    "industry": "Technology Distributors",
+    "mktCap": 772936980,
+    "float": null
+  },
+  "GOU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 532785165,
+    "float": null
+  },
+  "PRCH": {
+    "sector": "Financial Services",
+    "industry": "Insurance - Property & Casualty",
+    "mktCap": 2319210249,
+    "float": null
+  },
+  "MAX": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 739805804,
+    "float": null
+  },
+  "AVXX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 6564055,
+    "float": null
+  },
+  "THYP": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 18097200,
+    "float": null
+  },
+  "HYPG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 7403000,
+    "float": null
+  },
+  "BHYP": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 4800600,
+    "float": null
+  },
+  "SWMR": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 116632488,
+    "float": null
+  },
+  "MESO": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1996444020,
     "float": null
   }
 }

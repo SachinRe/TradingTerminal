@@ -70,18 +70,18 @@
     "fetchedAt": "2026-09-23T12:39:27.590Z"
   },
   "GOOGL": {
-    "shortInterestPct": "1.33%",
-    "daysToCover": 2.65,
+    "shortInterestPct": "1.34%",
+    "daysToCover": 3.01,
     "finvizFloat": 5850000000,
     "success": true,
-    "fetchedAt": "2026-09-23T17:26:41.546Z"
+    "fetchedAt": "2026-10-29T17:25:32.080Z"
   },
   "GOOG": {
-    "shortInterestPct": "0.88%",
-    "daysToCover": 2.31,
+    "shortInterestPct": "0.94%",
+    "daysToCover": 2.82,
     "finvizFloat": 5130000000,
     "success": true,
-    "fetchedAt": "2026-09-23T17:26:42.683Z"
+    "fetchedAt": "2026-10-29T17:25:32.876Z"
   },
   "WHLR": {
     "shortInterestPct": "11.51%",
@@ -439,11 +439,11 @@
     "fetchedAt": "2026-10-15T17:19:15.146Z"
   },
   "CRM": {
-    "shortInterestPct": "4.13%",
-    "daysToCover": 2.54,
+    "shortInterestPct": "3.50%",
+    "daysToCover": 2.32,
     "finvizFloat": 797050000,
     "success": true,
-    "fetchedAt": "2026-10-15T17:19:15.872Z"
+    "fetchedAt": "2026-10-29T17:25:38.348Z"
   },
   "MAN": {
     "shortInterestPct": "9.69%",
@@ -626,5 +626,69 @@
   "AIOK": {
     "success": false,
     "fetchedAt": "2026-10-25T21:11:30.907Z"
+  },
+  "ADT": {
+    "shortInterestPct": "3.69%",
+    "daysToCover": 3.19,
+    "finvizFloat": 662680000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:31.058Z"
+  },
+  "IOVA": {
+    "shortInterestPct": "14.95%",
+    "daysToCover": 3.62,
+    "finvizFloat": 394260000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:33.610Z"
+  },
+  "BHC": {
+    "shortInterestPct": "2.49%",
+    "daysToCover": 2.46,
+    "finvizFloat": 331340000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:34.400Z"
+  },
+  "TDOC": {
+    "shortInterestPct": "17.78%",
+    "daysToCover": 7.54,
+    "finvizFloat": 180370000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:35.370Z"
+  },
+  "BA": {
+    "shortInterestPct": "1.86%",
+    "daysToCover": 1.93,
+    "finvizFloat": 789510000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:36.114Z"
+  },
+  "MA": {
+    "shortInterestPct": "0.87%",
+    "daysToCover": 2.37,
+    "finvizFloat": 806480000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:36.858Z"
+  },
+  "GKOS": {
+    "shortInterestPct": "7.67%",
+    "daysToCover": 4.71,
+    "finvizFloat": 56640000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:37.604Z"
+  },
+  "CROX": {
+    "shortInterestPct": "9.93%",
+    "daysToCover": 4.22,
+    "finvizFloat": 45840000,
+    "success": true,
+    "fetchedAt": "2026-10-29T17:25:39.089Z"
+  },
+  "GGLL": {
+    "success": false,
+    "fetchedAt": "2026-10-29T17:25:39.826Z"
+  },
+  "MVLL": {
+    "success": false,
+    "fetchedAt": "2026-10-29T17:25:40.567Z"
   }
 }

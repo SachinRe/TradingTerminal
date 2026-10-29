@@ -2914,5 +2914,188 @@
         "mktCap": 9615317100
       }
     ]
+  },
+  {
+    "date": "2026-10-29",
+    "up": [
+      {
+        "ticker": "PCLA",
+        "price": 11.085,
+        "changePct": 85.83,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 9871233
+      },
+      {
+        "ticker": "PUR",
+        "price": 27.5143,
+        "changePct": 39.31,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1126200
+      },
+      {
+        "ticker": "ADT",
+        "price": 9.92,
+        "changePct": 33.87,
+        "sector": "Industrials",
+        "industry": "Security & Protection Services",
+        "mktCap": 7248097300
+      },
+      {
+        "ticker": "TXXH",
+        "price": 74.765,
+        "changePct": 32.68,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 9974734
+      },
+      {
+        "ticker": "GKOS",
+        "price": 238.79,
+        "changePct": 31.62,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 14081226447
+      },
+      {
+        "ticker": "TDOC",
+        "price": 8.8303,
+        "changePct": 28.35,
+        "sector": "Healthcare",
+        "industry": "Medical - Healthcare Information Services",
+        "mktCap": 1606086560
+      },
+      {
+        "ticker": "CROX",
+        "price": 151.015,
+        "changePct": 26.17,
+        "sector": "Consumer Cyclical",
+        "industry": "Apparel - Footwear & Accessories",
+        "mktCap": 7209984138
+      },
+      {
+        "ticker": "CLMB",
+        "price": 41.7843,
+        "changePct": 26.12,
+        "sector": "Technology",
+        "industry": "Technology Distributors",
+        "mktCap": 772936980
+      },
+      {
+        "ticker": "BHC",
+        "price": 8.725,
+        "changePct": 26.08,
+        "sector": "Healthcare",
+        "industry": "Drug Manufacturers - Specialty & Generic",
+        "mktCap": 3253717809
+      },
+      {
+        "ticker": "PRCH",
+        "price": 20.429,
+        "changePct": 25.33,
+        "sector": "Financial Services",
+        "industry": "Insurance - Property & Casualty",
+        "mktCap": 2319210249
+      },
+      {
+        "ticker": "KPLT",
+        "price": 11.245,
+        "changePct": 23.57,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 33831912
+      },
+      {
+        "ticker": "ITG",
+        "price": 5.76,
+        "changePct": 22.29,
+        "sector": "Industrials",
+        "industry": "Engineering & Construction",
+        "mktCap": 740399856
+      }
+    ],
+    "down": [
+      {
+        "ticker": "IOVA",
+        "price": 9.435,
+        "changePct": -36.29,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 4271244747
+      },
+      {
+        "ticker": "AIOK",
+        "price": 18.62,
+        "changePct": -33.83,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 28273850
+      },
+      {
+        "ticker": "GBC",
+        "price": 40.7384,
+        "changePct": -32.1,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "MVLL",
+        "price": 22.95,
+        "changePct": -25.82,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 304525186
+      },
+      {
+        "ticker": "GOU",
+        "price": 16.51,
+        "changePct": -25.7,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 532785165
+      },
+      {
+        "ticker": "GGLL",
+        "price": 65.45,
+        "changePct": -25.64,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 581926500
+      },
+      {
+        "ticker": "MRVU",
+        "price": 95,
+        "changePct": -25.59,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "ALNY",
+        "price": 175.0188,
+        "changePct": -24.69,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "FTNT",
+        "price": 134.705,
+        "changePct": -22.62,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "SFM",
+        "price": 48.31,
+        "changePct": -22.08,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      }
+    ]
   }
 ]
