@@ -236,6 +236,16 @@
     }
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group label { font-size: 20px; color: var(--muted); text-transform: uppercase; }
+    #wl-risk table input {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 24px;
+    }
+    #wl-risk table td { vertical-align: middle; }
     .form-group input, .form-group select {
       background: #0f172a;
       border: 1px solid var(--border);
@@ -2715,65 +2725,164 @@
 
       <!-- Sub: Manage Risk -->
       <div id="wl-risk" class="wl-sub" style="display:none;">
-        <div class="panel" id="risk-empty" style="display:none;border-top:none;border-radius:0 0 6px 6px;">
-          <div class="panel-body">
-            <div class="wl-empty">
-              No qualified tickers on your watchlist yet.<br><br>
-              Go to <strong>Qualify</strong>, click <strong>Add</strong> on a STRONG or WATCH name, then return here to size the position.
-            </div>
-          </div>
-        </div>
         <div id="risk-content">
-          <div class="panel" style="border-top:none;border-radius:0;">
-            <div class="panel-header">Select Qualified Ticker (from Watchlist)</div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Watchlist Ticker</label>
-                <select id="risk-ticker-select" style="width:160px" onchange="onRiskTickerChange()">
-                  <option value="">— select —</option>
-                </select>
+          <div class="grid-2" style="margin-top:0;">
+            <div class="panel" style="border-top:none;">
+              <div class="panel-header">
+                Trade Risk Plan
+                <span class="tag" id="risk-editing-tag" style="display:none;">Editing saved plan</span>
               </div>
-              <div style="font-size:24px;color:var(--muted);align-self:center;" id="risk-ticker-meta"></div>
+              <div class="panel-body">
+                <div class="form-row" style="flex-wrap:wrap;">
+                  <div class="form-group"><label>Ticker</label>
+                    <input type="text" id="risk-ticker-select" list="risk-ticker-list" style="width:130px;text-transform:uppercase;" placeholder="AAPL" onchange="onRiskTickerChange()" />
+                    <datalist id="risk-ticker-list"></datalist>
+                  </div>
+                  <div class="form-group"><label>Current Price</label>
+                    <input type="number" id="risk-current" step="0.01" style="width:130px" placeholder="0.00" oninput="riskRecalc()" />
+                  </div>
+                  <button class="btn" style="align-self:flex-end;" onclick="riskFetchPrice(this)">Get price</button>
+                  <div class="form-group"><label>Trade Date</label>
+                    <input type="date" id="risk-tradedate" style="width:230px" />
+                  </div>
+                </div>
+                <div class="note" id="risk-price-status" style="margin-top:4px;"></div>
+                <div style="font-size:22px;color:var(--muted);margin-top:6px;" id="risk-ticker-meta"></div>
+
+                <div class="form-row" style="flex-wrap:wrap;margin-top:10px;">
+                  <div class="form-group"><label>Entry Price</label>
+                    <input type="number" id="risk-entry" step="0.01" style="width:130px" placeholder="0.00" oninput="riskRecalc()" />
+                  </div>
+                  <div class="form-group"><label>Stop Loss</label>
+                    <input type="number" id="risk-stop" step="0.01" style="width:130px" placeholder="0.00" oninput="riskRecalc()" />
+                  </div>
+                  <div class="form-group"><label>Risk / share</label>
+                    <input type="text" id="risk-per-share" style="width:120px" readonly tabindex="-1" placeholder="Entry − Stop" />
+                  </div>
+                </div>
+                <div class="form-row" style="flex-wrap:wrap;">
+                  <div class="form-group"><label>Account Value $</label>
+                    <input type="number" id="risk-account" step="1000" style="width:150px" oninput="riskRecalc()" />
+                  </div>
+                  <div class="form-group"><label>Equity Risk %</label>
+                    <input type="number" id="risk-pct" value="1" step="0.1" min="0.1" max="2.5" style="width:110px" oninput="riskRecalc()" />
+                  </div>
+                  <div class="form-group"><label>Max Risk $ (optional)</label>
+                    <input type="number" id="risk-maxdollar" step="10" style="width:150px" placeholder="no cap" oninput="riskRecalc()" />
+                  </div>
+                </div>
+
+                <div class="result-box" id="size-result">
+                  <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">NUMBER OF SHARES</div>
+                  <div class="big" id="shares-out">—</div>
+                  <div style="margin-top:8px;font-size:22px;" id="size-details">Enter entry, stop, account value and risk %.</div>
+                </div>
+                <div class="form-row" style="flex-wrap:wrap;margin-top:10px;">
+                  <div class="form-group"><label>Shares Bought</label>
+                    <input type="number" id="risk-bought" step="1" min="0" style="width:150px" placeholder="= calculated" oninput="riskRecalc()" />
+                  </div>
+                  <div class="note" id="risk-bought-note" style="align-self:flex-end;margin:0 0 6px 0;">Leave blank to log the calculated share count.</div>
+                </div>
+                <div class="note">
+                  Shares = Risk $ ÷ (Entry − Stop), where Risk $ is the <strong>lower</strong> of Account × Equity Risk % and Max Risk $.
+                  Ideal risk 1% · hard max 2.5%. Targets, remaining qty and planned R use <strong>Shares Bought</strong>.
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" style="border-top:none;">
+              <div class="panel-header">
+                Targets &amp; Scale-Out
+                <button class="btn btn-sm" onclick="riskSplitThirds()">Split ⅓ · ⅓ · ⅓</button>
+              </div>
+              <div class="panel-body">
+                <table>
+                  <thead><tr><th></th><th>Target $</th><th>Qty Sold</th><th>R at target</th><th>P&amp;L $</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Target 1</strong></td>
+                      <td><input type="number" id="risk-t1" step="0.01" style="width:110px" oninput="riskRecalc()" /></td>
+                      <td><input type="number" id="risk-q1" step="1" min="0" style="width:90px" oninput="riskRecalc()" /></td>
+                      <td id="risk-r1">—</td><td id="risk-p1">—</td></tr>
+                    <tr><td><strong>Target 2</strong></td>
+                      <td><input type="number" id="risk-t2" step="0.01" style="width:110px" oninput="riskRecalc()" /></td>
+                      <td><input type="number" id="risk-q2" step="1" min="0" style="width:90px" oninput="riskRecalc()" /></td>
+                      <td id="risk-r2">—</td><td id="risk-p2">—</td></tr>
+                    <tr><td><strong>Target 3</strong></td>
+                      <td><input type="number" id="risk-t3" step="0.01" style="width:110px" oninput="riskRecalc()" /></td>
+                      <td><input type="number" id="risk-q3" step="1" min="0" style="width:90px" oninput="riskRecalc()" /></td>
+                      <td id="risk-r3">—</td><td id="risk-p3">—</td></tr>
+                    <tr><td><strong>Remaining Qty</strong></td><td></td>
+                      <td id="risk-remaining" style="font-weight:700;">—</td><td colspan="2" class="muted" style="font-size:20px;">runner — not in the planned R</td></tr>
+                  </tbody>
+                </table>
+                <div class="result-box" style="margin-top:10px;">
+                  <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">PLANNED R-MULTIPLE</div>
+                  <div class="big" id="risk-planned-r">—</div>
+                  <div style="margin-top:8px;font-size:22px;" id="risk-planned-details">Fill targets and quantities.</div>
+                </div>
+                <div class="note">
+                  Planned R = Σ (Qty sold × (Target − Entry)) ÷ (Shares × (Entry − Stop)).
+                  Actual R appears in the saved-plan table once you import fills from Schwab or Fidelity.
+                </div>
+                <div style="margin-top:10px;">
+                  <button class="btn btn-accent" onclick="riskSavePlan()">Save &amp; Log Trade</button>
+                  <button class="btn btn-sm" onclick="riskClearForm()">Clear form</button>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="grid-2">
-            <div class="panel">
-              <div class="panel-header">Position Sizing Calculator</div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Account Value $</label>
-                  <input type="number" id="risk-account" step="1000" />
-                </div>
-                <div class="form-group">
-                  <label>Risk % (ideal 1%)</label>
-                  <input type="number" id="risk-pct" value="1" step="0.1" min="0.1" max="2.5" />
-                </div>
-                <div class="form-group">
-                  <label>Entry Price</label>
-                  <input type="number" id="risk-entry" step="0.01" placeholder="0.00" />
-                </div>
-                <div class="form-group">
-                  <label>Stop Price</label>
-                  <input type="number" id="risk-stop" step="0.01" placeholder="0.00" />
-                </div>
-                <button class="btn btn-accent" onclick="calcSize()">Calculate</button>
-              </div>
-              <div class="result-box" id="size-result">
-                <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">SHARES TO BUY</div>
-                <div class="big" id="shares-out">—</div>
-                <div style="margin-top:8px;font-size:24px;" id="size-details">Select a watchlist ticker or enter values</div>
-              </div>
-              <div class="note">
-                Formula: Shares = (Account × Risk%) ÷ (Entry − Stop).<br>
-                Ideal risk 1% · Hard max 2.5%. Wider stop = fewer shares. Risk $ stays constant.
-              </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              Logged Trades · Planned vs Actual R &amp; Compliance
+              <span class="tag">Actual fills come from Trading Operations → Upload Trading File (Schwab / Fidelity)</span>
             </div>
-            <div class="panel" style="border-radius:0 0 6px 6px;">
-              <div class="panel-header">Risk rules for this setup <span class="tag" id="risk-setup-tag">Select ticker</span></div>
-              <div class="checklist" id="risk-rules-body">
-                <div class="check-item"><span class="check-icon">•</span> Select a watchlist ticker to load SIP / EP / EP9M risk placeholders</div>
-              </div>
+            <div class="panel-body" id="risk-plans-body"></div>
+            <div class="note">
+              Fills are matched by ticker from the plan's <strong>Trade Date</strong> onward (up to the next saved plan for the same ticker).
+              Actual R = Realized P&amp;L ÷ (shares bought × (actual avg entry − stop)). "Incl. open" adds unrealized P&amp;L on shares still held, using the latest current price.
             </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              Execution Compliance
+              <span class="tag">Did you follow your plan? Checked against imported fills</span>
+            </div>
+            <div class="panel-body" id="risk-compliance-body"></div>
+            <details style="padding:0 14px 10px;">
+              <summary class="muted" style="cursor:pointer;font-size:20px;">Compliance rules &amp; tolerances</summary>
+              <div class="form-row" style="flex-wrap:wrap;margin-top:8px;">
+                <div class="form-group"><label>Size tolerance %</label><input type="number" id="rc-size" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
+                <div class="form-group"><label>Entry slippage (% of R)</label><input type="number" id="rc-entry" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
+                <div class="form-group"><label>Stop slippage (% of R)</label><input type="number" id="rc-stop" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
+                <div class="form-group"><label>Target tolerance (% of R)</label><input type="number" id="rc-target" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
+              </div>
+              <div class="checklist" style="padding:6px 0 0;">
+                <div class="check-item"><span class="check-icon">1</span> <strong>Size within risk</strong> — shares bought ≤ the risk-based share count (+ size tolerance).</div>
+                <div class="check-item"><span class="check-icon">2</span> <strong>Bought what you logged</strong> — shares bought match the Shares Bought you logged (± size tolerance).</div>
+                <div class="check-item"><span class="check-icon">3</span> <strong>Entry at plan</strong> — average fill no worse than planned entry by more than the entry slippage.</div>
+                <div class="check-item"><span class="check-icon">4</span> <strong>Risk $ within plan</strong> — shares bought × (avg fill − stop) ≤ planned risk $ (+ size tolerance).</div>
+                <div class="check-item"><span class="check-icon">5</span> <strong>Stop honored</strong> — no exit worse than the stop by more than the stop slippage.</div>
+                <div class="check-item"><span class="check-icon">6</span> <strong>No early exits</strong> — no shares sold between the stop and Target 1 (exits only at the stop or at targets).</div>
+              </div>
+            </details>
+          </div>
+
+          <div class="panel" style="border-radius:0 0 6px 6px;">
+            <div class="panel-header">Risk rules for this setup <span class="tag" id="risk-setup-tag">Watchlist tickers only</span></div>
+            <div class="checklist" id="risk-rules-body">
+              <div class="check-item"><span class="check-icon">•</span> Type a ticker that's on your watchlist to load its SIP / EP / EP9M risk rules.</div>
+            </div>
+            <details style="padding:8px 14px;">
+              <summary class="muted" style="cursor:pointer;font-size:20px;">Price source · Twelve Data API key</summary>
+              <div class="form-row" style="margin-top:8px;">
+                <div class="form-group"><label>Twelve Data API key</label><input type="password" id="risk-td-key" style="width:280px" placeholder="stored in this browser only" /></div>
+                <button class="btn btn-sm" style="align-self:flex-end;" onclick="riskSaveTdKey()">Save key</button>
+                <button class="btn btn-sm" style="align-self:flex-end;" onclick="riskClearTdKey()">Remove</button>
+              </div>
+              <div class="note" id="risk-td-key-status"></div>
+            </details>
           </div>
         </div>
       </div>
@@ -5420,9 +5529,15 @@
 
     function populateTickerSelects() {
       const list = getWatchlist();
+      const riskList = document.getElementById("risk-ticker-list");
+      if (riskList) {
+        const names = new Set(list.map(w => w.ticker));
+        getRiskPlans().forEach(p => names.add(p.ticker));
+        riskList.innerHTML = [...names].sort().map(t => `<option value="${t}"></option>`).join("");
+      }
       ["exec-ticker-select", "risk-ticker-select"].forEach(id => {
         const sel = document.getElementById(id);
-        if (!sel) return;
+        if (!sel || sel.tagName !== "SELECT") return;
         const prev = sel.value;
         sel.innerHTML = '<option value="">— select —</option>';
         list.forEach(w => {
@@ -5480,16 +5595,25 @@
     }
 
     function onRiskTickerChange() {
-      const ticker = document.getElementById("risk-ticker-select").value;
+      const input = document.getElementById("risk-ticker-select");
+      const ticker = (input.value || "").trim().toUpperCase();
+      input.value = ticker;
       const meta = document.getElementById("risk-ticker-meta");
+      const tag = document.getElementById("risk-setup-tag");
+      const rb = document.getElementById("risk-rules-body");
       const item = getWatchlist().find(x => x.ticker === ticker);
-      if (!item) { meta.textContent = ""; return; }
+      if (!item) {
+        meta.textContent = ticker ? "Not on your watchlist — sizing still works; setup rules load only for watchlist tickers." : "";
+        if (tag) tag.textContent = "Watchlist tickers only";
+        if (rb) rb.innerHTML = `<div class="check-item"><span class="check-icon">•</span> Type a ticker that's on your watchlist to load its SIP / EP / EP9M risk rules.</div>`;
+        riskPrefillPrice(ticker);
+        riskRecalc();
+        return;
+      }
       const st = item.setupType || "SIP";
       const rules = getSetupRules(st);
       meta.innerHTML = `<strong>${st}</strong> · ideal ${rules.riskPct}% (max ${rules.riskMax}%) · ${rules.hold}`;
-      const tag = document.getElementById("risk-setup-tag");
       if (tag) tag.textContent = st;
-      const rb = document.getElementById("risk-rules-body");
       if (rb) {
         rb.innerHTML = (rules.riskBullets || []).map(b =>
           `<div class="check-item"><span class="check-icon">•</span> ${b}</div>`
@@ -5499,10 +5623,12 @@
       if (item.plan) {
         if (item.plan.entry) document.getElementById("risk-entry").value = item.plan.entry;
         if (item.plan.stop) document.getElementById("risk-stop").value = item.plan.stop;
-        calcSize();
+        if (item.plan.target && !document.getElementById("risk-t1").value) document.getElementById("risk-t1").value = item.plan.target;
       } else if (item.price) {
         document.getElementById("risk-entry").value = item.price;
       }
+      riskPrefillPrice(ticker);
+      riskRecalc();
     }
 
     function updateExecRiskVisibility() {
@@ -6046,50 +6172,521 @@
       el.textContent = "List: " + h + ":" + m;
     }
 
-    function calcSize() {
-      const account = parseFloat(document.getElementById("risk-account").value) || 0;
-      let pct = parseFloat(document.getElementById("risk-pct").value) || 0;
-      const entry = parseFloat(document.getElementById("risk-entry").value) || 0;
-      const stop = parseFloat(document.getElementById("risk-stop").value) || 0;
+    // ---------- Manage Risk: sizing, scale-out targets, planned vs actual R ----------
+    // calcSize() is kept as a name because other screens call it.
+    function calcSize() { riskRecalc(); }
 
-      if (account <= 0 || pct <= 0 || entry <= 0 || stop <= 0) {
-        document.getElementById("shares-out").textContent = "—";
-        document.getElementById("size-details").textContent = "Fill all fields";
+    const RISK_HARD_MAX_PCT = 2.5;
+    function riskNum(id) {
+      const el = document.getElementById(id);
+      const v = el ? parseFloat(el.value) : NaN;
+      return isNaN(v) ? null : v;
+    }
+    function riskFmtMoney(v, dp) {
+      if (v == null || !isFinite(v)) return "—";
+      const sign = v < 0 ? "-" : "";
+      return sign + "$" + Math.abs(v).toLocaleString(undefined, { minimumFractionDigits: dp ?? 2, maximumFractionDigits: dp ?? 2 });
+    }
+    function riskFmtR(r) {
+      if (r == null || !isFinite(r)) return "—";
+      return (r >= 0 ? "+" : "") + r.toFixed(2) + "R";
+    }
+    function riskCls(v) { return v == null || !isFinite(v) ? "" : v >= 0 ? "pos" : "neg"; }
+
+    // Pure calculation shared by the form and the saved-plan table.
+    function computeRiskPlan(p) {
+      const out = { ok: false };
+      const entry = p.entry, stop = p.stop;
+      if (!(entry > 0) || !(stop > 0) || entry === stop) { out.reason = "Enter entry and stop (they can't be equal)."; return out; }
+      const dir = entry > stop ? 1 : -1;               // long when stop is below entry
+      const rps = Math.abs(entry - stop);
+      out.dir = dir; out.rps = rps;
+      let pct = p.riskPct > 0 ? p.riskPct : 0;
+      out.pctCapped = pct > RISK_HARD_MAX_PCT;
+      if (out.pctCapped) pct = RISK_HARD_MAX_PCT;
+      out.pct = pct;
+      const pctDollars = p.account > 0 && pct > 0 ? p.account * pct / 100 : null;
+      const cap = p.maxRisk > 0 ? p.maxRisk : null;
+      if (pctDollars == null && cap == null) { out.reason = "Enter account value + risk %, or a Max Risk $."; return out; }
+      let riskDollars, limitBy;
+      if (pctDollars != null && cap != null) {
+        riskDollars = Math.min(pctDollars, cap);
+        limitBy = cap < pctDollars ? "Max Risk $" : "Equity Risk %";
+      } else if (pctDollars != null) { riskDollars = pctDollars; limitBy = "Equity Risk %"; }
+      else { riskDollars = cap; limitBy = "Max Risk $"; }
+      out.pctDollars = pctDollars; out.riskDollars = riskDollars; out.limitBy = limitBy;
+      out.calcShares = Math.floor(riskDollars / rps);
+      const shares = p.sharesBought > 0 ? p.sharesBought : out.calcShares;
+      out.shares = shares;
+      out.loggedOverride = p.sharesBought > 0;
+      out.oversize = p.sharesBought > 0 && p.sharesBought > out.calcShares;
+      out.actualRiskDollars = shares * rps;
+      out.notional = shares * entry;
+      out.pctOfAccount = p.account > 0 ? out.notional / p.account * 100 : null;
+      // Targets
+      let sold = 0, rSum = 0, pnl = 0;
+      out.targets = (p.targets || []).map(t => {
+        const price = t && t.price > 0 ? t.price : null;
+        const qty = t && t.qty > 0 ? t.qty : 0;
+        const r = price != null ? dir * (price - entry) / rps : null;
+        const tp = price != null ? dir * (price - entry) * qty : null;
+        if (price != null && qty > 0) { sold += qty; rSum += r * qty; pnl += tp; }
+        else if (qty > 0) sold += qty;
+        return { price, qty, r, pnl: tp };
+      });
+      out.sold = sold;
+      out.remaining = shares - sold;
+      out.plannedPnl = pnl;
+      out.plannedR = shares > 0 && sold > 0 ? rSum / shares : null;
+      // If the runner (remaining qty) is stopped out instead
+      out.plannedRIfRunnerStopped = shares > 0 && sold > 0 && out.remaining > 0 ? (rSum - out.remaining) / shares : null;
+      out.ok = true;
+      return out;
+    }
+
+    function riskReadForm() {
+      return {
+        ticker: (document.getElementById("risk-ticker-select").value || "").trim().toUpperCase(),
+        tradeDate: document.getElementById("risk-tradedate").value || new Date().toISOString().slice(0, 10),
+        currentPrice: riskNum("risk-current"),
+        entry: riskNum("risk-entry"), stop: riskNum("risk-stop"),
+        account: riskNum("risk-account"), riskPct: riskNum("risk-pct"), maxRisk: riskNum("risk-maxdollar"),
+        sharesBought: riskNum("risk-bought"),
+        targets: [1, 2, 3].map(i => ({ price: riskNum("risk-t" + i), qty: riskNum("risk-q" + i) }))
+      };
+    }
+
+    function riskRecalc() {
+      const p = riskReadForm();
+      const c = computeRiskPlan(p);
+      const rpsEl = document.getElementById("risk-per-share");
+      if (rpsEl) rpsEl.value = p.entry > 0 && p.stop > 0 && p.entry !== p.stop ? "$" + Math.abs(p.entry - p.stop).toFixed(2) + (p.entry < p.stop ? " (short)" : "") : "";
+      const sharesOut = document.getElementById("shares-out");
+      const details = document.getElementById("size-details");
+      [1, 2, 3].forEach(i => {
+        document.getElementById("risk-r" + i).textContent = "—";
+        document.getElementById("risk-p" + i).textContent = "—";
+        document.getElementById("risk-r" + i).className = "";
+        document.getElementById("risk-p" + i).className = "";
+      });
+      const remEl = document.getElementById("risk-remaining");
+      const prEl = document.getElementById("risk-planned-r");
+      const pdEl = document.getElementById("risk-planned-details");
+      if (!c.ok) {
+        sharesOut.textContent = "—";
+        details.textContent = c.reason;
+        remEl.textContent = "—"; remEl.className = "";
+        prEl.textContent = "—"; pdEl.textContent = "Fill targets and quantities.";
+        return c;
+      }
+      sharesOut.textContent = c.calcShares.toLocaleString();
+      const bn = document.getElementById("risk-bought-note");
+      if (bn) {
+        if (!c.loggedOverride) { bn.className = "note"; bn.textContent = "Leave blank to log the calculated share count."; }
+        else if (c.oversize) { bn.className = "note neg"; bn.textContent = `${(c.shares - c.calcShares).toLocaleString()} more than the risk-based ${c.calcShares.toLocaleString()} — risk $${(c.shares * c.rps).toFixed(0)} vs plan $${c.riskDollars.toFixed(0)}.`; }
+        else { bn.className = "note"; bn.textContent = `Logging ${c.shares.toLocaleString()} of the ${c.calcShares.toLocaleString()} allowed.`; }
+      }
+      const pctPart = c.pctDollars != null ? `${c.pct}% of account = ${riskFmtMoney(c.pctDollars, 0)}` : "no account %";
+      const capPart = c.limitBy === "Max Risk $" ? ` · capped at your Max Risk of <strong>${riskFmtMoney(c.riskDollars, 0)}</strong>` : "";
+      const curPart = p.currentPrice > 0 && p.entry > 0 ? ` · Entry is ${(((p.entry / p.currentPrice) - 1) * 100).toFixed(2)}% from current` : "";
+      details.innerHTML =
+        `Sized by <strong>${c.limitBy}</strong>: ${pctPart}${capPart}` +
+        `<br>Risk/share <strong>$${c.rps.toFixed(2)}</strong> · Actual risk <strong>${riskFmtMoney(c.actualRiskDollars, 0)}</strong>` +
+        ` · Position <strong>${riskFmtMoney(c.notional, 0)}</strong>${c.loggedOverride ? " (for shares bought)" : ""}${c.pctOfAccount != null ? ` (${c.pctOfAccount.toFixed(1)}% of account)` : ""}${curPart}` +
+        (c.pctCapped ? `<br><span class="neg">Risk % above the ${RISK_HARD_MAX_PCT}% hard max — capped at ${RISK_HARD_MAX_PCT}%.</span>` : "");
+      c.targets.forEach((t, k) => {
+        const rEl = document.getElementById("risk-r" + (k + 1)), pEl = document.getElementById("risk-p" + (k + 1));
+        if (t.r != null) { rEl.textContent = riskFmtR(t.r); rEl.className = riskCls(t.r); }
+        if (t.pnl != null && t.qty > 0) { pEl.textContent = riskFmtMoney(t.pnl, 0); pEl.className = riskCls(t.pnl); }
+      });
+      remEl.textContent = c.remaining.toLocaleString() + (c.remaining < 0 ? " ⚠" : "");
+      remEl.className = c.remaining < 0 ? "neg" : "";
+      if (c.plannedR == null) {
+        prEl.textContent = "—";
+        pdEl.textContent = "Fill target prices and quantities sold.";
+      } else {
+        prEl.textContent = riskFmtR(c.plannedR);
+        pdEl.innerHTML = `Planned P&amp;L <strong class="${riskCls(c.plannedPnl)}">${riskFmtMoney(c.plannedPnl, 0)}</strong> on ${c.sold.toLocaleString()} of ${c.shares.toLocaleString()} shares` +
+          (c.remaining > 0 ? `<br>${c.remaining.toLocaleString()} shares left as a runner (not counted). If the runner is stopped out: <strong>${riskFmtR(c.plannedRIfRunnerStopped)}</strong>` : "") +
+          (c.remaining < 0 ? `<br><span class="neg">Qty sold is more than the share count — reduce the quantities.</span>` : "");
+      }
+      return c;
+    }
+
+    function riskSplitThirds() {
+      const c = riskRecalc();
+      if (!c || !c.ok || !(c.shares > 0)) { alert("Enter entry, stop and risk first so the share count is known."); return; }
+      const third = Math.floor(c.shares / 3);
+      document.getElementById("risk-q1").value = third;
+      document.getElementById("risk-q2").value = third;
+      document.getElementById("risk-q3").value = c.shares - 2 * third;
+      riskRecalc();
+    }
+
+    // ---- Saved risk plans (this browser) ----
+    let riskEditingId = null;
+    function getRiskPlans() {
+      try { return JSON.parse(localStorage.getItem("tt_risk_plans") || "[]"); } catch (e) { return []; }
+    }
+    function saveRiskPlans(list) { localStorage.setItem("tt_risk_plans", JSON.stringify(list)); }
+
+    function riskSavePlan() {
+      const p = riskReadForm();
+      if (!p.ticker) { alert("Enter a ticker."); return; }
+      const c = computeRiskPlan(p);
+      if (!c.ok) { alert(c.reason); return; }
+      if (c.remaining < 0) { alert("Qty sold across targets is more than the share count."); return; }
+      const list = getRiskPlans();
+      const rec = {
+        id: riskEditingId || ("rp-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)),
+        ticker: p.ticker, tradeDate: p.tradeDate, entry: p.entry, stop: p.stop,
+        account: p.account, riskPct: c.pct, maxRisk: p.maxRisk, shares: c.shares,
+        sharesBought: p.sharesBought > 0 ? p.sharesBought : null, calcShares: c.calcShares, riskDollars: c.riskDollars,
+        targets: p.targets, currentPrice: p.currentPrice,
+        updated: new Date().toISOString()
+      };
+      const i = list.findIndex(x => x.id === rec.id);
+      if (i >= 0) { rec.created = list[i].created; list[i] = rec; }
+      else { rec.created = rec.updated; list.unshift(rec); }
+      saveRiskPlans(list);
+      // Keep the watchlist plan in sync so Saved Plans shows the same sizing
+      const wl = getWatchlist();
+      const item = wl.find(x => x.ticker === p.ticker);
+      if (item) {
+        const t1 = p.targets[0] && p.targets[0].price;
+        item.plan = { ...(item.plan || {}), entry: p.entry, stop: p.stop, riskPct: c.pct, shares: c.shares, accountValue: p.account, ...(t1 ? { target: t1 } : {}) };
+        saveWatchlist(wl);
+        renderWatchlist();
+      }
+      riskEditingId = null;
+      document.getElementById("risk-editing-tag").style.display = "none";
+      renderRiskPlans();
+      populateTickerSelects();
+      const st = document.getElementById("risk-price-status");
+      if (st) st.textContent = "Logged " + p.ticker + " · " + c.shares.toLocaleString() + " shares. Compliance is checked once you import the fills.";
+    }
+
+    function riskClearForm() {
+      ["risk-ticker-select", "risk-current", "risk-entry", "risk-stop", "risk-maxdollar", "risk-bought",
+        "risk-t1", "risk-q1", "risk-t2", "risk-q2", "risk-t3", "risk-q3"].forEach(id => {
+        const el = document.getElementById(id); if (el) el.value = "";
+      });
+      document.getElementById("risk-tradedate").value = new Date().toISOString().slice(0, 10);
+      document.getElementById("risk-ticker-meta").textContent = "";
+      document.getElementById("risk-price-status").textContent = "";
+      riskEditingId = null;
+      document.getElementById("risk-editing-tag").style.display = "none";
+      riskRecalc();
+    }
+
+    function riskEditPlan(id) {
+      const p = getRiskPlans().find(x => x.id === id);
+      if (!p) return;
+      riskEditingId = id;
+      const set = (elId, v) => { const el = document.getElementById(elId); if (el) el.value = v == null ? "" : v; };
+      set("risk-ticker-select", p.ticker); set("risk-tradedate", p.tradeDate);
+      set("risk-current", p.currentPrice); set("risk-entry", p.entry); set("risk-stop", p.stop);
+      set("risk-account", p.account); set("risk-pct", p.riskPct); set("risk-maxdollar", p.maxRisk);
+      set("risk-bought", p.sharesBought);
+      (p.targets || []).forEach((t, k) => { set("risk-t" + (k + 1), t && t.price); set("risk-q" + (k + 1), t && t.qty); });
+      document.getElementById("risk-editing-tag").style.display = "";
+      riskRecalc();
+      document.getElementById("wl-risk").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function riskDeletePlan(id) {
+      if (!confirm("Delete this risk plan?")) return;
+      saveRiskPlans(getRiskPlans().filter(x => x.id !== id));
+      if (riskEditingId === id) riskEditingId = null;
+      renderRiskPlans();
+    }
+
+    // Actual execution from imported Schwab / Fidelity trades.
+    // Matches imported closed trades (Trade Journal, source "schwab") and imported open lots
+    // for the same ticker, from this plan's trade date up to the next saved plan for that ticker.
+    function computeRiskPlanActual(plan, allPlans) {
+      const later = allPlans
+        .filter(x => x.ticker === plan.ticker && x.id !== plan.id && x.tradeDate > plan.tradeDate)
+        .map(x => x.tradeDate).sort()[0] || "9999-12-31";
+      const inWindow = d => d && d >= plan.tradeDate && d < later;
+      const closed = getJournal().filter(t => t.source === "schwab" && t.ticker === plan.ticker && inWindow(t.entryDate || t.date) && t.shares > 0);
+      const lots = getOpenLots().filter(l => l.ticker === plan.ticker && inWindow(l.date) && l.qty > 0);
+      const soldQty = closed.reduce((a, t) => a + t.shares, 0);
+      const openQty = lots.reduce((a, l) => a + l.qty, 0);
+      const boughtQty = soldQty + openQty;
+      if (boughtQty <= 0) return { status: "none" };
+      const costSum = closed.reduce((a, t) => a + (t.entry || 0) * t.shares, 0) + lots.reduce((a, l) => a + l.avgEntry * l.qty, 0);
+      const avgEntry = costSum / boughtQty;
+      const avgExit = soldQty > 0 ? closed.reduce((a, t) => a + (t.exit || 0) * t.shares, 0) / soldQty : null;
+      const realized = closed.reduce((a, t) => a + (t.pnl || 0), 0);
+      const rps = Math.abs(avgEntry - plan.stop);
+      const initialRisk = boughtQty * rps;
+      let unrealized = null;
+      if (openQty > 0) {
+        unrealized = 0;
+        let known = true;
+        lots.forEach(l => {
+          const px = l.currentPrice != null ? l.currentPrice : plan.currentPrice;
+          if (px == null) known = false; else unrealized += (px - l.avgEntry) * l.qty;
+        });
+        if (!known) unrealized = null;
+      }
+      return {
+        status: openQty > 0 ? "open" : "closed",
+        boughtQty, soldQty, openQty, avgEntry, avgExit, realized, unrealized,
+        actualR: initialRisk > 0 ? realized / initialRisk : null,
+        actualRInclOpen: initialRisk > 0 && unrealized != null ? (realized + unrealized) / initialRisk : null,
+        fills: closed.length + lots.length,
+        exits: closed.map(t => ({ price: t.exit, qty: t.shares })),
+        initialRisk
+      };
+    }
+
+    // ---- Execution compliance ----
+    const RISK_TOL_DEFAULTS = { size: 5, entry: 10, stop: 10, target: 10 };
+    function getRiskTolerances() {
+      try { return { ...RISK_TOL_DEFAULTS, ...JSON.parse(localStorage.getItem("tt_risk_compliance_tol") || "{}") }; }
+      catch (e) { return { ...RISK_TOL_DEFAULTS }; }
+    }
+    function riskLoadTolerances() {
+      const t = getRiskTolerances();
+      [["rc-size", "size"], ["rc-entry", "entry"], ["rc-stop", "stop"], ["rc-target", "target"]].forEach(([id, k]) => {
+        const el = document.getElementById(id); if (el) el.value = t[k];
+      });
+    }
+    function riskSaveTolerances() {
+      const t = {};
+      [["rc-size", "size"], ["rc-entry", "entry"], ["rc-stop", "stop"], ["rc-target", "target"]].forEach(([id, k]) => {
+        const v = parseFloat(document.getElementById(id).value);
+        t[k] = isNaN(v) || v < 0 ? RISK_TOL_DEFAULTS[k] : v;
+      });
+      localStorage.setItem("tt_risk_compliance_tol", JSON.stringify(t));
+      renderRiskPlans();
+    }
+
+    // Returns the six rule results for one logged trade, or null when no fills are imported yet.
+    // Each rule: { key, label, pass: true | false | null (not applicable), detail }
+    function computeRiskCompliance(plan, c, a, tol) {
+      if (!c.ok || !a || a.status === "none") return null;
+      const dir = c.dir, rps = c.rps;
+      const rules = [];
+      const add = (key, label, pass, detail) => rules.push({ key, label, pass, detail });
+      const sizeTol = tol.size / 100;
+      // 1 Size within risk
+      add("size", "Size within risk", a.boughtQty <= c.calcShares * (1 + sizeTol) + 0.0001,
+        `Bought ${a.boughtQty.toLocaleString()} · risk-based ${c.calcShares.toLocaleString()}`);
+      // 2 Bought what you logged
+      if (plan.sharesBought > 0) {
+        add("logged", "Bought what you logged", Math.abs(a.boughtQty - plan.sharesBought) <= plan.sharesBought * sizeTol + 0.0001,
+          `Bought ${a.boughtQty.toLocaleString()} · logged ${Number(plan.sharesBought).toLocaleString()}`);
+      } else add("logged", "Bought what you logged", null, "No Shares Bought logged");
+      // 3 Entry at plan (paying up by more than the slippage = chased)
+      const slip = dir * (a.avgEntry - plan.entry);
+      add("entry", "Entry at plan", slip <= tol.entry / 100 * rps + 0.00001,
+        `Avg fill $${a.avgEntry.toFixed(2)} vs plan $${Number(plan.entry).toFixed(2)} (${slip >= 0 ? "+" : ""}${(slip / rps).toFixed(2)}R)`);
+      // 4 Risk $ within plan
+      const actualRisk = a.boughtQty * Math.abs(a.avgEntry - plan.stop);
+      add("risk", "Risk $ within plan", actualRisk <= c.riskDollars * (1 + sizeTol) + 0.01,
+        `Actual risk $${actualRisk.toFixed(0)} vs plan $${c.riskDollars.toFixed(0)}`);
+      // 5 Stop honored
+      if (a.exits.length) {
+        const worst = Math.min(...a.exits.map(e => dir * (e.price - plan.stop)));
+        add("stop", "Stop honored", worst >= -tol.stop / 100 * rps - 0.00001,
+          worst < 0 ? `Worst exit ${(worst / rps).toFixed(2)}R past the stop` : "No exit below the stop");
+      } else add("stop", "Stop honored", null, "No exits yet");
+      // 6 No early exits between the stop and Target 1
+      const t1 = plan.targets && plan.targets[0] && plan.targets[0].price > 0 ? plan.targets[0].price : null;
+      if (a.exits.length && t1 != null) {
+        const early = a.exits.filter(e =>
+          dir * (e.price - plan.stop) > tol.stop / 100 * rps && dir * (t1 - e.price) > tol.target / 100 * rps);
+        const q = early.reduce((x, e) => x + e.qty, 0);
+        add("early", "No early exits", q === 0,
+          q === 0 ? "Exits only at the stop or at/after Target 1" : `${q.toLocaleString()} shares sold between the stop and Target 1`);
+      } else add("early", "No early exits", null, t1 == null ? "No Target 1 set" : "No exits yet");
+      const evaluated = rules.filter(r => r.pass !== null);
+      const passed = evaluated.filter(r => r.pass).length;
+      return { rules, passed, evaluated: evaluated.length, score: evaluated.length ? passed / evaluated.length : null };
+    }
+
+    function renderRiskCompliance(rows) {
+      const body = document.getElementById("risk-compliance-body");
+      if (!body) return;
+      const done = rows.filter(r => r.comp);
+      if (!done.length) {
+        body.innerHTML = `<div class="wl-empty">No logged trades have imported fills yet. Log a trade above, then import your Schwab or Fidelity file under Trading Operations → Upload Trading File.</div>`;
         return;
       }
-      if (pct > 2.5) {
-        alert("Hard max is 2.5%. Capping.");
-        pct = 2.5;
-        document.getElementById("risk-pct").value = 2.5;
-      }
-      const riskDollars = account * (pct / 100);
-      const riskPerShare = Math.abs(entry - stop);
-      if (riskPerShare === 0) {
-        document.getElementById("shares-out").textContent = "—";
-        document.getElementById("size-details").textContent = "Entry and Stop cannot be equal";
+      const pct = v => v == null ? "—" : Math.round(v * 100) + "%";
+      const full = done.filter(r => r.comp.passed === r.comp.evaluated).length;
+      const avgScore = done.reduce((x, r) => x + r.comp.score, 0) / done.length;
+      const closed = done.filter(r => r.a.status === "closed" && r.c.plannedR != null && r.a.actualR != null);
+      const sumPlanned = closed.reduce((x, r) => x + r.c.plannedR, 0);
+      const sumActual = closed.reduce((x, r) => x + r.a.actualR, 0);
+      const efficiency = closed.length && sumPlanned > 0 ? sumActual / sumPlanned : null;
+      // Trend: last 10 trades vs the 10 before (by trade date)
+      const byDate = done.slice().sort((x, y) => (x.p.tradeDate || "").localeCompare(y.p.tradeDate || ""));
+      const avg = list => list.length ? list.reduce((x, r) => x + r.comp.score, 0) / list.length : null;
+      const last10 = avg(byDate.slice(-10)), prev10 = avg(byDate.slice(-20, -10));
+      // Per-rule pass rates
+      const keys = ["size", "logged", "entry", "risk", "stop", "early"];
+      const ruleRows = keys.map(k => {
+        const rs = done.map(r => r.comp.rules.find(x => x.key === k)).filter(x => x && x.pass !== null);
+        const label = (done[0].comp.rules.find(x => x.key === k) || {}).label || k;
+        const rate = rs.length ? rs.filter(x => x.pass).length / rs.length : null;
+        const misses = done.filter(r => { const x = r.comp.rules.find(y => y.key === k); return x && x.pass === false; }).map(r => r.p.ticker);
+        return `<tr><td>${label}</td><td>${rs.length}</td>
+          <td class="${rate == null ? "" : rate >= 0.9 ? "pos" : rate >= 0.7 ? "" : "neg"}" style="font-weight:700;">${pct(rate)}</td>
+          <td class="muted" style="font-size:20px;">${misses.slice(0, 8).join(", ")}${misses.length > 8 ? " …" : ""}</td></tr>`;
+      }).join("");
+      const box = (label, value, sub, cls) => `<div class="result-box" style="flex:1;min-width:200px;margin:0;">
+          <div style="font-size:20px;color:var(--muted);">${label}</div>
+          <div class="big ${cls || ""}" style="font-size:34px;">${value}</div>
+          <div class="muted" style="font-size:18px;margin-top:4px;">${sub}</div></div>`;
+      body.innerHTML = `
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+          ${box("Average compliance", pct(avgScore), `${done.length} trade(s) with fills`, avgScore >= 0.9 ? "pos" : avgScore < 0.7 ? "neg" : "")}
+          ${box("Fully compliant trades", pct(full / done.length), `${full} of ${done.length} passed every rule`)}
+          ${box("Execution efficiency", efficiency == null ? "—" : pct(efficiency), closed.length ? `Actual ${sumActual >= 0 ? "+" : ""}${sumActual.toFixed(2)}R vs planned +${sumPlanned.toFixed(2)}R (${closed.length} closed)` : "Needs closed trades with a planned R")}
+          ${box("Trend · last 10", pct(last10), prev10 == null ? "Needs 11+ trades to compare" : `Previous 10: ${pct(prev10)} (${last10 >= prev10 ? "▲" : "▼"} ${Math.abs(Math.round((last10 - prev10) * 100))} pts)`)}
+        </div>
+        <table>
+          <thead><tr><th>Rule</th><th>Trades checked</th><th>Pass rate</th><th>Missed on</th></tr></thead>
+          <tbody>${ruleRows}</tbody>
+        </table>
+        <div class="note">Compliance = rules passed ÷ rules that apply to the trade. Execution efficiency = total actual R ÷ total planned R on closed trades — how much of the R you planned you actually captured.</div>`;
+    }
+
+    function renderRiskPlans() {
+      const body = document.getElementById("risk-plans-body");
+      if (!body) return;
+      const plans = getRiskPlans();
+      const tol = getRiskTolerances();
+      const compRows = [];
+      if (!plans.length) {
+        body.innerHTML = `<div class="wl-empty">No logged trades yet. Fill in the form above and click <strong>Save &amp; Log Trade</strong>.</div>`;
+        renderRiskCompliance([]);
         return;
       }
-      const shares = Math.floor(riskDollars / riskPerShare);
-      const notional = shares * entry;
-
-      document.getElementById("shares-out").textContent = shares.toLocaleString();
-      document.getElementById("size-details").innerHTML =
-        `Risk $: <strong>$${riskDollars.toFixed(0)}</strong> (${pct}%) · Risk/share: <strong>$${riskPerShare.toFixed(2)}</strong> · Notional: <strong>$${notional.toLocaleString(undefined,{maximumFractionDigits:0})}</strong>`;
-
-      // Save the full sizing result onto the selected ticker's plan, so
-      // Saved Plans shows entry/stop/risk%/shares without needing to
-      // re-open this calculator — that's the actual point of a trade plan,
-      // something to execute against later, not a number that evaporates
-      // the moment you leave this tab.
-      const ticker = document.getElementById("risk-ticker-select") ? document.getElementById("risk-ticker-select").value : "";
-      if (ticker) {
-        const list = getWatchlist();
-        const item = list.find(x => x.ticker === ticker);
-        if (item) {
-          item.plan = { ...(item.plan || {}), entry, stop, riskPct: pct, shares, accountValue: account };
-          saveWatchlist(list);
-          renderWatchlist();
+      const tgt = t => t && t.price > 0 ? `$${Number(t.price).toFixed(2)}${t.qty > 0 ? ` × ${Number(t.qty).toLocaleString()}` : ""}` : "—";
+      const rows = plans.map(p => {
+        const c = computeRiskPlan(p);
+        const a = computeRiskPlanActual(p, plans);
+        const comp = computeRiskCompliance(p, c, a, tol);
+        compRows.push({ p, c, a, comp });
+        let compCell;
+        if (!comp) compCell = `<td class="muted" style="font-size:20px;">—</td>`;
+        else {
+          const icons = comp.rules.map(r => `<span title="${r.label}: ${r.detail}" class="${r.pass === true ? "pos" : r.pass === false ? "neg" : "muted"}" style="cursor:help;">${r.pass === true ? "✓" : r.pass === false ? "✗" : "·"}</span>`).join(" ");
+          const fails = comp.rules.filter(r => r.pass === false).map(r => r.label);
+          compCell = `<td><strong class="${comp.score === 1 ? "pos" : comp.score < 0.7 ? "neg" : ""}">${comp.passed}/${comp.evaluated}</strong> <span style="font-size:20px;">${icons}</span>
+            ${fails.length ? `<div class="neg" style="font-size:18px;">${fails.join(" · ")}</div>` : ""}</td>`;
         }
+        let actualCells;
+        if (a.status === "none") {
+          actualCells = `<td colspan="5" class="muted" style="font-size:20px;">No fills imported yet</td>`;
+        } else {
+          actualCells = `
+            <td>${a.boughtQty.toLocaleString()}${a.openQty > 0 ? `<div class="muted" style="font-size:18px;">${a.openQty.toLocaleString()} open</div>` : ""}</td>
+            <td>$${a.avgEntry.toFixed(2)}${a.avgExit != null ? `<div class="muted" style="font-size:18px;">exit avg $${a.avgExit.toFixed(2)}</div>` : ""}</td>
+            <td class="${riskCls(a.realized)}">${riskFmtMoney(a.realized, 0)}</td>
+            <td class="${riskCls(a.actualR)}" style="font-weight:700;">${riskFmtR(a.actualR)}${a.status === "open" ? `<div class="muted" style="font-size:18px;font-weight:400;">incl. open ${riskFmtR(a.actualRInclOpen)}</div>` : ""}</td>
+            <td><span class="tag">${a.status === "open" ? "Open" : "Closed"}</span></td>`;
+        }
+        return `<tr>
+          <td>${p.tradeDate || ""}</td>
+          <td><strong>${p.ticker}</strong></td>
+          <td>$${Number(p.entry).toFixed(2)}</td>
+          <td>$${Number(p.stop).toFixed(2)}</td>
+          <td>${c.ok ? "$" + c.rps.toFixed(2) : "—"}</td>
+          <td>${c.ok ? c.shares.toLocaleString() : "—"}<div class="muted" style="font-size:18px;">${c.ok ? (c.loggedOverride ? "calc " + c.calcShares.toLocaleString() + " · " : "") + riskFmtMoney(c.actualRiskDollars, 0) + " risk" : ""}</div></td>
+          <td style="font-size:20px;">${tgt(p.targets && p.targets[0])}<br>${tgt(p.targets && p.targets[1])}<br>${tgt(p.targets && p.targets[2])}</td>
+          <td>${c.ok ? c.remaining.toLocaleString() : "—"}</td>
+          <td class="${riskCls(c.plannedR)}" style="font-weight:700;">${c.ok ? riskFmtR(c.plannedR) : "—"}</td>
+          ${actualCells}
+          ${compCell}
+          <td style="white-space:nowrap;">
+            <button class="btn btn-sm" onclick="riskEditPlan('${p.id}')">Edit</button>
+            <button class="btn btn-sm" onclick="riskDeletePlan('${p.id}')">Delete</button>
+          </td>
+        </tr>`;
+      }).join("");
+      body.innerHTML = `<div style="overflow-x:auto;"><table>
+        <thead><tr>
+          <th>Trade Date</th><th>Ticker</th><th>Entry</th><th>Stop</th><th>Risk/sh</th><th>Shares (logged)</th>
+          <th>Targets × Qty</th><th>Remaining</th><th>Planned R</th>
+          <th>Bought (actual)</th><th>Actual Avg Entry</th><th>Realized P&amp;L</th><th>Actual R</th><th>Status</th><th>Compliance</th><th></th>
+        </tr></thead>
+        <tbody>${rows}</tbody></table></div>`;
+      renderRiskCompliance(compRows);
+    }
+
+    // ---- Current price ----
+    function riskGetTdKey() { try { return localStorage.getItem("tt_twelvedata_key") || ""; } catch (e) { return ""; } }
+    function riskRenderTdKeyStatus() {
+      const el = document.getElementById("risk-td-key-status");
+      if (!el) return;
+      const k = riskGetTdKey();
+      el.textContent = k ? "Key saved in this browser (" + k.slice(0, 4) + "…). Get price uses Twelve Data." :
+        "No key saved — Get price falls back to the latest price already in the terminal (scheduled data / open positions), or type it in.";
+    }
+    function riskSaveTdKey() {
+      const v = (document.getElementById("risk-td-key").value || "").trim();
+      if (!v) return;
+      localStorage.setItem("tt_twelvedata_key", v);
+      document.getElementById("risk-td-key").value = "";
+      riskRenderTdKeyStatus();
+    }
+    function riskClearTdKey() { localStorage.removeItem("tt_twelvedata_key"); riskRenderTdKeyStatus(); }
+
+    // Latest price the terminal already knows about (no network call)
+    function riskKnownPrice(ticker) {
+      const lot = getOpenLots().find(l => l.ticker === ticker && l.currentPrice != null);
+      if (lot) return { price: lot.currentPrice, src: "open position" };
+      const w = getWatchlist().find(x => x.ticker === ticker);
+      if (w && w.position && w.position.currentPrice != null) return { price: w.position.currentPrice, src: "open position" };
+      const c = candidates.find(x => x.ticker === ticker);
+      if (c && c.price) return { price: c.price, src: "scheduled data" };
+      if (w && w.price) return { price: w.price, src: "watchlist" };
+      return null;
+    }
+    function riskPrefillPrice(ticker) {
+      const cur = document.getElementById("risk-current");
+      if (!ticker || !cur || cur.value) return;
+      const k = riskKnownPrice(ticker);
+      if (k) {
+        cur.value = Number(k.price).toFixed(2);
+        document.getElementById("risk-price-status").textContent = `Price from ${k.src} — click Get price for a fresh quote.`;
+      }
+    }
+    async function riskFetchPrice(btn) {
+      const ticker = (document.getElementById("risk-ticker-select").value || "").trim().toUpperCase();
+      const status = document.getElementById("risk-price-status");
+      const cur = document.getElementById("risk-current");
+      if (!ticker) { status.textContent = "Enter a ticker first."; return; }
+      const key = riskGetTdKey();
+      const label = btn ? btn.textContent : "";
+      if (btn) { btn.textContent = "…"; btn.disabled = true; }
+      try {
+        if (!key) throw new Error("no key");
+        const res = await fetch(`https://api.twelvedata.com/price?symbol=${encodeURIComponent(ticker)}&apikey=${encodeURIComponent(key)}`);
+        const data = await res.json();
+        const px = parseFloat(data && data.price);
+        if (!isFinite(px)) throw new Error((data && data.message) || "no price returned");
+        cur.value = px.toFixed(2);
+        status.textContent = `${ticker} $${px.toFixed(2)} · Twelve Data · ${new Date().toLocaleTimeString()}`;
+      } catch (e) {
+        const k = riskKnownPrice(ticker);
+        if (k) {
+          cur.value = Number(k.price).toFixed(2);
+          status.textContent = (e.message === "no key" ? "" : `Twelve Data didn't return a price (${e.message}). `) + `Using the last known price from ${k.src}.`;
+        } else {
+          status.textContent = e.message === "no key"
+            ? "No price source — add a Twelve Data key (bottom of this tab) or type the price."
+            : `Couldn't get a price (${e.message}) — type it in.`;
+        }
+      } finally {
+        if (btn) { btn.textContent = label; btn.disabled = false; }
+        riskRecalc();
       }
     }
 
@@ -6816,7 +7413,13 @@
         // what-if calculation, it just resets to the real number next visit
         // rather than staying stuck on whatever was typed in previously.
         const accountEl = document.getElementById("risk-account");
-        if (accountEl) accountEl.value = Math.round(getCurrentPortfolioValueComputed());
+        if (accountEl && !riskEditingId) accountEl.value = Math.round(getCurrentPortfolioValueComputed());
+        const dateEl = document.getElementById("risk-tradedate");
+        if (dateEl && !dateEl.value) dateEl.value = new Date().toISOString().slice(0, 10);
+        riskRenderTdKeyStatus();
+        riskLoadTolerances();
+        renderRiskPlans();
+        riskRecalc();
       }
       updateExecRiskVisibility();
     }
