@@ -236,6 +236,7 @@
     }
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group label { font-size: 20px; color: var(--muted); text-transform: uppercase; }
+    @media (max-width: 1100px) { .wl-list-grid { grid-template-columns: 1fr !important; } }
     .tp-note { position: relative; display: inline-block; margin-right: 10px; color: var(--accent); cursor: pointer; text-decoration: underline dotted; white-space: nowrap; }
     .tp-note .tp-pop { display: none; position: absolute; right: 0; top: 100%; z-index: 50; margin-top: 4px;
       width: max-content; max-width: 560px; max-height: 420px; overflow-y: auto;
@@ -828,6 +829,8 @@
             <div class="form-group" style="flex:1;min-width:220px;"><label>Stop rule</label><input type="text" id="su-stop" style="width:100%" /></div>
             <div class="form-group" style="flex:1;min-width:220px;"><label>Exit rule</label><input type="text" id="su-exit" style="width:100%" /></div>
           </div>
+          <div class="form-group" style="margin-top:6px;"><label>Qualification criteria (one per line) · what must be true before this setup is tradeable</label><textarea id="su-qualbullets" rows="4" style="width:100%"></textarea></div>
+          <div class="form-group" style="margin-top:6px;"><label>Invalidation criteria (one per line) · what disqualifies it</label><textarea id="su-invalbullets" rows="3" style="width:100%"></textarea></div>
           <div class="form-group" style="margin-top:6px;"><label>Execution bullets (one per line)</label><textarea id="su-execbullets" rows="4" style="width:100%"></textarea></div>
           <div class="form-group" style="margin-top:6px;"><label>Risk bullets (one per line)</label><textarea id="su-riskbullets" rows="3" style="width:100%"></textarea></div>
           <div style="margin-top:10px;">
@@ -1983,7 +1986,7 @@
             <text x="450" y="215" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">Home Run setups (gold) and Single setups (blue) run the same process, then split —</text>
             <text x="450" y="232" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">each only ever reaches its own output.</text>
           </svg>
-          <div class="note" style="max-width:1200px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. Every setup — its rules, scan, watchlist names and live performance — is in the <strong>Catalyst Based</strong> and <strong>Pattern Based</strong> tabs.</div>
+          <div class="note" style="max-width:1200px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. What each setup is — its qualification criteria and execution rules — is in the <strong>Catalyst Based</strong> and <strong>Pattern Based</strong> tabs.</div>
         </div>
       </div>
       <div class="panel">
@@ -2678,17 +2681,23 @@
             <div class="note">Use this for chart/pattern-based ideas that don't come from the NTRT/MTRT catalyst screen — Qualify's Add button already handles catalyst setups (SIP/EP/EP9M).</div>
           </div>
         </div>
-        <div class="panel" style="border-top:none;border-radius:0 0 6px 6px;">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px;align-items:start;" class="wl-list-grid">
+        <div class="panel" style="border-top:none;border-radius:0 0 6px 6px;margin:0;">
           <div class="panel-header">
             Saved Plans · Tickers ready to trade
             <button class="btn btn-sm" onclick="clearWatchlist()">Clear All</button>
           </div>
-          <div class="panel-body" id="watchlist-body">
+          <div class="panel-body" id="watchlist-body" style="overflow-x:auto;">
             <div class="wl-empty">No names yet.<br><br><strong>Pre-market:</strong> Qualify → Add → Execute (set plan).<br><strong>Open:</strong> Plans appear here → Size → trade → Close out.</div>
           </div>
           <div class="note">
             <strong>Workflow:</strong> Pre-market Qualify &amp; plan → Market open use this list → Size position → trade → <strong>Close out</strong> logs to Trade Journal.
           </div>
+        </div>
+        <div class="panel" style="border-top:none;margin:0;">
+          <div class="panel-header">Tickers by Setup</div>
+          <div class="panel-body" id="saved-plans-setup-summary"></div>
+        </div>
         </div>
       </div>
 
@@ -4615,7 +4624,12 @@
         body.innerHTML = weeks.map(wk => {
           const rows = byWeek[wk].sort((a, b) => b.dateAdded.localeCompare(a.dateAdded));
           return `<div style="margin-bottom:18px;">
-            <div style="font-size:24px;font-weight:700;color:var(--accent);margin-bottom:6px;">Week of ${wk}</div>
+            <div style="font-size:24px;font-weight:700;color:var(--accent);margin-bottom:6px;">Week of ${wk}
+              <span class="muted" style="font-size:20px;font-weight:400;margin-left:10px;">${(() => {
+                const c = {}; rows.forEach(p => { c[p.strategy || "Other"] = (c[p.strategy || "Other"] || 0) + 1; });
+                return rows.length + " planned · " + Object.keys(c).sort((x, y) => c[y] - c[x]).map(k => k + " " + c[k]).join(" · ");
+              })()}</span>
+            </div>
             <table>
               <thead><tr><th>Date</th><th>Ticker</th><th>Strategy</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Criteria &amp; Notes</th><th></th></tr></thead>
               <tbody>
@@ -5399,6 +5413,8 @@ ${tpEscape(text)}</span></span>`
       document.getElementById("su-exit").value = s.exit || "";
       document.getElementById("su-execbullets").value = (s.execBullets || []).join("\n");
       document.getElementById("su-riskbullets").value = (s.riskBullets || []).join("\n");
+      document.getElementById("su-qualbullets").value = (s.qualBullets || []).join("\n");
+      document.getElementById("su-invalbullets").value = (s.invalBullets || []).join("\n");
       navTo("setup-library");
       document.getElementById("su-label").scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -5406,7 +5422,7 @@ ${tpEscape(text)}</span></span>`
     function resetSetupForm() {
       document.getElementById("setup-form-header").textContent = "Add a New Setup";
       document.getElementById("su-key").disabled = false;
-      ["su-key", "su-label", "su-hold", "su-scan", "su-openentry", "su-delayedentry", "su-stop", "su-exit", "su-execbullets", "su-riskbullets"]
+      ["su-key", "su-label", "su-hold", "su-scan", "su-openentry", "su-delayedentry", "su-stop", "su-exit", "su-execbullets", "su-riskbullets", "su-qualbullets", "su-invalbullets"]
         .forEach(id => document.getElementById(id).value = "");
       document.getElementById("su-category").value = "catalyst";
       document.getElementById("su-moneytype").value = "single";
@@ -5435,7 +5451,9 @@ ${tpEscape(text)}</span></span>`
         stop: document.getElementById("su-stop").value.trim(),
         exit: document.getElementById("su-exit").value.trim(),
         execBullets: splitLines(document.getElementById("su-execbullets").value),
-        riskBullets: splitLines(document.getElementById("su-riskbullets").value)
+        riskBullets: splitLines(document.getElementById("su-riskbullets").value),
+        qualBullets: splitLines(document.getElementById("su-qualbullets").value),
+        invalBullets: splitLines(document.getElementById("su-invalbullets").value)
       };
       addOrUpdateSetup(key, def);
       renderSetupLibrary();
@@ -5465,9 +5483,30 @@ ${tpEscape(text)}</span></span>`
       if (tpSel) tpSel.innerHTML = setupOptionsHtml();
     }
 
+    function renderSavedPlansSetupSummary(list) {
+      const el = document.getElementById("saved-plans-setup-summary");
+      if (!el) return;
+      if (!list.length) { el.innerHTML = `<div class="wl-empty">No tickers on Saved Plans yet.</div>`; return; }
+      const setups = getSetups();
+      const by = {};
+      list.forEach(w => { const k = w.setupType || "Other"; (by[k] = by[k] || []).push(w.ticker); });
+      const keys = Object.keys(by).sort((a, b) => by[b].length - by[a].length || a.localeCompare(b));
+      el.innerHTML = `<table>
+          <thead><tr><th>Setup</th><th style="text-align:right;">#</th></tr></thead>
+          <tbody>${keys.map(k => {
+            const bear = setups[k] && setups[k].direction === "bearish";
+            return `<tr>
+              <td><strong class="${bear ? "neg" : "pos"}">${k}</strong>
+                <div class="muted" style="font-size:20px;white-space:normal;">${by[k].join(", ")}</div></td>
+              <td style="text-align:right;font-weight:700;">${by[k].length}</td></tr>`;
+          }).join("")}</tbody>
+          <tfoot><tr><td><strong>Total</strong></td><td style="text-align:right;font-weight:700;">${list.length}</td></tr></tfoot>
+        </table>`;
+    }
     function renderWatchlist() {
       const body = document.getElementById("watchlist-body");
       const list = getWatchlist();
+      renderSavedPlansSetupSummary(list);
       if (!list.length) {
         body.innerHTML = `<div class="wl-empty">No names yet.<br><br>
           <strong>NTRT morning:</strong> Qualify → Add (auto SIP / EP / EP9M) → adjust category → set plan.<br>
@@ -8360,51 +8399,45 @@ ${tpEscape(text)}</span></span>`
       if (tabEl && !tabEl.classList.contains("active")) switchTFTab(tabEl);
     }
 
-    function tfSetupDetailHtml(key, s, ctx) {
+    function tfSetupDetailHtml(key, s) {
       const isBearish = s.direction === "bearish";
       const color = isBearish ? "#ef4444" : "#22c55e";
-      const perf = ctx.perf[key];
-      const perfHtml = perf
-        ? `<span class="${perf.pnl >= 0 ? "pos" : "neg"}">$${perf.pnl.toFixed(2)}</span> · ${perf.n} trade${perf.n === 1 ? "" : "s"} · ${((perf.w / perf.n) * 100).toFixed(0)}% win rate`
-        : `<span class="muted">No trades logged yet</span>`;
-      const chips = (list, empty) => list.length
-        ? list.map(t => `<span class="ticker-link" onclick="showDetail('${tfEsc(t)}')" style="margin-right:10px;">${tfEsc(t)}</span>`).join("")
-        : `<span class="muted">${empty}</span>`;
-      const watch = ctx.watch[key] || [];
-      const planned = ctx.plans[key] || [];
-      const bullets = (arr) => (arr || []).length
+      const bullets = (arr, empty) => (arr || []).length
         ? arr.map(b => `<div class="check-item"><span class="check-icon">•</span> ${tfEsc(b)}</div>`).join("")
-        : `<div class="check-item muted"><span class="check-icon">•</span> None defined yet</div>`;
+        : `<div class="check-item muted"><span class="check-icon">•</span> ${empty || "None defined yet"}</div>`;
       const row = (k, v) => `<tr><td class="muted" style="width:190px;">${k}</td><td>${v ? tfEsc(v) : '<span class="muted">—</span>'}</td></tr>`;
+      const head = (t) => `<div class="muted" style="font-size:20px;text-transform:uppercase;margin-top:12px;">${t}</div>`;
+      const kind = [s.category === "pattern" ? "Pattern" : "Catalyst", s.moneyType === "homerun" ? "Home Run" : "Single"].join(" · ");
       return `<div class="panel" style="margin:0 0 12px;border-left:4px solid ${color};">
         <div class="panel-header">
           ${tfEsc(s.label || key)}
-          <span class="tag" style="background:${color}22;color:${color};">${isBearish ? "BEARISH" : "BULLISH"}</span>
+          <span>
+            <span class="tag" style="font-size:18px;">${kind}</span>
+            <span class="tag" style="background:${color}22;color:${color};">${isBearish ? "BEARISH" : "BULLISH"}</span>
+          </span>
         </div>
         <div class="panel-body">
+          <table>
+            ${row("Scan / trigger", s.scan)}
+            ${row("Typical hold", s.hold)}
+            <tr><td class="muted">Risk</td><td>${s.riskPct != null ? s.riskPct + "% ideal" : "—"} / ${s.riskMax != null ? s.riskMax + "% max" : "—"}</td></tr>
+          </table>
           <div class="grid-2">
-            <div>
-              <div style="font-size:24px;">📡 ${s.scan ? tfEsc(s.scan) : '<span class="muted">No scan defined</span>'}</div>
-              <div style="font-size:24px;margin-top:6px;">📊 ${perfHtml}</div>
-              <div style="font-size:24px;margin-top:6px;">👁 Saved Plans: ${chips(watch, "none right now")}</div>
-              <div style="font-size:24px;margin-top:6px;">🗓 Weekly Trade Plan (this week): ${chips(planned, "none planned")}</div>
-            </div>
-            <div>
-              <table>
-                ${row("Open entry", s.openEntry)}
-                ${row("Delayed entry", s.delayedEntry)}
-                ${row("Stop", s.stop)}
-                ${row("Exit", s.exit)}
-                ${row("Hold", s.hold)}
-                <tr><td class="muted">Risk</td><td>${s.riskPct != null ? s.riskPct + "% ideal" : "—"} / ${s.riskMax != null ? s.riskMax + "% max" : "—"}</td></tr>
-              </table>
-            </div>
+            <div>${head("Qualification criteria")}<div class="checklist">${bullets(s.qualBullets, "Not defined yet — add them with Edit in Setup Library")}</div></div>
+            <div>${head("Invalidation criteria")}<div class="checklist">${bullets(s.invalBullets, "Not defined yet — add them with Edit in Setup Library")}</div></div>
           </div>
-          <div class="grid-2" style="margin-top:10px;">
-            <div><div class="muted" style="font-size:20px;text-transform:uppercase;">Execution rules</div><div class="checklist">${bullets(s.execBullets)}</div></div>
-            <div><div class="muted" style="font-size:20px;text-transform:uppercase;">Risk rules</div><div class="checklist">${bullets(s.riskBullets)}</div></div>
+          ${head("Entry, stop & exit")}
+          <table>
+            ${row("Open entry", s.openEntry)}
+            ${row("Delayed entry", s.delayedEntry)}
+            ${row("Stop", s.stop)}
+            ${row("Exit", s.exit)}
+          </table>
+          <div class="grid-2">
+            <div>${head("Execution rules")}<div class="checklist">${bullets(s.execBullets)}</div></div>
+            <div>${head("Risk rules")}<div class="checklist">${bullets(s.riskBullets)}</div></div>
           </div>
-          <button class="btn btn-sm" style="margin-top:8px;" onclick="editSetup('${tfEsc(key)}')">Edit in Setup Library</button>
+          <button class="btn btn-sm" style="margin-top:10px;" onclick="editSetup('${tfEsc(key)}')">Edit in Setup Library</button>
         </div>
       </div>`;
     }
@@ -8414,21 +8447,6 @@ ${tpEscape(text)}</span></span>`
       const def = TF_TABS[tabId];
       if (!host || !def) return;
       const setups = getSetups();
-      // Context shared by every card
-      const perf = {};
-      getJournal().filter(t => t.pnl != null && !isNaN(t.pnl)).forEach(t => {
-        const k = t.setup || "Other";
-        if (!perf[k]) perf[k] = { n: 0, pnl: 0, w: 0 };
-        perf[k].n++; perf[k].pnl += t.pnl; if (t.pnl > 0) perf[k].w++;
-      });
-      const watch = {};
-      getWatchlist().forEach(w => { const k = w.setupType || "Other"; (watch[k] = watch[k] || []).push(w.ticker); });
-      const thisWeek = weekStartOf(new Date().toISOString().slice(0, 10));
-      const plans = {};
-      getTradePlans().filter(p => p.dateAdded && weekStartOf(p.dateAdded) === thisWeek)
-        .forEach(p => { const k = p.strategy || "Other"; (plans[k] = plans[k] || []).push(p.ticker); });
-      const ctx = { perf, watch, plans };
-
       // "Others" = the Other setup plus any custom setup not on a named tab
       const named = new Set();
       Object.values(TF_TABS).forEach(t => t.subs.forEach(x => named.add(x.key)));
@@ -8436,21 +8454,16 @@ ${tpEscape(text)}</span></span>`
 
       let active = tfGetActive(tabId);
       if (!def.subs.some(x => x.key === active)) active = def.subs[0].key;
-      const count = (key) => {
-        const keys = key === "__others" ? otherKeys : [key];
-        return keys.reduce((n, k) => n + (watch[k] || []).length + (plans[k] || []).length, 0);
-      };
-      const tabs = def.subs.map(x => {
-        const n = count(x.key);
-        return `<div class="step-tab ${x.key === active ? "active" : ""}" onclick="switchTFSub('${tabId}', '${tfEsc(x.key)}')">${tfEsc(x.tab)}${n ? ` <span class="tag" style="font-size:16px;">${n}</span>` : ""}</div>`;
-      }).join("");
+      const tabs = def.subs.map(x =>
+        `<div class="step-tab ${x.key === active ? "active" : ""}" onclick="switchTFSub('${tabId}', '${tfEsc(x.key)}')">${tfEsc(x.tab)}</div>`
+      ).join("");
       let body;
       if (active === "__others") {
         body = otherKeys.length
-          ? otherKeys.map(k => tfSetupDetailHtml(k, setups[k], ctx)).join("")
+          ? otherKeys.map(k => tfSetupDetailHtml(k, setups[k])).join("")
           : `<div class="wl-empty">No other setups. Add one in the Setup Library and it appears here.</div>`;
       } else if (setups[active]) {
-        body = tfSetupDetailHtml(active, setups[active], ctx);
+        body = tfSetupDetailHtml(active, setups[active]);
       } else {
         body = `<div class="wl-empty">"${tfEsc(active)}" isn't in your Setup Library (it may have been deleted). Add it back there to see it here.</div>`;
       }
