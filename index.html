@@ -236,6 +236,13 @@
     }
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group label { font-size: 20px; color: var(--muted); text-transform: uppercase; }
+    .tp-note { position: relative; display: inline-block; margin-right: 10px; color: var(--accent); cursor: pointer; text-decoration: underline dotted; white-space: nowrap; }
+    .tp-note .tp-pop { display: none; position: absolute; right: 0; top: 100%; z-index: 50; margin-top: 4px;
+      width: max-content; max-width: 560px; max-height: 420px; overflow-y: auto;
+      background: #0b1222; border: 1px solid var(--accent); border-radius: 6px; padding: 10px 12px;
+      color: var(--text); font-size: 22px; line-height: 1.4; white-space: pre-wrap; text-decoration: none; text-align: left;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+    .tp-note:hover .tp-pop, .tp-note:focus .tp-pop, .tp-note.open .tp-pop { display: block; }
     #wl-risk table input {
       background: #0f172a;
       border: 1px solid var(--border);
@@ -1767,6 +1774,12 @@
 
     <!-- TRADE FACTORY -->
     <div id="trade-factory" class="section">
+      <div class="steps" style="border:1px solid var(--border);border-radius:6px 6px 0 0;margin-bottom:0;background:#0f172a;">
+        <div class="step-tab active" data-tf-tab="tf-overview" onclick="switchTFTab(this)">Overview</div>
+        <div class="step-tab" data-tf-tab="tf-catalyst" onclick="switchTFTab(this)">Catalyst Based</div>
+        <div class="step-tab" data-tf-tab="tf-pattern" onclick="switchTFTab(this)">Pattern Based</div>
+      </div>
+      <div id="tf-overview" class="tf-tab">
       <div class="panel" style="background:#0a1f1a;border-color:#1f4a3d;">
         <div class="panel-body" style="padding:28px 24px;">
           <div style="font-size:52px;font-weight:800;letter-spacing:0.5px;color:#fff;">THE TRADE FACTORY</div>
@@ -1970,7 +1983,7 @@
             <text x="450" y="215" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">Home Run setups (gold) and Single setups (blue) run the same process, then split —</text>
             <text x="450" y="232" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">each only ever reaches its own output.</text>
           </svg>
-          <div class="note" style="max-width:1200px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. The detailed product line — every setup, its scan, watchlist count, and live performance — is below.</div>
+          <div class="note" style="max-width:1200px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. Every setup — its rules, scan, watchlist names and live performance — is in the <strong>Catalyst Based</strong> and <strong>Pattern Based</strong> tabs.</div>
         </div>
       </div>
       <div class="panel">
@@ -1989,7 +2002,9 @@
           <div id="trade-factory-diagram" style="overflow-x:auto;"></div>
         </div>
       </div>
-      <div id="trade-factory-cards"></div>
+      </div>
+      <div id="tf-catalyst" class="tf-tab" style="display:none;"></div>
+      <div id="tf-pattern" class="tf-tab" style="display:none;"></div>
     </div>
 
     <!-- PROCESS FLOW -->
@@ -2601,12 +2616,16 @@
             <div class="form-row" style="flex-wrap:wrap;">
               <div class="form-group"><label>Ticker</label><input type="text" id="tp-ticker" style="width:140px" /></div>
               <div class="form-group"><label>Strategy</label><select id="tp-strategy" style="width:220px"></select></div>
-              <div class="form-group"><label>Entry Price</label><input type="number" id="tp-entry" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
-              <div class="form-group"><label>Stop Loss</label><input type="number" id="tp-stop" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Entry Price (optional)</label><input type="number" id="tp-entry" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Stop Loss (optional)</label><input type="number" id="tp-stop" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
               <div class="form-group"><label>Equity Risk %</label><input type="number" id="tp-riskpct" step="0.1" value="1" style="width:130px" oninput="updateTradePlanSharesPreview()" /></div>
             </div>
-            <div class="form-group" style="margin-top:6px;"><label>Comments</label><textarea id="tp-comments" rows="2" style="width:100%"></textarea></div>
-            <div id="tp-shares-preview" class="note" style="margin-top:6px;">Enter entry, stop, and risk % to see the calculated share count.</div>
+            <div class="grid-2" style="margin-top:6px;">
+              <div class="form-group"><label>Qualification criteria · what must happen before you take it</label><textarea id="tp-qualify" rows="4" style="width:100%" placeholder="e.g. Holds above 21 EMA on the 4H; reclaims yesterday's high on volume; RSI 1H &gt; 55"></textarea></div>
+              <div class="form-group"><label>Invalidation criteria · what kills the idea</label><textarea id="tp-invalidate" rows="4" style="width:100%" placeholder="e.g. Closes below 48.20; gaps down through the base; market light turns red"></textarea></div>
+            </div>
+            <div class="form-group" style="margin-top:6px;"><label>Notes</label><textarea id="tp-comments" rows="4" style="width:100%"></textarea></div>
+            <div id="tp-shares-preview" class="note" style="margin-top:6px;">Entry and stop are optional — add them once the qualification criteria are met to see the share count.</div>
             <div style="margin-top:10px;">
               <button class="btn btn-accent" onclick="saveTradePlan()">Save to Plan</button>
               <button class="btn btn-sm" onclick="resetTradePlanForm()">Clear form</button>
@@ -2628,8 +2647,21 @@
           <div class="panel-body" id="plan-vs-actual-body"></div>
         </div>
         <div class="panel">
-          <div class="panel-header">Planned Trades · Grouped by Week</div>
+          <div class="panel-header">
+            Planned Trades · Grouped by Week
+            <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+              <select id="tp-export-scope" style="font-size:20px;background:#0f172a;color:var(--text);border:1px solid var(--border);border-radius:4px;padding:4px 6px;">
+                <option value="all">Everything · plans + Saved Plans</option>
+                <option value="week">This week's plan</option>
+                <option value="plans">All planned trades</option>
+                <option value="watchlist">Saved Plans watchlist</option>
+              </select>
+              <button class="btn btn-sm" onclick="exportTickersForTradingView('csv')" title="Comma-separated tickers, ready for TradingView's Import list">Export tickers (CSV)</button>
+              <button class="btn btn-sm" onclick="exportTickersForTradingView('copy')">Copy</button>
+            </span>
+          </div>
           <div class="panel-body" id="tradeplan-weeks-body"></div>
+          <div class="note" id="tp-export-status">Export saves a comma-separated list of unique tickers. In TradingView: Watchlist menu → <strong>Import list…</strong> → pick the file.</div>
         </div>
       </div>
 
@@ -4488,7 +4520,7 @@
       const el = document.getElementById("tp-shares-preview");
       if (!el) return;
       if (isNaN(entry) || isNaN(stop) || isNaN(riskPct) || entry === stop) {
-        el.textContent = "Enter entry, stop, and risk % to see the calculated share count.";
+        el.textContent = "Entry and stop are optional — add them once the qualification criteria are met to see the share count.";
         return;
       }
       const equity = getCurrentPortfolioValueComputed();
@@ -4507,21 +4539,25 @@
       const stop = parseFloat(document.getElementById("tp-stop").value);
       const riskPct = parseFloat(document.getElementById("tp-riskpct").value);
       const comments = document.getElementById("tp-comments").value.trim();
+      const qualify = document.getElementById("tp-qualify").value.trim();
+      const invalidate = document.getElementById("tp-invalidate").value.trim();
       if (!ticker) { alert("Enter a ticker"); return; }
-      if (isNaN(entry) || isNaN(stop)) { alert("Enter both Entry Price and Stop Loss"); return; }
-      const shares = computeTradePlanShares(entry, stop, riskPct);
+      const hasEntry = !isNaN(entry), hasStop = !isNaN(stop);
+      if (hasEntry && hasStop && entry === stop) { alert("Entry and Stop can't be the same price"); return; }
+      const shares = hasEntry && hasStop ? computeTradePlanShares(entry, stop, riskPct) : null;
+      const entryV = hasEntry ? entry : null, stopV = hasStop ? stop : null;
 
       const list = getTradePlans();
       if (editingTradePlanId) {
         const idx = list.findIndex(p => p.id === editingTradePlanId);
         if (idx >= 0) {
-          list[idx] = { ...list[idx], ticker, strategy, entry, stop, riskPct, comments, shares };
+          list[idx] = { ...list[idx], ticker, strategy, entry: entryV, stop: stopV, riskPct, comments, qualify, invalidate, shares, updated: new Date().toISOString() };
         }
       } else {
         list.unshift({
           id: "tp-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
           dateAdded: new Date().toISOString().slice(0, 10),
-          ticker, strategy, entry, stop, riskPct, comments, shares
+          ticker, strategy, entry: entryV, stop: stopV, riskPct, comments, qualify, invalidate, shares
         });
       }
       saveTradePlans(list);
@@ -4535,10 +4571,12 @@
       document.getElementById("tradeplan-form-header").textContent = "Editing " + plan.ticker + " (added " + plan.dateAdded + ")";
       document.getElementById("tp-ticker").value = plan.ticker;
       document.getElementById("tp-strategy").value = plan.strategy;
-      document.getElementById("tp-entry").value = plan.entry;
-      document.getElementById("tp-stop").value = plan.stop;
+      document.getElementById("tp-entry").value = plan.entry != null ? plan.entry : "";
+      document.getElementById("tp-stop").value = plan.stop != null ? plan.stop : "";
       document.getElementById("tp-riskpct").value = plan.riskPct;
       document.getElementById("tp-comments").value = plan.comments || "";
+      document.getElementById("tp-qualify").value = plan.qualify || "";
+      document.getElementById("tp-invalidate").value = plan.invalidate || "";
       updateTradePlanSharesPreview();
       document.getElementById("tp-ticker").scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -4552,10 +4590,10 @@
     function resetTradePlanForm() {
       editingTradePlanId = null;
       document.getElementById("tradeplan-form-header").textContent = "Add / Update a Planned Trade";
-      ["tp-ticker", "tp-entry", "tp-stop", "tp-comments"].forEach(id => document.getElementById(id).value = "");
+      ["tp-ticker", "tp-entry", "tp-stop", "tp-comments", "tp-qualify", "tp-invalidate"].forEach(id => document.getElementById(id).value = "");
       document.getElementById("tp-riskpct").value = 1;
       document.getElementById("tp-strategy").innerHTML = setupOptionsHtml();
-      document.getElementById("tp-shares-preview").textContent = "Enter entry, stop, and risk % to see the calculated share count.";
+      document.getElementById("tp-shares-preview").textContent = "Entry and stop are optional — add them once the qualification criteria are met to see the share count.";
     }
     function renderTradePlans() {
       const body = document.getElementById("tradeplan-weeks-body");
@@ -4579,17 +4617,17 @@
           return `<div style="margin-bottom:18px;">
             <div style="font-size:24px;font-weight:700;color:var(--accent);margin-bottom:6px;">Week of ${wk}</div>
             <table>
-              <thead><tr><th>Date</th><th>Ticker</th><th>Strategy</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Comments</th><th></th></tr></thead>
+              <thead><tr><th>Date</th><th>Ticker</th><th>Strategy</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Criteria &amp; Notes</th><th></th></tr></thead>
               <tbody>
                 ${rows.map(p => `<tr>
                   <td class="muted" style="font-size:22px;">${p.dateAdded}</td>
                   <td><span class="ticker-link" onclick="showDetail('${p.ticker}')">${p.ticker}</span></td>
                   <td><span class="tag" style="background:#0e7490;color:#a5f3fc;">${p.strategy}</span></td>
-                  <td class="pos">$${Number(p.entry).toFixed(2)}</td>
-                  <td class="neg">$${Number(p.stop).toFixed(2)}</td>
+                  <td class="pos">${p.entry != null && p.entry !== "" && !isNaN(p.entry) ? "$" + Number(p.entry).toFixed(2) : '<span class="muted">TBD</span>'}</td>
+                  <td class="neg">${p.stop != null && p.stop !== "" && !isNaN(p.stop) ? "$" + Number(p.stop).toFixed(2) : '<span class="muted">TBD</span>'}</td>
                   <td>${p.riskPct}%</td>
                   <td>${p.shares != null ? p.shares : "—"}</td>
-                  <td style="font-size:22px;max-width:220px;white-space:normal;">${p.comments || "—"}</td>
+                  <td style="font-size:22px;white-space:nowrap;">${tpNoteLinks(p)}</td>
                   <td style="white-space:nowrap;">
                     <button class="btn btn-sm" onclick="editTradePlan('${p.id}')">Edit</button>
                     <button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deleteTradePlan('${p.id}')">Delete</button>
@@ -4603,6 +4641,51 @@
       renderTradePlanReport(plans);
       renderPlanVsActual(plans);
     }
+    // Short hover links for long text: Qualify / Invalidate / Notes
+    function tpEscape(v) {
+      return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    function tpNoteLinks(p) {
+      const items = [["Qualify", p.qualify], ["Invalidate", p.invalidate], ["Notes", p.comments]].filter(x => x[1]);
+      if (!items.length) return '<span class="muted">—</span>';
+      return items.map(([label, text]) =>
+        `<span class="tp-note" tabindex="0" onclick="this.classList.toggle('open')" onmouseleave="this.classList.remove('open')">${label}<span class="tp-pop"><strong>${label === "Qualify" ? "Qualification criteria" : label === "Invalidate" ? "Invalidation criteria" : "Notes"} · ${tpEscape(p.ticker)}</strong>
+${tpEscape(text)}</span></span>`
+      ).join("");
+    }
+
+    // Export unique tickers for TradingView's "Import list…" (comma-separated)
+    function tradingViewTickers(scope) {
+      const seen = new Set(), out = [];
+      const add = t => { t = String(t || "").trim().toUpperCase(); if (t && !seen.has(t)) { seen.add(t); out.push(t); } };
+      const plans = getTradePlans().slice().sort((a, b) => (b.dateAdded || "").localeCompare(a.dateAdded || ""));
+      const thisWeek = weekStartOf(new Date().toISOString().slice(0, 10));
+      if (scope === "week") plans.filter(p => p.dateAdded && weekStartOf(p.dateAdded) === thisWeek).forEach(p => add(p.ticker));
+      if (scope === "plans" || scope === "all") plans.forEach(p => add(p.ticker));
+      if (scope === "watchlist" || scope === "all") getWatchlist().forEach(w => add(w.ticker));
+      return out;
+    }
+    async function exportTickersForTradingView(mode) {
+      const scopeEl = document.getElementById("tp-export-scope");
+      const scope = scopeEl ? scopeEl.value : "all";
+      const tickers = tradingViewTickers(scope);
+      const status = document.getElementById("tp-export-status");
+      if (!tickers.length) { if (status) status.textContent = "No tickers in that list yet."; return; }
+      const text = tickers.join(",");
+      if (mode === "copy") {
+        try { await navigator.clipboard.writeText(text); if (status) status.textContent = `Copied ${tickers.length} tickers.`; }
+        catch (e) { prompt("Copy these tickers:", text); }
+        return;
+      }
+      const blob = new Blob([text + "\n"], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `watchlist-${scope}-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      if (status) status.innerHTML = `Exported ${tickers.length} tickers. In TradingView: Watchlist menu → <strong>Import list…</strong> → pick the file. If it only accepts .txt, rename the file's extension to .txt — the contents are the same.`;
+    }
+
     function tradeMatchesAPlan(trade, plans) {
       // Match by ticker AND proximity in time — the trade's entry date (when
       // available, since planning happens before entry, not before exit) or
@@ -5179,6 +5262,23 @@
           "Risk 1% ideal (hard max 2.5%)",
           "Shorts carry unlimited-loss risk in theory — respect the stop without exception"
         ]
+      },
+      MTR: {
+        label: "MTR",
+        scan: "",
+        category: "pattern",
+        moneyType: "single",
+        tfBranch: "exhaustion",
+        direction: "bullish",
+        riskPct: 1,
+        riskMax: 2.5,
+        hold: "",
+        openEntry: "Not defined yet — add your MTR rules in the Setup Library",
+        delayedEntry: "Not defined yet",
+        stop: "Not defined yet",
+        exit: "Not defined yet",
+        execBullets: [],
+        riskBullets: ["Risk 1% of account ideal (hard max 2.5%)"]
       },
       Other: {
         label: "Other setup",
@@ -8213,77 +8313,150 @@
       return lines;
     }
 
+    // Trade Factory tabs: Catalyst Based / Pattern Based, one sub tab per setup.
+    const TF_TABS = {
+      "tf-catalyst": { label: "Catalyst Based", subs: [
+        { key: "SIP", tab: "SIP" }, { key: "EP", tab: "EP" }, { key: "DEP", tab: "DEP" }
+      ] },
+      "tf-pattern": { label: "Pattern Based", subs: [
+        { key: "EP9M", tab: "EP9M" }, { key: "DEP9", tab: "DEP9" }, { key: "Sugar Babies", tab: "Sugar Babies" },
+        { key: "MTR", tab: "MTR" }, { key: "Bottom Bounce", tab: "Bottom Bounce" },
+        { key: "Reversal Bullish", tab: "Reversal Bullish" }, { key: "Reversal Bearish", tab: "Reversal Bearish" },
+        { key: "Anticipation", tab: "Anticipation" }, { key: "Weak Structure Short", tab: "Weak Structure" },
+        { key: "__others", tab: "Others" }
+      ] }
+    };
+    function tfEsc(v) {
+      return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+    function tfGetActive(tabId) {
+      try { return localStorage.getItem("tt_tf_sub_" + tabId) || ""; } catch (e) { return ""; }
+    }
+    function tfSetActive(tabId, sub) {
+      try { localStorage.setItem("tt_tf_sub_" + tabId, sub); } catch (e) {}
+    }
+    function switchTFTab(el) {
+      const tab = el.getAttribute("data-tf-tab");
+      document.querySelectorAll("#trade-factory > .steps .step-tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      document.querySelectorAll("#trade-factory > .tf-tab").forEach(p => { p.style.display = "none"; });
+      const panel = document.getElementById(tab);
+      if (panel) panel.style.display = "block";
+      try { localStorage.setItem("tt_tf_tab", tab); } catch (e) {}
+      if (tab !== "tf-overview") renderTFTab(tab);
+    }
+    function switchTFSub(tabId, sub) {
+      tfSetActive(tabId, sub);
+      renderTFTab(tabId);
+    }
+
     function renderTradeFactoryCards() {
-      const container = document.getElementById("trade-factory-cards");
-      if (!container) return;
-      const setups = getSetups();
-      const journal = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
-      const perfBySetup = {};
-      journal.forEach(t => {
-        const k = t.setup || "Other";
-        if (!perfBySetup[k]) perfBySetup[k] = { n: 0, pnl: 0, w: 0 };
-        perfBySetup[k].n++; perfBySetup[k].pnl += t.pnl; if (t.pnl > 0) perfBySetup[k].w++;
-      });
-      const watchlistBySetup = {};
-      getWatchlist().forEach(w => {
-        const k = w.setupType || "Other";
-        watchlistBySetup[k] = (watchlistBySetup[k] || 0) + 1;
-      });
+      // Kept as the entry point other code calls; renders both setup tabs.
+      renderTFTab("tf-catalyst");
+      renderTFTab("tf-pattern");
+      let saved = "";
+      try { saved = localStorage.getItem("tt_tf_tab") || ""; } catch (e) {}
+      const tabEl = saved && document.querySelector(`#trade-factory > .steps [data-tf-tab="${saved}"]`);
+      if (tabEl && !tabEl.classList.contains("active")) switchTFTab(tabEl);
+    }
 
-      const branchDefs = [
-        { key: "catalyst_based", label: "Catalyst Based", group: "🏠 Home Runs" },
-        { key: "pattern_based", label: "Pattern Based", group: "🏠 Home Runs" },
-        { key: "exhaustion", label: "Exhaustion", group: "⚾ Singles" },
-        { key: "momentum_burst", label: "Momentum Burst", group: "⚾ Singles" }
-      ];
-
-      const renderCard = (key) => {
-        const s = setups[key];
-        const perf = perfBySetup[key];
-        const watchCount = watchlistBySetup[key] || 0;
-        const isBearish = s.direction === "bearish";
-        const color = isBearish ? "#ef4444" : "#22c55e";
-        const perfHtml = perf
-          ? `<span class="${perf.pnl >= 0 ? "pos" : "neg"}">$${perf.pnl.toFixed(2)}</span> · ${perf.n} trade${perf.n === 1 ? "" : "s"} · ${((perf.w / perf.n) * 100).toFixed(0)}% win rate`
-          : `<span class="muted">No trades logged yet</span>`;
-        const watchHtml = watchCount
-          ? `<a href="#" onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-list]').click();return false;">${watchCount} on watchlist now</a>`
-          : `<span class="muted">None on watchlist right now</span>`;
-        return `<div style="background:#0f172a;border:1px solid ${color}55;border-left:4px solid ${color};border-radius:8px;padding:12px;margin-bottom:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;">
-            <strong style="font-size:28px;">${s.label || key}</strong>
-            <span class="tag" style="background:${color}22;color:${color};font-size:18px;">${isBearish ? "BEARISH" : "BULLISH"}</span>
+    function tfSetupDetailHtml(key, s, ctx) {
+      const isBearish = s.direction === "bearish";
+      const color = isBearish ? "#ef4444" : "#22c55e";
+      const perf = ctx.perf[key];
+      const perfHtml = perf
+        ? `<span class="${perf.pnl >= 0 ? "pos" : "neg"}">$${perf.pnl.toFixed(2)}</span> · ${perf.n} trade${perf.n === 1 ? "" : "s"} · ${((perf.w / perf.n) * 100).toFixed(0)}% win rate`
+        : `<span class="muted">No trades logged yet</span>`;
+      const chips = (list, empty) => list.length
+        ? list.map(t => `<span class="ticker-link" onclick="showDetail('${tfEsc(t)}')" style="margin-right:10px;">${tfEsc(t)}</span>`).join("")
+        : `<span class="muted">${empty}</span>`;
+      const watch = ctx.watch[key] || [];
+      const planned = ctx.plans[key] || [];
+      const bullets = (arr) => (arr || []).length
+        ? arr.map(b => `<div class="check-item"><span class="check-icon">•</span> ${tfEsc(b)}</div>`).join("")
+        : `<div class="check-item muted"><span class="check-icon">•</span> None defined yet</div>`;
+      const row = (k, v) => `<tr><td class="muted" style="width:190px;">${k}</td><td>${v ? tfEsc(v) : '<span class="muted">—</span>'}</td></tr>`;
+      return `<div class="panel" style="margin:0 0 12px;border-left:4px solid ${color};">
+        <div class="panel-header">
+          ${tfEsc(s.label || key)}
+          <span class="tag" style="background:${color}22;color:${color};">${isBearish ? "BEARISH" : "BULLISH"}</span>
+        </div>
+        <div class="panel-body">
+          <div class="grid-2">
+            <div>
+              <div style="font-size:24px;">📡 ${s.scan ? tfEsc(s.scan) : '<span class="muted">No scan defined</span>'}</div>
+              <div style="font-size:24px;margin-top:6px;">📊 ${perfHtml}</div>
+              <div style="font-size:24px;margin-top:6px;">👁 Saved Plans: ${chips(watch, "none right now")}</div>
+              <div style="font-size:24px;margin-top:6px;">🗓 Weekly Trade Plan (this week): ${chips(planned, "none planned")}</div>
+            </div>
+            <div>
+              <table>
+                ${row("Open entry", s.openEntry)}
+                ${row("Delayed entry", s.delayedEntry)}
+                ${row("Stop", s.stop)}
+                ${row("Exit", s.exit)}
+                ${row("Hold", s.hold)}
+                <tr><td class="muted">Risk</td><td>${s.riskPct != null ? s.riskPct + "% ideal" : "—"} / ${s.riskMax != null ? s.riskMax + "% max" : "—"}</td></tr>
+              </table>
+            </div>
           </div>
-          <div class="muted" style="font-size:22px;margin-top:6px;">📡 ${s.scan || "No scan defined"}</div>
-          <div style="font-size:24px;margin-top:6px;">📊 ${perfHtml}</div>
-          <div style="font-size:24px;margin-top:4px;">👁 ${watchHtml}</div>
-          <div class="muted" style="font-size:22px;margin-top:4px;">Risk ${s.riskPct}% ideal / ${s.riskMax}% max · Hold: ${s.hold || "—"}</div>
-          <button class="btn btn-sm" style="margin-top:8px;" onclick="editSetup('${key}')">Add qualification / Edit in Setup Library</button>
-        </div>`;
-      };
+          <div class="grid-2" style="margin-top:10px;">
+            <div><div class="muted" style="font-size:20px;text-transform:uppercase;">Execution rules</div><div class="checklist">${bullets(s.execBullets)}</div></div>
+            <div><div class="muted" style="font-size:20px;text-transform:uppercase;">Risk rules</div><div class="checklist">${bullets(s.riskBullets)}</div></div>
+          </div>
+          <button class="btn btn-sm" style="margin-top:8px;" onclick="editSetup('${tfEsc(key)}')">Edit in Setup Library</button>
+        </div>
+      </div>`;
+    }
 
-      const byBranch = {};
-      branchDefs.forEach(b => byBranch[b.key] = []);
-      Object.keys(setups).forEach(key => {
-        const s = setups[key];
-        const branch = s.tfBranch && byBranch[s.tfBranch] ? s.tfBranch : "momentum_burst";
-        byBranch[branch].push(key);
+    function renderTFTab(tabId) {
+      const host = document.getElementById(tabId);
+      const def = TF_TABS[tabId];
+      if (!host || !def) return;
+      const setups = getSetups();
+      // Context shared by every card
+      const perf = {};
+      getJournal().filter(t => t.pnl != null && !isNaN(t.pnl)).forEach(t => {
+        const k = t.setup || "Other";
+        if (!perf[k]) perf[k] = { n: 0, pnl: 0, w: 0 };
+        perf[k].n++; perf[k].pnl += t.pnl; if (t.pnl > 0) perf[k].w++;
       });
+      const watch = {};
+      getWatchlist().forEach(w => { const k = w.setupType || "Other"; (watch[k] = watch[k] || []).push(w.ticker); });
+      const thisWeek = weekStartOf(new Date().toISOString().slice(0, 10));
+      const plans = {};
+      getTradePlans().filter(p => p.dateAdded && weekStartOf(p.dateAdded) === thisWeek)
+        .forEach(p => { const k = p.strategy || "Other"; (plans[k] = plans[k] || []).push(p.ticker); });
+      const ctx = { perf, watch, plans };
 
-      const groups = { "🏠 Home Runs": ["catalyst_based", "pattern_based"], "⚾ Singles": ["exhaustion", "momentum_burst"] };
-      container.innerHTML = Object.keys(groups).map(groupLabel => `
-        <div class="grid-2" style="margin-top:14px;">
-          ${groups[groupLabel].map(branchKey => {
-            const def = branchDefs.find(b => b.key === branchKey);
-            const keys = byBranch[branchKey];
-            return `<div class="panel" style="margin:0;">
-              <div class="panel-header">${groupLabel} · ${def.label}</div>
-              <div class="panel-body">
-                ${keys.length ? keys.map(renderCard).join("") : `<div class="wl-empty">No setups tagged here yet — assign one in the Setup Library.</div>`}
-              </div>
-            </div>`;
-          }).join("")}
-        </div>`).join("");
+      // "Others" = the Other setup plus any custom setup not on a named tab
+      const named = new Set();
+      Object.values(TF_TABS).forEach(t => t.subs.forEach(x => named.add(x.key)));
+      const otherKeys = Object.keys(setups).filter(k => !named.has(k));
+
+      let active = tfGetActive(tabId);
+      if (!def.subs.some(x => x.key === active)) active = def.subs[0].key;
+      const count = (key) => {
+        const keys = key === "__others" ? otherKeys : [key];
+        return keys.reduce((n, k) => n + (watch[k] || []).length + (plans[k] || []).length, 0);
+      };
+      const tabs = def.subs.map(x => {
+        const n = count(x.key);
+        return `<div class="step-tab ${x.key === active ? "active" : ""}" onclick="switchTFSub('${tabId}', '${tfEsc(x.key)}')">${tfEsc(x.tab)}${n ? ` <span class="tag" style="font-size:16px;">${n}</span>` : ""}</div>`;
+      }).join("");
+      let body;
+      if (active === "__others") {
+        body = otherKeys.length
+          ? otherKeys.map(k => tfSetupDetailHtml(k, setups[k], ctx)).join("")
+          : `<div class="wl-empty">No other setups. Add one in the Setup Library and it appears here.</div>`;
+      } else if (setups[active]) {
+        body = tfSetupDetailHtml(active, setups[active], ctx);
+      } else {
+        body = `<div class="wl-empty">"${tfEsc(active)}" isn't in your Setup Library (it may have been deleted). Add it back there to see it here.</div>`;
+      }
+      host.innerHTML = `
+        <div class="steps" style="border:1px solid var(--border);border-top:none;margin-bottom:0;background:#0b1222;flex-wrap:wrap;display:flex;">${tabs}</div>
+        <div style="padding-top:12px;">${body}</div>`;
     }
 
     function formatNewsTime(iso) {
