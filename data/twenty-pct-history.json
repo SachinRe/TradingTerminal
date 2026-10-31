@@ -3097,5 +3097,252 @@
         "mktCap": null
       }
     ]
+  },
+  {
+    "date": "2026-10-31",
+    "up": [
+      {
+        "ticker": "GDYN",
+        "price": 13.36,
+        "changePct": 40.78,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 1083855130
+      },
+      {
+        "ticker": "FMC",
+        "price": 6.2,
+        "changePct": 30.53,
+        "sector": "Basic Materials",
+        "industry": "Agricultural Inputs",
+        "mktCap": 661823825
+      },
+      {
+        "ticker": "ASUR",
+        "price": 9.41,
+        "changePct": 30.15,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 271754213
+      },
+      {
+        "ticker": "ULH",
+        "price": 22.59,
+        "changePct": 29.68,
+        "sector": "Industrials",
+        "industry": "Trucking",
+        "mktCap": 595648715
+      },
+      {
+        "ticker": "AIOK",
+        "price": 24.17,
+        "changePct": 27.95,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 28273850
+      },
+      {
+        "ticker": "MF",
+        "price": 8.35,
+        "changePct": 27.68,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 16216837
+      },
+      {
+        "ticker": "OSPN",
+        "price": 25.66,
+        "changePct": 27.34,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 945627452
+      },
+      {
+        "ticker": "ACCO",
+        "price": 5.5,
+        "changePct": 26.15,
+        "sector": "Industrials",
+        "industry": "Business Equipment & Supplies",
+        "mktCap": 507691624
+      },
+      {
+        "ticker": "SOXS",
+        "price": 52.08,
+        "changePct": 24.95,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 106846669
+      },
+      {
+        "ticker": "CDNA",
+        "price": 87.41,
+        "changePct": 22.22,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 3224075344
+      },
+      {
+        "ticker": "CONI",
+        "price": 36.59,
+        "changePct": 21.93,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 5870105
+      },
+      {
+        "ticker": "DAMD",
+        "price": 11.76,
+        "changePct": 21.61,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 12272060
+      },
+      {
+        "ticker": "RPGL",
+        "price": 10.2,
+        "changePct": 20.71,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 889348
+      }
+    ],
+    "down": [
+      {
+        "ticker": "LINT",
+        "price": 39,
+        "changePct": -56.99,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 3725007
+      },
+      {
+        "ticker": "PTHS",
+        "price": 9.4,
+        "changePct": -43.17,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 35987609
+      },
+      {
+        "ticker": "ATEC",
+        "price": 7.04,
+        "changePct": -38.08,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 1087335040
+      },
+      {
+        "ticker": "RDDT",
+        "price": 91.67,
+        "changePct": -29.27,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "mktCap": 17636988530
+      },
+      {
+        "ticker": "RDYY",
+        "price": 8.97,
+        "changePct": -29.15,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Income",
+        "mktCap": 527615
+      },
+      {
+        "ticker": "INTC",
+        "price": 65.76,
+        "changePct": -28.58,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "mktCap": 618394368982
+      },
+      {
+        "ticker": "INYY",
+        "price": 21.7,
+        "changePct": -28.34,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 542500
+      },
+      {
+        "ticker": "ENHA",
+        "price": 9.43,
+        "changePct": -26.96,
+        "sector": "Financial Services",
+        "industry": "Financial - Conglomerates",
+        "mktCap": 129017837
+      },
+      {
+        "ticker": "PCLA",
+        "price": 8.19,
+        "changePct": -26.22,
+        "sector": "Communication Services",
+        "industry": "Telecommunications Services",
+        "mktCap": 9871233
+      },
+      {
+        "ticker": "CRMD",
+        "price": 5.695,
+        "changePct": -25.46,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 443892925
+      },
+      {
+        "ticker": "SOXL",
+        "price": 77.05,
+        "changePct": -24.75,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 41576975437
+      },
+      {
+        "ticker": "RZAI",
+        "price": 6.62,
+        "changePct": -24.08,
+        "sector": "Industrials",
+        "industry": "Security & Protection Services",
+        "mktCap": 142253903
+      },
+      {
+        "ticker": "QCMU",
+        "price": 17.4759,
+        "changePct": -22.43,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 2727484
+      },
+      {
+        "ticker": "TOP",
+        "price": 11.11,
+        "changePct": -22.42,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "HUTG",
+        "price": 5.26,
+        "changePct": -22.3,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 2502073
+      },
+      {
+        "ticker": "QCML",
+        "price": 14.11,
+        "changePct": -22.22,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 4722268
+      },
+      {
+        "ticker": "DLLL",
+        "price": 18.92,
+        "changePct": -22.08,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 186166922
+      }
+    ]
   }
 ]

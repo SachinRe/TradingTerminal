@@ -813,7 +813,8 @@
   "LINT": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 15902915
+    "mktCap": 3725007,
+    "float": null
   },
   "METU": {
     "sector": "Financial Services",
@@ -3055,6 +3056,120 @@
     "sector": "Healthcare",
     "industry": "Biotechnology",
     "mktCap": 1996444020,
+    "float": null
+  },
+  "ATEC": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 1087335040,
+    "float": null
+  },
+  "RDDT": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 17636988530,
+    "float": null
+  },
+  "GDYN": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 1083855130,
+    "float": null
+  },
+  "OSPN": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 945627452,
+    "float": null
+  },
+  "ASUR": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 271754213,
+    "float": null
+  },
+  "PTHS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 35987609,
+    "float": null
+  },
+  "ULH": {
+    "sector": "Industrials",
+    "industry": "Trucking",
+    "mktCap": 595648715,
+    "float": null
+  },
+  "ENHA": {
+    "sector": "Financial Services",
+    "industry": "Financial - Conglomerates",
+    "mktCap": 129017837,
+    "float": null
+  },
+  "INYY": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 542500,
+    "float": null
+  },
+  "RDYY": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Income",
+    "mktCap": 527615,
+    "float": null
+  },
+  "ACCO": {
+    "sector": "Industrials",
+    "industry": "Business Equipment & Supplies",
+    "mktCap": 507691624,
+    "float": null
+  },
+  "BERZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 2908878,
+    "float": null
+  },
+  "CVEO": {
+    "sector": "Consumer Cyclical",
+    "industry": "Travel Lodging",
+    "mktCap": 371818293,
+    "float": null
+  },
+  "CPRI": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Footwear & Accessories",
+    "mktCap": 2144391260,
+    "float": null
+  },
+  "FDXF": {
+    "sector": "Industrials",
+    "industry": "Integrated Freight & Logistics",
+    "mktCap": 18843641458,
+    "float": null
+  },
+  "EUDA": {
+    "sector": "Healthcare",
+    "industry": "Medical - Care Facilities",
+    "mktCap": 52999553,
+    "float": null
+  },
+  "TECS": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 82797390,
+    "float": null
+  },
+  "MEOH": {
+    "sector": "Basic Materials",
+    "industry": "Chemicals",
+    "mktCap": 5536960303,
+    "float": null
+  },
+  "CRMD": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 443892925,
     "float": null
   }
 }
