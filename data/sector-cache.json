@@ -552,12 +552,14 @@
   "QCMU": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 2727484
+    "mktCap": 2202645,
+    "float": null
   },
   "QCML": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 4722268
+    "mktCap": 3833786,
+    "float": null
   },
   "SPCX": {
     "sector": "Industrials",
@@ -3170,6 +3172,30 @@
     "sector": "Healthcare",
     "industry": "Biotechnology",
     "mktCap": 443892925,
+    "float": null
+  },
+  "TOP": {
+    "sector": "Financial Services",
+    "industry": "Financial - Capital Markets",
+    "mktCap": 1352159271,
+    "float": null
+  },
+  "KVUE": {
+    "sector": "Consumer Defensive",
+    "industry": "Household & Personal Products",
+    "mktCap": 37090134354,
+    "float": null
+  },
+  "RIVN": {
+    "sector": "Consumer Cyclical",
+    "industry": "Auto - Manufacturers",
+    "mktCap": 17558408896,
+    "float": 942870674
+  },
+  "VALE": {
+    "sector": "Basic Materials",
+    "industry": "Industrial Materials",
+    "mktCap": 48473138098,
     "float": null
   }
 }
