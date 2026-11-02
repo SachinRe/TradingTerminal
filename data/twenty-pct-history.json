@@ -3596,246 +3596,182 @@
     "date": "2026-11-02",
     "up": [
       {
-        "ticker": "GDYN",
-        "price": 13.36,
-        "changePct": 40.78,
-        "sector": "Technology",
-        "industry": "Information Technology Services",
-        "mktCap": 1083855130
-      },
-      {
-        "ticker": "FMC",
-        "price": 6.2,
-        "changePct": 30.53,
-        "sector": "Basic Materials",
-        "industry": "Agricultural Inputs",
-        "mktCap": 661823825
-      },
-      {
-        "ticker": "ASUR",
-        "price": 9.41,
-        "changePct": 30.15,
-        "sector": "Technology",
-        "industry": "Software - Application",
-        "mktCap": 271754213
-      },
-      {
-        "ticker": "ULH",
-        "price": 22.59,
-        "changePct": 29.68,
+        "ticker": "VCIG",
+        "price": 8.16,
+        "changePct": 168.4,
         "sector": "Industrials",
-        "industry": "Trucking",
-        "mktCap": 595648715
+        "industry": "Consulting Services",
+        "mktCap": 280614
       },
       {
-        "ticker": "AIOK",
-        "price": 24.17,
-        "changePct": 27.95,
-        "sector": "Industrials",
-        "industry": "Marine Shipping",
-        "mktCap": 28273850
+        "ticker": "CLRO",
+        "price": 5.65,
+        "changePct": 65.69,
+        "sector": "Technology",
+        "industry": "Communication Equipment",
+        "mktCap": 15116078
       },
       {
         "ticker": "MF",
-        "price": 8.35,
-        "changePct": 27.68,
+        "price": 11.49,
+        "changePct": 37.6,
         "sector": "Technology",
         "industry": "Software - Application",
         "mktCap": 16216837
       },
       {
-        "ticker": "OSPN",
-        "price": 25.66,
-        "changePct": 27.34,
-        "sector": "Technology",
-        "industry": "Software - Infrastructure",
-        "mktCap": 945627452
+        "ticker": "PERI",
+        "price": 11.41,
+        "changePct": 31.15,
+        "sector": "Communication Services",
+        "industry": "Advertising Agencies",
+        "mktCap": 448758940
       },
       {
-        "ticker": "ACCO",
-        "price": 5.5,
-        "changePct": 26.15,
-        "sector": "Industrials",
-        "industry": "Business Equipment & Supplies",
-        "mktCap": 507691624
-      },
-      {
-        "ticker": "SOXS",
-        "price": 52.08,
-        "changePct": 24.95,
-        "sector": "Financial Services",
-        "industry": "Asset Management - Leveraged",
-        "mktCap": 106846669
-      },
-      {
-        "ticker": "CDNA",
-        "price": 87.41,
-        "changePct": 22.22,
+        "ticker": "ATYR",
+        "price": 6.29,
+        "changePct": 27.33,
         "sector": "Healthcare",
-        "industry": "Medical - Diagnostics & Research",
-        "mktCap": 3224075344
+        "industry": "Biotechnology",
+        "mktCap": 15424244
       },
       {
-        "ticker": "CONI",
-        "price": 36.59,
-        "changePct": 21.93,
-        "sector": "Financial Services",
-        "industry": "Asset Management",
-        "mktCap": 5870105
+        "ticker": "XCH",
+        "price": 5.06,
+        "changePct": 26.5,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
       },
       {
-        "ticker": "DAMD",
-        "price": 11.76,
-        "changePct": 21.61,
-        "sector": "Financial Services",
-        "industry": "Asset Management",
-        "mktCap": 12272060
-      },
-      {
-        "ticker": "RPGL",
-        "price": 10.2,
-        "changePct": 20.71,
-        "sector": "Technology",
-        "industry": "Software - Application",
-        "mktCap": 889348
-      }
-    ],
-    "down": [
-      {
-        "ticker": "LINT",
-        "price": 39,
-        "changePct": -56.99,
-        "sector": "Financial Services",
-        "industry": "Asset Management - Leveraged",
-        "mktCap": 3725007
+        "ticker": "ULH",
+        "price": 28.54,
+        "changePct": 26.34,
+        "sector": "Industrials",
+        "industry": "Trucking",
+        "mktCap": 595648715
       },
       {
         "ticker": "PTHS",
-        "price": 9.4,
-        "changePct": -43.17,
+        "price": 11.52,
+        "changePct": 22.55,
         "sector": "Healthcare",
         "industry": "Biotechnology",
         "mktCap": 35987609
       },
       {
-        "ticker": "ATEC",
-        "price": 7.04,
-        "changePct": -38.08,
+        "ticker": "IDXX",
+        "price": 671.64,
+        "changePct": 21.85,
         "sector": "Healthcare",
-        "industry": "Medical - Devices",
-        "mktCap": 1087335040
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 52912548750
+      }
+    ],
+    "down": [
+      {
+        "ticker": "DRUG",
+        "price": 26.2,
+        "changePct": -52.35,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 258438372
       },
       {
-        "ticker": "RDDT",
-        "price": 91.67,
-        "changePct": -29.27,
-        "sector": "Communication Services",
-        "industry": "Internet Content & Information",
-        "mktCap": 17636988530
+        "ticker": "AIOK",
+        "price": 12.63,
+        "changePct": -47.75,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 28273850
       },
       {
-        "ticker": "RDYY",
-        "price": 8.97,
-        "changePct": -29.15,
+        "ticker": "SVRN",
+        "price": 17.78,
+        "changePct": -39.67,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 63646437
+      },
+      {
+        "ticker": "OFRM",
+        "price": 9.44,
+        "changePct": -37.15,
+        "sector": "Consumer Defensive",
+        "industry": "Packaged Foods",
+        "mktCap": 396391764
+      },
+      {
+        "ticker": "CMPS",
+        "price": 8.41,
+        "changePct": -27.31,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1164590048
+      },
+      {
+        "ticker": "PGEN",
+        "price": 5.14,
+        "changePct": -25.94,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1840299900
+      },
+      {
+        "ticker": "MRVU",
+        "price": 55.79,
+        "changePct": -25.74,
         "sector": "Financial Services",
-        "industry": "Asset Management - Income",
-        "mktCap": 527615
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5015242
       },
       {
-        "ticker": "INTC",
-        "price": 65.76,
-        "changePct": -28.58,
-        "sector": "Technology",
-        "industry": "Semiconductors",
-        "mktCap": 618394368982
+        "ticker": "SGML",
+        "price": 5.21,
+        "changePct": -25.57,
+        "sector": "Basic Materials",
+        "industry": "Industrial Materials",
+        "mktCap": 586479280
       },
       {
-        "ticker": "INYY",
-        "price": 21.7,
-        "changePct": -28.34,
+        "ticker": "MVLL",
+        "price": 13.49,
+        "changePct": -25.26,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 304525186
+      },
+      {
+        "ticker": "PUR",
+        "price": 17.49,
+        "changePct": -23.59,
         "sector": "Financial Services",
         "industry": "Asset Management",
-        "mktCap": 542500
+        "mktCap": 1126200
       },
       {
         "ticker": "ENHA",
-        "price": 9.43,
-        "changePct": -26.96,
+        "price": 7.32,
+        "changePct": -22.38,
         "sector": "Financial Services",
         "industry": "Financial - Conglomerates",
         "mktCap": 129017837
       },
       {
-        "ticker": "PCLA",
-        "price": 8.19,
-        "changePct": -26.22,
-        "sector": "Communication Services",
-        "industry": "Telecommunications Services",
-        "mktCap": 9871233
-      },
-      {
-        "ticker": "CRMD",
-        "price": 5.695,
-        "changePct": -25.46,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 443892925
-      },
-      {
-        "ticker": "SOXL",
-        "price": 77.05,
-        "changePct": -24.75,
+        "ticker": "OKTG",
+        "price": 41.9,
+        "changePct": -22.2,
         "sector": "Financial Services",
         "industry": "Asset Management - Leveraged",
-        "mktCap": 41576975437
+        "mktCap": 1289788
       },
       {
-        "ticker": "RZAI",
-        "price": 6.62,
-        "changePct": -24.08,
-        "sector": "Industrials",
-        "industry": "Security & Protection Services",
-        "mktCap": 142253903
-      },
-      {
-        "ticker": "QCMU",
-        "price": 17.4759,
-        "changePct": -22.43,
-        "sector": "Financial Services",
-        "industry": "Asset Management - Leveraged",
-        "mktCap": 2202645
-      },
-      {
-        "ticker": "TOP",
-        "price": 11.11,
-        "changePct": -22.42,
-        "sector": "Financial Services",
-        "industry": "Financial - Capital Markets",
-        "mktCap": 1352159271
-      },
-      {
-        "ticker": "HUTG",
-        "price": 5.26,
-        "changePct": -22.3,
+        "ticker": "PUL",
+        "price": 43.1534,
+        "changePct": -20.75,
         "sector": "Financial Services",
         "industry": "Asset Management",
-        "mktCap": 2502073
-      },
-      {
-        "ticker": "QCML",
-        "price": 14.11,
-        "changePct": -22.22,
-        "sector": "Financial Services",
-        "industry": "Asset Management - Leveraged",
-        "mktCap": 3833786
-      },
-      {
-        "ticker": "DLLL",
-        "price": 18.92,
-        "changePct": -22.08,
-        "sector": "Financial Services",
-        "industry": "Asset Management - Leveraged",
-        "mktCap": 186166922
+        "mktCap": 1338153
       }
     ]
   }

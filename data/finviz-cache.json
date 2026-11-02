@@ -390,11 +390,11 @@
     "fetchedAt": "2026-10-14T17:35:01.294Z"
   },
   "WMT": {
-    "shortInterestPct": "1.83%",
-    "daysToCover": 3.44,
-    "finvizFloat": 4430000000,
+    "shortInterestPct": "1.70%",
+    "daysToCover": 3.21,
+    "finvizFloat": 4420000000,
     "success": true,
-    "fetchedAt": "2026-10-14T20:55:20.025Z"
+    "fetchedAt": "2026-11-02T21:55:00.249Z"
   },
   "PWP": {
     "shortInterestPct": "11.77%",
@@ -432,11 +432,11 @@
     "fetchedAt": "2026-10-15T17:19:14.432Z"
   },
   "HD": {
-    "shortInterestPct": "1.15%",
-    "daysToCover": 2.61,
-    "finvizFloat": 996890000,
+    "shortInterestPct": "1.23%",
+    "daysToCover": 2.75,
+    "finvizFloat": 996870000,
     "success": true,
-    "fetchedAt": "2026-10-15T17:19:15.146Z"
+    "fetchedAt": "2026-11-02T21:55:03.577Z"
   },
   "CRM": {
     "shortInterestPct": "3.50%",
@@ -732,5 +732,61 @@
     "finvizFloat": 24130000,
     "success": true,
     "fetchedAt": "2026-10-31T17:21:20.696Z"
+  },
+  "SGML": {
+    "shortInterestPct": "6.75%",
+    "daysToCover": 3.68,
+    "finvizFloat": 107250000,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:54:58.914Z"
+  },
+  "PGEN": {
+    "shortInterestPct": "28.25%",
+    "daysToCover": 8.75,
+    "finvizFloat": 164240000,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:54:59.583Z"
+  },
+  "CMPS": {
+    "shortInterestPct": "12.97%",
+    "daysToCover": 6.68,
+    "finvizFloat": 136240000,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:55:00.916Z"
+  },
+  "XOM": {
+    "shortInterestPct": "1.03%",
+    "daysToCover": 3.14,
+    "finvizFloat": 4099999999.9999995,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:55:01.583Z"
+  },
+  "OFRM": {
+    "shortInterestPct": "27.82%",
+    "daysToCover": 14.05,
+    "finvizFloat": 20190000,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:55:02.246Z"
+  },
+  "PERI": {
+    "shortInterestPct": "3.31%",
+    "daysToCover": 3.09,
+    "finvizFloat": 36410000,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:55:02.915Z"
+  },
+  "CLRO": {
+    "shortInterestPct": "40.88%",
+    "daysToCover": 0.07,
+    "finvizFloat": 710000,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:55:04.237Z"
+  },
+  "DRUG": {
+    "shortInterestPct": "10.98%",
+    "daysToCover": 6.42,
+    "finvizFloat": 7560000,
+    "success": true,
+    "fetchedAt": "2026-11-02T21:55:04.900Z"
   }
 }

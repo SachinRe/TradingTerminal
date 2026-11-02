@@ -3197,5 +3197,125 @@
     "industry": "Industrial Materials",
     "mktCap": 48473138098,
     "float": null
+  },
+  "SGML": {
+    "sector": "Basic Materials",
+    "industry": "Industrial Materials",
+    "mktCap": 586479280,
+    "float": null
+  },
+  "PGEN": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1840299900,
+    "float": null
+  },
+  "CMPS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1164590048,
+    "float": null
+  },
+  "OFRM": {
+    "sector": "Consumer Defensive",
+    "industry": "Packaged Foods",
+    "mktCap": 396391764,
+    "float": null
+  },
+  "PERI": {
+    "sector": "Communication Services",
+    "industry": "Advertising Agencies",
+    "mktCap": 448758940,
+    "float": null
+  },
+  "CLRO": {
+    "sector": "Technology",
+    "industry": "Communication Equipment",
+    "mktCap": 15116078,
+    "float": null
+  },
+  "DRUG": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 258438372,
+    "float": null
+  },
+  "VCIG": {
+    "sector": "Industrials",
+    "industry": "Consulting Services",
+    "mktCap": 280614,
+    "float": null
+  },
+  "MRVU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 5015242,
+    "float": null
+  },
+  "ATYR": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 15424244,
+    "float": null
+  },
+  "IDXX": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 52912548750,
+    "float": null
+  },
+  "TATT": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 486258921,
+    "float": null
+  },
+  "RVNL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 7110363,
+    "float": null
+  },
+  "ULCC": {
+    "sector": "Industrials",
+    "industry": "Airlines, Airports & Air Services",
+    "mktCap": 1712002404,
+    "float": null
+  },
+  "NWL": {
+    "sector": "Consumer Defensive",
+    "industry": "Household & Personal Products",
+    "mktCap": 2538364000,
+    "float": null
+  },
+  "NXT": {
+    "sector": "Energy",
+    "industry": "Solar",
+    "mktCap": 13827111158,
+    "float": null
+  },
+  "CCXI": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 389251000,
+    "float": null
+  },
+  "LITE": {
+    "sector": "Technology",
+    "industry": "Communication Equipment",
+    "mktCap": 61994906646,
+    "float": null
+  },
+  "NSSC": {
+    "sector": "Industrials",
+    "industry": "Security & Protection Services",
+    "mktCap": 1148344482,
+    "float": null
+  },
+  "MRVL": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 150115122566,
+    "float": null
   }
 }
