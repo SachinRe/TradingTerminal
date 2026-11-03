@@ -638,7 +638,8 @@
   "PFE": {
     "sector": "Healthcare",
     "industry": "Drug Manufacturers - General",
-    "mktCap": 157304544000
+    "mktCap": 174808878900,
+    "float": 5692264013
   },
   "BE": {
     "sector": "Industrials",
@@ -3316,6 +3317,12 @@
     "sector": "Technology",
     "industry": "Semiconductors",
     "mktCap": 150115122566,
+    "float": null
+  },
+  "XCH": {
+    "sector": "Industrials",
+    "industry": "Electrical Equipment & Parts",
+    "mktCap": 15558822,
     "float": null
   }
 }

@@ -3774,5 +3774,188 @@
         "mktCap": 1338153
       }
     ]
+  },
+  {
+    "date": "2026-11-03",
+    "up": [
+      {
+        "ticker": "VCIG",
+        "price": 8.16,
+        "changePct": 168.4,
+        "sector": "Industrials",
+        "industry": "Consulting Services",
+        "mktCap": 280614
+      },
+      {
+        "ticker": "CLRO",
+        "price": 5.65,
+        "changePct": 65.69,
+        "sector": "Technology",
+        "industry": "Communication Equipment",
+        "mktCap": 15116078
+      },
+      {
+        "ticker": "MF",
+        "price": 11.49,
+        "changePct": 37.6,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 16216837
+      },
+      {
+        "ticker": "PERI",
+        "price": 11.41,
+        "changePct": 31.15,
+        "sector": "Communication Services",
+        "industry": "Advertising Agencies",
+        "mktCap": 448758940
+      },
+      {
+        "ticker": "ATYR",
+        "price": 6.29,
+        "changePct": 27.33,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 15424244
+      },
+      {
+        "ticker": "XCH",
+        "price": 5.06,
+        "changePct": 26.5,
+        "sector": "Industrials",
+        "industry": "Electrical Equipment & Parts",
+        "mktCap": 15558822
+      },
+      {
+        "ticker": "ULH",
+        "price": 28.54,
+        "changePct": 26.34,
+        "sector": "Industrials",
+        "industry": "Trucking",
+        "mktCap": 595648715
+      },
+      {
+        "ticker": "PTHS",
+        "price": 11.52,
+        "changePct": 22.55,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 35987609
+      },
+      {
+        "ticker": "IDXX",
+        "price": 671.64,
+        "changePct": 21.85,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 52912548750
+      }
+    ],
+    "down": [
+      {
+        "ticker": "DRUG",
+        "price": 26.2,
+        "changePct": -52.35,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 258438372
+      },
+      {
+        "ticker": "AIOK",
+        "price": 12.63,
+        "changePct": -47.75,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 28273850
+      },
+      {
+        "ticker": "SVRN",
+        "price": 17.78,
+        "changePct": -39.67,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 63646437
+      },
+      {
+        "ticker": "OFRM",
+        "price": 9.44,
+        "changePct": -37.15,
+        "sector": "Consumer Defensive",
+        "industry": "Packaged Foods",
+        "mktCap": 396391764
+      },
+      {
+        "ticker": "CMPS",
+        "price": 8.41,
+        "changePct": -27.31,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1164590048
+      },
+      {
+        "ticker": "PGEN",
+        "price": 5.14,
+        "changePct": -25.94,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1840299900
+      },
+      {
+        "ticker": "MRVU",
+        "price": 55.79,
+        "changePct": -25.74,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5015242
+      },
+      {
+        "ticker": "SGML",
+        "price": 5.21,
+        "changePct": -25.57,
+        "sector": "Basic Materials",
+        "industry": "Industrial Materials",
+        "mktCap": 586479280
+      },
+      {
+        "ticker": "MVLL",
+        "price": 13.49,
+        "changePct": -25.26,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 304525186
+      },
+      {
+        "ticker": "PUR",
+        "price": 17.49,
+        "changePct": -23.59,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1126200
+      },
+      {
+        "ticker": "ENHA",
+        "price": 7.32,
+        "changePct": -22.38,
+        "sector": "Financial Services",
+        "industry": "Financial - Conglomerates",
+        "mktCap": 129017837
+      },
+      {
+        "ticker": "OKTG",
+        "price": 41.9,
+        "changePct": -22.2,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1289788
+      },
+      {
+        "ticker": "PUL",
+        "price": 43.1534,
+        "changePct": -20.75,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1338153
+      }
+    ]
   }
 ]
