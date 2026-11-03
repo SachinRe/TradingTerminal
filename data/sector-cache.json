@@ -3324,5 +3324,113 @@
     "industry": "Electrical Equipment & Parts",
     "mktCap": 15558822,
     "float": null
+  },
+  "GPK": {
+    "sector": "Consumer Cyclical",
+    "industry": "Packaging & Containers",
+    "mktCap": 3284914102,
+    "float": null
+  },
+  "ACB": {
+    "sector": "Healthcare",
+    "industry": "Drug Manufacturers - Specialty & Generic",
+    "mktCap": 324780613,
+    "float": null
+  },
+  "STVN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Instruments & Supplies",
+    "mktCap": 4017249342,
+    "float": null
+  },
+  "AEHR": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 2129125060,
+    "float": null
+  },
+  "XMTR": {
+    "sector": "Industrials",
+    "industry": "Industrial - Distribution",
+    "mktCap": 6285922942,
+    "float": null
+  },
+  "IBTA": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 1457200809,
+    "float": null
+  },
+  "BRCC": {
+    "sector": "Consumer Defensive",
+    "industry": "Packaged Foods",
+    "mktCap": 307028550,
+    "float": null
+  },
+  "RDAC": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 66532515,
+    "float": null
+  },
+  "FGC": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 25129563,
+    "float": null
+  },
+  "FN": {
+    "sector": "Technology",
+    "industry": "Hardware, Equipment & Parts",
+    "mktCap": 13142436372,
+    "float": null
+  },
+  "SIBN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 1060855670,
+    "float": null
+  },
+  "BCAX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 610776181,
+    "float": null
+  },
+  "XPRO": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Equipment & Services",
+    "mktCap": 1470650360,
+    "float": null
+  },
+  "BVS": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 746233218,
+    "float": null
+  },
+  "IT": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 12838191700,
+    "float": null
+  },
+  "ADEA": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 1973463284,
+    "float": null
+  },
+  "ADTN": {
+    "sector": "Technology",
+    "industry": "Communication Equipment",
+    "mktCap": 445295851,
+    "float": null
+  },
+  "PLTD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 28973653,
+    "float": null
   }
 }

@@ -119,11 +119,11 @@
     "fetchedAt": "2026-10-22T17:35:33.871Z"
   },
   "ORCL": {
-    "shortInterestPct": "2.61%",
-    "daysToCover": 1.61,
+    "shortInterestPct": "2.55%",
+    "daysToCover": 1.54,
     "finvizFloat": 1860000000,
     "success": true,
-    "fetchedAt": "2026-10-22T17:35:36.026Z"
+    "fetchedAt": "2026-11-03T18:22:27.751Z"
   },
   "AVGO": {
     "shortInterestPct": "1.14%",
@@ -795,5 +795,33 @@
     "finvizFloat": 14580000000,
     "success": true,
     "fetchedAt": "2026-11-03T13:30:18.605Z"
+  },
+  "GPK": {
+    "shortInterestPct": "9.07%",
+    "daysToCover": 4.18,
+    "finvizFloat": 291490000,
+    "success": true,
+    "fetchedAt": "2026-11-03T18:22:28.493Z"
+  },
+  "ACB": {
+    "shortInterestPct": "12.54%",
+    "daysToCover": 6.44,
+    "finvizFloat": 65340000,
+    "success": true,
+    "fetchedAt": "2026-11-03T18:22:29.239Z"
+  },
+  "STVN": {
+    "shortInterestPct": "1.97%",
+    "daysToCover": 2.41,
+    "finvizFloat": 48940000,
+    "success": true,
+    "fetchedAt": "2026-11-03T18:22:29.967Z"
+  },
+  "AEHR": {
+    "shortInterestPct": "18.10%",
+    "daysToCover": 2.15,
+    "finvizFloat": 31070000,
+    "success": true,
+    "fetchedAt": "2026-11-03T18:22:30.710Z"
   }
 }
