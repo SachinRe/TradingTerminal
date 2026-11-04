@@ -3432,5 +3432,125 @@
     "industry": "Asset Management",
     "mktCap": 28973653,
     "float": null
+  },
+  "KD": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 3835779735,
+    "float": null
+  },
+  "NRIX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 1742490833,
+    "float": null
+  },
+  "CRCT": {
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "mktCap": 1892802813,
+    "float": null
+  },
+  "DOX": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 4862940683,
+    "float": null
+  },
+  "DUOL": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 6991191635,
+    "float": null
+  },
+  "ANGI": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 296060260,
+    "float": null
+  },
+  "ALIT": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 354944650,
+    "float": null
+  },
+  "XMAX": {
+    "sector": "Consumer Cyclical",
+    "industry": "Furnishings, Fixtures & Appliances",
+    "mktCap": 348057594,
+    "float": null
+  },
+  "ECG": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 4173927331,
+    "float": null
+  },
+  "TREE": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 535230184,
+    "float": null
+  },
+  "LYEL": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 378113693,
+    "float": null
+  },
+  "ADV": {
+    "sector": "Communication Services",
+    "industry": "Advertising Agencies",
+    "mktCap": 495249180,
+    "float": null
+  },
+  "DUOG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1494192743,
+    "float": null
+  },
+  "XYZG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 3234198,
+    "float": null
+  },
+  "YOU": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 6113942510,
+    "float": null
+  },
+  "OPRT": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 577599898,
+    "float": null
+  },
+  "HELE": {
+    "sector": "Consumer Defensive",
+    "industry": "Household & Personal Products",
+    "mktCap": 858084161,
+    "float": null
+  },
+  "APPX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 8938635,
+    "float": null
+  },
+  "LIVN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 5436579988,
+    "float": null
+  },
+  "UFPT": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 2630121723,
+    "float": null
   }
 }

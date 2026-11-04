@@ -21,11 +21,11 @@
     "fetchedAt": "2026-09-23T12:39:22.445Z"
   },
   "JPM": {
-    "shortInterestPct": "1.00%",
-    "daysToCover": 3.36,
+    "shortInterestPct": "0.97%",
+    "daysToCover": 3.72,
     "finvizFloat": 2650000000,
     "success": true,
-    "fetchedAt": "2026-09-23T12:39:23.349Z"
+    "fetchedAt": "2026-11-04T18:34:42.229Z"
   },
   "GRML": {
     "shortInterestPct": "7.75%",
@@ -112,11 +112,11 @@
     "fetchedAt": "2026-09-23T17:26:46.684Z"
   },
   "AMZN": {
-    "shortInterestPct": "0.88%",
-    "daysToCover": 2.22,
-    "finvizFloat": 9820000000,
+    "shortInterestPct": "0.95%",
+    "daysToCover": 2.5,
+    "finvizFloat": 9840000000,
     "success": true,
-    "fetchedAt": "2026-10-22T17:35:33.871Z"
+    "fetchedAt": "2026-11-04T18:34:37.924Z"
   },
   "ORCL": {
     "shortInterestPct": "2.55%",
@@ -411,11 +411,11 @@
     "fetchedAt": "2026-10-14T20:55:22.412Z"
   },
   "NFLX": {
-    "shortInterestPct": "1.99%",
-    "daysToCover": 2.24,
-    "finvizFloat": 4130000000,
+    "shortInterestPct": null,
+    "daysToCover": 2.39,
+    "finvizFloat": null,
     "success": true,
-    "fetchedAt": "2026-10-15T17:19:12.978Z"
+    "fetchedAt": "2026-11-04T18:34:38.539Z"
   },
   "FMC": {
     "shortInterestPct": "24.77%",
@@ -557,11 +557,11 @@
     "fetchedAt": "2026-10-22T17:35:35.298Z"
   },
   "PG": {
-    "shortInterestPct": "1.05%",
-    "daysToCover": 2.76,
+    "shortInterestPct": "0.95%",
+    "daysToCover": 2.44,
     "finvizFloat": 2320000000,
     "success": true,
-    "fetchedAt": "2026-10-22T17:35:36.742Z"
+    "fetchedAt": "2026-11-04T18:34:40.388Z"
   },
   "BHVN": {
     "shortInterestPct": "14.82%",
@@ -823,5 +823,68 @@
     "finvizFloat": 31070000,
     "success": true,
     "fetchedAt": "2026-11-03T18:22:30.710Z"
+  },
+  "KD": {
+    "shortInterestPct": "15.64%",
+    "daysToCover": 8.12,
+    "finvizFloat": 211370000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:39.152Z"
+  },
+  "NRIX": {
+    "shortInterestPct": "19.81%",
+    "daysToCover": 11.58,
+    "finvizFloat": 104050000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:39.778Z"
+  },
+  "CRCT": {
+    "shortInterestPct": "9.75%",
+    "daysToCover": 5.72,
+    "finvizFloat": 45250000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:41.000Z"
+  },
+  "DOX": {
+    "shortInterestPct": "7.79%",
+    "daysToCover": 7.93,
+    "finvizFloat": 106260000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:41.615Z"
+  },
+  "DUOL": {
+    "shortInterestPct": "17.87%",
+    "daysToCover": 6.21,
+    "finvizFloat": 39740000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:42.844Z"
+  },
+  "ANGI": {
+    "shortInterestPct": "13.93%",
+    "daysToCover": 5.58,
+    "finvizFloat": 33180000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:43.468Z"
+  },
+  "ALIT": {
+    "shortInterestPct": "5.37%",
+    "daysToCover": 2.43,
+    "finvizFloat": 22640000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:44.080Z"
+  },
+  "XMAX": {
+    "shortInterestPct": "14.38%",
+    "daysToCover": 12.47,
+    "finvizFloat": 64879999.99999999,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:44.696Z"
+  },
+  "ECG": {
+    "shortInterestPct": "4.01%",
+    "daysToCover": 3.72,
+    "finvizFloat": 50850000,
+    "success": true,
+    "fetchedAt": "2026-11-04T18:34:45.306Z"
   }
 }

@@ -3877,5 +3877,340 @@
         "mktCap": 50457176
       }
     ]
+  },
+  {
+    "date": "2026-11-04",
+    "up": [
+      {
+        "ticker": "DUOG",
+        "price": 68.42,
+        "changePct": 72.08,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1494192743
+      },
+      {
+        "ticker": "CRCT",
+        "price": 8.9897,
+        "changePct": 50.58,
+        "sector": "Technology",
+        "industry": "Computer Hardware",
+        "mktCap": 1892802813
+      },
+      {
+        "ticker": "LYEL",
+        "price": 15.335,
+        "changePct": 42.39,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 378113693
+      },
+      {
+        "ticker": "KD",
+        "price": 17.595,
+        "changePct": 35.97,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 3835779735
+      },
+      {
+        "ticker": "DUOL",
+        "price": 172.83,
+        "changePct": 35.02,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 6991191635
+      },
+      {
+        "ticker": "ALIT",
+        "price": 13.46,
+        "changePct": 33.07,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 354944650
+      },
+      {
+        "ticker": "XYZG",
+        "price": 19.66,
+        "changePct": 32.48,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 3234198
+      },
+      {
+        "ticker": "TREE",
+        "price": 38.165,
+        "changePct": 32.2,
+        "sector": "Financial Services",
+        "industry": "Financial - Credit Services",
+        "mktCap": 535230184
+      },
+      {
+        "ticker": "ANGI",
+        "price": 7.3188,
+        "changePct": 29.77,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "mktCap": 296060260
+      },
+      {
+        "ticker": "XMAX",
+        "price": 5.37,
+        "changePct": 28.01,
+        "sector": "Consumer Cyclical",
+        "industry": "Furnishings, Fixtures & Appliances",
+        "mktCap": 348057594
+      },
+      {
+        "ticker": "ADV",
+        "price": 37.06,
+        "changePct": 27.14,
+        "sector": "Communication Services",
+        "industry": "Advertising Agencies",
+        "mktCap": 495249180
+      },
+      {
+        "ticker": "RIOX",
+        "price": 12.32,
+        "changePct": 26.36,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 3629370
+      },
+      {
+        "ticker": "GDXU",
+        "price": 82.125,
+        "changePct": 26.35,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 652290564
+      },
+      {
+        "ticker": "YOU",
+        "price": 59.81,
+        "changePct": 25.23,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 6113942510
+      },
+      {
+        "ticker": "OPRT",
+        "price": 12.56,
+        "changePct": 25.1,
+        "sector": "Financial Services",
+        "industry": "Financial - Credit Services",
+        "mktCap": 577599898
+      },
+      {
+        "ticker": "DFH",
+        "price": 12.61,
+        "changePct": 24.85,
+        "sector": "Consumer Cyclical",
+        "industry": "Residential Construction",
+        "mktCap": 694164353
+      },
+      {
+        "ticker": "HELE",
+        "price": 36.7,
+        "changePct": 24.24,
+        "sector": "Consumer Defensive",
+        "industry": "Household & Personal Products",
+        "mktCap": 858084161
+      },
+      {
+        "ticker": "APPX",
+        "price": 9.15,
+        "changePct": 23.98,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 8938635
+      },
+      {
+        "ticker": "LIVN",
+        "price": 99.0091,
+        "changePct": 23.92,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 5436579988
+      },
+      {
+        "ticker": "NAIL",
+        "price": 40.92,
+        "changePct": 22.22,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 444312000
+      },
+      {
+        "ticker": "UFPT",
+        "price": 338.9796,
+        "changePct": 20.93,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 2630121723
+      },
+      {
+        "ticker": "FLYU",
+        "price": 45.67,
+        "changePct": 20.36,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "TRNS",
+        "price": 107.4328,
+        "changePct": 20.01,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      }
+    ],
+    "down": [
+      {
+        "ticker": "NRIX",
+        "price": 15.8693,
+        "changePct": -38.54,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1742490833
+      },
+      {
+        "ticker": "VSTL",
+        "price": 13.6,
+        "changePct": -29.09,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 7215190
+      },
+      {
+        "ticker": "DOX",
+        "price": 45.1,
+        "changePct": -27.76,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 4862940683
+      },
+      {
+        "ticker": "ECG",
+        "price": 81.76,
+        "changePct": -27.47,
+        "sector": "Industrials",
+        "industry": "Engineering & Construction",
+        "mktCap": 4173927331
+      },
+      {
+        "ticker": "VRTL",
+        "price": 14.95,
+        "changePct": -26.61,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "GDXD",
+        "price": 22.41,
+        "changePct": -26.57,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 92044264
+      },
+      {
+        "ticker": "SNDX",
+        "price": 10.5,
+        "changePct": -26.52,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "ACCV",
+        "price": 10.495,
+        "changePct": -25.62,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "MOD",
+        "price": 93.77,
+        "changePct": -25.25,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "FIS",
+        "price": 29.38,
+        "changePct": -24.65,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "BUUU",
+        "price": 5.6884,
+        "changePct": -22.92,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "LIME",
+        "price": 19.785,
+        "changePct": -22.35,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "CGEM",
+        "price": 12.25,
+        "changePct": -22.22,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 1124374110
+      },
+      {
+        "ticker": "HUT",
+        "price": 49.72,
+        "changePct": -22.01,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "STRL",
+        "price": 284.6558,
+        "changePct": -21.18,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "GEVG",
+        "price": 15.2901,
+        "changePct": -20.86,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 6430347
+      },
+      {
+        "ticker": "MTRN",
+        "price": 180.11,
+        "changePct": -20.81,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "LYNX",
+        "price": 9.36,
+        "changePct": -20.07,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      }
+    ]
   }
 ]
