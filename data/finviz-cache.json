@@ -154,11 +154,11 @@
     "fetchedAt": "2026-09-24T13:04:50.313Z"
   },
   "META": {
-    "shortInterestPct": "1.53%",
-    "daysToCover": 1.77,
-    "finvizFloat": 2200000000,
+    "shortInterestPct": "1.29%",
+    "daysToCover": 1.37,
+    "finvizFloat": 2210000000,
     "success": true,
-    "fetchedAt": "2026-10-12T21:13:17.506Z"
+    "fetchedAt": "2026-11-05T18:40:28.720Z"
   },
   "P": {
     "shortInterestPct": "2.41%",
@@ -273,11 +273,11 @@
     "fetchedAt": "2026-10-03T17:36:32.899Z"
   },
   "TSLA": {
-    "shortInterestPct": "2.51%",
+    "shortInterestPct": "2.46%",
     "daysToCover": 1.88,
     "finvizFloat": 2820000000,
     "success": true,
-    "fetchedAt": "2026-10-19T17:25:56.825Z"
+    "fetchedAt": "2026-11-05T18:40:25.794Z"
   },
   "MXL": {
     "shortInterestPct": "5.68%",
@@ -476,7 +476,7 @@
   },
   "KORU": {
     "success": false,
-    "fetchedAt": "2026-10-19T17:25:57.607Z"
+    "fetchedAt": "2026-11-05T18:40:26.735Z"
   },
   "IRON": {
     "shortInterestPct": "25.83%",
@@ -886,5 +886,39 @@
     "finvizFloat": 50850000,
     "success": true,
     "fetchedAt": "2026-11-04T18:34:45.306Z"
+  },
+  "SOXL": {
+    "success": false,
+    "fetchedAt": "2026-11-05T18:40:25.097Z"
+  },
+  "SOXS": {
+    "success": false,
+    "fetchedAt": "2026-11-05T18:40:27.660Z"
+  },
+  "VCYT": {
+    "shortInterestPct": "12.44%",
+    "daysToCover": 7.59,
+    "finvizFloat": 78920000,
+    "success": true,
+    "fetchedAt": "2026-11-05T18:40:29.420Z"
+  },
+  "DAMD": {
+    "success": false,
+    "fetchedAt": "2026-11-05T18:40:30.141Z"
+  },
+  "NBIL": {
+    "success": false,
+    "fetchedAt": "2026-11-05T18:40:30.830Z"
+  },
+  "AEHL": {
+    "shortInterestPct": "1.39%",
+    "daysToCover": 0.12,
+    "finvizFloat": 16460000,
+    "success": true,
+    "fetchedAt": "2026-11-05T18:40:31.550Z"
+  },
+  "APPX": {
+    "success": false,
+    "fetchedAt": "2026-11-05T18:40:32.392Z"
   }
 }

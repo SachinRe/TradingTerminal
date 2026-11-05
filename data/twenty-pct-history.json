@@ -4212,5 +4212,396 @@
         "mktCap": null
       }
     ]
+  },
+  {
+    "date": "2026-11-05",
+    "up": [
+      {
+        "ticker": "AEHL",
+        "price": 16.6,
+        "changePct": 164.75,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 9621335
+      },
+      {
+        "ticker": "APPX",
+        "price": 14.1501,
+        "changePct": 58.28,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 8938635
+      },
+      {
+        "ticker": "SOXS",
+        "price": 77.545,
+        "changePct": 32.92,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 106846669
+      },
+      {
+        "ticker": "DAMD",
+        "price": 16.1,
+        "changePct": 31.11,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 12272060
+      },
+      {
+        "ticker": "MUZ",
+        "price": 14.01,
+        "changePct": 30.2,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 2520900
+      },
+      {
+        "ticker": "ADMA",
+        "price": 13.61,
+        "changePct": 29.87,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 3052915550
+      },
+      {
+        "ticker": "APP",
+        "price": 350.745,
+        "changePct": 29.07,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 117945007832
+      },
+      {
+        "ticker": "QBTZ",
+        "price": 46.285,
+        "changePct": 27.68,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 12559606
+      },
+      {
+        "ticker": "RGTZ",
+        "price": 31.963,
+        "changePct": 27.04,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 21695535
+      },
+      {
+        "ticker": "WRBY",
+        "price": 26.875,
+        "changePct": 26.23,
+        "sector": "Consumer Cyclical",
+        "industry": "Specialty Retail",
+        "mktCap": 3320112223
+      },
+      {
+        "ticker": "XERS",
+        "price": 13.145,
+        "changePct": 25.67,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 2397508000
+      },
+      {
+        "ticker": "AIQD",
+        "price": 75.365,
+        "changePct": 24.94,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 24572500
+      },
+      {
+        "ticker": "SKDD",
+        "price": 12.03,
+        "changePct": 24.15,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 13635300
+      },
+      {
+        "ticker": "BMNZ",
+        "price": 6.765,
+        "changePct": 24.13,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 20457442
+      },
+      {
+        "ticker": "HIBS",
+        "price": 27.205,
+        "changePct": 23.83,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 20059521
+      },
+      {
+        "ticker": "ECPG",
+        "price": 123.52,
+        "changePct": 23.61,
+        "sector": "Financial Services",
+        "industry": "Financial - Credit Services",
+        "mktCap": 2611089234
+      },
+      {
+        "ticker": "TSLQ",
+        "price": 19.592,
+        "changePct": 23.53,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1215504000
+      },
+      {
+        "ticker": "TSDD",
+        "price": 8.175,
+        "changePct": 23.49,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 31203795
+      },
+      {
+        "ticker": "RKLZ",
+        "price": 28.97,
+        "changePct": 23.43,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 81175
+      },
+      {
+        "ticker": "BERZ",
+        "price": 29.45,
+        "changePct": 23.27,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 2908878
+      },
+      {
+        "ticker": "IONZ",
+        "price": 44.94,
+        "changePct": 21.95,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 17538250
+      },
+      {
+        "ticker": "TBI",
+        "price": 12,
+        "changePct": 21.95,
+        "sector": "Industrials",
+        "industry": "Staffing & Employment Services",
+        "mktCap": 365331600
+      },
+      {
+        "ticker": "TECS",
+        "price": 83.255,
+        "changePct": 21.91,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 82797390
+      },
+      {
+        "ticker": "TSXD",
+        "price": 7.775,
+        "changePct": 20.73,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 2138133
+      },
+      {
+        "ticker": "EPAM",
+        "price": 165.82,
+        "changePct": 20.72,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 8540227850
+      },
+      {
+        "ticker": "DTIL",
+        "price": 9.795,
+        "changePct": 20.63,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 270081656
+      },
+      {
+        "ticker": "CONI",
+        "price": 38.735,
+        "changePct": 20.56,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 5870105
+      },
+      {
+        "ticker": "SSG",
+        "price": 17.435,
+        "changePct": 20.42,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 10720155
+      },
+      {
+        "ticker": "PTLO",
+        "price": 6.555,
+        "changePct": 20.28,
+        "sector": "Consumer Cyclical",
+        "industry": "Restaurants",
+        "mktCap": 474634748
+      }
+    ],
+    "down": [
+      {
+        "ticker": "CDLR",
+        "price": 7.46,
+        "changePct": -71.13,
+        "sector": "Industrials",
+        "industry": "Engineering & Construction",
+        "mktCap": 690976734
+      },
+      {
+        "ticker": "VCYT",
+        "price": 22.77,
+        "changePct": -56.65,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 1832104053
+      },
+      {
+        "ticker": "BEG",
+        "price": 15.52,
+        "changePct": -33.51,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 15567161
+      },
+      {
+        "ticker": "NBIL",
+        "price": 5.57,
+        "changePct": -33.21,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 248870540
+      },
+      {
+        "ticker": "SOXL",
+        "price": 44.99,
+        "changePct": -32.53,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 41576975437
+      },
+      {
+        "ticker": "KORU",
+        "price": 7.12,
+        "changePct": -31.74,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1174138576
+      },
+      {
+        "ticker": "FIGG",
+        "price": 11.23,
+        "changePct": -31.73,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 12215996
+      },
+      {
+        "ticker": "PUL",
+        "price": 28.2539,
+        "changePct": -31.34,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1338153
+      },
+      {
+        "ticker": "AMDL",
+        "price": 32.6454,
+        "changePct": -30.94,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 656557408
+      },
+      {
+        "ticker": "AMUU",
+        "price": 116.16,
+        "changePct": -30.85,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 58080000
+      },
+      {
+        "ticker": "AMDG",
+        "price": 55.24,
+        "changePct": -30.68,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 39132382
+      },
+      {
+        "ticker": "MUU",
+        "price": 13.375,
+        "changePct": -30.45,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1960056414
+      },
+      {
+        "ticker": "MULL",
+        "price": 9.2998,
+        "changePct": -30.34,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "OESX",
+        "price": 13.445,
+        "changePct": -29.24,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "VRTL",
+        "price": 10.68,
+        "changePct": -29.13,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "MVLL",
+        "price": 8.33,
+        "changePct": -28.31,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 304525186
+      },
+      {
+        "ticker": "MRAL",
+        "price": 8.98,
+        "changePct": -28.16,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 4579210
+      },
+      {
+        "ticker": "PUR",
+        "price": 12.4,
+        "changePct": -27.9,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1126200
+      },
+      {
+        "ticker": "TSLL",
+        "price": 7.935,
+        "changePct": -23.48,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 4586202154
+      }
+    ]
   }
 ]

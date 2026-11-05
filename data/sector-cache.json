@@ -844,17 +844,20 @@
   "AMUU": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 135426158
+    "mktCap": 58080000,
+    "float": null
   },
   "AMDG": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 96747195
+    "mktCap": 39132382,
+    "float": null
   },
   "AMDL": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 1612206528
+    "mktCap": 656557408,
+    "float": null
   },
   "CUE": {
     "sector": "Healthcare",
@@ -3551,6 +3554,108 @@
     "sector": "Healthcare",
     "industry": "Medical - Devices",
     "mktCap": 2630121723,
+    "float": null
+  },
+  "VCYT": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 1832104053,
+    "float": null
+  },
+  "CDLR": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 690976734,
+    "float": null
+  },
+  "MUZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 2520900,
+    "float": null
+  },
+  "ADMA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 3052915550,
+    "float": null
+  },
+  "APP": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 117945007832,
+    "float": null
+  },
+  "WRBY": {
+    "sector": "Consumer Cyclical",
+    "industry": "Specialty Retail",
+    "mktCap": 3320112223,
+    "float": null
+  },
+  "XERS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 2397508000,
+    "float": null
+  },
+  "ECPG": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 2611089234,
+    "float": null
+  },
+  "TSLQ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1215504000,
+    "float": null
+  },
+  "TSDD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 31203795,
+    "float": null
+  },
+  "TBI": {
+    "sector": "Industrials",
+    "industry": "Staffing & Employment Services",
+    "mktCap": 365331600,
+    "float": null
+  },
+  "TSXD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 2138133,
+    "float": null
+  },
+  "EPAM": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 8540227850,
+    "float": null
+  },
+  "DTIL": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 270081656,
+    "float": null
+  },
+  "SSG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 10720155,
+    "float": null
+  },
+  "PTLO": {
+    "sector": "Consumer Cyclical",
+    "industry": "Restaurants",
+    "mktCap": 474634748,
+    "float": null
+  },
+  "MGNI": {
+    "sector": "Communication Services",
+    "industry": "Advertising Agencies",
+    "mktCap": 3912606720,
     "float": null
   }
 }
