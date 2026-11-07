@@ -2696,19 +2696,20 @@
               </div>
               <div class="form-group">
                 <label>Planned Entry $</label>
-                <input type="number" id="exec-entry" step="0.01" placeholder="0.00" />
+                <input type="number" id="exec-entry" step="0.01" placeholder="0.00" oninput="updateExecRR()" />
               </div>
               <div class="form-group">
                 <label>Stop $</label>
-                <input type="number" id="exec-stop" step="0.01" placeholder="0.00" />
+                <input type="number" id="exec-stop" step="0.01" placeholder="0.00" oninput="updateExecRR()" />
               </div>
               <div class="form-group">
                 <label>Target $</label>
-                <input type="number" id="exec-target" step="0.01" placeholder="0.00" />
+                <input type="number" id="exec-target" step="0.01" placeholder="0.00" oninput="updateExecRR()" />
               </div>
               <button class="btn btn-accent" onclick="saveExecPlan()">Save Plan</button>
             </div>
-            <div class="note" id="exec-placeholder-note">Placeholders adapt to SIP / EP / EP9M after you select a ticker.</div>
+            <div class="note" id="exec-rr" style="font-size:26px;">Enter entry, stop (below entry) and target to see Reward/Risk.</div>
+          <div class="note" id="exec-placeholder-note">Placeholders adapt to SIP / EP / EP9M after you select a ticker.</div>
           </div>
         </div>
       </div>
@@ -2788,25 +2789,41 @@
                 </div>
                 <div class="form-group">
                   <label>Entry Price</label>
-                  <input type="number" id="risk-entry" step="0.01" placeholder="0.00" />
+                  <input type="number" id="risk-entry" step="0.01" placeholder="0.00" oninput="updateRiskRR()" />
                 </div>
                 <div class="form-group">
                   <label>Stop Price</label>
-                  <input type="number" id="risk-stop" step="0.01" placeholder="0.00" />
+                  <input type="number" id="risk-stop" step="0.01" placeholder="0.00" oninput="updateRiskRR()" />
                 </div>
+<div class="form-group"><label>Target Price</label><input type="number" id="risk-target" step="0.01" placeholder="0.00" oninput="updateRiskRR()" /></div>
                 <button class="btn btn-accent" onclick="calcSize()">Calculate</button>
               </div>
               <div class="result-box" id="size-result">
                 <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">SHARES TO BUY</div>
                 <div class="big" id="shares-out">—</div>
-                <div style="margin-top:8px;font-size:24px;" id="size-details">Select a watchlist ticker or enter values</div>
+                <div style="margin-top:8px;font-size:24px;" id="rr-out"></div>
+          <div style="margin-top:8px;font-size:24px;" id="size-details">Select a watchlist ticker or enter values</div>
               </div>
               <div class="note">
                 Formula: Shares = (Account × Risk%) ÷ (Entry − Stop).<br>
                 Ideal risk 1% · Hard max 2.5%. Wider stop = fewer shares. Risk $ stays constant.
               </div>
             </div>
-            <div class="panel" style="border-radius:0 0 6px 6px;">
+            <div class="panel" id="rg-panel" style="grid-column:1/-1;">
+          <div class="panel-header">Targets &amp; R-Multiples <span class="tag">uses Entry / Stop above · T1 is the Target Price field</span></div>
+          <div class="panel-body">
+            <div class="form-row" style="flex-wrap:wrap;">
+              <div class="form-group"><label>Target 2 $</label><input type="number" id="rg-t2" step="0.01" placeholder="0.00" style="width:140px" oninput="renderTargetLadder(true)" /></div>
+              <div class="form-group"><label>Target 3 $</label><input type="number" id="rg-t3" step="0.01" placeholder="0.00" style="width:140px" oninput="renderTargetLadder(true)" /></div>
+              <div class="form-group"><label>Sell % at T1</label><input type="number" id="rg-p1" step="5" value="33" style="width:110px" oninput="renderTargetLadder(true)" /></div>
+              <div class="form-group"><label>Sell % at T2</label><input type="number" id="rg-p2" step="5" value="33" style="width:110px" oninput="renderTargetLadder(true)" /></div>
+              <div class="form-group"><label>Sell % at T3</label><input type="number" id="rg-p3" step="5" value="34" style="width:110px" oninput="renderTargetLadder(true)" /></div>
+            </div>
+            <div id="rg-out" style="margin-top:12px;"></div>
+            <div class="note" style="margin-top:8px;">R multiple = (target − entry) ÷ (entry − stop). Scale-out % is the share of the position sold at each target; the blended result assumes you sell exactly that and the stop is not hit first.</div>
+          </div>
+        </div>
+        <div class="panel" style="border-radius:0 0 6px 6px;">
               <div class="panel-header">Risk rules for this setup <span class="tag" id="risk-setup-tag">Select ticker</span></div>
               <div class="checklist" id="risk-rules-body">
                 <div class="check-item"><span class="check-icon">•</span> Select a watchlist ticker to load SIP / EP / EP9M risk placeholders</div>
@@ -4752,6 +4769,65 @@
       saveWatchlist(list);
       renderWatchlist();
     }
+    // ---- Reward/Risk helper: R/R = (target − entry) ÷ (entry − stop), long trades ----
+    function rrCalc(entry, stop, target) {
+      entry = Number(entry); stop = Number(stop); target = Number(target);
+      if (!(entry > 0 && stop > 0 && target > 0) || stop >= entry) return null;
+      const risk = entry - stop, reward = target - entry;
+      return { risk, reward, rr: reward / risk, breakevenWin: 100 / (1 + reward / risk) };
+    }
+    function rrHtml(entry, stop, target) {
+      const r = rrCalc(entry, stop, target);
+      if (!r) return '<span class="muted">—</span>';
+      const cls = r.rr >= 3 ? "pos" : (r.rr >= 2 ? "" : "neg");
+      return `<strong class="${cls}" title="Reward ${r.reward.toFixed(2)} ÷ risk ${r.risk.toFixed(2)} per share. Break-even win rate ${r.breakevenWin.toFixed(0)}%">${r.rr.toFixed(2)} : 1</strong>`;
+    }
+    function renderTargetLadder(save) {
+      const out = document.getElementById("rg-out"); if (!out) return;
+      const g = id => parseFloat(document.getElementById(id).value) || 0;
+      const entry = g("risk-entry"), stop = g("risk-stop");
+      if (!(entry > 0 && stop > 0 && stop < entry)) { out.innerHTML = '<span class="muted">Enter entry and a stop below entry.</span>'; return; }
+      const risk = entry - stop;
+      const sh = parseFloat(document.getElementById("shares-out").textContent.replace(/,/g, "")) || 0;
+      const rows = [1, 2, 3].map(i => ({ n: "T" + i, px: g(i === 1 ? "risk-target" : "rg-t" + i), pct: g("rg-p" + i) })).filter(r => r.px > 0);
+      const f = (v, d = 2) => v.toFixed(d);
+      let html = '<table><thead><tr><th>Level</th><th>Price</th><th>R multiple</th><th>Gain %</th><th>Sell %</th><th>Shares</th><th>Profit $</th></tr></thead><tbody>';
+      html += `<tr><td>Stop</td><td>$${f(stop)}</td><td class="neg">−1.00R</td><td class="neg">${f((stop / entry - 1) * 100, 1)}%</td><td></td><td></td><td class="neg">${sh ? "−$" + Math.round(sh * risk).toLocaleString() : ""}</td></tr>`;
+      let totPct = 0, blend = 0, totUsd = 0;
+      rows.forEach(r => {
+        const R = (r.px - entry) / risk, q = Math.floor(sh * r.pct / 100), usd = q * (r.px - entry);
+        totPct += r.pct; blend += R * r.pct / 100; totUsd += usd;
+        html += `<tr><td>${r.n}</td><td>$${f(r.px)}</td><td class="${R >= 0 ? "pos" : "neg"}"><strong>${R >= 0 ? "+" : ""}${f(R)}R</strong></td><td>${f((r.px / entry - 1) * 100, 1)}%</td><td>${r.pct}%</td><td>${sh ? q.toLocaleString() : ""}</td><td>${sh ? "$" + Math.round(usd).toLocaleString() : ""}</td></tr>`;
+      });
+      html += '</tbody></table>';
+      if (rows.length) {
+        const ok = Math.abs(totPct - 100) < 0.5;
+        html += `<div style="margin-top:10px;font-size:24px;">Blended result if scaled out as planned: <strong class="${blend >= 0 ? "pos" : "neg"}">${f(blend)}R</strong>${sh ? ` · $${Math.round(totUsd).toLocaleString()}` : ""}${ok ? "" : ` <span class="neg">(sell % adds to ${totPct}%, not 100%)</span>`}</div>`;
+      }
+      html += `<div class="muted" style="margin-top:8px;font-size:22px;">Reference: 1R $${f(entry + risk)} · 2R $${f(entry + 2 * risk)} · 3R $${f(entry + 3 * risk)} · 4R $${f(entry + 4 * risk)}</div>`;
+      out.innerHTML = html;
+      if (save === true) {
+        const t = document.getElementById("risk-ticker-select").value; if (!t) return;
+        const list = getWatchlist(), item = list.find(x => x.ticker === t); if (!item) return;
+        item.plan = { ...(item.plan || {}), t2: g("rg-t2") || null, t3: g("rg-t3") || null, scale: [g("rg-p1"), g("rg-p2"), g("rg-p3")] };
+        saveWatchlist(list);
+      }
+    }
+    function updateRiskRR() {
+      renderTargetLadder();
+      const el = document.getElementById("rr-out"); if (!el) return;
+      const v = id => document.getElementById(id).value;
+      const r = rrCalc(v("risk-entry"), v("risk-stop"), v("risk-target"));
+      const sh = parseFloat(document.getElementById("shares-out").textContent.replace(/,/g, ""));
+      el.innerHTML = r ? `Reward/Risk <strong class="${r.rr >= 2 ? "pos" : "neg"}">${r.rr.toFixed(2)} : 1</strong> · break-even win rate ${r.breakevenWin.toFixed(0)}%` + (sh > 0 ? ` · risk $${Math.round(sh * r.risk).toLocaleString()} → reward $${Math.round(sh * r.reward).toLocaleString()}` : "") : "";
+    }
+    function updateExecRR() {
+      const el = document.getElementById("exec-rr"); if (!el) return;
+      const v = id => document.getElementById(id).value;
+      const r = rrCalc(v("exec-entry"), v("exec-stop"), v("exec-target"));
+      el.innerHTML = r ? `Reward/Risk <strong>${r.rr.toFixed(2)} : 1</strong> · risk $${r.risk.toFixed(2)}/sh · reward $${r.reward.toFixed(2)}/sh · break-even win rate ${r.breakevenWin.toFixed(0)}%${r.rr < 2 ? ' · <span class="neg">below 2:1</span>' : ""}`
+        : "Enter entry, stop (below entry) and target to see Reward/Risk.";
+    }
     function updateWatchlistPlanField(ticker, field, value) {
       const list = getWatchlist();
       const item = list.find(x => x.ticker === ticker);
@@ -4761,6 +4837,8 @@
       item.plan = item.plan || {};
       item.plan[field] = num;
       saveWatchlist(list);
+      const rrCell = document.getElementById('rr-' + ticker);
+      if (rrCell) rrCell.innerHTML = rrHtml(item.plan.entry, item.plan.stop, item.plan.target);
       // No re-render — same reasoning as updateWatchlistComment. The field
       // the user just edited already shows what they typed; resetting the
       // whole table on every single field edit would be disruptive when
@@ -5311,7 +5389,7 @@
       const sortedList = [...list].sort((a, b) => (priorityRank[a.priority] ?? 2) - (priorityRank[b.priority] ?? 2));
 
       let html = `<table><thead><tr>
-        <th></th><th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Entry $</th><th>Stop $</th><th>Risk %</th><th>Shares</th><th>Notional $</th><th>Target $</th><th style="min-width:400px;">Rationale</th><th>Actions</th>
+        <th></th><th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Entry $</th><th>Stop $</th><th>Risk %</th><th>Shares</th><th>Notional $</th><th>Target $</th><th>R/R</th><th style="min-width:400px;">Rationale</th><th>Actions</th>
       </tr></thead><tbody>`;
       sortedList.forEach(w => {
         const st = w.setupType || "SIP";
@@ -5352,6 +5430,7 @@
           </td>
           <td class="muted">${notional != null ? "$" + notional.toLocaleString(undefined, { maximumFractionDigits: 0 }) : "—"}</td>
           <td><div style="display:flex;align-items:center;gap:2px;"><span class="muted">$</span><input type="number" step="0.01" value="${p.target != null ? p.target : ""}" placeholder="—" style="width:90px;" onchange="updateWatchlistPlanField('${w.ticker}', 'target', this.value)" /></div></td>
+          <td id="rr-${w.ticker}" style="white-space:nowrap;">${rrHtml(p.entry, p.stop, p.target)}</td>
           <td>
             <textarea onchange="updateWatchlistComment('${w.ticker}', this.value)" rows="2"
                 style="width:100%;min-width:380px;background:#0f172a;border:1px solid var(--border);color:var(--text);border-radius:4px;padding:5px 7px;font-family:inherit;resize:vertical;"
@@ -5510,10 +5589,12 @@
         if (item.plan.entry) document.getElementById("exec-entry").value = item.plan.entry;
         if (item.plan.stop) document.getElementById("exec-stop").value = item.plan.stop;
         if (item.plan.target) document.getElementById("exec-target").value = item.plan.target;
+        updateExecRR();
       } else if (c && c.targets) {
         document.getElementById("exec-entry").value = item.price;
         document.getElementById("exec-target").value = c.targets.base;
         document.getElementById("exec-stop").value = (item.price * 0.98).toFixed(2);
+        updateExecRR();
       }
     }
 
@@ -5538,6 +5619,9 @@
       if (item.plan) {
         if (item.plan.entry) document.getElementById("risk-entry").value = item.plan.entry;
         if (item.plan.stop) document.getElementById("risk-stop").value = item.plan.stop;
+        const rt = document.getElementById("risk-target"); if (rt) rt.value = item.plan.target || "";
+        const pl = item.plan, sc = pl.scale || [33, 33, 34];
+        [["rg-t2", pl.t2 || ""], ["rg-t3", pl.t3 || ""], ["rg-p1", sc[0]], ["rg-p2", sc[1]], ["rg-p3", sc[2]]].forEach(([id, v]) => { const e = document.getElementById(id); if (e) e.value = v; });
         calcSize();
       } else if (item.price) {
         document.getElementById("risk-entry").value = item.price;
@@ -6312,12 +6396,14 @@
       // re-open this calculator — that's the actual point of a trade plan,
       // something to execute against later, not a number that evaporates
       // the moment you leave this tab.
+      updateRiskRR();
+      const rTarget = parseFloat((document.getElementById("risk-target") || {}).value) || null;
       const ticker = document.getElementById("risk-ticker-select") ? document.getElementById("risk-ticker-select").value : "";
       if (ticker) {
         const list = getWatchlist();
         const item = list.find(x => x.ticker === ticker);
         if (item) {
-          item.plan = { ...(item.plan || {}), entry, stop, riskPct: pct, shares, accountValue: account };
+          item.plan = { ...(item.plan || {}), entry, stop, riskPct: pct, shares, accountValue: account, ...(rTarget ? { target: rTarget } : {}) };
           saveWatchlist(list);
           renderWatchlist();
         }
