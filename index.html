@@ -236,24 +236,6 @@
     }
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group label { font-size: 20px; color: var(--muted); text-transform: uppercase; }
-    @media (max-width: 1100px) { .wl-list-grid { grid-template-columns: 1fr !important; } }
-    .tp-note { position: relative; display: inline-block; margin-right: 10px; color: var(--accent); cursor: pointer; text-decoration: underline dotted; white-space: nowrap; }
-    .tp-note .tp-pop { display: none; position: absolute; right: 0; top: 100%; z-index: 50; margin-top: 4px;
-      width: max-content; max-width: 560px; max-height: 420px; overflow-y: auto;
-      background: #0b1222; border: 1px solid var(--accent); border-radius: 6px; padding: 10px 12px;
-      color: var(--text); font-size: 22px; line-height: 1.4; white-space: pre-wrap; text-decoration: none; text-align: left;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
-    .tp-note:hover .tp-pop, .tp-note:focus .tp-pop, .tp-note.open .tp-pop { display: block; }
-    #wl-risk table input {
-      background: #0f172a;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px 8px;
-      border-radius: 4px;
-      font-family: inherit;
-      font-size: 24px;
-    }
-    #wl-risk table td { vertical-align: middle; }
     .form-group input, .form-group select {
       background: #0f172a;
       border: 1px solid var(--border);
@@ -829,8 +811,6 @@
             <div class="form-group" style="flex:1;min-width:220px;"><label>Stop rule</label><input type="text" id="su-stop" style="width:100%" /></div>
             <div class="form-group" style="flex:1;min-width:220px;"><label>Exit rule</label><input type="text" id="su-exit" style="width:100%" /></div>
           </div>
-          <div class="form-group" style="margin-top:6px;"><label>Qualification criteria (one per line) · what must be true before this setup is tradeable</label><textarea id="su-qualbullets" rows="4" style="width:100%"></textarea></div>
-          <div class="form-group" style="margin-top:6px;"><label>Invalidation criteria (one per line) · what disqualifies it</label><textarea id="su-invalbullets" rows="3" style="width:100%"></textarea></div>
           <div class="form-group" style="margin-top:6px;"><label>Execution bullets (one per line)</label><textarea id="su-execbullets" rows="4" style="width:100%"></textarea></div>
           <div class="form-group" style="margin-top:6px;"><label>Risk bullets (one per line)</label><textarea id="su-riskbullets" rows="3" style="width:100%"></textarea></div>
           <div style="margin-top:10px;">
@@ -1777,12 +1757,6 @@
 
     <!-- TRADE FACTORY -->
     <div id="trade-factory" class="section">
-      <div class="steps" style="border:1px solid var(--border);border-radius:6px 6px 0 0;margin-bottom:0;background:#0f172a;">
-        <div class="step-tab active" data-tf-tab="tf-overview" onclick="switchTFTab(this)">Overview</div>
-        <div class="step-tab" data-tf-tab="tf-catalyst" onclick="switchTFTab(this)">Catalyst Based</div>
-        <div class="step-tab" data-tf-tab="tf-pattern" onclick="switchTFTab(this)">Pattern Based</div>
-      </div>
-      <div id="tf-overview" class="tf-tab">
       <div class="panel" style="background:#0a1f1a;border-color:#1f4a3d;">
         <div class="panel-body" style="padding:28px 24px;">
           <div style="font-size:52px;font-weight:800;letter-spacing:0.5px;color:#fff;">THE TRADE FACTORY</div>
@@ -1986,7 +1960,7 @@
             <text x="450" y="215" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">Home Run setups (gold) and Single setups (blue) run the same process, then split —</text>
             <text x="450" y="232" text-anchor="middle" fill="#e5e7eb" font-size="12" font-weight="700">each only ever reaches its own output.</text>
           </svg>
-          <div class="note" style="max-width:1200px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. What each setup is — its qualification criteria and execution rules — is in the <strong>Catalyst Based</strong> and <strong>Pattern Based</strong> tabs.</div>
+          <div class="note" style="max-width:1200px;margin:12px auto 0;background:transparent;border:none;padding:0;">Click any station to jump straight to it. The detailed product line — every setup, its scan, watchlist count, and live performance — is below.</div>
         </div>
       </div>
       <div class="panel">
@@ -2005,9 +1979,7 @@
           <div id="trade-factory-diagram" style="overflow-x:auto;"></div>
         </div>
       </div>
-      </div>
-      <div id="tf-catalyst" class="tf-tab" style="display:none;"></div>
-      <div id="tf-pattern" class="tf-tab" style="display:none;"></div>
+      <div id="trade-factory-cards"></div>
     </div>
 
     <!-- PROCESS FLOW -->
@@ -2619,16 +2591,12 @@
             <div class="form-row" style="flex-wrap:wrap;">
               <div class="form-group"><label>Ticker</label><input type="text" id="tp-ticker" style="width:140px" /></div>
               <div class="form-group"><label>Strategy</label><select id="tp-strategy" style="width:220px"></select></div>
-              <div class="form-group"><label>Entry Price (optional)</label><input type="number" id="tp-entry" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
-              <div class="form-group"><label>Stop Loss (optional)</label><input type="number" id="tp-stop" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Entry Price</label><input type="number" id="tp-entry" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
+              <div class="form-group"><label>Stop Loss</label><input type="number" id="tp-stop" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
               <div class="form-group"><label>Equity Risk %</label><input type="number" id="tp-riskpct" step="0.1" value="1" style="width:130px" oninput="updateTradePlanSharesPreview()" /></div>
             </div>
-            <div class="grid-2" style="margin-top:6px;">
-              <div class="form-group"><label>Qualification criteria · what must happen before you take it</label><textarea id="tp-qualify" rows="4" style="width:100%" placeholder="e.g. Holds above 21 EMA on the 4H; reclaims yesterday's high on volume; RSI 1H &gt; 55"></textarea></div>
-              <div class="form-group"><label>Invalidation criteria · what kills the idea</label><textarea id="tp-invalidate" rows="4" style="width:100%" placeholder="e.g. Closes below 48.20; gaps down through the base; market light turns red"></textarea></div>
-            </div>
-            <div class="form-group" style="margin-top:6px;"><label>Notes</label><textarea id="tp-comments" rows="4" style="width:100%"></textarea></div>
-            <div id="tp-shares-preview" class="note" style="margin-top:6px;">Entry and stop are optional — add them once the qualification criteria are met to see the share count.</div>
+            <div class="form-group" style="margin-top:6px;"><label>Comments</label><textarea id="tp-comments" rows="2" style="width:100%"></textarea></div>
+            <div id="tp-shares-preview" class="note" style="margin-top:6px;">Enter entry, stop, and risk % to see the calculated share count.</div>
             <div style="margin-top:10px;">
               <button class="btn btn-accent" onclick="saveTradePlan()">Save to Plan</button>
               <button class="btn btn-sm" onclick="resetTradePlanForm()">Clear form</button>
@@ -2650,21 +2618,8 @@
           <div class="panel-body" id="plan-vs-actual-body"></div>
         </div>
         <div class="panel">
-          <div class="panel-header">
-            Planned Trades · Grouped by Week
-            <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-              <select id="tp-export-scope" style="font-size:20px;background:#0f172a;color:var(--text);border:1px solid var(--border);border-radius:4px;padding:4px 6px;">
-                <option value="all">Everything · plans + Saved Plans</option>
-                <option value="week">This week's plan</option>
-                <option value="plans">All planned trades</option>
-                <option value="watchlist">Saved Plans watchlist</option>
-              </select>
-              <button class="btn btn-sm" onclick="exportTickersForTradingView('csv')" title="Comma-separated tickers, ready for TradingView's Import list">Export tickers (CSV)</button>
-              <button class="btn btn-sm" onclick="exportTickersForTradingView('copy')">Copy</button>
-            </span>
-          </div>
+          <div class="panel-header">Planned Trades · Grouped by Week</div>
           <div class="panel-body" id="tradeplan-weeks-body"></div>
-          <div class="note" id="tp-export-status">Export saves a comma-separated list of unique tickers. In TradingView: Watchlist menu → <strong>Import list…</strong> → pick the file.</div>
         </div>
       </div>
 
@@ -2681,23 +2636,17 @@
             <div class="note">Use this for chart/pattern-based ideas that don't come from the NTRT/MTRT catalyst screen — Qualify's Add button already handles catalyst setups (SIP/EP/EP9M).</div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px;align-items:start;" class="wl-list-grid">
-        <div class="panel" style="border-top:none;border-radius:0 0 6px 6px;margin:0;">
+        <div class="panel" style="border-top:none;border-radius:0 0 6px 6px;">
           <div class="panel-header">
             Saved Plans · Tickers ready to trade
             <button class="btn btn-sm" onclick="clearWatchlist()">Clear All</button>
           </div>
-          <div class="panel-body" id="watchlist-body" style="overflow-x:auto;">
+          <div class="panel-body" id="watchlist-body">
             <div class="wl-empty">No names yet.<br><br><strong>Pre-market:</strong> Qualify → Add → Execute (set plan).<br><strong>Open:</strong> Plans appear here → Size → trade → Close out.</div>
           </div>
           <div class="note">
             <strong>Workflow:</strong> Pre-market Qualify &amp; plan → Market open use this list → Size position → trade → <strong>Close out</strong> logs to Trade Journal.
           </div>
-        </div>
-        <div class="panel" style="border-top:none;margin:0;">
-          <div class="panel-header">Tickers by Setup</div>
-          <div class="panel-body" id="saved-plans-setup-summary"></div>
-        </div>
         </div>
       </div>
 
@@ -2766,164 +2715,103 @@
 
       <!-- Sub: Manage Risk -->
       <div id="wl-risk" class="wl-sub" style="display:none;">
-        <div id="risk-content">
-          <div class="grid-2" style="margin-top:0;">
-            <div class="panel" style="border-top:none;">
-              <div class="panel-header">
-                Trade Risk Plan
-                <span class="tag" id="risk-editing-tag" style="display:none;">Editing saved plan</span>
-              </div>
-              <div class="panel-body">
-                <div class="form-row" style="flex-wrap:wrap;">
-                  <div class="form-group"><label>Ticker</label>
-                    <input type="text" id="risk-ticker-select" list="risk-ticker-list" style="width:130px;text-transform:uppercase;" placeholder="AAPL" onchange="onRiskTickerChange()" />
-                    <datalist id="risk-ticker-list"></datalist>
-                  </div>
-                  <div class="form-group"><label>Current Price</label>
-                    <input type="number" id="risk-current" step="0.01" style="width:130px" placeholder="0.00" oninput="riskRecalc()" />
-                  </div>
-                  <button class="btn" style="align-self:flex-end;" onclick="riskFetchPrice(this)">Get price</button>
-                  <div class="form-group"><label>Trade Date</label>
-                    <input type="date" id="risk-tradedate" style="width:230px" />
-                  </div>
-                </div>
-                <div class="note" id="risk-price-status" style="margin-top:4px;"></div>
-                <div style="font-size:22px;color:var(--muted);margin-top:6px;" id="risk-ticker-meta"></div>
-
-                <div class="form-row" style="flex-wrap:wrap;margin-top:10px;">
-                  <div class="form-group"><label>Entry Price</label>
-                    <input type="number" id="risk-entry" step="0.01" style="width:130px" placeholder="0.00" oninput="riskRecalc()" />
-                  </div>
-                  <div class="form-group"><label>Stop Loss</label>
-                    <input type="number" id="risk-stop" step="0.01" style="width:130px" placeholder="0.00" oninput="riskRecalc()" />
-                  </div>
-                  <div class="form-group"><label>Risk / share</label>
-                    <input type="text" id="risk-per-share" style="width:120px" readonly tabindex="-1" placeholder="Entry − Stop" />
-                  </div>
-                </div>
-                <div class="form-row" style="flex-wrap:wrap;">
-                  <div class="form-group"><label>Account Value $</label>
-                    <input type="number" id="risk-account" step="1000" style="width:150px" oninput="riskRecalc()" />
-                  </div>
-                  <div class="form-group"><label>Equity Risk %</label>
-                    <input type="number" id="risk-pct" value="1" step="0.1" min="0.1" max="2.5" style="width:110px" oninput="riskRecalc()" />
-                  </div>
-                  <div class="form-group"><label>Max Risk $ (optional)</label>
-                    <input type="number" id="risk-maxdollar" step="10" style="width:150px" placeholder="no cap" oninput="riskRecalc()" />
-                  </div>
-                </div>
-
-                <div class="result-box" id="size-result">
-                  <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">NUMBER OF SHARES</div>
-                  <div class="big" id="shares-out">—</div>
-                  <div style="margin-top:8px;font-size:22px;" id="size-details">Enter entry, stop, account value and risk %.</div>
-                </div>
-                <div class="form-row" style="flex-wrap:wrap;margin-top:10px;">
-                  <div class="form-group"><label>Shares Bought</label>
-                    <input type="number" id="risk-bought" step="1" min="0" style="width:150px" placeholder="= calculated" oninput="riskRecalc()" />
-                  </div>
-                  <div class="note" id="risk-bought-note" style="align-self:flex-end;margin:0 0 6px 0;">Leave blank to log the calculated share count.</div>
-                </div>
-                <div class="note">
-                  Shares = Risk $ ÷ (Entry − Stop), where Risk $ is the <strong>lower</strong> of Account × Equity Risk % and Max Risk $.
-                  Ideal risk 1% · hard max 2.5%. Targets, remaining qty and planned R use <strong>Shares Bought</strong>.
-                </div>
-              </div>
-            </div>
-
-            <div class="panel" style="border-top:none;">
-              <div class="panel-header">
-                Targets &amp; Scale-Out
-                <button class="btn btn-sm" onclick="riskSplitThirds()">Split ⅓ · ⅓ · ⅓</button>
-              </div>
-              <div class="panel-body">
-                <table>
-                  <thead><tr><th></th><th>Target $</th><th>Qty Sold</th><th>R at target</th><th>P&amp;L $</th></tr></thead>
-                  <tbody>
-                    <tr><td><strong>Target 1</strong></td>
-                      <td><input type="number" id="risk-t1" step="0.01" style="width:110px" oninput="riskRecalc()" /></td>
-                      <td><input type="number" id="risk-q1" step="1" min="0" style="width:90px" oninput="riskRecalc()" /></td>
-                      <td id="risk-r1">—</td><td id="risk-p1">—</td></tr>
-                    <tr><td><strong>Target 2</strong></td>
-                      <td><input type="number" id="risk-t2" step="0.01" style="width:110px" oninput="riskRecalc()" /></td>
-                      <td><input type="number" id="risk-q2" step="1" min="0" style="width:90px" oninput="riskRecalc()" /></td>
-                      <td id="risk-r2">—</td><td id="risk-p2">—</td></tr>
-                    <tr><td><strong>Target 3</strong></td>
-                      <td><input type="number" id="risk-t3" step="0.01" style="width:110px" oninput="riskRecalc()" /></td>
-                      <td><input type="number" id="risk-q3" step="1" min="0" style="width:90px" oninput="riskRecalc()" /></td>
-                      <td id="risk-r3">—</td><td id="risk-p3">—</td></tr>
-                    <tr><td><strong>Remaining Qty</strong></td><td></td>
-                      <td id="risk-remaining" style="font-weight:700;">—</td><td colspan="2" class="muted" style="font-size:20px;">runner — not in the planned R</td></tr>
-                  </tbody>
-                </table>
-                <div class="result-box" style="margin-top:10px;">
-                  <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">PLANNED R-MULTIPLE</div>
-                  <div class="big" id="risk-planned-r">—</div>
-                  <div style="margin-top:8px;font-size:22px;" id="risk-planned-details">Fill targets and quantities.</div>
-                </div>
-                <div class="note">
-                  Planned R = Σ (Qty sold × (Target − Entry)) ÷ (Shares × (Entry − Stop)).
-                  Actual R appears in the saved-plan table once you import fills from Schwab or Fidelity.
-                </div>
-                <div style="margin-top:10px;">
-                  <button class="btn btn-accent" onclick="riskSavePlan()">Save &amp; Log Trade</button>
-                  <button class="btn btn-sm" onclick="riskClearForm()">Clear form</button>
-                </div>
-              </div>
-            </div>
+        <div class="panel" id="gov-panel" style="border-top:none;border-radius:0;">
+          <div class="panel-header">
+            Risk Governor
+            <span class="tag">Your risk per trade (1R) adapts to this month's R performance, realized + unrealized</span>
+            <button class="btn btn-sm" onclick="toggleGovSettings()">Settings</button>
           </div>
-
-          <div class="panel">
-            <div class="panel-header">
-              Logged Trades · Planned vs Actual R &amp; Compliance
-              <span class="tag">Actual fills come from Trading Operations → Upload Trading File (Schwab / Fidelity)</span>
-            </div>
-            <div class="panel-body" id="risk-plans-body"></div>
-            <div class="note">
-              Fills are matched by ticker from the plan's <strong>Trade Date</strong> onward (up to the next saved plan for the same ticker).
-              Actual R = Realized P&amp;L ÷ (shares bought × (actual avg entry − stop)). "Incl. open" adds unrealized P&amp;L on shares still held, using the latest current price.
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-header">
-              Execution Compliance
-              <span class="tag">Did you follow your plan? Checked against imported fills</span>
-            </div>
-            <div class="panel-body" id="risk-compliance-body"></div>
-            <details style="padding:0 14px 10px;">
-              <summary class="muted" style="cursor:pointer;font-size:20px;">Compliance rules &amp; tolerances</summary>
+          <div class="panel-body">
+            <div id="gov-settings" style="display:none;margin-bottom:14px;padding:12px;background:#0f172a;border:1px solid var(--border);border-radius:8px;">
+              <div class="form-row" style="flex-wrap:wrap;">
+                <div class="form-group"><label>Base risk % (1R)</label><input type="number" id="gov-base" step="0.05" min="0.01" style="width:150px" onchange="saveGovCfg()" /></div>
+                <div class="form-group"><label>Step (R)</label><input type="number" id="gov-step" step="0.5" min="0.5" style="width:120px" onchange="saveGovCfg()" /></div>
+                <div class="form-group"><label>Stand down at (R)</label><input type="number" id="gov-stand" step="0.5" min="1" style="width:150px" onchange="saveGovCfg()" /></div>
+                <div class="form-group"><label>Size multiplier / step</label><input type="number" id="gov-mult" step="0.05" min="0.1" max="0.95" style="width:150px" onchange="saveGovCfg()" /></div>
+                <div class="form-group"><label>Recent trades window</label><input type="number" id="gov-window" step="1" min="5" max="100" style="width:130px" onchange="saveGovCfg()" /></div>
+              </div>
               <div class="form-row" style="flex-wrap:wrap;margin-top:8px;">
-                <div class="form-group"><label>Size tolerance %</label><input type="number" id="rc-size" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
-                <div class="form-group"><label>Entry slippage (% of R)</label><input type="number" id="rc-entry" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
-                <div class="form-group"><label>Stop slippage (% of R)</label><input type="number" id="rc-stop" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
-                <div class="form-group"><label>Target tolerance (% of R)</label><input type="number" id="rc-target" step="1" min="0" style="width:120px" onchange="riskSaveTolerances()" /></div>
+                <div class="form-group"><label>Drawdown measured from</label>
+                  <select id="gov-from" onchange="saveGovCfg()"><option value="start">Month start</option><option value="peak">Month high-water mark</option></select></div>
+                <div class="form-group"><label>After a recovery</label>
+                  <select id="gov-recover" onchange="saveGovCfg()"><option value="ratchet">Stay reduced until next month</option><option value="restore">Restore size as R recovers</option></select></div>
+                <div class="form-group"><label>&nbsp;</label><label style="font-size:22px;"><input type="checkbox" id="gov-unreal" onchange="saveGovCfg()" /> Include unrealized P&amp;L</label></div>
               </div>
-              <div class="checklist" style="padding:6px 0 0;">
-                <div class="check-item"><span class="check-icon">1</span> <strong>Size within risk</strong> — shares bought ≤ the risk-based share count (+ size tolerance).</div>
-                <div class="check-item"><span class="check-icon">2</span> <strong>Bought what you logged</strong> — shares bought match the Shares Bought you logged (± size tolerance).</div>
-                <div class="check-item"><span class="check-icon">3</span> <strong>Entry at plan</strong> — average fill no worse than planned entry by more than the entry slippage.</div>
-                <div class="check-item"><span class="check-icon">4</span> <strong>Risk $ within plan</strong> — shares bought × (avg fill − stop) ≤ planned risk $ (+ size tolerance).</div>
-                <div class="check-item"><span class="check-icon">5</span> <strong>Stop honored</strong> — no exit worse than the stop by more than the stop slippage.</div>
-                <div class="check-item"><span class="check-icon">6</span> <strong>No early exits</strong> — no shares sold between the stop and Target 1 (exits only at the stop or at targets).</div>
-              </div>
-            </details>
-          </div>
-
-          <div class="panel" style="border-radius:0 0 6px 6px;">
-            <div class="panel-header">Risk rules for this setup <span class="tag" id="risk-setup-tag">Watchlist tickers only</span></div>
-            <div class="checklist" id="risk-rules-body">
-              <div class="check-item"><span class="check-icon">•</span> Type a ticker that's on your watchlist to load its SIP / EP / EP9M risk rules.</div>
+              <div class="note">Defaults follow your rules: start at 1R = 0.5% of equity, halve every −4R, stand down at −12R until the month ends. R is each trade's P&amp;L ÷ its initial risk (entry − stop) × shares; trades with no stop or shares recorded use an estimate (base risk % × equity) and are flagged.</div>
             </div>
-            <details style="padding:8px 14px;">
-              <summary class="muted" style="cursor:pointer;font-size:20px;">Price source · Twelve Data API key</summary>
-              <div class="form-row" style="margin-top:8px;">
-                <div class="form-group"><label>Twelve Data API key</label><input type="password" id="risk-td-key" style="width:280px" placeholder="stored in this browser only" /></div>
-                <button class="btn btn-sm" style="align-self:flex-end;" onclick="riskSaveTdKey()">Save key</button>
-                <button class="btn btn-sm" style="align-self:flex-end;" onclick="riskClearTdKey()">Remove</button>
+            <div id="gov-status"></div>
+            <div id="gov-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:14px;"></div>
+            <div id="gov-ladder" style="margin-top:14px;"></div>
+            <div class="note" id="gov-note" style="margin-top:10px;"></div>
+          </div>
+        </div>
+        <div class="panel" id="gov-recent-panel" style="border-radius:0;">
+          <div class="panel-header">Recent Trades in R <span class="tag" id="gov-recent-tag"></span></div>
+          <div class="panel-body">
+            <div id="gov-recent-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;"></div>
+            <div id="gov-recent-bars" style="margin-top:14px;"></div>
+            <div class="note" id="gov-recent-note" style="margin-top:10px;"></div>
+          </div>
+        </div>
+        <div class="panel" id="risk-empty" style="display:none;border-top:none;border-radius:0 0 6px 6px;">
+          <div class="panel-body">
+            <div class="wl-empty">
+              No qualified tickers on your watchlist yet.<br><br>
+              Go to <strong>Qualify</strong>, click <strong>Add</strong> on a STRONG or WATCH name, then return here to size the position.
+            </div>
+          </div>
+        </div>
+        <div id="risk-content">
+          <div class="panel" style="border-top:none;border-radius:0;">
+            <div class="panel-header">Select Qualified Ticker (from Watchlist)</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Watchlist Ticker</label>
+                <select id="risk-ticker-select" style="width:160px" onchange="onRiskTickerChange()">
+                  <option value="">— select —</option>
+                </select>
               </div>
-              <div class="note" id="risk-td-key-status"></div>
-            </details>
+              <div style="font-size:24px;color:var(--muted);align-self:center;" id="risk-ticker-meta"></div>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-header">Position Sizing Calculator</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Account Value $</label>
+                  <input type="number" id="risk-account" step="1000" />
+                </div>
+                <div class="form-group">
+                  <label>Risk % (1R, set by Risk Governor)</label>
+                  <input type="number" id="risk-pct" value="0.5" step="0.025" min="0" max="2.5" />
+                </div>
+                <div class="form-group">
+                  <label>Entry Price</label>
+                  <input type="number" id="risk-entry" step="0.01" placeholder="0.00" />
+                </div>
+                <div class="form-group">
+                  <label>Stop Price</label>
+                  <input type="number" id="risk-stop" step="0.01" placeholder="0.00" />
+                </div>
+                <button class="btn btn-accent" onclick="calcSize()">Calculate</button>
+              </div>
+              <div class="result-box" id="size-result">
+                <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">SHARES TO BUY</div>
+                <div class="big" id="shares-out">—</div>
+                <div style="margin-top:8px;font-size:24px;" id="size-details">Select a watchlist ticker or enter values</div>
+              </div>
+              <div class="note">
+                Formula: Shares = (Account × Risk%) ÷ (Entry − Stop).<br>
+                Ideal risk 1% · Hard max 2.5%. Wider stop = fewer shares. Risk $ stays constant.
+              </div>
+            </div>
+            <div class="panel" style="border-radius:0 0 6px 6px;">
+              <div class="panel-header">Risk rules for this setup <span class="tag" id="risk-setup-tag">Select ticker</span></div>
+              <div class="checklist" id="risk-rules-body">
+                <div class="check-item"><span class="check-icon">•</span> Select a watchlist ticker to load SIP / EP / EP9M risk placeholders</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -4529,7 +4417,7 @@
       const el = document.getElementById("tp-shares-preview");
       if (!el) return;
       if (isNaN(entry) || isNaN(stop) || isNaN(riskPct) || entry === stop) {
-        el.textContent = "Entry and stop are optional — add them once the qualification criteria are met to see the share count.";
+        el.textContent = "Enter entry, stop, and risk % to see the calculated share count.";
         return;
       }
       const equity = getCurrentPortfolioValueComputed();
@@ -4548,25 +4436,21 @@
       const stop = parseFloat(document.getElementById("tp-stop").value);
       const riskPct = parseFloat(document.getElementById("tp-riskpct").value);
       const comments = document.getElementById("tp-comments").value.trim();
-      const qualify = document.getElementById("tp-qualify").value.trim();
-      const invalidate = document.getElementById("tp-invalidate").value.trim();
       if (!ticker) { alert("Enter a ticker"); return; }
-      const hasEntry = !isNaN(entry), hasStop = !isNaN(stop);
-      if (hasEntry && hasStop && entry === stop) { alert("Entry and Stop can't be the same price"); return; }
-      const shares = hasEntry && hasStop ? computeTradePlanShares(entry, stop, riskPct) : null;
-      const entryV = hasEntry ? entry : null, stopV = hasStop ? stop : null;
+      if (isNaN(entry) || isNaN(stop)) { alert("Enter both Entry Price and Stop Loss"); return; }
+      const shares = computeTradePlanShares(entry, stop, riskPct);
 
       const list = getTradePlans();
       if (editingTradePlanId) {
         const idx = list.findIndex(p => p.id === editingTradePlanId);
         if (idx >= 0) {
-          list[idx] = { ...list[idx], ticker, strategy, entry: entryV, stop: stopV, riskPct, comments, qualify, invalidate, shares, updated: new Date().toISOString() };
+          list[idx] = { ...list[idx], ticker, strategy, entry, stop, riskPct, comments, shares };
         }
       } else {
         list.unshift({
           id: "tp-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
           dateAdded: new Date().toISOString().slice(0, 10),
-          ticker, strategy, entry: entryV, stop: stopV, riskPct, comments, qualify, invalidate, shares
+          ticker, strategy, entry, stop, riskPct, comments, shares
         });
       }
       saveTradePlans(list);
@@ -4580,12 +4464,10 @@
       document.getElementById("tradeplan-form-header").textContent = "Editing " + plan.ticker + " (added " + plan.dateAdded + ")";
       document.getElementById("tp-ticker").value = plan.ticker;
       document.getElementById("tp-strategy").value = plan.strategy;
-      document.getElementById("tp-entry").value = plan.entry != null ? plan.entry : "";
-      document.getElementById("tp-stop").value = plan.stop != null ? plan.stop : "";
+      document.getElementById("tp-entry").value = plan.entry;
+      document.getElementById("tp-stop").value = plan.stop;
       document.getElementById("tp-riskpct").value = plan.riskPct;
       document.getElementById("tp-comments").value = plan.comments || "";
-      document.getElementById("tp-qualify").value = plan.qualify || "";
-      document.getElementById("tp-invalidate").value = plan.invalidate || "";
       updateTradePlanSharesPreview();
       document.getElementById("tp-ticker").scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -4599,10 +4481,10 @@
     function resetTradePlanForm() {
       editingTradePlanId = null;
       document.getElementById("tradeplan-form-header").textContent = "Add / Update a Planned Trade";
-      ["tp-ticker", "tp-entry", "tp-stop", "tp-comments", "tp-qualify", "tp-invalidate"].forEach(id => document.getElementById(id).value = "");
+      ["tp-ticker", "tp-entry", "tp-stop", "tp-comments"].forEach(id => document.getElementById(id).value = "");
       document.getElementById("tp-riskpct").value = 1;
       document.getElementById("tp-strategy").innerHTML = setupOptionsHtml();
-      document.getElementById("tp-shares-preview").textContent = "Entry and stop are optional — add them once the qualification criteria are met to see the share count.";
+      document.getElementById("tp-shares-preview").textContent = "Enter entry, stop, and risk % to see the calculated share count.";
     }
     function renderTradePlans() {
       const body = document.getElementById("tradeplan-weeks-body");
@@ -4624,24 +4506,19 @@
         body.innerHTML = weeks.map(wk => {
           const rows = byWeek[wk].sort((a, b) => b.dateAdded.localeCompare(a.dateAdded));
           return `<div style="margin-bottom:18px;">
-            <div style="font-size:24px;font-weight:700;color:var(--accent);margin-bottom:6px;">Week of ${wk}
-              <span class="muted" style="font-size:20px;font-weight:400;margin-left:10px;">${(() => {
-                const c = {}; rows.forEach(p => { c[p.strategy || "Other"] = (c[p.strategy || "Other"] || 0) + 1; });
-                return rows.length + " planned · " + Object.keys(c).sort((x, y) => c[y] - c[x]).map(k => k + " " + c[k]).join(" · ");
-              })()}</span>
-            </div>
+            <div style="font-size:24px;font-weight:700;color:var(--accent);margin-bottom:6px;">Week of ${wk}</div>
             <table>
-              <thead><tr><th>Date</th><th>Ticker</th><th>Strategy</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Criteria &amp; Notes</th><th></th></tr></thead>
+              <thead><tr><th>Date</th><th>Ticker</th><th>Strategy</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Comments</th><th></th></tr></thead>
               <tbody>
                 ${rows.map(p => `<tr>
                   <td class="muted" style="font-size:22px;">${p.dateAdded}</td>
                   <td><span class="ticker-link" onclick="showDetail('${p.ticker}')">${p.ticker}</span></td>
                   <td><span class="tag" style="background:#0e7490;color:#a5f3fc;">${p.strategy}</span></td>
-                  <td class="pos">${p.entry != null && p.entry !== "" && !isNaN(p.entry) ? "$" + Number(p.entry).toFixed(2) : '<span class="muted">TBD</span>'}</td>
-                  <td class="neg">${p.stop != null && p.stop !== "" && !isNaN(p.stop) ? "$" + Number(p.stop).toFixed(2) : '<span class="muted">TBD</span>'}</td>
+                  <td class="pos">$${Number(p.entry).toFixed(2)}</td>
+                  <td class="neg">$${Number(p.stop).toFixed(2)}</td>
                   <td>${p.riskPct}%</td>
                   <td>${p.shares != null ? p.shares : "—"}</td>
-                  <td style="font-size:22px;white-space:nowrap;">${tpNoteLinks(p)}</td>
+                  <td style="font-size:22px;max-width:220px;white-space:normal;">${p.comments || "—"}</td>
                   <td style="white-space:nowrap;">
                     <button class="btn btn-sm" onclick="editTradePlan('${p.id}')">Edit</button>
                     <button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deleteTradePlan('${p.id}')">Delete</button>
@@ -4655,51 +4532,6 @@
       renderTradePlanReport(plans);
       renderPlanVsActual(plans);
     }
-    // Short hover links for long text: Qualify / Invalidate / Notes
-    function tpEscape(v) {
-      return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-    function tpNoteLinks(p) {
-      const items = [["Qualify", p.qualify], ["Invalidate", p.invalidate], ["Notes", p.comments]].filter(x => x[1]);
-      if (!items.length) return '<span class="muted">—</span>';
-      return items.map(([label, text]) =>
-        `<span class="tp-note" tabindex="0" onclick="this.classList.toggle('open')" onmouseleave="this.classList.remove('open')">${label}<span class="tp-pop"><strong>${label === "Qualify" ? "Qualification criteria" : label === "Invalidate" ? "Invalidation criteria" : "Notes"} · ${tpEscape(p.ticker)}</strong>
-${tpEscape(text)}</span></span>`
-      ).join("");
-    }
-
-    // Export unique tickers for TradingView's "Import list…" (comma-separated)
-    function tradingViewTickers(scope) {
-      const seen = new Set(), out = [];
-      const add = t => { t = String(t || "").trim().toUpperCase(); if (t && !seen.has(t)) { seen.add(t); out.push(t); } };
-      const plans = getTradePlans().slice().sort((a, b) => (b.dateAdded || "").localeCompare(a.dateAdded || ""));
-      const thisWeek = weekStartOf(new Date().toISOString().slice(0, 10));
-      if (scope === "week") plans.filter(p => p.dateAdded && weekStartOf(p.dateAdded) === thisWeek).forEach(p => add(p.ticker));
-      if (scope === "plans" || scope === "all") plans.forEach(p => add(p.ticker));
-      if (scope === "watchlist" || scope === "all") getWatchlist().forEach(w => add(w.ticker));
-      return out;
-    }
-    async function exportTickersForTradingView(mode) {
-      const scopeEl = document.getElementById("tp-export-scope");
-      const scope = scopeEl ? scopeEl.value : "all";
-      const tickers = tradingViewTickers(scope);
-      const status = document.getElementById("tp-export-status");
-      if (!tickers.length) { if (status) status.textContent = "No tickers in that list yet."; return; }
-      const text = tickers.join(",");
-      if (mode === "copy") {
-        try { await navigator.clipboard.writeText(text); if (status) status.textContent = `Copied ${tickers.length} tickers.`; }
-        catch (e) { prompt("Copy these tickers:", text); }
-        return;
-      }
-      const blob = new Blob([text + "\n"], { type: "text/csv" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `watchlist-${scope}-${new Date().toISOString().slice(0, 10)}.csv`;
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-      if (status) status.innerHTML = `Exported ${tickers.length} tickers. In TradingView: Watchlist menu → <strong>Import list…</strong> → pick the file. If it only accepts .txt, rename the file's extension to .txt — the contents are the same.`;
-    }
-
     function tradeMatchesAPlan(trade, plans) {
       // Match by ticker AND proximity in time — the trade's entry date (when
       // available, since planning happens before entry, not before exit) or
@@ -5277,23 +5109,6 @@ ${tpEscape(text)}</span></span>`
           "Shorts carry unlimited-loss risk in theory — respect the stop without exception"
         ]
       },
-      MTR: {
-        label: "MTR",
-        scan: "",
-        category: "pattern",
-        moneyType: "single",
-        tfBranch: "exhaustion",
-        direction: "bullish",
-        riskPct: 1,
-        riskMax: 2.5,
-        hold: "",
-        openEntry: "Not defined yet — add your MTR rules in the Setup Library",
-        delayedEntry: "Not defined yet",
-        stop: "Not defined yet",
-        exit: "Not defined yet",
-        execBullets: [],
-        riskBullets: ["Risk 1% of account ideal (hard max 2.5%)"]
-      },
       Other: {
         label: "Other setup",
         scan: "No dedicated scan — define before use",
@@ -5413,8 +5228,6 @@ ${tpEscape(text)}</span></span>`
       document.getElementById("su-exit").value = s.exit || "";
       document.getElementById("su-execbullets").value = (s.execBullets || []).join("\n");
       document.getElementById("su-riskbullets").value = (s.riskBullets || []).join("\n");
-      document.getElementById("su-qualbullets").value = (s.qualBullets || []).join("\n");
-      document.getElementById("su-invalbullets").value = (s.invalBullets || []).join("\n");
       navTo("setup-library");
       document.getElementById("su-label").scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -5422,7 +5235,7 @@ ${tpEscape(text)}</span></span>`
     function resetSetupForm() {
       document.getElementById("setup-form-header").textContent = "Add a New Setup";
       document.getElementById("su-key").disabled = false;
-      ["su-key", "su-label", "su-hold", "su-scan", "su-openentry", "su-delayedentry", "su-stop", "su-exit", "su-execbullets", "su-riskbullets", "su-qualbullets", "su-invalbullets"]
+      ["su-key", "su-label", "su-hold", "su-scan", "su-openentry", "su-delayedentry", "su-stop", "su-exit", "su-execbullets", "su-riskbullets"]
         .forEach(id => document.getElementById(id).value = "");
       document.getElementById("su-category").value = "catalyst";
       document.getElementById("su-moneytype").value = "single";
@@ -5451,9 +5264,7 @@ ${tpEscape(text)}</span></span>`
         stop: document.getElementById("su-stop").value.trim(),
         exit: document.getElementById("su-exit").value.trim(),
         execBullets: splitLines(document.getElementById("su-execbullets").value),
-        riskBullets: splitLines(document.getElementById("su-riskbullets").value),
-        qualBullets: splitLines(document.getElementById("su-qualbullets").value),
-        invalBullets: splitLines(document.getElementById("su-invalbullets").value)
+        riskBullets: splitLines(document.getElementById("su-riskbullets").value)
       };
       addOrUpdateSetup(key, def);
       renderSetupLibrary();
@@ -5483,30 +5294,9 @@ ${tpEscape(text)}</span></span>`
       if (tpSel) tpSel.innerHTML = setupOptionsHtml();
     }
 
-    function renderSavedPlansSetupSummary(list) {
-      const el = document.getElementById("saved-plans-setup-summary");
-      if (!el) return;
-      if (!list.length) { el.innerHTML = `<div class="wl-empty">No tickers on Saved Plans yet.</div>`; return; }
-      const setups = getSetups();
-      const by = {};
-      list.forEach(w => { const k = w.setupType || "Other"; (by[k] = by[k] || []).push(w.ticker); });
-      const keys = Object.keys(by).sort((a, b) => by[b].length - by[a].length || a.localeCompare(b));
-      el.innerHTML = `<table>
-          <thead><tr><th>Setup</th><th style="text-align:right;">#</th></tr></thead>
-          <tbody>${keys.map(k => {
-            const bear = setups[k] && setups[k].direction === "bearish";
-            return `<tr>
-              <td><strong class="${bear ? "neg" : "pos"}">${k}</strong>
-                <div class="muted" style="font-size:20px;white-space:normal;">${by[k].join(", ")}</div></td>
-              <td style="text-align:right;font-weight:700;">${by[k].length}</td></tr>`;
-          }).join("")}</tbody>
-          <tfoot><tr><td><strong>Total</strong></td><td style="text-align:right;font-weight:700;">${list.length}</td></tr></tfoot>
-        </table>`;
-    }
     function renderWatchlist() {
       const body = document.getElementById("watchlist-body");
       const list = getWatchlist();
-      renderSavedPlansSetupSummary(list);
       if (!list.length) {
         body.innerHTML = `<div class="wl-empty">No names yet.<br><br>
           <strong>NTRT morning:</strong> Qualify → Add (auto SIP / EP / EP9M) → adjust category → set plan.<br>
@@ -5668,15 +5458,9 @@ ${tpEscape(text)}</span></span>`
 
     function populateTickerSelects() {
       const list = getWatchlist();
-      const riskList = document.getElementById("risk-ticker-list");
-      if (riskList) {
-        const names = new Set(list.map(w => w.ticker));
-        getRiskPlans().forEach(p => names.add(p.ticker));
-        riskList.innerHTML = [...names].sort().map(t => `<option value="${t}"></option>`).join("");
-      }
       ["exec-ticker-select", "risk-ticker-select"].forEach(id => {
         const sel = document.getElementById(id);
-        if (!sel || sel.tagName !== "SELECT") return;
+        if (!sel) return;
         const prev = sel.value;
         sel.innerHTML = '<option value="">— select —</option>';
         list.forEach(w => {
@@ -5734,40 +5518,30 @@ ${tpEscape(text)}</span></span>`
     }
 
     function onRiskTickerChange() {
-      const input = document.getElementById("risk-ticker-select");
-      const ticker = (input.value || "").trim().toUpperCase();
-      input.value = ticker;
+      const ticker = document.getElementById("risk-ticker-select").value;
       const meta = document.getElementById("risk-ticker-meta");
-      const tag = document.getElementById("risk-setup-tag");
-      const rb = document.getElementById("risk-rules-body");
       const item = getWatchlist().find(x => x.ticker === ticker);
-      if (!item) {
-        meta.textContent = ticker ? "Not on your watchlist — sizing still works; setup rules load only for watchlist tickers." : "";
-        if (tag) tag.textContent = "Watchlist tickers only";
-        if (rb) rb.innerHTML = `<div class="check-item"><span class="check-icon">•</span> Type a ticker that's on your watchlist to load its SIP / EP / EP9M risk rules.</div>`;
-        riskPrefillPrice(ticker);
-        riskRecalc();
-        return;
-      }
+      if (!item) { meta.textContent = ""; return; }
       const st = item.setupType || "SIP";
       const rules = getSetupRules(st);
       meta.innerHTML = `<strong>${st}</strong> · ideal ${rules.riskPct}% (max ${rules.riskMax}%) · ${rules.hold}`;
+      const tag = document.getElementById("risk-setup-tag");
       if (tag) tag.textContent = st;
+      const rb = document.getElementById("risk-rules-body");
       if (rb) {
         rb.innerHTML = (rules.riskBullets || []).map(b =>
           `<div class="check-item"><span class="check-icon">•</span> ${b}</div>`
         ).join("") + `<div class="check-item"><span class="check-icon">S</span> <strong>Stop cue:</strong> ${rules.stop}</div>`;
       }
-      document.getElementById("risk-pct").value = rules.riskPct;
+      const govState = getRiskGovernorState();
+      document.getElementById("risk-pct").value = govState ? +Math.min(rules.riskPct, govState.riskPct).toFixed(3) : rules.riskPct;
       if (item.plan) {
         if (item.plan.entry) document.getElementById("risk-entry").value = item.plan.entry;
         if (item.plan.stop) document.getElementById("risk-stop").value = item.plan.stop;
-        if (item.plan.target && !document.getElementById("risk-t1").value) document.getElementById("risk-t1").value = item.plan.target;
+        calcSize();
       } else if (item.price) {
         document.getElementById("risk-entry").value = item.price;
       }
-      riskPrefillPrice(ticker);
-      riskRecalc();
     }
 
     function updateExecRiskVisibility() {
@@ -6311,521 +6085,242 @@ ${tpEscape(text)}</span></span>`
       el.textContent = "List: " + h + ":" + m;
     }
 
-    // ---------- Manage Risk: sizing, scale-out targets, planned vs actual R ----------
-    // calcSize() is kept as a name because other screens call it.
-    function calcSize() { riskRecalc(); }
 
-    const RISK_HARD_MAX_PCT = 2.5;
-    function riskNum(id) {
-      const el = document.getElementById(id);
-      const v = el ? parseFloat(el.value) : NaN;
-      return isNaN(v) ? null : v;
+    // ---- Risk Governor: adaptive 1R based on month-to-date R performance ----
+    function getGovCfg() {
+      const d = { base: 0.5, step: 4, stand: 12, mult: 0.5, window: 20, from: "start", recover: "ratchet", unreal: true };
+      try { return { ...d, ...(JSON.parse(localStorage.getItem("tt_risk_gov") || "{}")) }; } catch (e) { return d; }
     }
-    function riskFmtMoney(v, dp) {
-      if (v == null || !isFinite(v)) return "—";
-      const sign = v < 0 ? "-" : "";
-      return sign + "$" + Math.abs(v).toLocaleString(undefined, { minimumFractionDigits: dp ?? 2, maximumFractionDigits: dp ?? 2 });
+    function saveGovCfg() {
+      const n = (id, dv) => { const v = parseFloat(document.getElementById(id).value); return v > 0 ? v : dv; };
+      const d = getGovCfg();
+      const cfg = {
+        base: n("gov-base", d.base), step: n("gov-step", d.step), stand: n("gov-stand", d.stand),
+        mult: Math.min(0.95, n("gov-mult", d.mult)), window: Math.round(n("gov-window", d.window)),
+        from: document.getElementById("gov-from").value, recover: document.getElementById("gov-recover").value,
+        unreal: document.getElementById("gov-unreal").checked
+      };
+      try { localStorage.setItem("tt_risk_gov", JSON.stringify(cfg)); } catch (e) {}
+      renderRiskGovernor();
     }
-    function riskFmtR(r) {
-      if (r == null || !isFinite(r)) return "—";
-      return (r >= 0 ? "+" : "") + r.toFixed(2) + "R";
+    function toggleGovSettings() {
+      const el = document.getElementById("gov-settings");
+      if (el) el.style.display = el.style.display === "none" ? "block" : "none";
     }
-    function riskCls(v) { return v == null || !isFinite(v) ? "" : v >= 0 ? "pos" : "neg"; }
-
-    // Pure calculation shared by the form and the saved-plan table.
-    function computeRiskPlan(p) {
-      const out = { ok: false };
-      const entry = p.entry, stop = p.stop;
-      if (!(entry > 0) || !(stop > 0) || entry === stop) { out.reason = "Enter entry and stop (they can't be equal)."; return out; }
-      const dir = entry > stop ? 1 : -1;               // long when stop is below entry
-      const rps = Math.abs(entry - stop);
-      out.dir = dir; out.rps = rps;
-      let pct = p.riskPct > 0 ? p.riskPct : 0;
-      out.pctCapped = pct > RISK_HARD_MAX_PCT;
-      if (out.pctCapped) pct = RISK_HARD_MAX_PCT;
-      out.pct = pct;
-      const pctDollars = p.account > 0 && pct > 0 ? p.account * pct / 100 : null;
-      const cap = p.maxRisk > 0 ? p.maxRisk : null;
-      if (pctDollars == null && cap == null) { out.reason = "Enter account value + risk %, or a Max Risk $."; return out; }
-      let riskDollars, limitBy;
-      if (pctDollars != null && cap != null) {
-        riskDollars = Math.min(pctDollars, cap);
-        limitBy = cap < pctDollars ? "Max Risk $" : "Equity Risk %";
-      } else if (pctDollars != null) { riskDollars = pctDollars; limitBy = "Equity Risk %"; }
-      else { riskDollars = cap; limitBy = "Max Risk $"; }
-      out.pctDollars = pctDollars; out.riskDollars = riskDollars; out.limitBy = limitBy;
-      out.calcShares = Math.floor(riskDollars / rps);
-      const shares = p.sharesBought > 0 ? p.sharesBought : out.calcShares;
-      out.shares = shares;
-      out.loggedOverride = p.sharesBought > 0;
-      out.oversize = p.sharesBought > 0 && p.sharesBought > out.calcShares;
-      out.actualRiskDollars = shares * rps;
-      out.notional = shares * entry;
-      out.pctOfAccount = p.account > 0 ? out.notional / p.account * 100 : null;
-      // Targets
-      let sold = 0, rSum = 0, pnl = 0;
-      out.targets = (p.targets || []).map(t => {
-        const price = t && t.price > 0 ? t.price : null;
-        const qty = t && t.qty > 0 ? t.qty : 0;
-        const r = price != null ? dir * (price - entry) / rps : null;
-        const tp = price != null ? dir * (price - entry) * qty : null;
-        if (price != null && qty > 0) { sold += qty; rSum += r * qty; pnl += tp; }
-        else if (qty > 0) sold += qty;
-        return { price, qty, r, pnl: tp };
-      });
-      out.sold = sold;
-      out.remaining = shares - sold;
-      out.plannedPnl = pnl;
-      out.plannedR = shares > 0 && sold > 0 ? rSum / shares : null;
-      // If the runner (remaining qty) is stopped out instead
-      out.plannedRIfRunnerStopped = shares > 0 && sold > 0 && out.remaining > 0 ? (rSum - out.remaining) / shares : null;
-      out.ok = true;
-      return out;
+    function govTradeR(t, refRiskUsd) {
+      // R = P&L / initial risk $. Initial risk $ = |entry − stop| × shares when all three are recorded.
+      const sh = Number(t.shares), en = Number(t.entry), st = t.stop != null && t.stop !== "" ? Number(t.stop) : NaN;
+      if (sh > 0 && en > 0 && isFinite(st) && st !== en) return { r: t.pnl / (Math.abs(en - st) * sh), est: false };
+      return { r: refRiskUsd > 0 ? t.pnl / refRiskUsd : 0, est: true };
     }
-
-    function riskReadForm() {
+    function computeRecentStats(trades, n, refRiskUsd) {
+      const sorted = [...trades].sort((a, b) => (a.date || "").localeCompare(b.date || "") || (a.id || 0) - (b.id || 0));
+      const last = sorted.slice(-n).map(t => ({ t, ...govTradeR(t, refRiskUsd) }));
+      const rs = last.map(x => x.r);
+      const wins = rs.filter(r => r > 0), losses = rs.filter(r => r < 0);
+      const sum = a => a.reduce((x, y) => x + y, 0);
+      const avgW = wins.length ? sum(wins) / wins.length : 0, avgL = losses.length ? sum(losses) / losses.length : 0;
+      let streak = { type: null, len: 0 };
+      for (let i = rs.length - 1; i >= 0; i--) {
+        const ty = rs[i] > 0 ? "W" : (rs[i] < 0 ? "L" : "F");
+        if (streak.type === null) streak = { type: ty, len: 1 };
+        else if (streak.type === ty) streak.len++;
+        else break;
+      }
       return {
-        ticker: (document.getElementById("risk-ticker-select").value || "").trim().toUpperCase(),
-        tradeDate: document.getElementById("risk-tradedate").value || new Date().toISOString().slice(0, 10),
-        currentPrice: riskNum("risk-current"),
-        entry: riskNum("risk-entry"), stop: riskNum("risk-stop"),
-        account: riskNum("risk-account"), riskPct: riskNum("risk-pct"), maxRisk: riskNum("risk-maxdollar"),
-        sharesBought: riskNum("risk-bought"),
-        targets: [1, 2, 3].map(i => ({ price: riskNum("risk-t" + i), qty: riskNum("risk-q" + i) }))
+        n: rs.length, wins: wins.length, losses: losses.length, flats: rs.length - wins.length - losses.length,
+        winRate: rs.length ? wins.length / rs.length * 100 : null, avgWinR: avgW, avgLossR: avgL,
+        expectancyR: rs.length ? sum(rs) / rs.length : null, totalR: sum(rs),
+        worstR: rs.length ? Math.min(...rs) : null, bestR: rs.length ? Math.max(...rs) : null,
+        payoff: avgL < 0 ? avgW / Math.abs(avgL) : null, streak,
+        series: last.map(x => ({ r: x.r, est: x.est, ticker: x.t.ticker, date: x.t.date })),
+        nEst: last.filter(x => x.est).length
       };
     }
-
-    function riskRecalc() {
-      const p = riskReadForm();
-      const c = computeRiskPlan(p);
-      const rpsEl = document.getElementById("risk-per-share");
-      if (rpsEl) rpsEl.value = p.entry > 0 && p.stop > 0 && p.entry !== p.stop ? "$" + Math.abs(p.entry - p.stop).toFixed(2) + (p.entry < p.stop ? " (short)" : "") : "";
-      const sharesOut = document.getElementById("shares-out");
-      const details = document.getElementById("size-details");
-      [1, 2, 3].forEach(i => {
-        document.getElementById("risk-r" + i).textContent = "—";
-        document.getElementById("risk-p" + i).textContent = "—";
-        document.getElementById("risk-r" + i).className = "";
-        document.getElementById("risk-p" + i).className = "";
+    function computeGovernor(trades, openPos, equity, cfg, today) {
+      const monthKey = today.slice(0, 7);
+      const refRiskUsd = equity * cfg.base / 100;
+      const month = trades.filter(t => (t.date || "").slice(0, 7) === monthKey)
+        .sort((a, b) => (a.date || "").localeCompare(b.date || "") || (a.id || 0) - (b.id || 0));
+      let cum = 0, peak = 0, maxDd = 0, nEst = 0;
+      month.forEach(t => {
+        const g = govTradeR(t, refRiskUsd); if (g.est) nEst++;
+        cum += g.r; if (cum > peak) peak = cum;
+        maxDd = Math.max(maxDd, (cfg.from === "peak" ? peak : 0) - cum);
       });
-      const remEl = document.getElementById("risk-remaining");
-      const prEl = document.getElementById("risk-planned-r");
-      const pdEl = document.getElementById("risk-planned-details");
-      if (!c.ok) {
-        sharesOut.textContent = "—";
-        details.textContent = c.reason;
-        remEl.textContent = "—"; remEl.className = "";
-        prEl.textContent = "—"; pdEl.textContent = "Fill targets and quantities.";
-        return c;
-      }
-      sharesOut.textContent = c.calcShares.toLocaleString();
-      const bn = document.getElementById("risk-bought-note");
-      if (bn) {
-        if (!c.loggedOverride) { bn.className = "note"; bn.textContent = "Leave blank to log the calculated share count."; }
-        else if (c.oversize) { bn.className = "note neg"; bn.textContent = `${(c.shares - c.calcShares).toLocaleString()} more than the risk-based ${c.calcShares.toLocaleString()} — risk $${(c.shares * c.rps).toFixed(0)} vs plan $${c.riskDollars.toFixed(0)}.`; }
-        else { bn.className = "note"; bn.textContent = `Logging ${c.shares.toLocaleString()} of the ${c.calcShares.toLocaleString()} allowed.`; }
-      }
-      const pctPart = c.pctDollars != null ? `${c.pct}% of account = ${riskFmtMoney(c.pctDollars, 0)}` : "no account %";
-      const capPart = c.limitBy === "Max Risk $" ? ` · capped at your Max Risk of <strong>${riskFmtMoney(c.riskDollars, 0)}</strong>` : "";
-      const curPart = p.currentPrice > 0 && p.entry > 0 ? ` · Entry is ${(((p.entry / p.currentPrice) - 1) * 100).toFixed(2)}% from current` : "";
-      details.innerHTML =
-        `Sized by <strong>${c.limitBy}</strong>: ${pctPart}${capPart}` +
-        `<br>Risk/share <strong>$${c.rps.toFixed(2)}</strong> · Actual risk <strong>${riskFmtMoney(c.actualRiskDollars, 0)}</strong>` +
-        ` · Position <strong>${riskFmtMoney(c.notional, 0)}</strong>${c.loggedOverride ? " (for shares bought)" : ""}${c.pctOfAccount != null ? ` (${c.pctOfAccount.toFixed(1)}% of account)` : ""}${curPart}` +
-        (c.pctCapped ? `<br><span class="neg">Risk % above the ${RISK_HARD_MAX_PCT}% hard max — capped at ${RISK_HARD_MAX_PCT}%.</span>` : "");
-      c.targets.forEach((t, k) => {
-        const rEl = document.getElementById("risk-r" + (k + 1)), pEl = document.getElementById("risk-p" + (k + 1));
-        if (t.r != null) { rEl.textContent = riskFmtR(t.r); rEl.className = riskCls(t.r); }
-        if (t.pnl != null && t.qty > 0) { pEl.textContent = riskFmtMoney(t.pnl, 0); pEl.className = riskCls(t.pnl); }
-      });
-      remEl.textContent = c.remaining.toLocaleString() + (c.remaining < 0 ? " ⚠" : "");
-      remEl.className = c.remaining < 0 ? "neg" : "";
-      if (c.plannedR == null) {
-        prEl.textContent = "—";
-        pdEl.textContent = "Fill target prices and quantities sold.";
-      } else {
-        prEl.textContent = riskFmtR(c.plannedR);
-        pdEl.innerHTML = `Planned P&amp;L <strong class="${riskCls(c.plannedPnl)}">${riskFmtMoney(c.plannedPnl, 0)}</strong> on ${c.sold.toLocaleString()} of ${c.shares.toLocaleString()} shares` +
-          (c.remaining > 0 ? `<br>${c.remaining.toLocaleString()} shares left as a runner (not counted). If the runner is stopped out: <strong>${riskFmtR(c.plannedRIfRunnerStopped)}</strong>` : "") +
-          (c.remaining < 0 ? `<br><span class="neg">Qty sold is more than the share count — reduce the quantities.</span>` : "");
-      }
-      return c;
-    }
-
-    function riskSplitThirds() {
-      const c = riskRecalc();
-      if (!c || !c.ok || !(c.shares > 0)) { alert("Enter entry, stop and risk first so the share count is known."); return; }
-      const third = Math.floor(c.shares / 3);
-      document.getElementById("risk-q1").value = third;
-      document.getElementById("risk-q2").value = third;
-      document.getElementById("risk-q3").value = c.shares - 2 * third;
-      riskRecalc();
-    }
-
-    // ---- Saved risk plans (this browser) ----
-    let riskEditingId = null;
-    function getRiskPlans() {
-      try { return JSON.parse(localStorage.getItem("tt_risk_plans") || "[]"); } catch (e) { return []; }
-    }
-    function saveRiskPlans(list) { localStorage.setItem("tt_risk_plans", JSON.stringify(list)); }
-
-    function riskSavePlan() {
-      const p = riskReadForm();
-      if (!p.ticker) { alert("Enter a ticker."); return; }
-      const c = computeRiskPlan(p);
-      if (!c.ok) { alert(c.reason); return; }
-      if (c.remaining < 0) { alert("Qty sold across targets is more than the share count."); return; }
-      const list = getRiskPlans();
-      const rec = {
-        id: riskEditingId || ("rp-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)),
-        ticker: p.ticker, tradeDate: p.tradeDate, entry: p.entry, stop: p.stop,
-        account: p.account, riskPct: c.pct, maxRisk: p.maxRisk, shares: c.shares,
-        sharesBought: p.sharesBought > 0 ? p.sharesBought : null, calcShares: c.calcShares, riskDollars: c.riskDollars,
-        targets: p.targets, currentPrice: p.currentPrice,
-        updated: new Date().toISOString()
-      };
-      const i = list.findIndex(x => x.id === rec.id);
-      if (i >= 0) { rec.created = list[i].created; list[i] = rec; }
-      else { rec.created = rec.updated; list.unshift(rec); }
-      saveRiskPlans(list);
-      // Keep the watchlist plan in sync so Saved Plans shows the same sizing
-      const wl = getWatchlist();
-      const item = wl.find(x => x.ticker === p.ticker);
-      if (item) {
-        const t1 = p.targets[0] && p.targets[0].price;
-        item.plan = { ...(item.plan || {}), entry: p.entry, stop: p.stop, riskPct: c.pct, shares: c.shares, accountValue: p.account, ...(t1 ? { target: t1 } : {}) };
-        saveWatchlist(wl);
-        renderWatchlist();
-      }
-      riskEditingId = null;
-      document.getElementById("risk-editing-tag").style.display = "none";
-      renderRiskPlans();
-      populateTickerSelects();
-      const st = document.getElementById("risk-price-status");
-      if (st) st.textContent = "Logged " + p.ticker + " · " + c.shares.toLocaleString() + " shares. Compliance is checked once you import the fills.";
-    }
-
-    function riskClearForm() {
-      ["risk-ticker-select", "risk-current", "risk-entry", "risk-stop", "risk-maxdollar", "risk-bought",
-        "risk-t1", "risk-q1", "risk-t2", "risk-q2", "risk-t3", "risk-q3"].forEach(id => {
-        const el = document.getElementById(id); if (el) el.value = "";
-      });
-      document.getElementById("risk-tradedate").value = new Date().toISOString().slice(0, 10);
-      document.getElementById("risk-ticker-meta").textContent = "";
-      document.getElementById("risk-price-status").textContent = "";
-      riskEditingId = null;
-      document.getElementById("risk-editing-tag").style.display = "none";
-      riskRecalc();
-    }
-
-    function riskEditPlan(id) {
-      const p = getRiskPlans().find(x => x.id === id);
-      if (!p) return;
-      riskEditingId = id;
-      const set = (elId, v) => { const el = document.getElementById(elId); if (el) el.value = v == null ? "" : v; };
-      set("risk-ticker-select", p.ticker); set("risk-tradedate", p.tradeDate);
-      set("risk-current", p.currentPrice); set("risk-entry", p.entry); set("risk-stop", p.stop);
-      set("risk-account", p.account); set("risk-pct", p.riskPct); set("risk-maxdollar", p.maxRisk);
-      set("risk-bought", p.sharesBought);
-      (p.targets || []).forEach((t, k) => { set("risk-t" + (k + 1), t && t.price); set("risk-q" + (k + 1), t && t.qty); });
-      document.getElementById("risk-editing-tag").style.display = "";
-      riskRecalc();
-      document.getElementById("wl-risk").scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function riskDeletePlan(id) {
-      if (!confirm("Delete this risk plan?")) return;
-      saveRiskPlans(getRiskPlans().filter(x => x.id !== id));
-      if (riskEditingId === id) riskEditingId = null;
-      renderRiskPlans();
-    }
-
-    // Actual execution from imported Schwab / Fidelity trades.
-    // Matches imported closed trades (Trade Journal, source "schwab") and imported open lots
-    // for the same ticker, from this plan's trade date up to the next saved plan for that ticker.
-    function computeRiskPlanActual(plan, allPlans) {
-      const later = allPlans
-        .filter(x => x.ticker === plan.ticker && x.id !== plan.id && x.tradeDate > plan.tradeDate)
-        .map(x => x.tradeDate).sort()[0] || "9999-12-31";
-      const inWindow = d => d && d >= plan.tradeDate && d < later;
-      const closed = getJournal().filter(t => t.source === "schwab" && t.ticker === plan.ticker && inWindow(t.entryDate || t.date) && t.shares > 0);
-      const lots = getOpenLots().filter(l => l.ticker === plan.ticker && inWindow(l.date) && l.qty > 0);
-      const soldQty = closed.reduce((a, t) => a + t.shares, 0);
-      const openQty = lots.reduce((a, l) => a + l.qty, 0);
-      const boughtQty = soldQty + openQty;
-      if (boughtQty <= 0) return { status: "none" };
-      const costSum = closed.reduce((a, t) => a + (t.entry || 0) * t.shares, 0) + lots.reduce((a, l) => a + l.avgEntry * l.qty, 0);
-      const avgEntry = costSum / boughtQty;
-      const avgExit = soldQty > 0 ? closed.reduce((a, t) => a + (t.exit || 0) * t.shares, 0) / soldQty : null;
-      const realized = closed.reduce((a, t) => a + (t.pnl || 0), 0);
-      const rps = Math.abs(avgEntry - plan.stop);
-      const initialRisk = boughtQty * rps;
-      let unrealized = null;
-      if (openQty > 0) {
-        unrealized = 0;
-        let known = true;
-        lots.forEach(l => {
-          const px = l.currentPrice != null ? l.currentPrice : plan.currentPrice;
-          if (px == null) known = false; else unrealized += (px - l.avgEntry) * l.qty;
+      const realizedR = cum;
+      let unrealR = 0, openEst = 0;
+      if (cfg.unreal) {
+        openPos.forEach(p => {
+          const qty = Number(p.qty), en = Number(p.entry);
+          if (!(qty > 0 && en > 0) || p.currentPrice == null || isNaN(p.currentPrice)) return;
+          const unreal = (Number(p.currentPrice) - en) * qty;
+          const hasInit = p.stop != null && p.stop !== "" && !isNaN(p.stop) && Number(p.stop) < en; // trailed stops above cost hide the initial risk
+          if (hasInit) unrealR += unreal / ((en - Number(p.stop)) * qty);
+          else { openEst++; unrealR += refRiskUsd > 0 ? unreal / refRiskUsd : 0; }
         });
-        if (!known) unrealized = null;
       }
-      return {
-        status: openQty > 0 ? "open" : "closed",
-        boughtQty, soldQty, openQty, avgEntry, avgExit, realized, unrealized,
-        actualR: initialRisk > 0 ? realized / initialRisk : null,
-        actualRInclOpen: initialRisk > 0 && unrealized != null ? (realized + unrealized) / initialRisk : null,
-        fills: closed.length + lots.length,
-        exits: closed.map(t => ({ price: t.exit, qty: t.shares })),
-        initialRisk
-      };
-    }
-
-    // ---- Execution compliance ----
-    const RISK_TOL_DEFAULTS = { size: 5, entry: 10, stop: 10, target: 10 };
-    function getRiskTolerances() {
-      try { return { ...RISK_TOL_DEFAULTS, ...JSON.parse(localStorage.getItem("tt_risk_compliance_tol") || "{}") }; }
-      catch (e) { return { ...RISK_TOL_DEFAULTS }; }
-    }
-    function riskLoadTolerances() {
-      const t = getRiskTolerances();
-      [["rc-size", "size"], ["rc-entry", "entry"], ["rc-stop", "stop"], ["rc-target", "target"]].forEach(([id, k]) => {
-        const el = document.getElementById(id); if (el) el.value = t[k];
-      });
-    }
-    function riskSaveTolerances() {
-      const t = {};
-      [["rc-size", "size"], ["rc-entry", "entry"], ["rc-stop", "stop"], ["rc-target", "target"]].forEach(([id, k]) => {
-        const v = parseFloat(document.getElementById(id).value);
-        t[k] = isNaN(v) || v < 0 ? RISK_TOL_DEFAULTS[k] : v;
-      });
-      localStorage.setItem("tt_risk_compliance_tol", JSON.stringify(t));
-      renderRiskPlans();
-    }
-
-    // Returns the six rule results for one logged trade, or null when no fills are imported yet.
-    // Each rule: { key, label, pass: true | false | null (not applicable), detail }
-    function computeRiskCompliance(plan, c, a, tol) {
-      if (!c.ok || !a || a.status === "none") return null;
-      const dir = c.dir, rps = c.rps;
-      const rules = [];
-      const add = (key, label, pass, detail) => rules.push({ key, label, pass, detail });
-      const sizeTol = tol.size / 100;
-      // 1 Size within risk
-      add("size", "Size within risk", a.boughtQty <= c.calcShares * (1 + sizeTol) + 0.0001,
-        `Bought ${a.boughtQty.toLocaleString()} · risk-based ${c.calcShares.toLocaleString()}`);
-      // 2 Bought what you logged
-      if (plan.sharesBought > 0) {
-        add("logged", "Bought what you logged", Math.abs(a.boughtQty - plan.sharesBought) <= plan.sharesBought * sizeTol + 0.0001,
-          `Bought ${a.boughtQty.toLocaleString()} · logged ${Number(plan.sharesBought).toLocaleString()}`);
-      } else add("logged", "Bought what you logged", null, "No Shares Bought logged");
-      // 3 Entry at plan (paying up by more than the slippage = chased)
-      const slip = dir * (a.avgEntry - plan.entry);
-      add("entry", "Entry at plan", slip <= tol.entry / 100 * rps + 0.00001,
-        `Avg fill $${a.avgEntry.toFixed(2)} vs plan $${Number(plan.entry).toFixed(2)} (${slip >= 0 ? "+" : ""}${(slip / rps).toFixed(2)}R)`);
-      // 4 Risk $ within plan
-      const actualRisk = a.boughtQty * Math.abs(a.avgEntry - plan.stop);
-      add("risk", "Risk $ within plan", actualRisk <= c.riskDollars * (1 + sizeTol) + 0.01,
-        `Actual risk $${actualRisk.toFixed(0)} vs plan $${c.riskDollars.toFixed(0)}`);
-      // 5 Stop honored
-      if (a.exits.length) {
-        const worst = Math.min(...a.exits.map(e => dir * (e.price - plan.stop)));
-        add("stop", "Stop honored", worst >= -tol.stop / 100 * rps - 0.00001,
-          worst < 0 ? `Worst exit ${(worst / rps).toFixed(2)}R past the stop` : "No exit below the stop");
-      } else add("stop", "Stop honored", null, "No exits yet");
-      // 6 No early exits between the stop and Target 1
-      const t1 = plan.targets && plan.targets[0] && plan.targets[0].price > 0 ? plan.targets[0].price : null;
-      if (a.exits.length && t1 != null) {
-        const early = a.exits.filter(e =>
-          dir * (e.price - plan.stop) > tol.stop / 100 * rps && dir * (t1 - e.price) > tol.target / 100 * rps);
-        const q = early.reduce((x, e) => x + e.qty, 0);
-        add("early", "No early exits", q === 0,
-          q === 0 ? "Exits only at the stop or at/after Target 1" : `${q.toLocaleString()} shares sold between the stop and Target 1`);
-      } else add("early", "No early exits", null, t1 == null ? "No Target 1 set" : "No exits yet");
-      const evaluated = rules.filter(r => r.pass !== null);
-      const passed = evaluated.filter(r => r.pass).length;
-      return { rules, passed, evaluated: evaluated.length, score: evaluated.length ? passed / evaluated.length : null };
-    }
-
-    function renderRiskCompliance(rows) {
-      const body = document.getElementById("risk-compliance-body");
-      if (!body) return;
-      const done = rows.filter(r => r.comp);
-      if (!done.length) {
-        body.innerHTML = `<div class="wl-empty">No logged trades have imported fills yet. Log a trade above, then import your Schwab or Fidelity file under Trading Operations → Upload Trading File.</div>`;
-        return;
+      const mtdR = realizedR + unrealR;
+      const nowDd = Math.max(0, (cfg.from === "peak" ? Math.max(peak, mtdR) : 0) - mtdR);
+      const ddR = cfg.recover === "ratchet" ? Math.max(maxDd, nowDd) : nowDd;
+      const tiers = Math.max(1, Math.ceil(cfg.stand / cfg.step));
+      const k = Math.floor(ddR / cfg.step + 1e-9);
+      const standDown = ddR >= cfg.stand - 1e-9;
+      const riskPct = standDown ? 0 : cfg.base * Math.pow(cfg.mult, Math.min(k, tiers - 1));
+      const next = new Date(today.slice(0, 4) + "-" + today.slice(5, 7) + "-01T00:00:00");
+      next.setMonth(next.getMonth() + 1);
+      const ladder = [];
+      let worst = 0;
+      for (let i = 0; i < tiers; i++) {
+        const lo = i * cfg.step, hi = Math.min((i + 1) * cfg.step, cfg.stand), rp = cfg.base * Math.pow(cfg.mult, i);
+        worst += (hi - lo) * rp;
+        ladder.push({ from: lo, to: hi, riskPct: rp, active: !standDown && i === Math.min(k, tiers - 1), cumLossPct: worst });
       }
-      const pct = v => v == null ? "—" : Math.round(v * 100) + "%";
-      const full = done.filter(r => r.comp.passed === r.comp.evaluated).length;
-      const avgScore = done.reduce((x, r) => x + r.comp.score, 0) / done.length;
-      const closed = done.filter(r => r.a.status === "closed" && r.c.plannedR != null && r.a.actualR != null);
-      const sumPlanned = closed.reduce((x, r) => x + r.c.plannedR, 0);
-      const sumActual = closed.reduce((x, r) => x + r.a.actualR, 0);
-      const efficiency = closed.length && sumPlanned > 0 ? sumActual / sumPlanned : null;
-      // Trend: last 10 trades vs the 10 before (by trade date)
-      const byDate = done.slice().sort((x, y) => (x.p.tradeDate || "").localeCompare(y.p.tradeDate || ""));
-      const avg = list => list.length ? list.reduce((x, r) => x + r.comp.score, 0) / list.length : null;
-      const last10 = avg(byDate.slice(-10)), prev10 = avg(byDate.slice(-20, -10));
-      // Per-rule pass rates
-      const keys = ["size", "logged", "entry", "risk", "stop", "early"];
-      const ruleRows = keys.map(k => {
-        const rs = done.map(r => r.comp.rules.find(x => x.key === k)).filter(x => x && x.pass !== null);
-        const label = (done[0].comp.rules.find(x => x.key === k) || {}).label || k;
-        const rate = rs.length ? rs.filter(x => x.pass).length / rs.length : null;
-        const misses = done.filter(r => { const x = r.comp.rules.find(y => y.key === k); return x && x.pass === false; }).map(r => r.p.ticker);
-        return `<tr><td>${label}</td><td>${rs.length}</td>
-          <td class="${rate == null ? "" : rate >= 0.9 ? "pos" : rate >= 0.7 ? "" : "neg"}" style="font-weight:700;">${pct(rate)}</td>
-          <td class="muted" style="font-size:20px;">${misses.slice(0, 8).join(", ")}${misses.length > 8 ? " …" : ""}</td></tr>`;
-      }).join("");
-      const box = (label, value, sub, cls) => `<div class="result-box" style="flex:1;min-width:200px;margin:0;">
-          <div style="font-size:20px;color:var(--muted);">${label}</div>
-          <div class="big ${cls || ""}" style="font-size:34px;">${value}</div>
-          <div class="muted" style="font-size:18px;margin-top:4px;">${sub}</div></div>`;
-      body.innerHTML = `
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-          ${box("Average compliance", pct(avgScore), `${done.length} trade(s) with fills`, avgScore >= 0.9 ? "pos" : avgScore < 0.7 ? "neg" : "")}
-          ${box("Fully compliant trades", pct(full / done.length), `${full} of ${done.length} passed every rule`)}
-          ${box("Execution efficiency", efficiency == null ? "—" : pct(efficiency), closed.length ? `Actual ${sumActual >= 0 ? "+" : ""}${sumActual.toFixed(2)}R vs planned +${sumPlanned.toFixed(2)}R (${closed.length} closed)` : "Needs closed trades with a planned R")}
-          ${box("Trend · last 10", pct(last10), prev10 == null ? "Needs 11+ trades to compare" : `Previous 10: ${pct(prev10)} (${last10 >= prev10 ? "▲" : "▼"} ${Math.abs(Math.round((last10 - prev10) * 100))} pts)`)}
-        </div>
-        <table>
-          <thead><tr><th>Rule</th><th>Trades checked</th><th>Pass rate</th><th>Missed on</th></tr></thead>
-          <tbody>${ruleRows}</tbody>
-        </table>
-        <div class="note">Compliance = rules passed ÷ rules that apply to the trade. Execution efficiency = total actual R ÷ total planned R on closed trades — how much of the R you planned you actually captured.</div>`;
+      return { monthKey, tradesN: month.length, realizedR, unrealR, mtdR, ddR, tier: Math.min(k, tiers), riskPct,
+        standDown, resetDate: next.toISOString().slice(0, 10), ladder, worstMonthPct: worst, nEst, openEst,
+        riskUsd: equity * riskPct / 100 };
     }
-
-    function renderRiskPlans() {
-      const body = document.getElementById("risk-plans-body");
-      if (!body) return;
-      const plans = getRiskPlans();
-      const tol = getRiskTolerances();
-      const compRows = [];
-      if (!plans.length) {
-        body.innerHTML = `<div class="wl-empty">No logged trades yet. Fill in the form above and click <strong>Save &amp; Log Trade</strong>.</div>`;
-        renderRiskCompliance([]);
-        return;
-      }
-      const tgt = t => t && t.price > 0 ? `$${Number(t.price).toFixed(2)}${t.qty > 0 ? ` × ${Number(t.qty).toLocaleString()}` : ""}` : "—";
-      const rows = plans.map(p => {
-        const c = computeRiskPlan(p);
-        const a = computeRiskPlanActual(p, plans);
-        const comp = computeRiskCompliance(p, c, a, tol);
-        compRows.push({ p, c, a, comp });
-        let compCell;
-        if (!comp) compCell = `<td class="muted" style="font-size:20px;">—</td>`;
-        else {
-          const icons = comp.rules.map(r => `<span title="${r.label}: ${r.detail}" class="${r.pass === true ? "pos" : r.pass === false ? "neg" : "muted"}" style="cursor:help;">${r.pass === true ? "✓" : r.pass === false ? "✗" : "·"}</span>`).join(" ");
-          const fails = comp.rules.filter(r => r.pass === false).map(r => r.label);
-          compCell = `<td><strong class="${comp.score === 1 ? "pos" : comp.score < 0.7 ? "neg" : ""}">${comp.passed}/${comp.evaluated}</strong> <span style="font-size:20px;">${icons}</span>
-            ${fails.length ? `<div class="neg" style="font-size:18px;">${fails.join(" · ")}</div>` : ""}</td>`;
-        }
-        let actualCells;
-        if (a.status === "none") {
-          actualCells = `<td colspan="5" class="muted" style="font-size:20px;">No fills imported yet</td>`;
-        } else {
-          actualCells = `
-            <td>${a.boughtQty.toLocaleString()}${a.openQty > 0 ? `<div class="muted" style="font-size:18px;">${a.openQty.toLocaleString()} open</div>` : ""}</td>
-            <td>$${a.avgEntry.toFixed(2)}${a.avgExit != null ? `<div class="muted" style="font-size:18px;">exit avg $${a.avgExit.toFixed(2)}</div>` : ""}</td>
-            <td class="${riskCls(a.realized)}">${riskFmtMoney(a.realized, 0)}</td>
-            <td class="${riskCls(a.actualR)}" style="font-weight:700;">${riskFmtR(a.actualR)}${a.status === "open" ? `<div class="muted" style="font-size:18px;font-weight:400;">incl. open ${riskFmtR(a.actualRInclOpen)}</div>` : ""}</td>
-            <td><span class="tag">${a.status === "open" ? "Open" : "Closed"}</span></td>`;
-        }
-        return `<tr>
-          <td>${p.tradeDate || ""}</td>
-          <td><strong>${p.ticker}</strong></td>
-          <td>$${Number(p.entry).toFixed(2)}</td>
-          <td>$${Number(p.stop).toFixed(2)}</td>
-          <td>${c.ok ? "$" + c.rps.toFixed(2) : "—"}</td>
-          <td>${c.ok ? c.shares.toLocaleString() : "—"}<div class="muted" style="font-size:18px;">${c.ok ? (c.loggedOverride ? "calc " + c.calcShares.toLocaleString() + " · " : "") + riskFmtMoney(c.actualRiskDollars, 0) + " risk" : ""}</div></td>
-          <td style="font-size:20px;">${tgt(p.targets && p.targets[0])}<br>${tgt(p.targets && p.targets[1])}<br>${tgt(p.targets && p.targets[2])}</td>
-          <td>${c.ok ? c.remaining.toLocaleString() : "—"}</td>
-          <td class="${riskCls(c.plannedR)}" style="font-weight:700;">${c.ok ? riskFmtR(c.plannedR) : "—"}</td>
-          ${actualCells}
-          ${compCell}
-          <td style="white-space:nowrap;">
-            <button class="btn btn-sm" onclick="riskEditPlan('${p.id}')">Edit</button>
-            <button class="btn btn-sm" onclick="riskDeletePlan('${p.id}')">Delete</button>
-          </td>
-        </tr>`;
-      }).join("");
-      body.innerHTML = `<div style="overflow-x:auto;"><table>
-        <thead><tr>
-          <th>Trade Date</th><th>Ticker</th><th>Entry</th><th>Stop</th><th>Risk/sh</th><th>Shares (logged)</th>
-          <th>Targets × Qty</th><th>Remaining</th><th>Planned R</th>
-          <th>Bought (actual)</th><th>Actual Avg Entry</th><th>Realized P&amp;L</th><th>Actual R</th><th>Status</th><th>Compliance</th><th></th>
-        </tr></thead>
-        <tbody>${rows}</tbody></table></div>`;
-      renderRiskCompliance(compRows);
-    }
-
-    // ---- Current price ----
-    function riskGetTdKey() { try { return localStorage.getItem("tt_twelvedata_key") || ""; } catch (e) { return ""; } }
-    function riskRenderTdKeyStatus() {
-      const el = document.getElementById("risk-td-key-status");
-      if (!el) return;
-      const k = riskGetTdKey();
-      el.textContent = k ? "Key saved in this browser (" + k.slice(0, 4) + "…). Get price uses Twelve Data." :
-        "No key saved — Get price falls back to the latest price already in the terminal (scheduled data / open positions), or type it in.";
-    }
-    function riskSaveTdKey() {
-      const v = (document.getElementById("risk-td-key").value || "").trim();
-      if (!v) return;
-      localStorage.setItem("tt_twelvedata_key", v);
-      document.getElementById("risk-td-key").value = "";
-      riskRenderTdKeyStatus();
-    }
-    function riskClearTdKey() { localStorage.removeItem("tt_twelvedata_key"); riskRenderTdKeyStatus(); }
-
-    // Latest price the terminal already knows about (no network call)
-    function riskKnownPrice(ticker) {
-      const lot = getOpenLots().find(l => l.ticker === ticker && l.currentPrice != null);
-      if (lot) return { price: lot.currentPrice, src: "open position" };
-      const w = getWatchlist().find(x => x.ticker === ticker);
-      if (w && w.position && w.position.currentPrice != null) return { price: w.position.currentPrice, src: "open position" };
-      const c = candidates.find(x => x.ticker === ticker);
-      if (c && c.price) return { price: c.price, src: "scheduled data" };
-      if (w && w.price) return { price: w.price, src: "watchlist" };
-      return null;
-    }
-    function riskPrefillPrice(ticker) {
-      const cur = document.getElementById("risk-current");
-      if (!ticker || !cur || cur.value) return;
-      const k = riskKnownPrice(ticker);
-      if (k) {
-        cur.value = Number(k.price).toFixed(2);
-        document.getElementById("risk-price-status").textContent = `Price from ${k.src} — click Get price for a fresh quote.`;
-      }
-    }
-    async function riskFetchPrice(btn) {
-      const ticker = (document.getElementById("risk-ticker-select").value || "").trim().toUpperCase();
-      const status = document.getElementById("risk-price-status");
-      const cur = document.getElementById("risk-current");
-      if (!ticker) { status.textContent = "Enter a ticker first."; return; }
-      const key = riskGetTdKey();
-      const label = btn ? btn.textContent : "";
-      if (btn) { btn.textContent = "…"; btn.disabled = true; }
+    function getRiskGovernorState() {
       try {
-        if (!key) throw new Error("no key");
-        const res = await fetch(`https://api.twelvedata.com/price?symbol=${encodeURIComponent(ticker)}&apikey=${encodeURIComponent(key)}`);
-        const data = await res.json();
-        const px = parseFloat(data && data.price);
-        if (!isFinite(px)) throw new Error((data && data.message) || "no price returned");
-        cur.value = px.toFixed(2);
-        status.textContent = `${ticker} $${px.toFixed(2)} · Twelve Data · ${new Date().toLocaleTimeString()}`;
-      } catch (e) {
-        const k = riskKnownPrice(ticker);
-        if (k) {
-          cur.value = Number(k.price).toFixed(2);
-          status.textContent = (e.message === "no key" ? "" : `Twelve Data didn't return a price (${e.message}). `) + `Using the last known price from ${k.src}.`;
+        const cfg = getGovCfg();
+        return computeGovernor(getJournal().filter(t => t.pnl != null && !isNaN(t.pnl)), getOpenPositionsWithUnrealized(),
+          getCurrentPortfolioValueComputed(), cfg, new Date().toISOString().slice(0, 10));
+      } catch (e) { return null; }
+    }
+    function renderRiskGovernor() {
+      const st = document.getElementById("gov-status");
+      if (!st) return;
+      const cfg = getGovCfg();
+      const setv = (id, v) => { const e = document.getElementById(id); if (e && document.activeElement !== e) e.value = v; };
+      setv("gov-base", cfg.base); setv("gov-step", cfg.step); setv("gov-stand", cfg.stand); setv("gov-mult", cfg.mult);
+      setv("gov-window", cfg.window); setv("gov-from", cfg.from); setv("gov-recover", cfg.recover);
+      const ue = document.getElementById("gov-unreal"); if (ue) ue.checked = !!cfg.unreal;
+      const equity = getCurrentPortfolioValueComputed();
+      const trades = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      const g = computeGovernor(trades, getOpenPositionsWithUnrealized(), equity, cfg, new Date().toISOString().slice(0, 10));
+      const f = (v, d = 2) => (v == null || !isFinite(v)) ? "n/a" : v.toFixed(d);
+      const sr = (v, d = 2) => (v == null || !isFinite(v)) ? "n/a" : (v > 0 ? "+" : "") + v.toFixed(d) + "R";
+      const tone = v => v == null ? "" : (v >= 0 ? "pos" : "neg");
+      const card = (label, val, cls, sub, tip) =>
+        `<div style="background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:16px;" title="${(tip || "").replace(/"/g, "&quot;")}">
+          <div style="font-size:15px;color:var(--muted);text-transform:uppercase;">${label}</div>
+          <div style="font-size:27px;font-weight:700;margin-top:4px;" class="${cls || ""}">${val}</div>
+          ${sub ? `<div style="font-size:15px;color:var(--muted);margin-top:4px;line-height:1.3;">${sub}</div>` : ""}</div>`;
+      const banner = g.standDown
+        ? `<strong>STAND DOWN.</strong> This month is ${sr(-g.ddR, 1)} from its reference, past your −${cfg.stand}R limit. No new risk until <strong>${g.resetDate}</strong>. Use the time to review the trades.`
+        : (g.tier > 0
+          ? `<strong>Size reduced.</strong> Drawdown ${sr(-g.ddR, 1)} this month. Risk per trade is now <strong>${f(g.riskPct, 3)}%</strong> (base ${cfg.base}%), until the month resets${cfg.recover === "restore" ? " or R recovers" : ""}.`
+          : `<strong>Full size.</strong> Month-to-date ${sr(g.mtdR, 1)}; risk per trade is the base <strong>${f(g.riskPct, 3)}%</strong>.`);
+      st.innerHTML = `<div style="padding:14px 16px;border-radius:8px;font-size:24px;border:1px solid var(--border);background:#0f172a;" class="${g.standDown || g.tier > 0 ? "neg" : "pos"}">${banner}</div>`;
+      document.getElementById("gov-cards").innerHTML =
+        card("Allowed 1R now", g.standDown ? "0% (out)" : f(g.riskPct, 3) + "%", g.standDown ? "neg" : (g.tier > 0 ? "neg" : "pos"),
+          g.standDown ? "until " + g.resetDate : "$" + Math.round(g.riskUsd).toLocaleString() + " per trade on $" + Math.round(equity).toLocaleString(), "Risk % to use when sizing the next trade.") +
+        card("Month-to-date R", sr(g.mtdR, 1), tone(g.mtdR), g.tradesN + " closed trade(s) in " + g.monthKey, "Realized R this calendar month plus open-position R (if included).") +
+        card("Realized R (month)", sr(g.realizedR, 1), tone(g.realizedR), "closed trades only") +
+        card("Unrealized R", cfg.unreal ? sr(g.unrealR, 1) : "excluded", cfg.unreal ? tone(g.unrealR) : "", cfg.unreal ? "open positions" + (g.openEst ? " · " + g.openEst + " estimated" : "") : "turn on in Settings") +
+        card("R drawdown", sr(-g.ddR, 1), g.ddR > 0 ? "neg" : "", "limit −" + cfg.stand + "R · next cut at −" + ((g.tier + 1) * cfg.step) + "R", "Measured from " + (cfg.from === "peak" ? "this month's high-water mark" : "the start of the month") + ".");
+      document.getElementById("gov-ladder").innerHTML =
+        `<table><thead><tr><th>Drawdown band</th><th>Risk per trade (1R)</th><th>Max loss in band</th><th>Cumulative worst case</th><th></th></tr></thead><tbody>` +
+        g.ladder.map(r => `<tr${r.active ? ' style="background:#1e293b;"' : ""}><td>${r.from === 0 ? "0" : "−" + r.from}R to −${r.to}R</td><td>${f(r.riskPct, 3)}%</td><td>${f((r.to - r.from) * r.riskPct, 2)}%</td><td>${f(r.cumLossPct, 2)}%</td><td>${r.active ? "◄ now" : ""}</td></tr>`).join("") +
+        `<tr><td>−${cfg.stand}R or worse</td><td>0% (stand down)</td><td>—</td><td>—</td><td>${g.standDown ? "◄ now" : ""}</td></tr></tbody></table>`;
+      const note = document.getElementById("gov-note");
+      if (note) note.innerHTML = `Worst case if the month hits the stand-down line: about <strong>${f(g.worstMonthPct, 2)}%</strong> of equity (each −1R loss costs exactly its band's risk %).`
+        + (g.nEst ? ` ${g.nEst} closed trade(s) this month had no stop/shares recorded, so their R is estimated.` : "")
+        + " The governor sizes by R, so log stops in the Journal for accurate R.";
+      // ---- recent trades panel ----
+      const rs = computeRecentStats(trades, cfg.window, equity * cfg.base / 100);
+      const tag = document.getElementById("gov-recent-tag"); if (tag) tag.textContent = "last " + rs.n + " closed trades";
+      const rc = document.getElementById("gov-recent-cards"), rb = document.getElementById("gov-recent-bars"), rn = document.getElementById("gov-recent-note");
+      if (!rs.n) {
+        rc.innerHTML = `<div class="wl-empty" style="grid-column:1/-1;">No closed trades yet. Log trades in the Journal (or import from Schwab) to see R stats.</div>`;
+        rb.innerHTML = ""; if (rn) rn.innerHTML = ""; renderGovHooks(g); return;
+      }
+      const strk = rs.streak.type ? rs.streak.len + (rs.streak.type === "W" ? " win" : (rs.streak.type === "L" ? " loss" : " flat")) + (rs.streak.len > 1 ? (rs.streak.type === "L" ? "es" : "s") : "") : "n/a";
+      rc.innerHTML =
+        card("Winners / losers", rs.wins + " / " + rs.losses + (rs.flats ? " / " + rs.flats + " flat" : ""), "", "of " + rs.n + " trades") +
+        card("Win rate", f(rs.winRate, 0) + "%", rs.winRate >= 50 ? "pos" : "") +
+        card("Avg win", sr(rs.avgWinR), "pos") +
+        card("Avg loss", sr(rs.avgLossR), "neg", rs.avgLossR < -1 ? "worse than −1R: stops not held?" : "") +
+        card("Payoff (avg win ÷ avg loss)", f(rs.payoff), rs.payoff != null ? (rs.payoff >= 1 ? "pos" : "neg") : "") +
+        card("Expectancy / trade", sr(rs.expectancyR), tone(rs.expectancyR), "average R per trade") +
+        card("Total R", sr(rs.totalR, 1), tone(rs.totalR)) +
+        card("Best / worst", sr(rs.bestR, 1) + " / " + sr(rs.worstR, 1), "") +
+        card("Current streak", strk, rs.streak.type === "L" && rs.streak.len >= 3 ? "neg" : (rs.streak.type === "W" ? "pos" : ""));
+      const maxAbs = Math.max(2, ...rs.series.map(x => Math.abs(x.r)));
+      const H = 90;
+      rb.innerHTML = `<div style="position:relative;height:${H * 2 + 8}px;display:flex;align-items:center;gap:6px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;overflow-x:auto;">` +
+        rs.series.map(x => {
+          const h = Math.max(3, Math.min(1, Math.abs(x.r) / maxAbs) * H);
+          const col = x.r > 0 ? "#22c55e" : (x.r < 0 ? "#ef4444" : "#64748b");
+          return `<div title="${x.ticker} ${x.date}: ${sr(x.r)}${x.est ? " (est.)" : ""}" style="flex:0 0 26px;height:${H * 2}px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="height:${H}px;display:flex;align-items:flex-end;">${x.r > 0 ? `<div style="width:100%;height:${h}px;background:${col};opacity:${x.est ? 0.55 : 1};border-radius:2px 2px 0 0;"></div>` : ""}</div>
+            <div style="height:${H}px;display:flex;align-items:flex-start;">${x.r <= 0 ? `<div style="width:100%;height:${h}px;background:${col};opacity:${x.est ? 0.55 : 1};border-radius:0 0 2px 2px;"></div>` : ""}</div></div>`;
+        }).join("") + `</div>`;
+      if (rn) rn.innerHTML = "Oldest on the left, newest on the right; hover a bar for the ticker. Faded bars use an estimated R (no stop/shares recorded)"
+        + (rs.nEst ? ` — ${rs.nEst} of ${rs.n} here.` : ".") + " Window size is in Settings.";
+      renderGovHooks(g);
+    }
+    function renderGovHooks(g) { /* reserved for linking governor state into other panels */ }
+
+    function calcSize() {
+      const account = parseFloat(document.getElementById("risk-account").value) || 0;
+      let pct = parseFloat(document.getElementById("risk-pct").value) || 0;
+      const entry = parseFloat(document.getElementById("risk-entry").value) || 0;
+      const stop = parseFloat(document.getElementById("risk-stop").value) || 0;
+      const gov = getRiskGovernorState();
+
+      if (gov && gov.standDown) {
+        document.getElementById("shares-out").textContent = "0";
+        document.getElementById("size-details").innerHTML = `<span class="neg"><strong>Risk Governor: stand down</strong> until ${gov.resetDate}. Sizing is disabled for new risk.</span>`;
+        return;
+      }
+      if (gov && pct > gov.riskPct + 1e-9 && account > 0 && entry > 0 && stop > 0) {
+        if (!confirm("Risk Governor allows " + gov.riskPct.toFixed(3) + "% per trade right now (you entered " + pct + "%). Use the governor's " + gov.riskPct.toFixed(3) + "%? Cancel keeps your higher number.")) {
+          /* keep user's override */
         } else {
-          status.textContent = e.message === "no key"
-            ? "No price source — add a Twelve Data key (bottom of this tab) or type the price."
-            : `Couldn't get a price (${e.message}) — type it in.`;
+          pct = gov.riskPct;
+          document.getElementById("risk-pct").value = +gov.riskPct.toFixed(3);
         }
-      } finally {
-        if (btn) { btn.textContent = label; btn.disabled = false; }
-        riskRecalc();
+      }
+
+      if (account <= 0 || pct <= 0 || entry <= 0 || stop <= 0) {
+        document.getElementById("shares-out").textContent = "—";
+        document.getElementById("size-details").textContent = "Fill all fields";
+        return;
+      }
+      if (pct > 2.5) {
+        alert("Hard max is 2.5%. Capping.");
+        pct = 2.5;
+        document.getElementById("risk-pct").value = 2.5;
+      }
+      const riskDollars = account * (pct / 100);
+      const riskPerShare = Math.abs(entry - stop);
+      if (riskPerShare === 0) {
+        document.getElementById("shares-out").textContent = "—";
+        document.getElementById("size-details").textContent = "Entry and Stop cannot be equal";
+        return;
+      }
+      const shares = Math.floor(riskDollars / riskPerShare);
+      const notional = shares * entry;
+
+      document.getElementById("shares-out").textContent = shares.toLocaleString();
+      document.getElementById("size-details").innerHTML =
+        `Risk $: <strong>$${riskDollars.toFixed(0)}</strong> (${pct}%) · Risk/share: <strong>$${riskPerShare.toFixed(2)}</strong> · Notional: <strong>$${notional.toLocaleString(undefined,{maximumFractionDigits:0})}</strong>`;
+
+      // Save the full sizing result onto the selected ticker's plan, so
+      // Saved Plans shows entry/stop/risk%/shares without needing to
+      // re-open this calculator — that's the actual point of a trade plan,
+      // something to execute against later, not a number that evaporates
+      // the moment you leave this tab.
+      const ticker = document.getElementById("risk-ticker-select") ? document.getElementById("risk-ticker-select").value : "";
+      if (ticker) {
+        const list = getWatchlist();
+        const item = list.find(x => x.ticker === ticker);
+        if (item) {
+          item.plan = { ...(item.plan || {}), entry, stop, riskPct: pct, shares, accountValue: account };
+          saveWatchlist(list);
+          renderWatchlist();
+        }
       }
     }
 
@@ -7552,13 +7047,8 @@ ${tpEscape(text)}</span></span>`
         // what-if calculation, it just resets to the real number next visit
         // rather than staying stuck on whatever was typed in previously.
         const accountEl = document.getElementById("risk-account");
-        if (accountEl && !riskEditingId) accountEl.value = Math.round(getCurrentPortfolioValueComputed());
-        const dateEl = document.getElementById("risk-tradedate");
-        if (dateEl && !dateEl.value) dateEl.value = new Date().toISOString().slice(0, 10);
-        riskRenderTdKeyStatus();
-        riskLoadTolerances();
-        renderRiskPlans();
-        riskRecalc();
+        if (accountEl) accountEl.value = Math.round(getCurrentPortfolioValueComputed());
+        renderRiskGovernor();
       }
       updateExecRiskVisibility();
     }
@@ -8352,124 +7842,77 @@ ${tpEscape(text)}</span></span>`
       return lines;
     }
 
-    // Trade Factory tabs: Catalyst Based / Pattern Based, one sub tab per setup.
-    const TF_TABS = {
-      "tf-catalyst": { label: "Catalyst Based", subs: [
-        { key: "SIP", tab: "SIP" }, { key: "EP", tab: "EP" }, { key: "DEP", tab: "DEP" }
-      ] },
-      "tf-pattern": { label: "Pattern Based", subs: [
-        { key: "EP9M", tab: "EP9M" }, { key: "DEP9", tab: "DEP9" }, { key: "Sugar Babies", tab: "Sugar Babies" },
-        { key: "MTR", tab: "MTR" }, { key: "Bottom Bounce", tab: "Bottom Bounce" },
-        { key: "Reversal Bullish", tab: "Reversal Bullish" }, { key: "Reversal Bearish", tab: "Reversal Bearish" },
-        { key: "Anticipation", tab: "Anticipation" }, { key: "Weak Structure Short", tab: "Weak Structure" },
-        { key: "__others", tab: "Others" }
-      ] }
-    };
-    function tfEsc(v) {
-      return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-    }
-    function tfGetActive(tabId) {
-      try { return localStorage.getItem("tt_tf_sub_" + tabId) || ""; } catch (e) { return ""; }
-    }
-    function tfSetActive(tabId, sub) {
-      try { localStorage.setItem("tt_tf_sub_" + tabId, sub); } catch (e) {}
-    }
-    function switchTFTab(el) {
-      const tab = el.getAttribute("data-tf-tab");
-      document.querySelectorAll("#trade-factory > .steps .step-tab").forEach(t => t.classList.remove("active"));
-      el.classList.add("active");
-      document.querySelectorAll("#trade-factory > .tf-tab").forEach(p => { p.style.display = "none"; });
-      const panel = document.getElementById(tab);
-      if (panel) panel.style.display = "block";
-      try { localStorage.setItem("tt_tf_tab", tab); } catch (e) {}
-      if (tab !== "tf-overview") renderTFTab(tab);
-    }
-    function switchTFSub(tabId, sub) {
-      tfSetActive(tabId, sub);
-      renderTFTab(tabId);
-    }
-
     function renderTradeFactoryCards() {
-      // Kept as the entry point other code calls; renders both setup tabs.
-      renderTFTab("tf-catalyst");
-      renderTFTab("tf-pattern");
-      let saved = "";
-      try { saved = localStorage.getItem("tt_tf_tab") || ""; } catch (e) {}
-      const tabEl = saved && document.querySelector(`#trade-factory > .steps [data-tf-tab="${saved}"]`);
-      if (tabEl && !tabEl.classList.contains("active")) switchTFTab(tabEl);
-    }
-
-    function tfSetupDetailHtml(key, s) {
-      const isBearish = s.direction === "bearish";
-      const color = isBearish ? "#ef4444" : "#22c55e";
-      const bullets = (arr, empty) => (arr || []).length
-        ? arr.map(b => `<div class="check-item"><span class="check-icon">•</span> ${tfEsc(b)}</div>`).join("")
-        : `<div class="check-item muted"><span class="check-icon">•</span> ${empty || "None defined yet"}</div>`;
-      const row = (k, v) => `<tr><td class="muted" style="width:190px;">${k}</td><td>${v ? tfEsc(v) : '<span class="muted">—</span>'}</td></tr>`;
-      const head = (t) => `<div class="muted" style="font-size:20px;text-transform:uppercase;margin-top:12px;">${t}</div>`;
-      const kind = [s.category === "pattern" ? "Pattern" : "Catalyst", s.moneyType === "homerun" ? "Home Run" : "Single"].join(" · ");
-      return `<div class="panel" style="margin:0 0 12px;border-left:4px solid ${color};">
-        <div class="panel-header">
-          ${tfEsc(s.label || key)}
-          <span>
-            <span class="tag" style="font-size:18px;">${kind}</span>
-            <span class="tag" style="background:${color}22;color:${color};">${isBearish ? "BEARISH" : "BULLISH"}</span>
-          </span>
-        </div>
-        <div class="panel-body">
-          <table>
-            ${row("Scan / trigger", s.scan)}
-            ${row("Typical hold", s.hold)}
-            <tr><td class="muted">Risk</td><td>${s.riskPct != null ? s.riskPct + "% ideal" : "—"} / ${s.riskMax != null ? s.riskMax + "% max" : "—"}</td></tr>
-          </table>
-          <div class="grid-2">
-            <div>${head("Qualification criteria")}<div class="checklist">${bullets(s.qualBullets, "Not defined yet — add them with Edit in Setup Library")}</div></div>
-            <div>${head("Invalidation criteria")}<div class="checklist">${bullets(s.invalBullets, "Not defined yet — add them with Edit in Setup Library")}</div></div>
-          </div>
-          ${head("Entry, stop & exit")}
-          <table>
-            ${row("Open entry", s.openEntry)}
-            ${row("Delayed entry", s.delayedEntry)}
-            ${row("Stop", s.stop)}
-            ${row("Exit", s.exit)}
-          </table>
-          <div class="grid-2">
-            <div>${head("Execution rules")}<div class="checklist">${bullets(s.execBullets)}</div></div>
-            <div>${head("Risk rules")}<div class="checklist">${bullets(s.riskBullets)}</div></div>
-          </div>
-          <button class="btn btn-sm" style="margin-top:10px;" onclick="editSetup('${tfEsc(key)}')">Edit in Setup Library</button>
-        </div>
-      </div>`;
-    }
-
-    function renderTFTab(tabId) {
-      const host = document.getElementById(tabId);
-      const def = TF_TABS[tabId];
-      if (!host || !def) return;
+      const container = document.getElementById("trade-factory-cards");
+      if (!container) return;
       const setups = getSetups();
-      // "Others" = the Other setup plus any custom setup not on a named tab
-      const named = new Set();
-      Object.values(TF_TABS).forEach(t => t.subs.forEach(x => named.add(x.key)));
-      const otherKeys = Object.keys(setups).filter(k => !named.has(k));
+      const journal = getJournal().filter(t => t.pnl != null && !isNaN(t.pnl));
+      const perfBySetup = {};
+      journal.forEach(t => {
+        const k = t.setup || "Other";
+        if (!perfBySetup[k]) perfBySetup[k] = { n: 0, pnl: 0, w: 0 };
+        perfBySetup[k].n++; perfBySetup[k].pnl += t.pnl; if (t.pnl > 0) perfBySetup[k].w++;
+      });
+      const watchlistBySetup = {};
+      getWatchlist().forEach(w => {
+        const k = w.setupType || "Other";
+        watchlistBySetup[k] = (watchlistBySetup[k] || 0) + 1;
+      });
 
-      let active = tfGetActive(tabId);
-      if (!def.subs.some(x => x.key === active)) active = def.subs[0].key;
-      const tabs = def.subs.map(x =>
-        `<div class="step-tab ${x.key === active ? "active" : ""}" onclick="switchTFSub('${tabId}', '${tfEsc(x.key)}')">${tfEsc(x.tab)}</div>`
-      ).join("");
-      let body;
-      if (active === "__others") {
-        body = otherKeys.length
-          ? otherKeys.map(k => tfSetupDetailHtml(k, setups[k])).join("")
-          : `<div class="wl-empty">No other setups. Add one in the Setup Library and it appears here.</div>`;
-      } else if (setups[active]) {
-        body = tfSetupDetailHtml(active, setups[active]);
-      } else {
-        body = `<div class="wl-empty">"${tfEsc(active)}" isn't in your Setup Library (it may have been deleted). Add it back there to see it here.</div>`;
-      }
-      host.innerHTML = `
-        <div class="steps" style="border:1px solid var(--border);border-top:none;margin-bottom:0;background:#0b1222;flex-wrap:wrap;display:flex;">${tabs}</div>
-        <div style="padding-top:12px;">${body}</div>`;
+      const branchDefs = [
+        { key: "catalyst_based", label: "Catalyst Based", group: "🏠 Home Runs" },
+        { key: "pattern_based", label: "Pattern Based", group: "🏠 Home Runs" },
+        { key: "exhaustion", label: "Exhaustion", group: "⚾ Singles" },
+        { key: "momentum_burst", label: "Momentum Burst", group: "⚾ Singles" }
+      ];
+
+      const renderCard = (key) => {
+        const s = setups[key];
+        const perf = perfBySetup[key];
+        const watchCount = watchlistBySetup[key] || 0;
+        const isBearish = s.direction === "bearish";
+        const color = isBearish ? "#ef4444" : "#22c55e";
+        const perfHtml = perf
+          ? `<span class="${perf.pnl >= 0 ? "pos" : "neg"}">$${perf.pnl.toFixed(2)}</span> · ${perf.n} trade${perf.n === 1 ? "" : "s"} · ${((perf.w / perf.n) * 100).toFixed(0)}% win rate`
+          : `<span class="muted">No trades logged yet</span>`;
+        const watchHtml = watchCount
+          ? `<a href="#" onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-list]').click();return false;">${watchCount} on watchlist now</a>`
+          : `<span class="muted">None on watchlist right now</span>`;
+        return `<div style="background:#0f172a;border:1px solid ${color}55;border-left:4px solid ${color};border-radius:8px;padding:12px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <strong style="font-size:28px;">${s.label || key}</strong>
+            <span class="tag" style="background:${color}22;color:${color};font-size:18px;">${isBearish ? "BEARISH" : "BULLISH"}</span>
+          </div>
+          <div class="muted" style="font-size:22px;margin-top:6px;">📡 ${s.scan || "No scan defined"}</div>
+          <div style="font-size:24px;margin-top:6px;">📊 ${perfHtml}</div>
+          <div style="font-size:24px;margin-top:4px;">👁 ${watchHtml}</div>
+          <div class="muted" style="font-size:22px;margin-top:4px;">Risk ${s.riskPct}% ideal / ${s.riskMax}% max · Hold: ${s.hold || "—"}</div>
+          <button class="btn btn-sm" style="margin-top:8px;" onclick="editSetup('${key}')">Add qualification / Edit in Setup Library</button>
+        </div>`;
+      };
+
+      const byBranch = {};
+      branchDefs.forEach(b => byBranch[b.key] = []);
+      Object.keys(setups).forEach(key => {
+        const s = setups[key];
+        const branch = s.tfBranch && byBranch[s.tfBranch] ? s.tfBranch : "momentum_burst";
+        byBranch[branch].push(key);
+      });
+
+      const groups = { "🏠 Home Runs": ["catalyst_based", "pattern_based"], "⚾ Singles": ["exhaustion", "momentum_burst"] };
+      container.innerHTML = Object.keys(groups).map(groupLabel => `
+        <div class="grid-2" style="margin-top:14px;">
+          ${groups[groupLabel].map(branchKey => {
+            const def = branchDefs.find(b => b.key === branchKey);
+            const keys = byBranch[branchKey];
+            return `<div class="panel" style="margin:0;">
+              <div class="panel-header">${groupLabel} · ${def.label}</div>
+              <div class="panel-body">
+                ${keys.length ? keys.map(renderCard).join("") : `<div class="wl-empty">No setups tagged here yet — assign one in the Setup Library.</div>`}
+              </div>
+            </div>`;
+          }).join("")}
+        </div>`).join("");
     }
 
     function formatNewsTime(iso) {
@@ -10798,6 +10241,7 @@ Question: ${question}`;
       const by = document.getElementById("dash-by-type");
       const extra = document.getElementById("dash-extra");
       renderTradeFactory();
+      renderRiskGovernor();
       if (!el) return;
       let baselineCap = 0, baselineDate = null;
       try {
