@@ -501,6 +501,10 @@
     #watchlist-body table input, #watchlist-body table select, #watchlist-body table textarea { font-size: 20px; }
     /* Weekly Trade Plan form — bigger boxes and font, wide-monitor request,
        scoped to just this tab's form fields. */
+    .pt-grid { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:16px; align-items:start; }
+    .pt-rail { position:sticky; top:8px; }
+    .pt-grid table input { background:#0f172a; border:1px solid var(--border); color:var(--text); padding:6px 8px; border-radius:4px; font-family:inherit; }
+    @media (max-width: 1000px) { .pt-grid { grid-template-columns:1fr; } .pt-rail { position:static; } }
     #wl-tradeplan input, #wl-tradeplan select, #wl-tradeplan textarea, #wl-tradeplan label { font-size: 18px; }
     #wl-tradeplan input, #wl-tradeplan select, #wl-tradeplan textarea { padding: 8px 10px; }
 
@@ -1099,7 +1103,7 @@
               <div style="font-size:20px;color:var(--muted);margin-top:4px;line-height:1.4;">Right stocks</div>
             </div>
             <div style="display:flex;align-items:center;font-size:32px;color:var(--muted);padding:0 2px;">→</div>
-            <div onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-execute]').click();"
+            <div onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-pretrade]').click();"
                 style="cursor:pointer;flex:1;min-width:150px;background:#0f172a;border:1px solid #3b82f6;border-radius:10px;padding:14px 10px;text-align:center;">
               <div style="width:30px;height:30px;border-radius:50%;background:#3b82f6;color:#0a0e17;font-weight:800;font-size:28px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">4</div>
               <div style="font-size:24px;font-weight:800;color:#3b82f6;">STRUCTURE</div>
@@ -1173,7 +1177,7 @@
             <div style="text-align:center;font-size:30px;color:var(--muted);">↓</div>
 
             <!-- STAGE 4: STRUCTURE -->
-            <div onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-execute]').click();"
+            <div onclick="navTo('watchlist', document.querySelector('[data-section=watchlist]'));document.querySelector('[data-wl-sub=wl-pretrade]').click();"
                 style="cursor:pointer;background:#0f172a;border:1px solid #3b82f6;border-left:5px solid #3b82f6;border-radius:8px;padding:12px 16px;">
               <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
                 <div style="font-size:28px;font-weight:800;color:#3b82f6;min-width:130px;">STRUCTURE →</div>
@@ -2574,259 +2578,137 @@
       </div>
     </div>
 
-    <!-- WATCHLIST (with Execute + Manage Risk as sub-menus) -->
+    <!-- WATCHLIST + PRE-TRADE -->
     <div id="watchlist" class="section">
       <div class="steps" style="border:1px solid var(--border);border-radius:6px 6px 0 0;margin-bottom:0;background:#0f172a;">
-        <div class="step-tab" data-wl-sub="wl-tradeplan" onclick="switchWatchSub(this)">Weekly Trade Plan</div>
-        <div class="step-tab active" data-wl-sub="wl-list" onclick="switchWatchSub(this)">Saved Plans</div>
-        <div class="step-tab" data-wl-sub="wl-execute" onclick="switchWatchSub(this)">4 · Execute</div>
-        <div class="step-tab" data-wl-sub="wl-risk" onclick="switchWatchSub(this)">5 · Manage Risk</div>
+        <div class="step-tab active" data-wl-sub="wl-list" onclick="switchWatchSub(this)">Watchlist</div>
+        <div class="step-tab" data-wl-sub="wl-pretrade" onclick="switchWatchSub(this)">Pre-Trade</div>
       </div>
 
-      <!-- Sub: Weekly Trade Plan (plan the day before, grouped by week) -->
-      <div id="wl-tradeplan" class="wl-sub" style="display:none;">
-        <div class="panel" style="border-top:none;">
-          <div class="panel-header" id="tradeplan-form-header">Add / Update a Planned Trade</div>
-          <div class="panel-body">
-            <div class="form-row" style="flex-wrap:wrap;">
-              <div class="form-group"><label>Ticker</label><input type="text" id="tp-ticker" style="width:140px" /></div>
-              <div class="form-group"><label>Strategy</label><select id="tp-strategy" style="width:220px"></select></div>
-              <div class="form-group"><label>Entry Price</label><input type="number" id="tp-entry" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
-              <div class="form-group"><label>Stop Loss</label><input type="number" id="tp-stop" step="0.01" style="width:150px" oninput="updateTradePlanSharesPreview()" /></div>
-              <div class="form-group"><label>Equity Risk %</label><input type="number" id="tp-riskpct" step="0.1" value="1" style="width:130px" oninput="updateTradePlanSharesPreview()" /></div>
-            </div>
-            <div class="form-group" style="margin-top:6px;"><label>Comments</label><textarea id="tp-comments" rows="2" style="width:100%"></textarea></div>
-            <div id="tp-shares-preview" class="note" style="margin-top:6px;">Enter entry, stop, and risk % to see the calculated share count.</div>
-            <div style="margin-top:10px;">
-              <button class="btn btn-accent" onclick="saveTradePlan()">Save to Plan</button>
-              <button class="btn btn-sm" onclick="resetTradePlanForm()">Clear form</button>
-            </div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-header">
-            Performance of Watchlist-Origin Trades
-            <span class="tag">How tickers you planned actually performed</span>
-          </div>
-          <div class="panel-body" id="tradeplan-report-body"></div>
-        </div>
-        <div class="panel">
-          <div class="panel-header">
-            Plan vs. Actual Execution
-            <span class="tag">Did you actually follow your own plan?</span>
-          </div>
-          <div class="panel-body" id="plan-vs-actual-body"></div>
-        </div>
-        <div class="panel">
-          <div class="panel-header">Planned Trades · Grouped by Week</div>
-          <div class="panel-body" id="tradeplan-weeks-body"></div>
-        </div>
-      </div>
-
-      <!-- Sub: Saved Plans (market-open view) -->
+      <!-- Tab 1: Watchlist -->
       <div id="wl-list" class="wl-sub active">
         <div class="panel" style="border-top:none;">
-          <div class="panel-header">Add Ticker Manually · Pattern setups (Reversal Bullish, Anticipation, etc.)</div>
+          <div class="panel-header">Add to Watchlist</div>
           <div class="panel-body">
-            <div class="form-row">
-              <div class="form-group"><label>Ticker</label><input type="text" id="wl-manual-ticker" style="width:100px" placeholder="AAPL" /></div>
-              <div class="form-group"><label>Setup</label><select id="wl-manual-setup" style="width:160px"></select></div>
-              <button class="btn btn-accent" onclick="addManualToWatchlist()">Add to Watchlist</button>
+            <div class="form-row" style="flex-wrap:wrap;">
+              <div class="form-group"><label>Ticker</label><input type="text" id="wl-manual-ticker" style="width:110px" placeholder="AAPL" onkeydown="if(event.key==='Enter')addManualToWatchlist()" /></div>
+              <div class="form-group"><label>Setup</label><select id="wl-manual-setup" style="width:170px"></select></div>
+              <div class="form-group"><label>Comment (optional)</label><input type="text" id="wl-manual-comment" style="width:420px" placeholder="Why is it on the list?" onkeydown="if(event.key==='Enter')addManualToWatchlist()" /></div>
+              <button class="btn btn-accent" onclick="addManualToWatchlist()">Add</button>
             </div>
-            <div class="note">Use this for chart/pattern-based ideas that don't come from the NTRT/MTRT catalyst screen — Qualify's Add button already handles catalyst setups (SIP/EP/EP9M).</div>
+            <div class="note">Names added from Qualify appear here too. Plans, stops and targets are set in <strong>Pre-Trade</strong>.</div>
           </div>
         </div>
         <div class="panel" style="border-top:none;border-radius:0 0 6px 6px;">
           <div class="panel-header">
-            Saved Plans · Tickers ready to trade
-            <button class="btn btn-sm" onclick="clearWatchlist()">Clear All</button>
+            My Watchlist
+            <span>
+              <select id="wl-filter" onchange="renderWatchlist()" style="width:170px;margin-right:8px;">
+                <option value="all">All</option>
+                <option value="watching">Watching (no plan)</option>
+                <option value="planned">Planned</option>
+                <option value="open">Open positions</option>
+              </select>
+              <button class="btn btn-sm" onclick="clearWatchlist()">Clear All</button>
+            </span>
           </div>
           <div class="panel-body" id="watchlist-body">
-            <div class="wl-empty">No names yet.<br><br><strong>Pre-market:</strong> Qualify → Add → Execute (set plan).<br><strong>Open:</strong> Plans appear here → Size → trade → Close out.</div>
-          </div>
-          <div class="note">
-            <strong>Workflow:</strong> Pre-market Qualify &amp; plan → Market open use this list → Size position → trade → <strong>Close out</strong> logs to Trade Journal.
+            <div class="wl-empty">No names yet. Add a ticker above, or use Qualify → Add.</div>
           </div>
         </div>
       </div>
 
-      <!-- Sub: Execute -->
-      <div id="wl-execute" class="wl-sub" style="display:none;">
-        <div class="panel" id="exec-empty" style="display:none;border-top:none;border-radius:0 0 6px 6px;">
-          <div class="panel-body">
-            <div class="wl-empty">
-              No qualified tickers on your watchlist yet.<br><br>
-              Go to <strong>Qualify</strong>, click <strong>Add</strong> on a STRONG or WATCH name, then return here to plan the entry.
-            </div>
-          </div>
-        </div>
-        <div id="exec-content">
-          <div class="panel" style="border-top:none;border-radius:0;">
-            <div class="panel-header">Select Qualified Ticker (from Watchlist)</div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Watchlist Ticker</label>
-                <select id="exec-ticker-select" style="width:160px" onchange="onExecTickerChange()">
-                  <option value="">— select —</option>
-                </select>
-              </div>
-              <div style="font-size:24px;color:var(--muted);align-self:center;" id="exec-ticker-meta"></div>
-            </div>
-          </div>
-          <div class="panel">
-            <div class="panel-header">Execution rules for this setup <span class="tag" id="exec-setup-tag">Select ticker</span></div>
-            <div class="panel-body" id="exec-rules-body">
-              <div class="wl-empty">Select a watchlist ticker — rules load for SIP, EP, or EP9M (open vs delayed).</div>
-            </div>
-          </div>
-          <div class="panel" style="border-radius:0 0 6px 6px;">
-            <div class="panel-header">Execution Plan · fill placeholders</div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Entry Method</label>
-                <select id="exec-method">
-                  <option>On the news (pre-mkt)</option>
-                  <option>On the open</option>
-                  <option>Break of 1/3/5-min high</option>
-                  <option>Break back above open</option>
-                  <option>ANTS / VCP consolidation</option>
-                  <option>Delayed · VWAP / range break</option>
-                  <option>EP structural pivot</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Planned Entry $</label>
-                <input type="number" id="exec-entry" step="0.01" placeholder="0.00" oninput="updateExecRR()" />
-              </div>
-              <div class="form-group">
-                <label>Stop $</label>
-                <input type="number" id="exec-stop" step="0.01" placeholder="0.00" oninput="updateExecRR()" />
-              </div>
-              <div class="form-group">
-                <label>Target $</label>
-                <input type="number" id="exec-target" step="0.01" placeholder="0.00" oninput="updateExecRR()" />
-              </div>
-              <button class="btn btn-accent" onclick="saveExecPlan()">Save Plan</button>
-            </div>
-            <div class="note" id="exec-rr" style="font-size:26px;">Enter entry, stop (below entry) and target to see Reward/Risk.</div>
-          <div class="note" id="exec-placeholder-note">Placeholders adapt to SIP / EP / EP9M after you select a ticker.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sub: Manage Risk -->
-      <div id="wl-risk" class="wl-sub" style="display:none;">
-        <div class="panel" id="gov-panel" style="border-top:none;border-radius:0;">
-          <div class="panel-header">
-            Risk Governor
-            <span class="tag">Your risk per trade (1R) adapts to this month's R performance, realized + unrealized</span>
-            <button class="btn btn-sm" onclick="toggleGovSettings()">Settings</button>
-          </div>
-          <div class="panel-body">
-            <div id="gov-settings" style="display:none;margin-bottom:14px;padding:12px;background:#0f172a;border:1px solid var(--border);border-radius:8px;">
-              <div class="form-row" style="flex-wrap:wrap;">
-                <div class="form-group"><label>Base risk % (1R)</label><input type="number" id="gov-base" step="0.05" min="0.01" style="width:150px" onchange="saveGovCfg()" /></div>
-                <div class="form-group"><label>Step (R)</label><input type="number" id="gov-step" step="0.5" min="0.5" style="width:120px" onchange="saveGovCfg()" /></div>
-                <div class="form-group"><label>Stand down at (R)</label><input type="number" id="gov-stand" step="0.5" min="1" style="width:150px" onchange="saveGovCfg()" /></div>
-                <div class="form-group"><label>Size multiplier / step</label><input type="number" id="gov-mult" step="0.05" min="0.1" max="0.95" style="width:150px" onchange="saveGovCfg()" /></div>
-                <div class="form-group"><label>Recent trades window</label><input type="number" id="gov-window" step="1" min="5" max="100" style="width:130px" onchange="saveGovCfg()" /></div>
-              </div>
-              <div class="form-row" style="flex-wrap:wrap;margin-top:8px;">
-                <div class="form-group"><label>Drawdown measured from</label>
-                  <select id="gov-from" onchange="saveGovCfg()"><option value="start">Month start</option><option value="peak">Month high-water mark</option></select></div>
-                <div class="form-group"><label>After a recovery</label>
-                  <select id="gov-recover" onchange="saveGovCfg()"><option value="ratchet">Stay reduced until next month</option><option value="restore">Restore size as R recovers</option></select></div>
-                <div class="form-group"><label>&nbsp;</label><label style="font-size:22px;"><input type="checkbox" id="gov-unreal" onchange="saveGovCfg()" /> Include unrealized P&amp;L</label></div>
-              </div>
-              <div class="note">Defaults follow your rules: start at 1R = 0.5% of equity, halve every −4R, stand down at −12R until the month ends. R is each trade's P&amp;L ÷ its initial risk (entry − stop) × shares; trades with no stop or shares recorded use an estimate (base risk % × equity) and are flagged.</div>
-            </div>
-            <div id="gov-status"></div>
-            <div id="gov-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:14px;"></div>
-            <div id="gov-ladder" style="margin-top:14px;"></div>
-            <div class="note" id="gov-note" style="margin-top:10px;"></div>
-          </div>
-        </div>
-        <div class="panel" id="gov-recent-panel" style="border-radius:0;">
-          <div class="panel-header">Recent Trades in R <span class="tag" id="gov-recent-tag"></span></div>
-          <div class="panel-body">
-            <div id="gov-recent-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;"></div>
-            <div id="gov-recent-bars" style="margin-top:14px;"></div>
-            <div class="note" id="gov-recent-note" style="margin-top:10px;"></div>
-          </div>
-        </div>
-        <div class="panel" id="risk-empty" style="display:none;border-top:none;border-radius:0 0 6px 6px;">
-          <div class="panel-body">
-            <div class="wl-empty">
-              No qualified tickers on your watchlist yet.<br><br>
-              Go to <strong>Qualify</strong>, click <strong>Add</strong> on a STRONG or WATCH name, then return here to size the position.
-            </div>
-          </div>
-        </div>
-        <div id="risk-content">
-          <div class="panel" style="border-top:none;border-radius:0;">
-            <div class="panel-header">Select Qualified Ticker (from Watchlist)</div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Watchlist Ticker</label>
-                <select id="risk-ticker-select" style="width:160px" onchange="onRiskTickerChange()">
-                  <option value="">— select —</option>
-                </select>
-              </div>
-              <div style="font-size:24px;color:var(--muted);align-self:center;" id="risk-ticker-meta"></div>
-            </div>
-          </div>
-          <div class="grid-2">
-            <div class="panel">
-              <div class="panel-header">Position Sizing Calculator</div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Account Value $</label>
-                  <input type="number" id="risk-account" step="1000" />
+      <!-- Tab 2: Pre-Trade -->
+      <div id="wl-pretrade" class="wl-sub" style="display:none;">
+        <div class="pt-grid">
+          <div>
+            <div class="panel" style="border-top:none;">
+              <div class="panel-header">Pre-Trade Plan <span class="tag" id="pt-meta">Pick a watchlist ticker or type a new one</span></div>
+              <div class="panel-body">
+                <div class="form-row" style="flex-wrap:wrap;">
+                  <div class="form-group"><label>Ticker</label>
+                    <input type="text" id="pt-ticker" list="pt-tickers" style="width:150px;text-transform:uppercase;" placeholder="AAPL" autocomplete="off" oninput="ptTickerInput()" onchange="ptLoad()" />
+                    <datalist id="pt-tickers"></datalist></div>
+                  <div class="form-group"><label>Setup</label><select id="pt-setup" style="width:170px" onchange="ptRulesRender();ptRecalc()"></select></div>
+                  <div class="form-group"><label>Entry mode</label>
+                    <select id="pt-mode" style="width:190px" onchange="ptRulesRender()"><option value="open">Open entry</option><option value="delayed">Delayed</option></select></div>
                 </div>
-                <div class="form-group">
-                  <label>Risk % (1R, set by Risk Governor)</label>
-                  <input type="number" id="risk-pct" value="0.5" step="0.025" min="0" max="2.5" />
+                <div class="form-row" style="flex-wrap:wrap;">
+                  <div class="form-group"><label>Entry method</label>
+                    <select id="pt-method" style="width:260px">
+                      <option>On the news (pre-mkt)</option><option selected>On the open</option><option>Break of 1/3/5-min high</option>
+                      <option>Break back above open</option><option>ANTS / VCP consolidation</option><option>Delayed · VWAP / range break</option><option>EP structural pivot</option>
+                    </select></div>
                 </div>
-                <div class="form-group">
-                  <label>Entry Price</label>
-                  <input type="number" id="risk-entry" step="0.01" placeholder="0.00" oninput="updateRiskRR()" />
+                <details id="pt-rules" style="margin:6px 0 12px;">
+                  <summary style="cursor:pointer;font-size:24px;color:var(--accent);">Setup rules (entry, stop, exit, risk)</summary>
+                  <div class="checklist" id="pt-rules-body" style="margin-top:8px;"></div>
+                </details>
+                <div class="form-row" style="flex-wrap:wrap;">
+                  <div class="form-group"><label>Entry $</label><input type="number" id="pt-entry" step="0.01" placeholder="0.00" style="width:130px" oninput="ptRecalc()" /></div>
+                  <div class="form-group"><label>Stop $</label><input type="number" id="pt-stop" step="0.01" placeholder="0.00" style="width:130px" oninput="ptRecalc()" /></div>
+                  <div class="form-group"><label>Risk % (1R) <span class="muted" id="pt-risk-hint"></span></label><input type="number" id="pt-risk" step="0.025" min="0" max="2.5" style="width:130px" oninput="ptRecalc()" /></div>
+                  <div class="form-group"><label>Account $</label><input type="number" id="pt-account" step="1000" style="width:150px" oninput="ptRecalc()" /></div>
                 </div>
-                <div class="form-group">
-                  <label>Stop Price</label>
-                  <input type="number" id="risk-stop" step="0.01" placeholder="0.00" oninput="updateRiskRR()" />
+                <table style="width:auto;margin:8px 0;">
+                  <thead><tr><th></th><th>Target $</th><th>Sell % there</th></tr></thead>
+                  <tbody>
+                    <tr><td>Target 1</td><td><input type="number" id="pt-t1" step="0.01" placeholder="0.00" style="width:130px" oninput="ptRecalc()" /></td><td><input type="number" id="pt-p1" step="5" value="33" style="width:100px" oninput="ptRecalc()" /></td></tr>
+                    <tr><td>Target 2</td><td><input type="number" id="pt-t2" step="0.01" placeholder="0.00" style="width:130px" oninput="ptRecalc()" /></td><td><input type="number" id="pt-p2" step="5" value="33" style="width:100px" oninput="ptRecalc()" /></td></tr>
+                    <tr><td>Target 3</td><td><input type="number" id="pt-t3" step="0.01" placeholder="0.00" style="width:130px" oninput="ptRecalc()" /></td><td><input type="number" id="pt-p3" step="5" value="34" style="width:100px" oninput="ptRecalc()" /></td></tr>
+                  </tbody>
+                </table>
+                <div id="pt-warn"></div>
+                <div id="pt-out" style="margin-top:8px;"></div>
+                <div class="form-group" style="margin-top:12px;"><label>Comment</label><textarea id="pt-comment" rows="2" style="width:100%" placeholder="Thesis, catalyst, what would make you skip it"></textarea></div>
+                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                  <button class="btn btn-accent" onclick="ptSave(false)">Save plan</button>
+                  <button class="btn" onclick="ptSave(true)" title="Saves the plan and moves it to Positions">Save &amp; mark position open</button>
+                  <button class="btn btn-sm" onclick="ptClear()">Clear</button>
+                  <span id="pt-saved" class="pos" style="font-size:24px;"></span>
                 </div>
-<div class="form-group"><label>Target Price</label><input type="number" id="risk-target" step="0.01" placeholder="0.00" oninput="updateRiskRR()" /></div>
-                <button class="btn btn-accent" onclick="calcSize()">Calculate</button>
-              </div>
-              <div class="result-box" id="size-result">
-                <div style="font-size:22px;color:var(--muted);margin-bottom:4px;">SHARES TO BUY</div>
-                <div class="big" id="shares-out">—</div>
-                <div style="margin-top:8px;font-size:24px;" id="rr-out"></div>
-          <div style="margin-top:8px;font-size:24px;" id="size-details">Select a watchlist ticker or enter values</div>
-              </div>
-              <div class="note">
-                Formula: Shares = (Account × Risk%) ÷ (Entry − Stop).<br>
-                Ideal risk 1% · Hard max 2.5%. Wider stop = fewer shares. Risk $ stays constant.
               </div>
             </div>
-            <div class="panel" id="rg-panel" style="grid-column:1/-1;">
-          <div class="panel-header">Targets &amp; R-Multiples <span class="tag">uses Entry / Stop above · T1 is the Target Price field</span></div>
-          <div class="panel-body">
-            <div class="form-row" style="flex-wrap:wrap;">
-              <div class="form-group"><label>Target 2 $</label><input type="number" id="rg-t2" step="0.01" placeholder="0.00" style="width:140px" oninput="renderTargetLadder(true)" /></div>
-              <div class="form-group"><label>Target 3 $</label><input type="number" id="rg-t3" step="0.01" placeholder="0.00" style="width:140px" oninput="renderTargetLadder(true)" /></div>
-              <div class="form-group"><label>Sell % at T1</label><input type="number" id="rg-p1" step="5" value="33" style="width:110px" oninput="renderTargetLadder(true)" /></div>
-              <div class="form-group"><label>Sell % at T2</label><input type="number" id="rg-p2" step="5" value="33" style="width:110px" oninput="renderTargetLadder(true)" /></div>
-              <div class="form-group"><label>Sell % at T3</label><input type="number" id="rg-p3" step="5" value="34" style="width:110px" oninput="renderTargetLadder(true)" /></div>
-            </div>
-            <div id="rg-out" style="margin-top:12px;"></div>
-            <div class="note" style="margin-top:8px;">R multiple = (target − entry) ÷ (entry − stop). Scale-out % is the share of the position sold at each target; the blended result assumes you sell exactly that and the stop is not hit first.</div>
           </div>
-        </div>
-        <div class="panel" style="border-radius:0 0 6px 6px;">
-              <div class="panel-header">Risk rules for this setup <span class="tag" id="risk-setup-tag">Select ticker</span></div>
-              <div class="checklist" id="risk-rules-body">
-                <div class="check-item"><span class="check-icon">•</span> Select a watchlist ticker to load SIP / EP / EP9M risk placeholders</div>
+          <div class="pt-rail">
+            <div class="panel" id="gov-panel" style="border-top:none;">
+              <div class="panel-header">
+                Where I Stand · Risk Governor
+                <button class="btn btn-sm" onclick="toggleGovSettings()">Settings</button>
+              </div>
+              <div class="panel-body">
+                <div id="gov-settings" style="display:none;margin-bottom:14px;padding:12px;background:#0f172a;border:1px solid var(--border);border-radius:8px;">
+                  <div class="form-row" style="flex-wrap:wrap;">
+                    <div class="form-group"><label>Base risk % (1R)</label><input type="number" id="gov-base" step="0.05" min="0.01" style="width:130px" onchange="saveGovCfg()" /></div>
+                    <div class="form-group"><label>Step (R)</label><input type="number" id="gov-step" step="0.5" min="0.5" style="width:100px" onchange="saveGovCfg()" /></div>
+                    <div class="form-group"><label>Stand down at (R)</label><input type="number" id="gov-stand" step="0.5" min="1" style="width:130px" onchange="saveGovCfg()" /></div>
+                    <div class="form-group"><label>Size multiplier / step</label><input type="number" id="gov-mult" step="0.05" min="0.1" max="0.95" style="width:130px" onchange="saveGovCfg()" /></div>
+                    <div class="form-group"><label>Recent trades window</label><input type="number" id="gov-window" step="1" min="5" max="100" style="width:110px" onchange="saveGovCfg()" /></div>
+                  </div>
+                  <div class="form-row" style="flex-wrap:wrap;margin-top:8px;">
+                    <div class="form-group"><label>Drawdown measured from</label>
+                      <select id="gov-from" onchange="saveGovCfg()"><option value="start">Month start</option><option value="peak">Month high-water mark</option></select></div>
+                    <div class="form-group"><label>After a recovery</label>
+                      <select id="gov-recover" onchange="saveGovCfg()"><option value="ratchet">Stay reduced until next month</option><option value="restore">Restore size as R recovers</option></select></div>
+                    <div class="form-group"><label>&nbsp;</label><label style="font-size:22px;"><input type="checkbox" id="gov-unreal" onchange="saveGovCfg()" /> Include unrealized P&amp;L</label></div>
+                  </div>
+                  <div class="note">Starts at 1R = base % of equity, multiplies by the size multiplier every step of R lost this month, and stands down at the limit until the month ends. Trades with no stop or shares recorded use an estimated R.</div>
+                </div>
+                <div id="gov-status"></div>
+                <div id="gov-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:12px;"></div>
+                <details style="margin-top:12px;">
+                  <summary style="cursor:pointer;font-size:24px;color:var(--accent);">Risk ladder</summary>
+                  <div id="gov-ladder" style="margin-top:8px;"></div>
+                  <div class="note" id="gov-note" style="margin-top:8px;"></div>
+                </details>
+              </div>
+            </div>
+            <div class="panel" id="gov-recent-panel">
+              <div class="panel-header">Last Trades in R <span class="tag" id="gov-recent-tag"></span></div>
+              <div class="panel-body">
+                <div id="gov-recent-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div>
+                <div id="gov-recent-bars" style="margin-top:12px;"></div>
+                <div class="note" id="gov-recent-note" style="margin-top:8px;"></div>
               </div>
             </div>
           </div>
@@ -2834,7 +2716,8 @@
       </div>
     </div>
 
-    <!-- TRADING OPERATIONS -->
+    
+<!-- TRADING OPERATIONS -->
     <div id="trading-operations" class="section">
       <div class="steps">
         <div class="step-tab active" data-to-sub="to-upload" onclick="switchTOSub(this)">Upload &amp; Baseline</div>
@@ -3075,6 +2958,15 @@
         </div>
       </div>
 
+      <div class="panel" id="dash-plan-panel">
+        <div class="panel-header">Plan Quality <span class="tag">How planned trades performed, and whether you followed the plan</span></div>
+        <div class="panel-body">
+          <div style="font-size:24px;font-weight:700;margin-bottom:6px;">Performance of Watchlist-Origin Trades</div>
+          <div id="tradeplan-report-body"></div>
+          <div style="font-size:24px;font-weight:700;margin:16px 0 6px;">Plan vs. Actual Execution</div>
+          <div id="plan-vs-actual-body"></div>
+        </div>
+      </div>
       <div class="panel" id="dash-risk-panel">
         <div class="panel-header">
           Portfolio Risk Metrics
@@ -4420,135 +4312,6 @@
       d.setDate(d.getDate() - day);
       return d.toISOString().slice(0, 10);
     }
-    function computeTradePlanShares(entry, stop, riskPct) {
-      const equity = getCurrentPortfolioValueComputed();
-      const perShareRisk = Math.abs(entry - stop);
-      if (!equity || !perShareRisk || perShareRisk <= 0) return null;
-      const riskDollars = equity * (riskPct / 100);
-      return Math.floor(riskDollars / perShareRisk);
-    }
-    function updateTradePlanSharesPreview() {
-      const entry = parseFloat(document.getElementById("tp-entry").value);
-      const stop = parseFloat(document.getElementById("tp-stop").value);
-      const riskPct = parseFloat(document.getElementById("tp-riskpct").value);
-      const el = document.getElementById("tp-shares-preview");
-      if (!el) return;
-      if (isNaN(entry) || isNaN(stop) || isNaN(riskPct) || entry === stop) {
-        el.textContent = "Enter entry, stop, and risk % to see the calculated share count.";
-        return;
-      }
-      const equity = getCurrentPortfolioValueComputed();
-      const shares = computeTradePlanShares(entry, stop, riskPct);
-      if (shares == null || shares <= 0) {
-        el.textContent = "Can't calculate shares yet — set a Starting Portfolio Value in Account Snapshot first.";
-        return;
-      }
-      el.innerHTML = `<strong>${shares} shares</strong> · risking ${riskPct}% of $${equity.toLocaleString(undefined, { maximumFractionDigits: 0 })} = $${(equity * riskPct / 100).toFixed(2)} on a $${Math.abs(entry - stop).toFixed(2)}/share stop distance.`;
-    }
-    let editingTradePlanId = null;
-    function saveTradePlan() {
-      const ticker = document.getElementById("tp-ticker").value.trim().toUpperCase();
-      const strategy = document.getElementById("tp-strategy").value;
-      const entry = parseFloat(document.getElementById("tp-entry").value);
-      const stop = parseFloat(document.getElementById("tp-stop").value);
-      const riskPct = parseFloat(document.getElementById("tp-riskpct").value);
-      const comments = document.getElementById("tp-comments").value.trim();
-      if (!ticker) { alert("Enter a ticker"); return; }
-      if (isNaN(entry) || isNaN(stop)) { alert("Enter both Entry Price and Stop Loss"); return; }
-      const shares = computeTradePlanShares(entry, stop, riskPct);
-
-      const list = getTradePlans();
-      if (editingTradePlanId) {
-        const idx = list.findIndex(p => p.id === editingTradePlanId);
-        if (idx >= 0) {
-          list[idx] = { ...list[idx], ticker, strategy, entry, stop, riskPct, comments, shares };
-        }
-      } else {
-        list.unshift({
-          id: "tp-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
-          dateAdded: new Date().toISOString().slice(0, 10),
-          ticker, strategy, entry, stop, riskPct, comments, shares
-        });
-      }
-      saveTradePlans(list);
-      resetTradePlanForm();
-      renderTradePlans();
-    }
-    function editTradePlan(id) {
-      const plan = getTradePlans().find(p => p.id === id);
-      if (!plan) return;
-      editingTradePlanId = id;
-      document.getElementById("tradeplan-form-header").textContent = "Editing " + plan.ticker + " (added " + plan.dateAdded + ")";
-      document.getElementById("tp-ticker").value = plan.ticker;
-      document.getElementById("tp-strategy").value = plan.strategy;
-      document.getElementById("tp-entry").value = plan.entry;
-      document.getElementById("tp-stop").value = plan.stop;
-      document.getElementById("tp-riskpct").value = plan.riskPct;
-      document.getElementById("tp-comments").value = plan.comments || "";
-      updateTradePlanSharesPreview();
-      document.getElementById("tp-ticker").scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-    function deleteTradePlan(id) {
-      const plan = getTradePlans().find(p => p.id === id);
-      if (!plan) return;
-      if (!confirm("Delete planned trade for " + plan.ticker + "?")) return;
-      saveTradePlans(getTradePlans().filter(p => p.id !== id));
-      renderTradePlans();
-    }
-    function resetTradePlanForm() {
-      editingTradePlanId = null;
-      document.getElementById("tradeplan-form-header").textContent = "Add / Update a Planned Trade";
-      ["tp-ticker", "tp-entry", "tp-stop", "tp-comments"].forEach(id => document.getElementById(id).value = "");
-      document.getElementById("tp-riskpct").value = 1;
-      document.getElementById("tp-strategy").innerHTML = setupOptionsHtml();
-      document.getElementById("tp-shares-preview").textContent = "Enter entry, stop, and risk % to see the calculated share count.";
-    }
-    function renderTradePlans() {
-      const body = document.getElementById("tradeplan-weeks-body");
-      if (!body) return;
-      const strategySel = document.getElementById("tp-strategy");
-      if (strategySel && !strategySel.innerHTML) strategySel.innerHTML = setupOptionsHtml();
-
-      const plans = getTradePlans();
-      if (!plans.length) {
-        body.innerHTML = `<div class="wl-empty">No planned trades yet — add one above. This is where you plan the day before and come back to focus on it.</div>`;
-      } else {
-        const byWeek = {};
-        plans.forEach(p => {
-          const wk = weekStartOf(p.dateAdded);
-          if (!byWeek[wk]) byWeek[wk] = [];
-          byWeek[wk].push(p);
-        });
-        const weeks = Object.keys(byWeek).sort().reverse(); // most recent week first
-        body.innerHTML = weeks.map(wk => {
-          const rows = byWeek[wk].sort((a, b) => b.dateAdded.localeCompare(a.dateAdded));
-          return `<div style="margin-bottom:18px;">
-            <div style="font-size:24px;font-weight:700;color:var(--accent);margin-bottom:6px;">Week of ${wk}</div>
-            <table>
-              <thead><tr><th>Date</th><th>Ticker</th><th>Strategy</th><th>Entry</th><th>Stop</th><th>Risk %</th><th>Shares</th><th>Comments</th><th></th></tr></thead>
-              <tbody>
-                ${rows.map(p => `<tr>
-                  <td class="muted" style="font-size:22px;">${p.dateAdded}</td>
-                  <td><span class="ticker-link" onclick="showDetail('${p.ticker}')">${p.ticker}</span></td>
-                  <td><span class="tag" style="background:#0e7490;color:#a5f3fc;">${p.strategy}</span></td>
-                  <td class="pos">$${Number(p.entry).toFixed(2)}</td>
-                  <td class="neg">$${Number(p.stop).toFixed(2)}</td>
-                  <td>${p.riskPct}%</td>
-                  <td>${p.shares != null ? p.shares : "—"}</td>
-                  <td style="font-size:22px;max-width:220px;white-space:normal;">${p.comments || "—"}</td>
-                  <td style="white-space:nowrap;">
-                    <button class="btn btn-sm" onclick="editTradePlan('${p.id}')">Edit</button>
-                    <button class="btn btn-sm" style="border-color:#7f1d1d;color:#fecaca;" onclick="deleteTradePlan('${p.id}')">Delete</button>
-                  </td>
-                </tr>`).join("")}
-              </tbody>
-            </table>
-          </div>`;
-        }).join("");
-      }
-      renderTradePlanReport(plans);
-      renderPlanVsActual(plans);
-    }
     function tradeMatchesAPlan(trade, plans) {
       // Match by ticker AND proximity in time — the trade's entry date (when
       // available, since planning happens before entry, not before exit) or
@@ -4624,7 +4387,7 @@
       if (!el) return;
       plans = plans || getTradePlans();
       if (!plans.length) {
-        el.innerHTML = `<div class="wl-empty">Add planned trades above to see how they performed.</div>`;
+        el.innerHTML = `<div class="wl-empty">Save plans in Pre-Trade to see how they performed.</div>`;
         return;
       }
       const plannedTickers = new Set(plans.map(p => p.ticker));
@@ -4729,14 +4492,15 @@
       list.push({
         ticker, price: 0, gap: 0, score: 0, catalyst: "",
         targets: null, setupType, setupReason: "Added manually · " + setupType,
-        entryMode: "open", added: new Date().toISOString(), plan: null, position: null
+        entryMode: "open", added: new Date().toISOString(), plan: null, position: null,
+        comment: (document.getElementById("wl-manual-comment").value || "").trim()
       });
       saveWatchlist(list);
       renderWatchlist();
-      populateTickerSelects();
-      updateExecRiskVisibility();
+      ptPopulate();
       tickerInput.value = "";
-      alert(ticker + " added to watchlist as " + setupType + ".");
+      document.getElementById("wl-manual-comment").value = "";
+      tickerInput.focus();
     }
     function setWatchSetup(ticker, type) {
       const list = getWatchlist();
@@ -4781,86 +4545,6 @@
       if (!r) return '<span class="muted">—</span>';
       const cls = r.rr >= 3 ? "pos" : (r.rr >= 2 ? "" : "neg");
       return `<strong class="${cls}" title="Reward ${r.reward.toFixed(2)} ÷ risk ${r.risk.toFixed(2)} per share. Break-even win rate ${r.breakevenWin.toFixed(0)}%">${r.rr.toFixed(2)} : 1</strong>`;
-    }
-    function renderTargetLadder(save) {
-      const out = document.getElementById("rg-out"); if (!out) return;
-      const g = id => parseFloat(document.getElementById(id).value) || 0;
-      const entry = g("risk-entry"), stop = g("risk-stop");
-      if (!(entry > 0 && stop > 0 && stop < entry)) { out.innerHTML = '<span class="muted">Enter entry and a stop below entry.</span>'; return; }
-      const risk = entry - stop;
-      const sh = parseFloat(document.getElementById("shares-out").textContent.replace(/,/g, "")) || 0;
-      const rows = [1, 2, 3].map(i => ({ n: "T" + i, px: g(i === 1 ? "risk-target" : "rg-t" + i), pct: g("rg-p" + i) })).filter(r => r.px > 0);
-      const f = (v, d = 2) => v.toFixed(d);
-      let html = '<table><thead><tr><th>Level</th><th>Price</th><th>R multiple</th><th>Gain %</th><th>Sell %</th><th>Shares</th><th>Profit $</th></tr></thead><tbody>';
-      html += `<tr><td>Stop</td><td>$${f(stop)}</td><td class="neg">−1.00R</td><td class="neg">${f((stop / entry - 1) * 100, 1)}%</td><td></td><td></td><td class="neg">${sh ? "−$" + Math.round(sh * risk).toLocaleString() : ""}</td></tr>`;
-      let totPct = 0, blend = 0, totUsd = 0;
-      rows.forEach(r => {
-        const R = (r.px - entry) / risk, q = Math.floor(sh * r.pct / 100), usd = q * (r.px - entry);
-        totPct += r.pct; blend += R * r.pct / 100; totUsd += usd;
-        html += `<tr><td>${r.n}</td><td>$${f(r.px)}</td><td class="${R >= 0 ? "pos" : "neg"}"><strong>${R >= 0 ? "+" : ""}${f(R)}R</strong></td><td>${f((r.px / entry - 1) * 100, 1)}%</td><td>${r.pct}%</td><td>${sh ? q.toLocaleString() : ""}</td><td>${sh ? "$" + Math.round(usd).toLocaleString() : ""}</td></tr>`;
-      });
-      html += '</tbody></table>';
-      if (rows.length) {
-        const ok = Math.abs(totPct - 100) < 0.5;
-        html += `<div style="margin-top:10px;font-size:24px;">Blended result if scaled out as planned: <strong class="${blend >= 0 ? "pos" : "neg"}">${f(blend)}R</strong>${sh ? ` · $${Math.round(totUsd).toLocaleString()}` : ""}${ok ? "" : ` <span class="neg">(sell % adds to ${totPct}%, not 100%)</span>`}</div>`;
-      }
-      html += `<div class="muted" style="margin-top:8px;font-size:22px;">Reference: 1R $${f(entry + risk)} · 2R $${f(entry + 2 * risk)} · 3R $${f(entry + 3 * risk)} · 4R $${f(entry + 4 * risk)}</div>`;
-      out.innerHTML = html;
-      if (save === true) {
-        const t = document.getElementById("risk-ticker-select").value; if (!t) return;
-        const list = getWatchlist(), item = list.find(x => x.ticker === t); if (!item) return;
-        item.plan = { ...(item.plan || {}), t2: g("rg-t2") || null, t3: g("rg-t3") || null, scale: [g("rg-p1"), g("rg-p2"), g("rg-p3")] };
-        saveWatchlist(list);
-      }
-    }
-    function updateRiskRR() {
-      renderTargetLadder();
-      const el = document.getElementById("rr-out"); if (!el) return;
-      const v = id => document.getElementById(id).value;
-      const r = rrCalc(v("risk-entry"), v("risk-stop"), v("risk-target"));
-      const sh = parseFloat(document.getElementById("shares-out").textContent.replace(/,/g, ""));
-      el.innerHTML = r ? `Reward/Risk <strong class="${r.rr >= 2 ? "pos" : "neg"}">${r.rr.toFixed(2)} : 1</strong> · break-even win rate ${r.breakevenWin.toFixed(0)}%` + (sh > 0 ? ` · risk $${Math.round(sh * r.risk).toLocaleString()} → reward $${Math.round(sh * r.reward).toLocaleString()}` : "") : "";
-    }
-    function updateExecRR() {
-      const el = document.getElementById("exec-rr"); if (!el) return;
-      const v = id => document.getElementById(id).value;
-      const r = rrCalc(v("exec-entry"), v("exec-stop"), v("exec-target"));
-      el.innerHTML = r ? `Reward/Risk <strong>${r.rr.toFixed(2)} : 1</strong> · risk $${r.risk.toFixed(2)}/sh · reward $${r.reward.toFixed(2)}/sh · break-even win rate ${r.breakevenWin.toFixed(0)}%${r.rr < 2 ? ' · <span class="neg">below 2:1</span>' : ""}`
-        : "Enter entry, stop (below entry) and target to see Reward/Risk.";
-    }
-    function updateWatchlistPlanField(ticker, field, value) {
-      const list = getWatchlist();
-      const item = list.find(x => x.ticker === ticker);
-      if (!item) return;
-      const num = value === "" ? null : parseFloat(value);
-      if (value !== "" && isNaN(num)) return;
-      item.plan = item.plan || {};
-      item.plan[field] = num;
-      saveWatchlist(list);
-      const rrCell = document.getElementById('rr-' + ticker);
-      if (rrCell) rrCell.innerHTML = rrHtml(item.plan.entry, item.plan.stop, item.plan.target);
-      // No re-render — same reasoning as updateWatchlistComment. The field
-      // the user just edited already shows what they typed; resetting the
-      // whole table on every single field edit would be disruptive when
-      // they're working through several fields in a row before market open.
-    }
-    function recalcPlanShares(ticker) {
-      const list = getWatchlist();
-      const item = list.find(x => x.ticker === ticker);
-      if (!item || !item.plan) { alert("Set an entry and stop first."); return; }
-      const { entry, stop, riskPct } = item.plan;
-      if (entry == null || stop == null || riskPct == null) {
-        alert("Need Entry, Stop, and Risk % all filled in before recalculating shares.");
-        return;
-      }
-      const riskPerShare = Math.abs(entry - stop);
-      if (riskPerShare === 0) { alert("Entry and Stop can't be equal."); return; }
-      const equity = getCurrentPortfolioValueComputed();
-      const shares = Math.floor((equity * (riskPct / 100)) / riskPerShare);
-      item.plan.shares = shares;
-      item.plan.accountValue = equity;
-      saveWatchlist(list);
-      renderWatchlist();
     }
     function setQualifySetup(ticker, type) {
       const c = candidates.find(x => x.ticker === ticker);
@@ -5353,8 +5037,8 @@
       if (jSel) jSel.innerHTML = setupOptionsHtml();
       const manualSel = document.getElementById("wl-manual-setup");
       if (manualSel) manualSel.innerHTML = setupOptionsHtml();
-      const tpSel = document.getElementById("tp-strategy");
-      if (tpSel) tpSel.innerHTML = setupOptionsHtml();
+      const tpSel = document.getElementById("pt-setup");
+      if (tpSel) { const cur = tpSel.value; tpSel.innerHTML = setupOptionsHtml(); if (cur) tpSel.value = cur; }
       renderDashboard();
       alert("Setup \"" + key + "\" saved. It's now available everywhere setups are selected.");
     }
@@ -5368,108 +5052,11 @@
       if (jSel) jSel.innerHTML = setupOptionsHtml();
       const manualSel = document.getElementById("wl-manual-setup");
       if (manualSel) manualSel.innerHTML = setupOptionsHtml();
-      const tpSel = document.getElementById("tp-strategy");
-      if (tpSel) tpSel.innerHTML = setupOptionsHtml();
+      const tpSel = document.getElementById("pt-setup");
+      if (tpSel) { const cur = tpSel.value; tpSel.innerHTML = setupOptionsHtml(); if (cur) tpSel.value = cur; }
     }
 
-    function renderWatchlist() {
-      const body = document.getElementById("watchlist-body");
-      const list = getWatchlist();
-      if (!list.length) {
-        body.innerHTML = `<div class="wl-empty">No names yet.<br><br>
-          <strong>NTRT morning:</strong> Qualify → Add (auto SIP / EP / EP9M) → adjust category → set plan.<br>
-          Execution &amp; risk rules change with setup type and open vs delayed entry.</div>`;
-        return;
-      }
 
-      // High priority (green) surfaces first, then yellow, then everything
-      // else in whatever order they were added — this week's focus should
-      // be visible at a glance, not just color-coded and still buried.
-      const priorityRank = { green: 0, yellow: 1 };
-      const sortedList = [...list].sort((a, b) => (priorityRank[a.priority] ?? 2) - (priorityRank[b.priority] ?? 2));
-
-      let html = `<table><thead><tr>
-        <th></th><th>Ticker</th><th>Setup</th><th>Entry mode</th><th>Entry $</th><th>Stop $</th><th>Risk %</th><th>Shares</th><th>Notional $</th><th>Target $</th><th>R/R</th><th style="min-width:400px;">Rationale</th><th>Actions</th>
-      </tr></thead><tbody>`;
-      sortedList.forEach(w => {
-        const st = w.setupType || "SIP";
-        const rules = getSetupRules(st);
-        const mode = w.entryMode || "open";
-        const p = w.plan || {};
-        const notional = (p.shares != null && p.entry != null) ? p.shares * p.entry : null;
-        const priorityColors = { green: "#22c55e", yellow: "#eab308" };
-        const priorityTitles = { green: "High priority this week — click to clear", yellow: "Watching — click to mark high priority", null: "Click to flag as watching this week" };
-        const dotColor = priorityColors[w.priority] || "#334155";
-        const rowTint = w.priority === "green" ? "background:rgba(34,197,94,0.06);" : w.priority === "yellow" ? "background:rgba(234,179,8,0.06);" : "";
-        html += `<tr style="${rowTint}">
-          <td style="text-align:center;padding-right:0;">
-            <span onclick="cycleWatchlistPriority('${w.ticker}')" title="${priorityTitles[w.priority] || priorityTitles[null]}"
-                style="display:inline-block;width:18px;height:18px;border-radius:50%;background:${dotColor};cursor:pointer;border:1px solid rgba(255,255,255,0.15);"></span>
-          </td>
-          <td><span class="ticker-link" onclick="showDetail('${w.ticker}')">${w.ticker}</span>
-            <div class="muted" style="font-size:28px;">$${Number(w.price).toFixed(2)} · ${w.gap > 0 ? "+" : ""}${w.gap}% · ${w.catalyst || ""}</div>
-          </td>
-          <td>
-            <select onchange="setWatchSetup('${w.ticker}', this.value)" style="width:140px">
-              ${setupOptionsHtml(st)}
-            </select>
-            <div class="muted" style="font-size:24px;margin-top:2px;max-width:160px;white-space:normal;">${w.setupReason || ""}</div>
-          </td>
-          <td>
-            <select onchange="setEntryMode('${w.ticker}', this.value)" style="width:150px">
-              <option value="open" ${mode==="open"?"selected":""}>Open entry</option>
-              <option value="delayed" ${mode==="delayed"?"selected":""}>Delayed</option>
-            </select>
-          </td>
-          <td><div style="display:flex;align-items:center;gap:2px;"><span class="muted">$</span><input type="number" step="0.01" value="${p.entry != null ? p.entry : ""}" placeholder="—" style="width:90px;" onchange="updateWatchlistPlanField('${w.ticker}', 'entry', this.value)" /></div></td>
-          <td><div style="display:flex;align-items:center;gap:2px;"><span class="muted">$</span><input type="number" step="0.01" value="${p.stop != null ? p.stop : ""}" placeholder="—" style="width:90px;" onchange="updateWatchlistPlanField('${w.ticker}', 'stop', this.value)" /></div></td>
-          <td><input type="number" step="0.1" value="${p.riskPct != null ? p.riskPct : ""}" placeholder="—" style="width:70px;" onchange="updateWatchlistPlanField('${w.ticker}', 'riskPct', this.value)" /></td>
-          <td>
-            <input type="number" step="1" value="${p.shares != null ? p.shares : ""}" placeholder="—" style="width:85px;" onchange="updateWatchlistPlanField('${w.ticker}', 'shares', this.value)" />
-            <button class="btn btn-sm" style="padding:2px 6px;font-size:28px;" title="Recalculate shares from entry/stop/risk% and current portfolio value" onclick="recalcPlanShares('${w.ticker}')">↻</button>
-          </td>
-          <td class="muted">${notional != null ? "$" + notional.toLocaleString(undefined, { maximumFractionDigits: 0 }) : "—"}</td>
-          <td><div style="display:flex;align-items:center;gap:2px;"><span class="muted">$</span><input type="number" step="0.01" value="${p.target != null ? p.target : ""}" placeholder="—" style="width:90px;" onchange="updateWatchlistPlanField('${w.ticker}', 'target', this.value)" /></div></td>
-          <td id="rr-${w.ticker}" style="white-space:nowrap;">${rrHtml(p.entry, p.stop, p.target)}</td>
-          <td>
-            <textarea onchange="updateWatchlistComment('${w.ticker}', this.value)" rows="2"
-                style="width:100%;min-width:380px;background:#0f172a;border:1px solid var(--border);color:var(--text);border-radius:4px;padding:5px 7px;font-family:inherit;resize:vertical;"
-                placeholder="Why is this still here?">${(w.comment || "").replace(/</g, "&lt;")}</textarea>
-          </td>
-          <td style="white-space:nowrap;">
-            <button class="btn btn-sm btn-accent" onclick="openPlanFor('${w.ticker}')">${w.plan ? "Edit" : "Plan"}</button>
-            <button class="btn btn-sm" onclick="openRiskFor('${w.ticker}')">Size</button>
-            <button class="btn btn-sm" onclick="markPositionOpen('${w.ticker}')">Open pos</button>
-            <button class="btn btn-sm" style="border-color:#166534;color:#86efac;" onclick="closeOutTrade('${w.ticker}')">Close</button>
-            <button class="btn btn-sm" onclick="removeFromWatchlist('${w.ticker}')">✕</button>
-          </td>
-        </tr>`;
-      });
-      html += `</tbody></table>`;
-      html += `<div class="note" style="margin-top:10px;">Change <strong>Setup</strong> (SIP / EP / EP9M) anytime. Open vs Delayed switches the execution playbook when you open Execute.</div>`;
-      body.innerHTML = html;
-    }
-
-    function openPlanFor(ticker) {
-      const execTab = document.querySelector('[data-wl-sub="wl-execute"]');
-      if (execTab) switchWatchSub(execTab);
-      populateTickerSelects();
-      const sel = document.getElementById("exec-ticker-select");
-      if (sel) {
-        sel.value = ticker;
-        onExecTickerChange();
-      }
-    }
-    function openRiskFor(ticker) {
-      const riskTab = document.querySelector('[data-wl-sub="wl-risk"]');
-      if (riskTab) switchWatchSub(riskTab);
-      populateTickerSelects();
-      const sel = document.getElementById("risk-ticker-select");
-      if (sel) {
-        sel.value = ticker;
-        onRiskTickerChange();
-      }
-    }
     function closeOutTrade(ticker) {
       const item = getWatchlist().find(x => x.ticker === ticker);
       // Switch to Trade Journal top tab and pre-fill from plan
@@ -5510,140 +5097,10 @@
       document.getElementById("j-exit").focus();
     }
 
-    function saveExecPlan() {
-      const ticker = document.getElementById("exec-ticker-select").value;
-      if (!ticker) { alert("Select a watchlist ticker first"); return; }
-      const method = document.getElementById("exec-method").value;
-      const entry = parseFloat(document.getElementById("exec-entry").value);
-      const stop = parseFloat(document.getElementById("exec-stop").value);
-      const target = parseFloat(document.getElementById("exec-target").value);
 
-      let list = getWatchlist();
-      let item = list.find(x => x.ticker === ticker);
-      if (!item) { alert("Ticker not on watchlist"); return; }
-      item.plan = { ...(item.plan || {}), method, entry, stop, target };
-      saveWatchlist(list);
-      renderWatchlist();
-      if (entry) document.getElementById("risk-entry").value = entry;
-      if (stop) document.getElementById("risk-stop").value = stop;
-      // keep risk select in sync
-      document.getElementById("risk-ticker-select").value = ticker;
-      onRiskTickerChange();
-      // jump back to Saved Plans so user sees it
-      const listTab = document.querySelector('[data-wl-sub="wl-list"]');
-      if (listTab) switchWatchSub(listTab);
-      alert("Plan saved for " + ticker + ".\nView it under Watchlist → Saved Plans.");
-    }
 
-    function populateTickerSelects() {
-      const list = getWatchlist();
-      ["exec-ticker-select", "risk-ticker-select"].forEach(id => {
-        const sel = document.getElementById(id);
-        if (!sel) return;
-        const prev = sel.value;
-        sel.innerHTML = '<option value="">— select —</option>';
-        list.forEach(w => {
-          const opt = document.createElement("option");
-          opt.value = w.ticker;
-          opt.textContent = w.ticker + (w.plan ? " ✓" : "");
-          sel.appendChild(opt);
-        });
-        if (prev && list.find(x => x.ticker === prev)) sel.value = prev;
-      });
-    }
 
-    function onExecTickerChange() {
-      const ticker = document.getElementById("exec-ticker-select").value;
-      const meta = document.getElementById("exec-ticker-meta");
-      const item = getWatchlist().find(x => x.ticker === ticker);
-      const c = candidates.find(x => x.ticker === ticker);
-      if (!item) { meta.textContent = ""; return; }
-      const st = item.setupType || "SIP";
-      const mode = item.entryMode || "open";
-      const rules = getSetupRules(st);
-      let tgtNote = "";
-      if (c && c.targets) {
-        tgtNote = ` · Targets B $${c.targets.bull} / Base $${c.targets.base} / Bear $${c.targets.bear}`;
-      }
-      meta.innerHTML = `<strong>${st}</strong> · ${mode} entry · Score ${item.score} · $${item.price.toFixed(2)}${tgtNote}`;
-      const tag = document.getElementById("exec-setup-tag");
-      if (tag) tag.textContent = st + " · " + mode;
-      const body = document.getElementById("exec-rules-body");
-      if (body) {
-        const bullets = (rules.execBullets || []).map(b =>
-          `<div class="check-item"><span class="check-icon">•</span> ${b}</div>`
-        ).join("");
-        body.innerHTML = `
-          <div class="checklist">
-            <div class="check-item"><span class="check-icon">E</span> <strong>Entry (${mode}):</strong> ${mode === "open" ? rules.openEntry : rules.delayedEntry}</div>
-            <div class="check-item"><span class="check-icon">S</span> <strong>Stop:</strong> ${rules.stop}</div>
-            <div class="check-item"><span class="check-icon">X</span> <strong>Exit / hold:</strong> ${rules.exit} · ${rules.hold}</div>
-            ${bullets}
-          </div>
-          <div class="note">${item.setupReason || rules.label}</div>`;
-      }
-      const note = document.getElementById("exec-placeholder-note");
-      if (note) note.textContent = st + " placeholders: fill Entry / Stop / Target below, then Save Plan.";
-      if (item.plan) {
-        document.getElementById("exec-method").value = item.plan.method || "On the open";
-        if (item.plan.entry) document.getElementById("exec-entry").value = item.plan.entry;
-        if (item.plan.stop) document.getElementById("exec-stop").value = item.plan.stop;
-        if (item.plan.target) document.getElementById("exec-target").value = item.plan.target;
-        updateExecRR();
-      } else if (c && c.targets) {
-        document.getElementById("exec-entry").value = item.price;
-        document.getElementById("exec-target").value = c.targets.base;
-        document.getElementById("exec-stop").value = (item.price * 0.98).toFixed(2);
-        updateExecRR();
-      }
-    }
 
-    function onRiskTickerChange() {
-      const ticker = document.getElementById("risk-ticker-select").value;
-      const meta = document.getElementById("risk-ticker-meta");
-      const item = getWatchlist().find(x => x.ticker === ticker);
-      if (!item) { meta.textContent = ""; return; }
-      const st = item.setupType || "SIP";
-      const rules = getSetupRules(st);
-      meta.innerHTML = `<strong>${st}</strong> · ideal ${rules.riskPct}% (max ${rules.riskMax}%) · ${rules.hold}`;
-      const tag = document.getElementById("risk-setup-tag");
-      if (tag) tag.textContent = st;
-      const rb = document.getElementById("risk-rules-body");
-      if (rb) {
-        rb.innerHTML = (rules.riskBullets || []).map(b =>
-          `<div class="check-item"><span class="check-icon">•</span> ${b}</div>`
-        ).join("") + `<div class="check-item"><span class="check-icon">S</span> <strong>Stop cue:</strong> ${rules.stop}</div>`;
-      }
-      const govState = getRiskGovernorState();
-      document.getElementById("risk-pct").value = govState ? +Math.min(rules.riskPct, govState.riskPct).toFixed(3) : rules.riskPct;
-      if (item.plan) {
-        if (item.plan.entry) document.getElementById("risk-entry").value = item.plan.entry;
-        if (item.plan.stop) document.getElementById("risk-stop").value = item.plan.stop;
-        const rt = document.getElementById("risk-target"); if (rt) rt.value = item.plan.target || "";
-        const pl = item.plan, sc = pl.scale || [33, 33, 34];
-        [["rg-t2", pl.t2 || ""], ["rg-t3", pl.t3 || ""], ["rg-p1", sc[0]], ["rg-p2", sc[1]], ["rg-p3", sc[2]]].forEach(([id, v]) => { const e = document.getElementById(id); if (e) e.value = v; });
-        calcSize();
-      } else if (item.price) {
-        document.getElementById("risk-entry").value = item.price;
-      }
-    }
-
-    function updateExecRiskVisibility() {
-      const has = getWatchlist().length > 0;
-      const execEmpty = document.getElementById("exec-empty");
-      const execContent = document.getElementById("exec-content");
-      const riskEmpty = document.getElementById("risk-empty");
-      const riskContent = document.getElementById("risk-content");
-      if (execEmpty && execContent) {
-        execEmpty.style.display = has ? "none" : "block";
-        execContent.style.display = has ? "block" : "none";
-      }
-      if (riskEmpty && riskContent) {
-        riskEmpty.style.display = has ? "none" : "block";
-        riskContent.style.display = has ? "block" : "none";
-      }
-      populateTickerSelects();
-    }
 
     let lastRefreshTime = Date.now();
     // ---- Scheduled live data (written by .github/workflows/refresh-watchlist.yml) ----
@@ -6264,6 +5721,250 @@
         standDown, resetDate: next.toISOString().slice(0, 10), ladder, worstMonthPct: worst, nEst, openEst,
         riskUsd: equity * riskPct / 100 };
     }
+    // ===================== Watchlist + Pre-Trade =====================
+    function wlStatus(w) {
+      if (w.position && w.position.status === "open") return "open";
+      if (w.plan && w.plan.entry != null && w.plan.stop != null) return "planned";
+      return "watching";
+    }
+    function ptNum(id) { const e = document.getElementById(id); return e ? (parseFloat(e.value) || 0) : 0; }
+    function ptSetVal(id, v) { const e = document.getElementById(id); if (e) e.value = (v == null || v === 0) ? "" : v; }
+    let ptLoadedTicker = "";
+    function ptPopulate() {
+      const dl = document.getElementById("pt-tickers");
+      if (dl) dl.innerHTML = getWatchlist().map(w => `<option value="${w.ticker}">${w.plan ? "planned" : ""}</option>`).join("");
+      const sel = document.getElementById("pt-setup");
+      if (sel && !sel.options.length) sel.innerHTML = setupOptionsHtml();
+    }
+    function populateTickerSelects() { ptPopulate(); }
+    function updateExecRiskVisibility() { ptPopulate(); }
+    function openPlanFor(ticker) {
+      const tab = document.querySelector('[data-wl-sub="wl-pretrade"]');
+      if (tab) switchWatchSub(tab);
+      document.getElementById("pt-ticker").value = ticker;
+      ptLoad();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    function ptTickerInput() {
+      const v = document.getElementById("pt-ticker").value.trim().toUpperCase();
+      if (v && v !== ptLoadedTicker && getWatchlist().some(w => w.ticker === v)) ptLoad();
+    }
+    function ptRulesRender() {
+      const body = document.getElementById("pt-rules-body"); if (!body) return;
+      const st = document.getElementById("pt-setup").value, mode = document.getElementById("pt-mode").value;
+      let r; try { r = getSetupRules(st); } catch (e) { r = null; }
+      if (!r) { body.innerHTML = '<div class="muted">No rules saved for this setup.</div>'; return; }
+      const li = (ic, t) => `<div class="check-item"><span class="check-icon">${ic}</span> ${t}</div>`;
+      body.innerHTML = li("E", `<strong>Entry (${mode}):</strong> ${mode === "open" ? r.openEntry : r.delayedEntry}`)
+        + li("S", `<strong>Stop:</strong> ${r.stop}`)
+        + li("X", `<strong>Exit / hold:</strong> ${r.exit} · ${r.hold}`)
+        + li("R", `<strong>Risk:</strong> ideal ${r.riskPct}% (max ${r.riskMax}%)`)
+        + (r.execBullets || []).map(b => li("•", b)).join("") + (r.riskBullets || []).map(b => li("•", b)).join("");
+    }
+    function ptLoad() {
+      ptPopulate();
+      const ticker = document.getElementById("pt-ticker").value.trim().toUpperCase();
+      document.getElementById("pt-ticker").value = ticker;
+      ptLoadedTicker = ticker;
+      document.getElementById("pt-saved").textContent = "";
+      const acct = document.getElementById("pt-account");
+      if (acct && !acct.value) acct.value = Math.round(getCurrentPortfolioValueComputed());
+      const gov = getRiskGovernorState();
+      const item = ticker ? getWatchlist().find(x => x.ticker === ticker) : null;
+      const meta = document.getElementById("pt-meta");
+      const setupSel = document.getElementById("pt-setup");
+      if (!item) {
+        meta.textContent = ticker ? "New ticker · saving adds it to your Watchlist" : "Pick a watchlist ticker or type a new one";
+        ["pt-entry", "pt-stop", "pt-t1", "pt-t2", "pt-t3", "pt-comment"].forEach(id => ptSetVal(id, ""));
+        ["pt-p1", "pt-p2", "pt-p3"].forEach((id, i) => ptSetVal(id, [33, 33, 34][i]));
+        document.getElementById("pt-mode").value = "open";
+      } else {
+        const st = item.setupType || "SIP", p = item.plan || {}, c = (typeof candidates !== "undefined") ? candidates.find(x => x.ticker === ticker) : null;
+        setupSel.value = st;
+        document.getElementById("pt-mode").value = item.entryMode || "open";
+        document.getElementById("pt-method").value = p.method || "On the open";
+        meta.textContent = `${st} · ${item.price ? "$" + Number(item.price).toFixed(2) : "no price"}${item.plan ? " · plan saved" : ""}`;
+        if (p.entry != null) {
+          ptSetVal("pt-entry", p.entry); ptSetVal("pt-stop", p.stop); ptSetVal("pt-t1", p.target); ptSetVal("pt-t2", p.t2); ptSetVal("pt-t3", p.t3);
+          const sc = p.scale || [33, 33, 34]; ptSetVal("pt-p1", sc[0]); ptSetVal("pt-p2", sc[1]); ptSetVal("pt-p3", sc[2]);
+        } else if (item.price > 0) {
+          ptSetVal("pt-entry", item.price); ptSetVal("pt-stop", +(item.price * 0.98).toFixed(2));
+          ptSetVal("pt-t1", c && c.targets ? c.targets.base : ""); ptSetVal("pt-t2", ""); ptSetVal("pt-t3", "");
+          ["pt-p1", "pt-p2", "pt-p3"].forEach((id, i) => ptSetVal(id, [33, 33, 34][i]));
+        } else {
+          ["pt-entry", "pt-stop", "pt-t1", "pt-t2", "pt-t3"].forEach(id => ptSetVal(id, ""));
+        }
+        document.getElementById("pt-comment").value = item.comment || "";
+      }
+      let r = null; try { r = getSetupRules(setupSel.value); } catch (e) {}
+      const lim = gov ? gov.riskPct : (r ? r.riskPct : 0.5);
+      document.getElementById("pt-risk").value = +(r && r.riskPct ? Math.min(r.riskPct, lim) : lim).toFixed(3);
+      ptRulesRender();
+      ptRecalc();
+    }
+    function ptRecalc() {
+      const out = document.getElementById("pt-out"), warn = document.getElementById("pt-warn");
+      if (!out) return;
+      const entry = ptNum("pt-entry"), stop = ptNum("pt-stop"), risk = ptNum("pt-risk"), acct = ptNum("pt-account");
+      const gov = getRiskGovernorState();
+      let rules = {}; try { rules = getSetupRules(document.getElementById("pt-setup").value) || {}; } catch (e) {}
+      const hint = document.getElementById("pt-risk-hint");
+      if (hint) hint.textContent = gov ? (gov.standDown ? "(governor: stand down)" : "(governor " + gov.riskPct.toFixed(3) + "%)") : "";
+      const w = [];
+      if (gov && gov.standDown) w.push(`<strong>Stand down</strong> until ${gov.resetDate}. The governor allows 0% risk right now. You can still save this plan to revisit.`);
+      else if (gov && risk > gov.riskPct + 1e-9) w.push(`Risk ${risk}% is above the governor's current ${gov.riskPct.toFixed(3)}%.`);
+      if (rules.riskMax && risk > rules.riskMax) w.push(`Above this setup's max risk (${rules.riskMax}%).`);
+      if (!(acct > 0)) w.push("Enter an account value to size the trade.");
+      warn.innerHTML = w.map(x => `<div class="neg" style="font-size:24px;margin:6px 0;">${x}</div>`).join("");
+      if (!(entry > 0 && stop > 0)) { out.innerHTML = '<div class="muted" style="font-size:24px;">Enter entry and stop to see shares, R/R and R-multiples.</div>'; return; }
+      if (stop >= entry) { out.innerHTML = '<div class="neg" style="font-size:24px;">Stop must be below entry (long trades).</div>'; return; }
+      const rps = entry - stop, riskUsd = acct * risk / 100;
+      const shares = acct > 0 && risk > 0 ? Math.floor(riskUsd / rps) : 0, pos = shares * entry;
+      const f = (v, d = 2) => v.toFixed(d), usd = v => "$" + Math.round(v).toLocaleString();
+      let html = `<div class="result-box"><div style="font-size:22px;color:var(--muted);margin-bottom:4px;">SHARES ALLOWED</div>
+        <div class="big">${shares.toLocaleString()}</div>
+        <div style="margin-top:6px;font-size:24px;">risking ${usd(shares * rps)} (${f(risk, 3)}% of ${usd(acct)}) · position ${usd(pos)}${acct > 0 ? " (" + f(pos / acct * 100, 0) + "% of account)" : ""}</div></div>`;
+      if (acct > 0 && pos > acct) html += `<div class="neg" style="font-size:24px;margin-top:6px;">Position is larger than the account. Check buying power.</div>`;
+      const rows = [1, 2, 3].map(i => ({ n: "Target " + i, px: ptNum("pt-t" + i), pct: ptNum("pt-p" + i) })).filter(r => r.px > 0);
+      html += '<table style="margin-top:10px;"><thead><tr><th>Level</th><th>Price</th><th>R multiple</th><th>Gain %</th><th>Sell %</th><th>Shares</th><th>Profit $</th></tr></thead><tbody>';
+      html += `<tr><td>Stop</td><td>$${f(stop)}</td><td class="neg">−1.00R</td><td class="neg">${f((stop / entry - 1) * 100, 1)}%</td><td></td><td></td><td class="neg">−${usd(shares * rps)}</td></tr>`;
+      let totPct = 0, blend = 0, totUsd = 0;
+      rows.forEach(r => {
+        const R = (r.px - entry) / rps, q = Math.floor(shares * r.pct / 100), pr = q * (r.px - entry);
+        totPct += r.pct; blend += R * r.pct / 100; totUsd += pr;
+        html += `<tr><td>${r.n}</td><td>$${f(r.px)}</td><td class="${R >= 0 ? "pos" : "neg"}"><strong>${R >= 0 ? "+" : ""}${f(R)}R</strong></td><td>${f((r.px / entry - 1) * 100, 1)}%</td><td>${r.pct}%</td><td>${q.toLocaleString()}</td><td>${usd(pr)}</td></tr>`;
+      });
+      html += '</tbody></table>';
+      if (rows.length) {
+        const r1 = rrCalc(entry, stop, rows[0].px), ok = Math.abs(totPct - 100) < 0.5;
+        html += `<div style="margin-top:10px;font-size:24px;">${r1 ? `Reward/Risk to first target <strong class="${r1.rr >= 2 ? "pos" : "neg"}">${f(r1.rr)} : 1</strong> (break-even win rate ${f(r1.breakevenWin, 0)}%) · ` : ""}Blended if scaled out as planned: <strong class="${blend >= 0 ? "pos" : "neg"}">${f(blend)}R</strong> · ${usd(totUsd)}${ok ? "" : ` <span class="neg">(sell % adds to ${totPct}%, not 100%)</span>`}</div>`;
+      } else {
+        html += '<div class="muted" style="margin-top:8px;font-size:22px;">Add a target to see R-multiples and Reward/Risk.</div>';
+      }
+      html += `<div class="muted" style="margin-top:6px;font-size:22px;">Reference: 1R $${f(entry + rps)} · 2R $${f(entry + 2 * rps)} · 3R $${f(entry + 3 * rps)} · 4R $${f(entry + 4 * rps)}</div>`;
+      out.innerHTML = html;
+    }
+    function ptClear() {
+      ptLoadedTicker = "";
+      document.getElementById("pt-ticker").value = "";
+      document.getElementById("pt-saved").textContent = "";
+      ptLoad();
+    }
+    function ptSave(markOpen) {
+      const ticker = document.getElementById("pt-ticker").value.trim().toUpperCase();
+      if (!ticker) { alert("Enter a ticker"); return; }
+      const entry = ptNum("pt-entry"), stop = ptNum("pt-stop"), risk = ptNum("pt-risk"), acct = ptNum("pt-account");
+      if (!(entry > 0 && stop > 0 && stop < entry)) { alert("Enter an entry and a stop below it."); return; }
+      const gov = getRiskGovernorState();
+      if (gov && !gov.standDown && risk > gov.riskPct + 1e-9 &&
+          !confirm("Risk " + risk + "% is above the governor's " + gov.riskPct.toFixed(3) + "%. Save anyway?")) return;
+      const shares = acct > 0 && risk > 0 ? Math.floor(acct * risk / 100 / (entry - stop)) : 0;
+      if (markOpen && shares <= 0) { alert("Shares allowed is 0, so the position can't be opened. Save the plan instead."); return; }
+      const setupType = document.getElementById("pt-setup").value, mode = document.getElementById("pt-mode").value;
+      const comment = document.getElementById("pt-comment").value.trim();
+      const today = new Date().toISOString().slice(0, 10);
+      const list = getWatchlist();
+      let item = list.find(x => x.ticker === ticker);
+      if (!item) {
+        item = { ticker, price: 0, gap: 0, score: 0, catalyst: "", targets: null, setupType, setupReason: "Added via Pre-Trade",
+                 entryMode: mode, added: new Date().toISOString(), plan: null, position: null };
+        list.push(item);
+      }
+      if (item.setupType !== setupType) { item.setupType = setupType; item.setupReason = "Manual review → " + setupType; }
+      item.entryMode = mode;
+      item.comment = comment;
+      const sc = [ptNum("pt-p1"), ptNum("pt-p2"), ptNum("pt-p3")];
+      item.plan = { ...(item.plan || {}), method: document.getElementById("pt-method").value, entry, stop,
+        target: ptNum("pt-t1") || null, t2: ptNum("pt-t2") || null, t3: ptNum("pt-t3") || null, scale: sc,
+        riskPct: risk, shares, accountValue: acct, week: weekStartOf(today), savedAt: new Date().toISOString() };
+      saveWatchlist(list);
+      // keep a plan history record: the Dashboard's plan-quality reports read it
+      const plans = getTradePlans();
+      const rec = { ticker, dateAdded: today, strategy: setupType, entry, stop, riskPct: risk, shares, comments: comment,
+                    targets: [item.plan.target, item.plan.t2, item.plan.t3].filter(Boolean) };
+      const ix = plans.findIndex(p => p.ticker === ticker && p.dateAdded === today);
+      if (ix >= 0) plans[ix] = { ...plans[ix], ...rec };
+      else plans.unshift({ id: "tp-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6), ...rec });
+      saveTradePlans(plans);
+      ptLoadedTicker = ticker;
+      renderWatchlist(); ptPopulate();
+      if (markOpen) { markPositionOpen(ticker); return; }
+      document.getElementById("pt-saved").textContent = "Saved " + ticker + " · " + shares.toLocaleString() + " shares";
+      document.getElementById("pt-meta").textContent = setupType + " · plan saved";
+    }
+    function migrateWeeklyPlans() {
+      try {
+        if (localStorage.getItem("tt_wl_merged_v1")) return;
+        const plans = getTradePlans().slice().sort((a, b) => (b.dateAdded || "").localeCompare(a.dateAdded || ""));
+        if (plans.length) {
+          const list = getWatchlist(); let changed = false;
+          plans.forEach(p => { // newest first, so the newest plan per ticker wins
+            let it = list.find(x => x.ticker === p.ticker);
+            if (!it) {
+              it = { ticker: p.ticker, price: 0, gap: 0, score: 0, catalyst: "", targets: null, setupType: p.strategy || "SIP",
+                     setupReason: "Migrated from Weekly Trade Plan", entryMode: "open", added: (p.dateAdded || "2026-01-01") + "T00:00:00.000Z",
+                     plan: null, position: null, comment: p.comments || "" };
+              list.push(it); changed = true;
+            }
+            if (!it.plan) {
+              it.plan = { entry: p.entry, stop: p.stop, riskPct: p.riskPct, shares: p.shares, week: weekStartOf(p.dateAdded) };
+              if (!it.comment && p.comments) it.comment = p.comments;
+              changed = true;
+            }
+          });
+          if (changed) saveWatchlist(list);
+        }
+        localStorage.setItem("tt_wl_merged_v1", "1");
+      } catch (e) {}
+    }
+    function renderWatchlist() {
+      const body = document.getElementById("watchlist-body");
+      if (!body) return;
+      const all = getWatchlist();
+      if (!all.length) {
+        body.innerHTML = '<div class="wl-empty">No names yet. Add a ticker above, or use Qualify → Add.</div>';
+        return;
+      }
+      const fSel = document.getElementById("wl-filter"), filter = fSel ? fSel.value : "all";
+      const list = all.filter(w => filter === "all" || wlStatus(w) === filter);
+      if (!list.length) { body.innerHTML = '<div class="wl-empty">Nothing matches this filter.</div>'; return; }
+      const priorityRank = { green: 0, yellow: 1 };
+      const sorted = [...list].sort((a, b) => (priorityRank[a.priority] ?? 2) - (priorityRank[b.priority] ?? 2));
+      const chip = { watching: ["Watching", "#334155", "#cbd5e1"], planned: ["Planned", "#1e3a8a", "#bfdbfe"], open: ["Open", "#166534", "#bbf7d0"] };
+      let html = `<table><thead><tr><th></th><th>Ticker</th><th>Setup</th><th>Status &amp; plan</th><th style="min-width:360px;">Comment</th><th>Actions</th></tr></thead><tbody>`;
+      sorted.forEach(w => {
+        const st = w.setupType || "SIP", status = wlStatus(w), p = w.plan || {}, ch = chip[status];
+        const colors = { green: "#22c55e", yellow: "#eab308" };
+        const titles = { green: "High priority this week — click to clear", yellow: "Watching — click to mark high priority", null: "Click to flag as watching" };
+        const tint = w.priority === "green" ? "background:rgba(34,197,94,0.06);" : w.priority === "yellow" ? "background:rgba(234,179,8,0.06);" : "";
+        let summary = '<span class="muted">No plan yet</span>';
+        if (p.entry != null && p.stop != null) {
+          const r = rrCalc(p.entry, p.stop, p.target);
+          summary = `${p.shares != null ? Number(p.shares).toLocaleString() + " sh · " : ""}$${p.entry} → stop $${p.stop}${r ? " · R/R " + r.rr.toFixed(1) : ""}${p.t2 || p.t3 ? " · " + ([p.target, p.t2, p.t3].filter(Boolean).length) + " targets" : ""}`;
+        }
+        const price = Number(w.price) > 0 ? `$${Number(w.price).toFixed(2)} · ${w.gap > 0 ? "+" : ""}${w.gap}% · ${w.catalyst || ""}` : "";
+        html += `<tr style="${tint}">
+          <td style="text-align:center;padding-right:0;"><span onclick="cycleWatchlistPriority('${w.ticker}')" title="${titles[w.priority] || titles[null]}"
+              style="display:inline-block;width:18px;height:18px;border-radius:50%;background:${colors[w.priority] || "#334155"};cursor:pointer;border:1px solid rgba(255,255,255,0.15);"></span></td>
+          <td><span class="ticker-link" onclick="showDetail('${w.ticker}')">${w.ticker}</span><div class="muted" style="font-size:26px;">${price}</div></td>
+          <td><select onchange="setWatchSetup('${w.ticker}', this.value)" style="width:150px">${setupOptionsHtml(st)}</select>
+              <div class="muted" style="font-size:22px;margin-top:2px;max-width:170px;white-space:normal;">${w.setupReason || ""}</div></td>
+          <td><span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:22px;background:${ch[1]};color:${ch[2]};">${ch[0]}</span>
+              <div class="muted" style="font-size:24px;margin-top:4px;white-space:normal;">${summary}</div></td>
+          <td><textarea onchange="updateWatchlistComment('${w.ticker}', this.value)" rows="2"
+              style="width:100%;min-width:340px;background:#0f172a;border:1px solid var(--border);color:var(--text);border-radius:4px;padding:5px 7px;font-family:inherit;resize:vertical;"
+              placeholder="Why is this on the list?">${(w.comment || "").replace(/</g, "&lt;")}</textarea></td>
+          <td style="white-space:nowrap;">
+            <button class="btn btn-sm btn-accent" onclick="openPlanFor('${w.ticker}')">${status === "watching" ? "Pre-Trade" : "Edit plan"}</button>
+            ${status === "planned" ? `<button class="btn btn-sm" onclick="markPositionOpen('${w.ticker}')">Open pos</button>` : ""}
+            ${status !== "watching" ? `<button class="btn btn-sm" style="border-color:#166534;color:#86efac;" onclick="closeOutTrade('${w.ticker}')">Close out</button>` : ""}
+            <button class="btn btn-sm" onclick="removeFromWatchlist('${w.ticker}')">✕</button>
+          </td></tr>`;
+      });
+      html += "</tbody></table>";
+      body.innerHTML = html;
+    }
+
     function getRiskGovernorState() {
       try {
         const cfg = getGovCfg();
@@ -6332,7 +6033,7 @@
         card("Current streak", strk, rs.streak.type === "L" && rs.streak.len >= 3 ? "neg" : (rs.streak.type === "W" ? "pos" : ""));
       const maxAbs = Math.max(2, ...rs.series.map(x => Math.abs(x.r)));
       const H = 90;
-      rb.innerHTML = `<div style="position:relative;height:${H * 2 + 8}px;display:flex;align-items:center;gap:6px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;overflow-x:auto;">` +
+      rb.innerHTML = `<div style="position:relative;height:${H * 2 + 8}px;display:flex;align-items:center;gap:6px;background:#0a0e17;border:1px solid var(--border);border-radius:6px;padding:8px;overflow-x:auto;overflow-y:hidden;box-sizing:content-box;">` +
         rs.series.map(x => {
           const h = Math.max(3, Math.min(1, Math.abs(x.r) / maxAbs) * H);
           const col = x.r > 0 ? "#22c55e" : (x.r < 0 ? "#ef4444" : "#64748b");
@@ -6346,69 +6047,6 @@
     }
     function renderGovHooks(g) { /* reserved for linking governor state into other panels */ }
 
-    function calcSize() {
-      const account = parseFloat(document.getElementById("risk-account").value) || 0;
-      let pct = parseFloat(document.getElementById("risk-pct").value) || 0;
-      const entry = parseFloat(document.getElementById("risk-entry").value) || 0;
-      const stop = parseFloat(document.getElementById("risk-stop").value) || 0;
-      const gov = getRiskGovernorState();
-
-      if (gov && gov.standDown) {
-        document.getElementById("shares-out").textContent = "0";
-        document.getElementById("size-details").innerHTML = `<span class="neg"><strong>Risk Governor: stand down</strong> until ${gov.resetDate}. Sizing is disabled for new risk.</span>`;
-        return;
-      }
-      if (gov && pct > gov.riskPct + 1e-9 && account > 0 && entry > 0 && stop > 0) {
-        if (!confirm("Risk Governor allows " + gov.riskPct.toFixed(3) + "% per trade right now (you entered " + pct + "%). Use the governor's " + gov.riskPct.toFixed(3) + "%? Cancel keeps your higher number.")) {
-          /* keep user's override */
-        } else {
-          pct = gov.riskPct;
-          document.getElementById("risk-pct").value = +gov.riskPct.toFixed(3);
-        }
-      }
-
-      if (account <= 0 || pct <= 0 || entry <= 0 || stop <= 0) {
-        document.getElementById("shares-out").textContent = "—";
-        document.getElementById("size-details").textContent = "Fill all fields";
-        return;
-      }
-      if (pct > 2.5) {
-        alert("Hard max is 2.5%. Capping.");
-        pct = 2.5;
-        document.getElementById("risk-pct").value = 2.5;
-      }
-      const riskDollars = account * (pct / 100);
-      const riskPerShare = Math.abs(entry - stop);
-      if (riskPerShare === 0) {
-        document.getElementById("shares-out").textContent = "—";
-        document.getElementById("size-details").textContent = "Entry and Stop cannot be equal";
-        return;
-      }
-      const shares = Math.floor(riskDollars / riskPerShare);
-      const notional = shares * entry;
-
-      document.getElementById("shares-out").textContent = shares.toLocaleString();
-      document.getElementById("size-details").innerHTML =
-        `Risk $: <strong>$${riskDollars.toFixed(0)}</strong> (${pct}%) · Risk/share: <strong>$${riskPerShare.toFixed(2)}</strong> · Notional: <strong>$${notional.toLocaleString(undefined,{maximumFractionDigits:0})}</strong>`;
-
-      // Save the full sizing result onto the selected ticker's plan, so
-      // Saved Plans shows entry/stop/risk%/shares without needing to
-      // re-open this calculator — that's the actual point of a trade plan,
-      // something to execute against later, not a number that evaporates
-      // the moment you leave this tab.
-      updateRiskRR();
-      const rTarget = parseFloat((document.getElementById("risk-target") || {}).value) || null;
-      const ticker = document.getElementById("risk-ticker-select") ? document.getElementById("risk-ticker-select").value : "";
-      if (ticker) {
-        const list = getWatchlist();
-        const item = list.find(x => x.ticker === ticker);
-        if (item) {
-          item.plan = { ...(item.plan || {}), entry, stop, riskPct: pct, shares, accountValue: account, ...(rTarget ? { target: rTarget } : {}) };
-          saveWatchlist(list);
-          renderWatchlist();
-        }
-      }
-    }
 
     function getJournal() {
       try { return JSON.parse(localStorage.getItem("sip_journal") || "[]"); }
@@ -7122,21 +6760,17 @@
       el.classList.add("active");
       document.querySelectorAll(".wl-sub").forEach(p => { p.style.display = "none"; p.classList.remove("active"); });
       const panel = document.getElementById(sub);
-      if (panel) {
-        panel.style.display = "block";
-        panel.classList.add("active");
-      }
-      if (sub === "wl-tradeplan") renderTradePlans();
-      if (sub === "wl-risk") {
-        // Account Value defaults to the live computed portfolio value each
-        // time this tab is entered — still fully editable for a one-off
-        // what-if calculation, it just resets to the real number next visit
-        // rather than staying stuck on whatever was typed in previously.
-        const accountEl = document.getElementById("risk-account");
-        if (accountEl) accountEl.value = Math.round(getCurrentPortfolioValueComputed());
+      if (panel) { panel.style.display = "block"; panel.classList.add("active"); }
+      if (sub === "wl-list") renderWatchlist();
+      if (sub === "wl-pretrade") {
+        ptPopulate();
+        // Account defaults to the live computed portfolio value each visit; still editable for what-ifs.
+        const acct = document.getElementById("pt-account");
+        if (acct) acct.value = Math.round(getCurrentPortfolioValueComputed());
         renderRiskGovernor();
+        if (document.getElementById("pt-ticker").value) ptRecalc();
+        else ptLoad();
       }
-      updateExecRiskVisibility();
     }
 
     function switchMMSub(el) {
@@ -10328,6 +9962,7 @@ Question: ${question}`;
       const extra = document.getElementById("dash-extra");
       renderTradeFactory();
       renderRiskGovernor();
+      renderTradePlanReport(); renderPlanVsActual();
       if (!el) return;
       let baselineCap = 0, baselineDate = null;
       try {
@@ -10553,8 +10188,8 @@ Question: ${question}`;
     document.getElementById("j-date").valueAsDate = new Date();
     document.getElementById("j-setup").innerHTML = setupOptionsHtml();
     document.getElementById("wl-manual-setup").innerHTML = setupOptionsHtml();
-    document.getElementById("tp-strategy").innerHTML = setupOptionsHtml();
-    renderTradePlans();
+    document.getElementById("pt-setup").innerHTML = setupOptionsHtml();
+    migrateWeeklyPlans();
     renderSetupLibrary();
     initSidebarState();
     initHomeLanding();
