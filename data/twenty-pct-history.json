@@ -4603,5 +4603,340 @@
         "mktCap": 4586202154
       }
     ]
+  },
+  {
+    "date": "2026-11-08",
+    "up": [
+      {
+        "ticker": "SKIN",
+        "price": 15.71,
+        "changePct": 51.79,
+        "sector": "Healthcare",
+        "industry": "Medical - Specialties",
+        "mktCap": 102225598
+      },
+      {
+        "ticker": "IONL",
+        "price": 7.32,
+        "changePct": 45.24,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 3859136
+      },
+      {
+        "ticker": "IONX",
+        "price": 13.005,
+        "changePct": 44.66,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 7941871
+      },
+      {
+        "ticker": "OBX",
+        "price": 13.865,
+        "changePct": 44.43,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 14421264
+      },
+      {
+        "ticker": "KRMN",
+        "price": 45.61,
+        "changePct": 42.13,
+        "sector": "Industrials",
+        "industry": "Aerospace & Defense",
+        "mktCap": 6044862057
+      },
+      {
+        "ticker": "GIBO",
+        "price": 175.35,
+        "changePct": 38.86,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "mktCap": 83871469
+      },
+      {
+        "ticker": "FLY",
+        "price": 20.76,
+        "changePct": 36.8,
+        "sector": "Industrials",
+        "industry": "Aerospace & Defense",
+        "mktCap": 3475320430
+      },
+      {
+        "ticker": "FROG",
+        "price": 100.98,
+        "changePct": 35.33,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 12230669730
+      },
+      {
+        "ticker": "RKLX",
+        "price": 8.79,
+        "changePct": 30.8,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 45303660
+      },
+      {
+        "ticker": "ARQQ",
+        "price": 15.96,
+        "changePct": 29.97,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 277742304
+      },
+      {
+        "ticker": "LASR",
+        "price": 38.02,
+        "changePct": 29.58,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "mktCap": 2193381290
+      },
+      {
+        "ticker": "QPUX",
+        "price": 5.39,
+        "changePct": 29.57,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 19036273
+      },
+      {
+        "ticker": "LYNX",
+        "price": 14.59,
+        "changePct": 28.66,
+        "sector": "Industrials",
+        "industry": "Aerospace & Defense",
+        "mktCap": 1691701513
+      },
+      {
+        "ticker": "TMDX",
+        "price": 88.24,
+        "changePct": 27.92,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 3059730824
+      },
+      {
+        "ticker": "AOSL",
+        "price": 23.61,
+        "changePct": 27.76,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "mktCap": 715502726
+      },
+      {
+        "ticker": "FLGT",
+        "price": 23.74,
+        "changePct": 27.22,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 653213222
+      },
+      {
+        "ticker": "IREN",
+        "price": 21.64,
+        "changePct": 20.02,
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "mktCap": 15671395092
+      },
+      {
+        "ticker": "IONQ",
+        "price": 32.62,
+        "changePct": 23.42,
+        "sector": "Technology",
+        "industry": "Computer Hardware",
+        "mktCap": 15878903588
+      }
+    ],
+    "down": [
+      {
+        "ticker": "BDSX",
+        "price": 8.53,
+        "changePct": -57.01,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 69436580
+      },
+      {
+        "ticker": "IONZ",
+        "price": 23.83,
+        "changePct": -46.49,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 17538250
+      },
+      {
+        "ticker": "OMH",
+        "price": 7.36,
+        "changePct": -44.87,
+        "sector": "Real Estate",
+        "industry": "Real Estate - Services",
+        "mktCap": 3392621
+      },
+      {
+        "ticker": "RGTZ",
+        "price": 19.18,
+        "changePct": -39.27,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 21695535
+      },
+      {
+        "ticker": "QBTZ",
+        "price": 28.99,
+        "changePct": -36.73,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 12559606
+      },
+      {
+        "ticker": "PRAA",
+        "price": 12.92,
+        "changePct": -36.73,
+        "sector": "Financial Services",
+        "industry": "Financial - Credit Services",
+        "mktCap": 486412238
+      },
+      {
+        "ticker": "KRT",
+        "price": 33.54,
+        "changePct": -34.8,
+        "sector": "Consumer Cyclical",
+        "industry": "Packaging & Containers",
+        "mktCap": 668509922
+      },
+      {
+        "ticker": "RKLZ",
+        "price": 19.84,
+        "changePct": -31.11,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 81175
+      },
+      {
+        "ticker": "NRDS",
+        "price": 7.89,
+        "changePct": -30.97,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "mktCap": 504353859
+      },
+      {
+        "ticker": "IRTC",
+        "price": 90.22,
+        "changePct": -30.7,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 2973921860
+      },
+      {
+        "ticker": "AEHL",
+        "price": 12.5,
+        "changePct": -28.33,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 9621335
+      },
+      {
+        "ticker": "KRUS",
+        "price": 27.38,
+        "changePct": -26.14,
+        "sector": "Consumer Cyclical",
+        "industry": "Restaurants",
+        "mktCap": 305281524
+      },
+      {
+        "ticker": "ANIK",
+        "price": 14.55,
+        "changePct": -24.73,
+        "sector": "Healthcare",
+        "industry": "Medical - Specialties",
+        "mktCap": 194722141
+      },
+      {
+        "ticker": "KOP",
+        "price": 29.97,
+        "changePct": -24.39,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "AMN",
+        "price": 36.19,
+        "changePct": -23.68,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "XGN",
+        "price": 5.81,
+        "changePct": -23.55,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "TG",
+        "price": 5.39,
+        "changePct": -23.44,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "BL",
+        "price": 25.89,
+        "changePct": -23.11,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "DAMD",
+        "price": 12.9,
+        "changePct": -22.34,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 12272060
+      },
+      {
+        "ticker": "DKNG",
+        "price": 18.51,
+        "changePct": -21.3,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "HLIO",
+        "price": 47.44,
+        "changePct": -21.05,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "OMDA",
+        "price": 15.09,
+        "changePct": -20.37,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      },
+      {
+        "ticker": "AORT",
+        "price": 20.21,
+        "changePct": -20.21,
+        "sector": null,
+        "industry": null,
+        "mktCap": null
+      }
+    ]
   }
 ]

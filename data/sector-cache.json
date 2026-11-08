@@ -3657,5 +3657,125 @@
     "industry": "Advertising Agencies",
     "mktCap": 3912606720,
     "float": null
+  },
+  "KRMN": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 6044862057,
+    "float": null
+  },
+  "FLY": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 3475320430,
+    "float": null
+  },
+  "FROG": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 12230669730,
+    "float": null
+  },
+  "PRAA": {
+    "sector": "Financial Services",
+    "industry": "Financial - Credit Services",
+    "mktCap": 486412238,
+    "float": null
+  },
+  "BDSX": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 69436580,
+    "float": null
+  },
+  "OBX": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 14421264,
+    "float": null
+  },
+  "OMH": {
+    "sector": "Real Estate",
+    "industry": "Real Estate - Services",
+    "mktCap": 3392621,
+    "float": null
+  },
+  "KRT": {
+    "sector": "Consumer Cyclical",
+    "industry": "Packaging & Containers",
+    "mktCap": 668509922,
+    "float": null
+  },
+  "SKIN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Specialties",
+    "mktCap": 102225598,
+    "float": null
+  },
+  "ARQQ": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 277742304,
+    "float": null
+  },
+  "LASR": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 2193381290,
+    "float": null
+  },
+  "QPUX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 19036273,
+    "float": null
+  },
+  "LYNX": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 1691701513,
+    "float": null
+  },
+  "TMDX": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 3059730824,
+    "float": null
+  },
+  "AOSL": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 715502726,
+    "float": null
+  },
+  "FLGT": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 653213222,
+    "float": null
+  },
+  "NRDS": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 504353859,
+    "float": null
+  },
+  "IRTC": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 2973921860,
+    "float": null
+  },
+  "KRUS": {
+    "sector": "Consumer Cyclical",
+    "industry": "Restaurants",
+    "mktCap": 305281524,
+    "float": null
+  },
+  "ANIK": {
+    "sector": "Healthcare",
+    "industry": "Medical - Specialties",
+    "mktCap": 194722141,
+    "float": null
   }
 }
