@@ -3777,5 +3777,125 @@
     "industry": "Medical - Specialties",
     "mktCap": 194722141,
     "float": null
+  },
+  "PEPG": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 348612844,
+    "float": null
+  },
+  "APPS": {
+    "sector": "Technology",
+    "industry": "Software - Application",
+    "mktCap": 886049899,
+    "float": null
+  },
+  "GILT": {
+    "sector": "Technology",
+    "industry": "Communication Equipment",
+    "mktCap": 429511800,
+    "float": null
+  },
+  "GRPN": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 484120349,
+    "float": null
+  },
+  "ZIP": {
+    "sector": "Industrials",
+    "industry": "Staffing & Employment Services",
+    "mktCap": 488426461,
+    "float": null
+  },
+  "STAK": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Equipment & Services",
+    "mktCap": 61033098,
+    "float": null
+  },
+  "XGN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Diagnostics & Research",
+    "mktCap": 123185651,
+    "float": null
+  },
+  "SMID": {
+    "sector": "Basic Materials",
+    "industry": "Construction Materials",
+    "mktCap": 101954604,
+    "float": null
+  },
+  "NCI": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Manufacturers",
+    "mktCap": 6234358,
+    "float": null
+  },
+  "MRDN": {
+    "sector": "Consumer Cyclical",
+    "industry": "Gambling, Resorts & Casinos",
+    "mktCap": 80416113,
+    "float": null
+  },
+  "BRBI": {
+    "sector": "Financial Services",
+    "industry": "Investment - Banking & Investment Services",
+    "mktCap": 230619416,
+    "float": null
+  },
+  "AAON": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 6301829704,
+    "float": null
+  },
+  "FXHO": {
+    "sector": "Technology",
+    "industry": "Consumer Electronics",
+    "mktCap": 1131442,
+    "float": null
+  },
+  "AMRC": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 1406254592,
+    "float": null
+  },
+  "CSQR": {
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "mktCap": 2929425426,
+    "float": null
+  },
+  "OPI": {
+    "sector": "Real Estate",
+    "industry": "REIT - Office",
+    "mktCap": 343353944,
+    "float": null
+  },
+  "SGC": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Manufacturers",
+    "mktCap": 227754859,
+    "float": null
+  },
+  "EQPT": {
+    "sector": "Industrials",
+    "industry": "Rental & Leasing Services",
+    "mktCap": 2763495214,
+    "float": null
+  },
+  "NVD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 67917048,
+    "float": null
+  },
+  "NVDL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1939367644,
+    "float": null
   }
 }

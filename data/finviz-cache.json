@@ -962,5 +962,68 @@
     "finvizFloat": 54110000,
     "success": true,
     "fetchedAt": "2026-11-08T18:28:48.608Z"
+  },
+  "PEPG": {
+    "shortInterestPct": "6.16%",
+    "daysToCover": 4.25,
+    "finvizFloat": 61800000,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:13.869Z"
+  },
+  "APPS": {
+    "shortInterestPct": "10.82%",
+    "daysToCover": 4.03,
+    "finvizFloat": 107470000,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:14.641Z"
+  },
+  "GILT": {
+    "shortInterestPct": "3.42%",
+    "daysToCover": 3.01,
+    "finvizFloat": 64790000.00000001,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:15.418Z"
+  },
+  "GRPN": {
+    "shortInterestPct": "38.13%",
+    "daysToCover": 11.59,
+    "finvizFloat": 32909999.999999996,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:16.253Z"
+  },
+  "ZIP": {
+    "shortInterestPct": "5.00%",
+    "daysToCover": 3.99,
+    "finvizFloat": 64489999.99999999,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:17.025Z"
+  },
+  "SMX": {
+    "shortInterestPct": "2.89%",
+    "daysToCover": 0.03,
+    "finvizFloat": 310000,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:17.792Z"
+  },
+  "OMH": {
+    "shortInterestPct": "2.63%",
+    "daysToCover": 0.02,
+    "finvizFloat": 2110000,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:18.865Z"
+  },
+  "STAK": {
+    "shortInterestPct": null,
+    "daysToCover": 0.15,
+    "finvizFloat": null,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:19.628Z"
+  },
+  "XGN": {
+    "shortInterestPct": "4.68%",
+    "daysToCover": 2.04,
+    "finvizFloat": 14400000,
+    "success": true,
+    "fetchedAt": "2026-11-10T18:36:20.400Z"
   }
 }

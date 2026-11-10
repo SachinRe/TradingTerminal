@@ -4938,5 +4938,172 @@
         "mktCap": null
       }
     ]
+  },
+  {
+    "date": "2026-11-10",
+    "up": [
+      {
+        "ticker": "OMH",
+        "price": 63.23,
+        "changePct": 144.7,
+        "sector": "Real Estate",
+        "industry": "Real Estate - Services",
+        "mktCap": 3392621
+      },
+      {
+        "ticker": "PEPG",
+        "price": 5.035,
+        "changePct": 110.67,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 348612844
+      },
+      {
+        "ticker": "SMX",
+        "price": 16.2102,
+        "changePct": 73.37,
+        "sector": "Industrials",
+        "industry": "Specialty Business Services",
+        "mktCap": 580870
+      },
+      {
+        "ticker": "TANH",
+        "price": 29.32,
+        "changePct": 51.6,
+        "sector": "Consumer Defensive",
+        "industry": "Household & Personal Products",
+        "mktCap": 10048072
+      },
+      {
+        "ticker": "STAK",
+        "price": 6.0999,
+        "changePct": 49.14,
+        "sector": "Energy",
+        "industry": "Oil & Gas Equipment & Services",
+        "mktCap": 61033098
+      },
+      {
+        "ticker": "ZIP",
+        "price": 5.915,
+        "changePct": 37.72,
+        "sector": "Industrials",
+        "industry": "Staffing & Employment Services",
+        "mktCap": 488426461
+      },
+      {
+        "ticker": "NCI",
+        "price": 5.9001,
+        "changePct": 27.18,
+        "sector": "Consumer Cyclical",
+        "industry": "Apparel - Manufacturers",
+        "mktCap": 6234358
+      },
+      {
+        "ticker": "SECZ",
+        "price": 8.585,
+        "changePct": 23.17,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 2189847993
+      },
+      {
+        "ticker": "BRBI",
+        "price": 8.88,
+        "changePct": 21.48,
+        "sector": "Financial Services",
+        "industry": "Investment - Banking & Investment Services",
+        "mktCap": 230619416
+      },
+      {
+        "ticker": "AAON",
+        "price": 76.3495,
+        "changePct": 21.44,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 6301829704
+      }
+    ],
+    "down": [
+      {
+        "ticker": "HIMZ",
+        "price": 9.14,
+        "changePct": -37.01,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 48217965
+      },
+      {
+        "ticker": "APPS",
+        "price": 7.265,
+        "changePct": -35.71,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 886049899
+      },
+      {
+        "ticker": "XGN",
+        "price": 5.085,
+        "changePct": -28.38,
+        "sector": "Healthcare",
+        "industry": "Medical - Diagnostics & Research",
+        "mktCap": 123185651
+      },
+      {
+        "ticker": "GRPN",
+        "price": 11.895,
+        "changePct": -26.8,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "mktCap": 484120349
+      },
+      {
+        "ticker": "SMID",
+        "price": 19.22,
+        "changePct": -26.53,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 101954604
+      },
+      {
+        "ticker": "XRPN",
+        "price": 7.71,
+        "changePct": -25.94,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 769665000
+      },
+      {
+        "ticker": "MRDN",
+        "price": 6.21,
+        "changePct": -24.27,
+        "sector": "Consumer Cyclical",
+        "industry": "Gambling, Resorts & Casinos",
+        "mktCap": 80416113
+      },
+      {
+        "ticker": "GILT",
+        "price": 5.77,
+        "changePct": -23.88,
+        "sector": "Technology",
+        "industry": "Communication Equipment",
+        "mktCap": 429511800
+      },
+      {
+        "ticker": "EQPT",
+        "price": 12.815,
+        "changePct": -20.94,
+        "sector": "Industrials",
+        "industry": "Rental & Leasing Services",
+        "mktCap": 2763495214
+      },
+      {
+        "ticker": "GIBO",
+        "price": 153.0831,
+        "changePct": -20.92,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "mktCap": 83871469
+      }
+    ]
   }
 ]
