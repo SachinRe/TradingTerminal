@@ -5105,5 +5105,268 @@
         "mktCap": 83871469
       }
     ]
+  },
+  {
+    "date": "2026-11-11",
+    "up": [
+      {
+        "ticker": "CRWG",
+        "price": 7.305,
+        "changePct": 52.51,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5100257
+      },
+      {
+        "ticker": "RETO",
+        "price": 5.45,
+        "changePct": 46.11,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 1578990
+      },
+      {
+        "ticker": "NBIG",
+        "price": 6.755,
+        "changePct": 38.14,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 21611378
+      },
+      {
+        "ticker": "NBIL",
+        "price": 9.82,
+        "changePct": 37.92,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 248870540
+      },
+      {
+        "ticker": "BEG",
+        "price": 25.345,
+        "changePct": 33.13,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 15567161
+      },
+      {
+        "ticker": "DLLL",
+        "price": 14.47,
+        "changePct": 29.43,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 186166922
+      },
+      {
+        "ticker": "ARMG",
+        "price": 9.4659,
+        "changePct": 27.67,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 29751700
+      },
+      {
+        "ticker": "MUU",
+        "price": 19.27,
+        "changePct": 27.62,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1960056414
+      },
+      {
+        "ticker": "MULL",
+        "price": 13.385,
+        "changePct": 27.6,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 316349401
+      },
+      {
+        "ticker": "FOSL",
+        "price": 10.04,
+        "changePct": 27.57,
+        "sector": "Consumer Cyclical",
+        "industry": "Apparel - Footwear & Accessories",
+        "mktCap": 594337423
+      },
+      {
+        "ticker": "TANH",
+        "price": 38.76,
+        "changePct": 26.83,
+        "sector": "Consumer Defensive",
+        "industry": "Household & Personal Products",
+        "mktCap": 10048072
+      },
+      {
+        "ticker": "CRWV",
+        "price": 61.64,
+        "changePct": 26.49,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 35827606381
+      },
+      {
+        "ticker": "CARL",
+        "price": 18.26,
+        "changePct": 24.13,
+        "sector": "Healthcare",
+        "industry": "Medical - Healthcare Information Services",
+        "mktCap": 496636895
+      },
+      {
+        "ticker": "MRVU",
+        "price": 52.8,
+        "changePct": 23.74,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 5015242
+      },
+      {
+        "ticker": "DJT",
+        "price": 5.295,
+        "changePct": 23.71,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "mktCap": 1470309371
+      },
+      {
+        "ticker": "AXTI",
+        "price": 48.54,
+        "changePct": 23.48,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "mktCap": 3777016320
+      },
+      {
+        "ticker": "MVLL",
+        "price": 12.705,
+        "changePct": 23.47,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 304525186
+      },
+      {
+        "ticker": "SMCL",
+        "price": 9.85,
+        "changePct": 23.43,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 26878173
+      },
+      {
+        "ticker": "AZTA",
+        "price": 49.94,
+        "changePct": 23.37,
+        "sector": "Healthcare",
+        "industry": "Medical - Instruments & Supplies",
+        "mktCap": 2184724908
+      },
+      {
+        "ticker": "HYNX",
+        "price": 15.37,
+        "changePct": 23.26,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 13064500
+      },
+      {
+        "ticker": "SMCX",
+        "price": 6.9502,
+        "changePct": 23.23,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 27479104
+      },
+      {
+        "ticker": "SKHU",
+        "price": 11.925,
+        "changePct": 23.19,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 52589251
+      },
+      {
+        "ticker": "SKHL",
+        "price": 5.925,
+        "changePct": 23.18,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 237000
+      },
+      {
+        "ticker": "SOXL",
+        "price": 69.04,
+        "changePct": 23.15,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 41576975437
+      },
+      {
+        "ticker": "SKUU",
+        "price": 15.47,
+        "changePct": 22.97,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 101637900
+      },
+      {
+        "ticker": "KORU",
+        "price": 8.8101,
+        "changePct": 22.19,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1174138576
+      }
+    ],
+    "down": [
+      {
+        "ticker": "OMH",
+        "price": 7.9458,
+        "changePct": -52.18,
+        "sector": "Real Estate",
+        "industry": "Real Estate - Services",
+        "mktCap": 3392621
+      },
+      {
+        "ticker": "SMX",
+        "price": 13.32,
+        "changePct": -30.81,
+        "sector": "Industrials",
+        "industry": "Specialty Business Services",
+        "mktCap": 580870
+      },
+      {
+        "ticker": "MUZ",
+        "price": 8.4572,
+        "changePct": -27.31,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 2520900
+      },
+      {
+        "ticker": "SMCZ",
+        "price": 6.0005,
+        "changePct": -23.56,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1420214
+      },
+      {
+        "ticker": "SOXS",
+        "price": 42.39,
+        "changePct": -23.43,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 106846669
+      },
+      {
+        "ticker": "SKDD",
+        "price": 8.5175,
+        "changePct": -22.99,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 13635300
+      }
+    ]
   }
 ]

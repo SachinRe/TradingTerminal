@@ -762,7 +762,8 @@
   "ARMG": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 84128750
+    "mktCap": 29751700,
+    "float": null
   },
   "SMX": {
     "sector": "Industrials",
@@ -3896,6 +3897,108 @@
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
     "mktCap": 1939367644,
+    "float": null
+  },
+  "FOSL": {
+    "sector": "Consumer Cyclical",
+    "industry": "Apparel - Footwear & Accessories",
+    "mktCap": 594337423,
+    "float": null
+  },
+  "MULL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 316349401,
+    "float": null
+  },
+  "RETO": {
+    "sector": "Basic Materials",
+    "industry": "Construction Materials",
+    "mktCap": 1578990,
+    "float": null
+  },
+  "CARL": {
+    "sector": "Healthcare",
+    "industry": "Medical - Healthcare Information Services",
+    "mktCap": 496636895,
+    "float": null
+  },
+  "DJT": {
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information",
+    "mktCap": 1470309371,
+    "float": null
+  },
+  "AZTA": {
+    "sector": "Healthcare",
+    "industry": "Medical - Instruments & Supplies",
+    "mktCap": 2184724908,
+    "float": null
+  },
+  "HYNX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 13064500,
+    "float": null
+  },
+  "SKHU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 52589251,
+    "float": null
+  },
+  "SKHL": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 237000,
+    "float": null
+  },
+  "SKUU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 101637900,
+    "float": null
+  },
+  "BRCB": {
+    "sector": "Consumer Cyclical",
+    "industry": "Restaurants",
+    "mktCap": 160900936,
+    "float": null
+  },
+  "SUJA": {
+    "sector": "Consumer Defensive",
+    "industry": "Beverages - Non-Alcoholic",
+    "mktCap": 199825080,
+    "float": null
+  },
+  "RIBB": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 39308769,
+    "float": null
+  },
+  "BV": {
+    "sector": "Industrials",
+    "industry": "Specialty Business Services",
+    "mktCap": 900072025,
+    "float": null
+  },
+  "AADX": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 1582331198,
+    "float": null
+  },
+  "MUD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 34873128,
+    "float": null
+  },
+  "SOXX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 40390549331,
     "float": null
   }
 }

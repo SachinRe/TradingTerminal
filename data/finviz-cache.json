@@ -383,11 +383,11 @@
   },
   "CRWG": {
     "success": false,
-    "fetchedAt": "2026-10-14T20:55:21.533Z"
+    "fetchedAt": "2026-11-11T18:34:37.359Z"
   },
   "NBIG": {
     "success": false,
-    "fetchedAt": "2026-10-14T17:35:01.294Z"
+    "fetchedAt": "2026-11-11T18:34:38.553Z"
   },
   "WMT": {
     "shortInterestPct": "1.70%",
@@ -1025,5 +1025,27 @@
     "finvizFloat": 14400000,
     "success": true,
     "fetchedAt": "2026-11-10T18:36:20.400Z"
+  },
+  "CRWV": {
+    "shortInterestPct": "21.25%",
+    "daysToCover": 1.75,
+    "finvizFloat": 349310000,
+    "success": true,
+    "fetchedAt": "2026-11-11T18:34:35.606Z"
+  },
+  "MUU": {
+    "success": false,
+    "fetchedAt": "2026-11-11T18:34:36.185Z"
+  },
+  "FOSL": {
+    "shortInterestPct": "9.85%",
+    "daysToCover": 6.62,
+    "finvizFloat": 56050000,
+    "success": true,
+    "fetchedAt": "2026-11-11T18:34:36.771Z"
+  },
+  "MULL": {
+    "success": false,
+    "fetchedAt": "2026-11-11T18:34:37.970Z"
   }
 }
