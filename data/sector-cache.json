@@ -4000,5 +4000,107 @@
     "industry": "Asset Management",
     "mktCap": 40390549331,
     "float": null
+  },
+  "MOD": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 7401550681,
+    "float": null
+  },
+  "NPCE": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 212467256,
+    "float": null
+  },
+  "FCUV": {
+    "sector": "Technology",
+    "industry": "Hardware, Equipment & Parts",
+    "mktCap": 6805336,
+    "float": null
+  },
+  "CADL": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 485127714,
+    "float": null
+  },
+  "NMAX": {
+    "sector": "Communication Services",
+    "industry": "Broadcasting",
+    "mktCap": 825477975,
+    "float": null
+  },
+  "VVVV": {
+    "sector": "Healthcare",
+    "industry": "Medical - Specialties",
+    "mktCap": 291475122,
+    "float": null
+  },
+  "RMIX": {
+    "sector": "Basic Materials",
+    "industry": "Construction Materials",
+    "mktCap": 142895542,
+    "float": null
+  },
+  "SBC": {
+    "sector": "Industrials",
+    "industry": "Consulting Services",
+    "mktCap": 706846518,
+    "float": null
+  },
+  "WWB": {
+    "sector": "Healthcare",
+    "industry": "Medical - Pharmaceuticals",
+    "mktCap": 375215960,
+    "float": null
+  },
+  "HQI": {
+    "sector": "Industrials",
+    "industry": "Staffing & Employment Services",
+    "mktCap": 185148000,
+    "float": null
+  },
+  "FGI": {
+    "sector": "Consumer Cyclical",
+    "industry": "Furnishings, Fixtures & Appliances",
+    "mktCap": 11838691,
+    "float": null
+  },
+  "LFTO": {
+    "sector": "Communication Services",
+    "industry": "Advertising Agencies",
+    "mktCap": 3766779818,
+    "float": null
+  },
+  "HAWK": {
+    "sector": "Industrials",
+    "industry": "Aerospace & Defense",
+    "mktCap": 1685987026,
+    "float": null
+  },
+  "TNDM": {
+    "sector": "Healthcare",
+    "industry": "Medical - Devices",
+    "mktCap": 1406798730,
+    "float": null
+  },
+  "STN": {
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "mktCap": 9636052000,
+    "float": null
+  },
+  "KDP": {
+    "sector": "Consumer Defensive",
+    "industry": "Beverages - Non-Alcoholic",
+    "mktCap": 49714217349,
+    "float": null
+  },
+  "CBRS": {
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "mktCap": 24582181508,
+    "float": null
   }
 }

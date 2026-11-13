@@ -126,11 +126,11 @@
     "fetchedAt": "2026-11-03T18:22:27.751Z"
   },
   "AVGO": {
-    "shortInterestPct": "1.14%",
-    "daysToCover": 2.35,
+    "shortInterestPct": "1.11%",
+    "daysToCover": 2.07,
     "finvizFloat": 4680000000,
     "success": true,
-    "fetchedAt": "2026-10-31T17:21:18.308Z"
+    "fetchedAt": "2026-11-13T18:28:58.112Z"
   },
   "CGEM": {
     "shortInterestPct": "21.39%",
@@ -368,11 +368,11 @@
     "fetchedAt": "2026-10-14T17:34:58.257Z"
   },
   "AMD": {
-    "shortInterestPct": "2.35%",
-    "daysToCover": 1.78,
-    "finvizFloat": 1620000000,
+    "shortInterestPct": "2.37%",
+    "daysToCover": 1.6,
+    "finvizFloat": 1630000000,
     "success": true,
-    "fetchedAt": "2026-10-31T17:21:17.149Z"
+    "fetchedAt": "2026-11-13T18:28:57.352Z"
   },
   "UNH": {
     "shortInterestPct": "1.78%",
@@ -1047,5 +1047,51 @@
   "MULL": {
     "success": false,
     "fetchedAt": "2026-11-11T18:34:37.970Z"
+  },
+  "MOD": {
+    "shortInterestPct": "4.70%",
+    "daysToCover": 1.45,
+    "finvizFloat": 51980000,
+    "success": true,
+    "fetchedAt": "2026-11-13T18:28:58.861Z"
+  },
+  "NPCE": {
+    "shortInterestPct": "3.20%",
+    "daysToCover": 6.66,
+    "finvizFloat": 26800000,
+    "success": true,
+    "fetchedAt": "2026-11-13T18:28:59.606Z"
+  },
+  "FCUV": {
+    "shortInterestPct": "0.27%",
+    "daysToCover": 0.02,
+    "finvizFloat": 880000,
+    "success": true,
+    "fetchedAt": "2026-11-13T18:29:00.346Z"
+  },
+  "CADL": {
+    "shortInterestPct": "21.34%",
+    "daysToCover": 10.99,
+    "finvizFloat": 61340000,
+    "success": true,
+    "fetchedAt": "2026-11-13T18:29:01.092Z"
+  },
+  "NMAX": {
+    "shortInterestPct": "7.60%",
+    "daysToCover": 4.71,
+    "finvizFloat": 65830000,
+    "success": true,
+    "fetchedAt": "2026-11-13T18:29:01.848Z"
+  },
+  "VVVV": {
+    "success": false,
+    "fetchedAt": "2026-11-13T18:29:02.591Z"
+  },
+  "RMIX": {
+    "shortInterestPct": "6.07%",
+    "daysToCover": 4.92,
+    "finvizFloat": 42380000,
+    "success": true,
+    "fetchedAt": "2026-11-13T18:29:03.337Z"
   }
 }
