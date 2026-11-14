@@ -1093,5 +1093,19 @@
     "finvizFloat": 42380000,
     "success": true,
     "fetchedAt": "2026-11-13T18:29:03.337Z"
+  },
+  "LFTO": {
+    "shortInterestPct": "11.22%",
+    "daysToCover": 4.16,
+    "finvizFloat": 31120000,
+    "success": true,
+    "fetchedAt": "2026-11-14T18:27:31.333Z"
+  },
+  "SBC": {
+    "shortInterestPct": "4.43%",
+    "daysToCover": 4.07,
+    "finvizFloat": 18970000,
+    "success": true,
+    "fetchedAt": "2026-11-14T18:27:32.125Z"
   }
 }

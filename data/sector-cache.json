@@ -4102,5 +4102,29 @@
     "industry": "Semiconductors",
     "mktCap": 24582181508,
     "float": null
+  },
+  "DGZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1904149,
+    "float": null
+  },
+  "OBIO": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 435761975,
+    "float": null
+  },
+  "GTCEX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 69344637,
+    "float": null
+  },
+  "FXN": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 415407476,
+    "float": null
   }
 }

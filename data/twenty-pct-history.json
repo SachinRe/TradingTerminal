@@ -5511,5 +5511,156 @@
         "mktCap": 656557408
       }
     ]
+  },
+  {
+    "date": "2026-11-14",
+    "up": [
+      {
+        "ticker": "FCUV",
+        "price": 7.08,
+        "changePct": 136,
+        "sector": "Technology",
+        "industry": "Hardware, Equipment & Parts",
+        "mktCap": 6805336
+      },
+      {
+        "ticker": "WWB",
+        "price": 28.5,
+        "changePct": 67.65,
+        "sector": "Healthcare",
+        "industry": "Medical - Pharmaceuticals",
+        "mktCap": 375215960
+      },
+      {
+        "ticker": "SBC",
+        "price": 7.35,
+        "changePct": 37.64,
+        "sector": "Industrials",
+        "industry": "Consulting Services",
+        "mktCap": 706846518
+      },
+      {
+        "ticker": "BKHA",
+        "price": 7.3,
+        "changePct": 35.81,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 53996501
+      },
+      {
+        "ticker": "NMAX",
+        "price": 9.58,
+        "changePct": 31.41,
+        "sector": "Communication Services",
+        "industry": "Broadcasting",
+        "mktCap": 825477975
+      },
+      {
+        "ticker": "LFTO",
+        "price": 24.44,
+        "changePct": 30.63,
+        "sector": "Communication Services",
+        "industry": "Advertising Agencies",
+        "mktCap": 3766779818
+      },
+      {
+        "ticker": "MOD",
+        "price": 135.66,
+        "changePct": 27.86,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 7401550681
+      },
+      {
+        "ticker": "HAWK",
+        "price": 18.16,
+        "changePct": 23.79,
+        "sector": "Industrials",
+        "industry": "Aerospace & Defense",
+        "mktCap": 1685987026
+      },
+      {
+        "ticker": "XCH",
+        "price": 5.1,
+        "changePct": 23.79,
+        "sector": "Industrials",
+        "industry": "Electrical Equipment & Parts",
+        "mktCap": 15558822
+      }
+    ],
+    "down": [
+      {
+        "ticker": "RMIX",
+        "price": 5.08,
+        "changePct": -37.44,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 142895542
+      },
+      {
+        "ticker": "NPCE",
+        "price": 7.56,
+        "changePct": -37.1,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 212467256
+      },
+      {
+        "ticker": "GTCEX",
+        "price": 17.95,
+        "changePct": -34.32,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 69344637
+      },
+      {
+        "ticker": "MTEX",
+        "price": 6.3,
+        "changePct": -29.84,
+        "sector": "Consumer Defensive",
+        "industry": "Food Distribution",
+        "mktCap": 16220613
+      },
+      {
+        "ticker": "RETO",
+        "price": 5.6,
+        "changePct": -27.84,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 1578990
+      },
+      {
+        "ticker": "LVLU",
+        "price": 8.236,
+        "changePct": -27.6,
+        "sector": "Consumer Cyclical",
+        "industry": "Apparel - Retail",
+        "mktCap": 31357599
+      },
+      {
+        "ticker": "CADL",
+        "price": 6.2,
+        "changePct": -26.1,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 485127714
+      },
+      {
+        "ticker": "FGI",
+        "price": 6.3,
+        "changePct": -25.18,
+        "sector": "Consumer Cyclical",
+        "industry": "Furnishings, Fixtures & Appliances",
+        "mktCap": 11838691
+      },
+      {
+        "ticker": "HQI",
+        "price": 14.16,
+        "changePct": -23.58,
+        "sector": "Industrials",
+        "industry": "Staffing & Employment Services",
+        "mktCap": 185148000
+      }
+    ]
   }
 ]
