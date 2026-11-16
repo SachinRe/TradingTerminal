@@ -416,12 +416,14 @@
   "SOLT": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 27069638
+    "mktCap": 10499444,
+    "float": null
   },
   "SLON": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 11305974
+    "mktCap": 4412838,
+    "float": null
   },
   "MST": {
     "sector": "Financial Services",
@@ -471,7 +473,8 @@
   "NCT": {
     "sector": "Industrials",
     "industry": "Marine Shipping",
-    "mktCap": 258582
+    "mktCap": 17345570,
+    "float": null
   },
   "BTDL": {
     "sector": "Financial Services",
@@ -4125,6 +4128,48 @@
     "sector": "Financial Services",
     "industry": "Asset Management",
     "mktCap": 415407476,
+    "float": null
+  },
+  "BGIN": {
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "mktCap": 592832347,
+    "float": null
+  },
+  "NDLS": {
+    "sector": "Consumer Cyclical",
+    "industry": "Restaurants",
+    "mktCap": 56742937,
+    "float": null
+  },
+  "BESO": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Cryptocurrency",
+    "mktCap": 4848135,
+    "float": null
+  },
+  "CGON": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 7572457698,
+    "float": null
+  },
+  "GYRO": {
+    "sector": "Real Estate",
+    "industry": "Real Estate - Services",
+    "mktCap": 11216471,
+    "float": null
+  },
+  "SPCB": {
+    "sector": "Industrials",
+    "industry": "Security & Protection Services",
+    "mktCap": 43900346,
+    "float": null
+  },
+  "TU": {
+    "sector": "Communication Services",
+    "industry": "Telecommunications Services",
+    "mktCap": 15216299742,
     "float": null
   }
 }
