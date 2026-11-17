@@ -5900,5 +5900,60 @@
         "mktCap": 10499444
       }
     ]
+  },
+  {
+    "date": "2026-11-17",
+    "up": [
+      {
+        "ticker": "SLS",
+        "price": 19.72,
+        "changePct": 163.99,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 4024176660
+      },
+      {
+        "ticker": "OMH",
+        "price": 5.41,
+        "changePct": 35.93,
+        "sector": "Real Estate",
+        "industry": "Real Estate - Services",
+        "mktCap": 3392621
+      },
+      {
+        "ticker": "GLSI",
+        "price": 17.01,
+        "changePct": 23.62,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 249749709
+      },
+      {
+        "ticker": "TCX",
+        "price": 14.14,
+        "changePct": 23.49,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 125127699
+      }
+    ],
+    "down": [
+      {
+        "ticker": "CUE",
+        "price": 9,
+        "changePct": -36.17,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 196920103
+      },
+      {
+        "ticker": "ABX",
+        "price": 5.695,
+        "changePct": -34.16,
+        "sector": "Financial Services",
+        "industry": "Insurance - Life",
+        "mktCap": 556926915
+      }
+    ]
   }
 ]

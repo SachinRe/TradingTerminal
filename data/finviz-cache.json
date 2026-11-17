@@ -375,11 +375,11 @@
     "fetchedAt": "2026-11-13T18:28:57.352Z"
   },
   "UNH": {
-    "shortInterestPct": "1.78%",
-    "daysToCover": 3.1,
-    "finvizFloat": 895450000,
+    "shortInterestPct": "1.56%",
+    "daysToCover": 2.67,
+    "finvizFloat": 893880000,
     "success": true,
-    "fetchedAt": "2026-10-14T17:34:59.946Z"
+    "fetchedAt": "2026-11-17T15:33:58.256Z"
   },
   "CRWG": {
     "success": false,
@@ -439,11 +439,11 @@
     "fetchedAt": "2026-11-02T21:55:03.577Z"
   },
   "CRM": {
-    "shortInterestPct": "3.50%",
-    "daysToCover": 2.32,
+    "shortInterestPct": "3.29%",
+    "daysToCover": 2.39,
     "finvizFloat": 797050000,
     "success": true,
-    "fetchedAt": "2026-10-29T17:25:38.348Z"
+    "fetchedAt": "2026-11-17T15:33:57.512Z"
   },
   "MAN": {
     "shortInterestPct": "9.69%",
@@ -1107,5 +1107,19 @@
     "finvizFloat": 18970000,
     "success": true,
     "fetchedAt": "2026-11-14T18:27:32.125Z"
+  },
+  "SLS": {
+    "shortInterestPct": "28.34%",
+    "daysToCover": 8.22,
+    "finvizFloat": 201590000,
+    "success": true,
+    "fetchedAt": "2026-11-17T15:33:56.734Z"
+  },
+  "OMER": {
+    "shortInterestPct": "18.52%",
+    "daysToCover": 9.6,
+    "finvizFloat": 69280000,
+    "success": true,
+    "fetchedAt": "2026-11-17T15:33:58.997Z"
   }
 }

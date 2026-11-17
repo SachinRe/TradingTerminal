@@ -4171,5 +4171,53 @@
     "industry": "Telecommunications Services",
     "mktCap": 15216299742,
     "float": null
+  },
+  "SLS": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 4024176660,
+    "float": null
+  },
+  "OMER": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 973622635,
+    "float": null
+  },
+  "ABX": {
+    "sector": "Financial Services",
+    "industry": "Insurance - Life",
+    "mktCap": 556926915,
+    "float": null
+  },
+  "SCZM": {
+    "sector": "Basic Materials",
+    "industry": "Other Precious Metals",
+    "mktCap": 692312664,
+    "float": null
+  },
+  "GLSI": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 249749709,
+    "float": null
+  },
+  "CRMG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 44142250,
+    "float": null
+  },
+  "ELA": {
+    "sector": "Consumer Cyclical",
+    "industry": "Specialty Retail",
+    "mktCap": 298839609,
+    "float": null
+  },
+  "MNGZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 447739,
+    "float": null
   }
 }
