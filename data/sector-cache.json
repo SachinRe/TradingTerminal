@@ -4219,5 +4219,29 @@
     "industry": "Asset Management - Leveraged",
     "mktCap": 447739,
     "float": null
+  },
+  "ENTA": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 253099726,
+    "float": null
+  },
+  "PNRG": {
+    "sector": "Energy",
+    "industry": "Oil & Gas Exploration & Production",
+    "mktCap": 349311472,
+    "float": null
+  },
+  "IBO": {
+    "sector": "Healthcare",
+    "industry": "Biotechnology",
+    "mktCap": 52833600,
+    "float": null
+  },
+  "MACI": {
+    "sector": "Financial Services",
+    "industry": "Shell Companies",
+    "mktCap": 164972968,
+    "float": null
   }
 }

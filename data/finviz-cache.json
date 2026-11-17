@@ -1121,5 +1121,26 @@
     "finvizFloat": 69280000,
     "success": true,
     "fetchedAt": "2026-11-17T15:33:58.997Z"
+  },
+  "SNAP": {
+    "shortInterestPct": "7.33%",
+    "daysToCover": 2.14,
+    "finvizFloat": 1130000000,
+    "success": true,
+    "fetchedAt": "2026-11-17T21:53:33.646Z"
+  },
+  "ABX": {
+    "shortInterestPct": "14.15%",
+    "daysToCover": 8.44,
+    "finvizFloat": 34240000,
+    "success": true,
+    "fetchedAt": "2026-11-17T21:53:34.293Z"
+  },
+  "ENTA": {
+    "shortInterestPct": "6.69%",
+    "daysToCover": 7.09,
+    "finvizFloat": 27750000,
+    "success": true,
+    "fetchedAt": "2026-11-17T21:53:34.918Z"
   }
 }

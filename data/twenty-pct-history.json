@@ -5906,53 +5906,77 @@
     "up": [
       {
         "ticker": "SLS",
-        "price": 19.72,
-        "changePct": 163.99,
+        "price": 19.15,
+        "changePct": 156.36,
         "sector": "Healthcare",
         "industry": "Biotechnology",
         "mktCap": 4024176660
       },
       {
-        "ticker": "OMH",
-        "price": 5.41,
-        "changePct": 35.93,
-        "sector": "Real Estate",
-        "industry": "Real Estate - Services",
-        "mktCap": 3392621
-      },
-      {
         "ticker": "GLSI",
-        "price": 17.01,
-        "changePct": 23.62,
+        "price": 18.7,
+        "changePct": 35.9,
         "sector": "Healthcare",
         "industry": "Biotechnology",
         "mktCap": 249749709
       },
       {
         "ticker": "TCX",
-        "price": 14.14,
-        "changePct": 23.49,
+        "price": 14.73,
+        "changePct": 28.65,
         "sector": "Technology",
         "industry": "Software - Infrastructure",
         "mktCap": 125127699
+      },
+      {
+        "ticker": "IBO",
+        "price": 6.115,
+        "changePct": 24.54,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 52833600
+      },
+      {
+        "ticker": "BKHA",
+        "price": 8.65,
+        "changePct": 20.14,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 53996501
+      },
+      {
+        "ticker": "IAM",
+        "price": 14.22,
+        "changePct": 20,
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "mktCap": 172500000
       }
     ],
     "down": [
       {
-        "ticker": "CUE",
-        "price": 9,
-        "changePct": -36.17,
-        "sector": "Healthcare",
-        "industry": "Biotechnology",
-        "mktCap": 196920103
+        "ticker": "MACI",
+        "price": 7.63,
+        "changePct": -23.85,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 164972968
       },
       {
         "ticker": "ABX",
-        "price": 5.695,
-        "changePct": -34.16,
+        "price": 6.65,
+        "changePct": -23.12,
         "sector": "Financial Services",
         "industry": "Insurance - Life",
         "mktCap": 556926915
+      },
+      {
+        "ticker": "BESO",
+        "price": 25.3694,
+        "changePct": -22.38,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Cryptocurrency",
+        "mktCap": 4848135
       }
     ]
   }
