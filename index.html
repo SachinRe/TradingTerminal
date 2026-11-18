@@ -501,6 +501,94 @@
     #watchlist-body table input, #watchlist-body table select, #watchlist-body table textarea { font-size: 20px; }
     /* Weekly Trade Plan form — bigger boxes and font, wide-monitor request,
        scoped to just this tab's form fields. */
+.ec *{box-sizing:border-box}
+.ec{max-width:1400px;margin:0 auto;padding:20px 20px 40px;display:flex;flex-direction:column;gap:18px}
+.ec header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.ec .ec-crumb{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ec h1{margin:2px 0 0;font-size:22px;font-weight:600;text-wrap:balance}
+.ec h2{margin:0;font-size:15px;font-weight:600}
+.ec .ec-asof{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.ec .ec-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ec .ec-seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.ec .ec-seg button{background:transparent;color:var(--muted);border:0;padding:7px 12px;font:500 13px var(--display);cursor:pointer}
+.ec .ec-seg button[aria-pressed="true"]{background:var(--panel2);color:var(--ink)}
+.ec .ec-seg button:focus-visible,.ec input:focus-visible,.ec textarea:focus-visible,.ec .ec-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.ec input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:7px 10px;font:13px var(--mono);width:150px}
+.ec .ec-btn{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:7px 12px;font:500 13px var(--display);cursor:pointer}
+.ec .ec-btn:hover{border-color:var(--accent)}
+.ec .ec-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.ec .ec-tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.ec .ec-tile .ec-k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.ec .ec-tile .ec-v{font-family:var(--mono);font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+.ec .ec-tile .ec-s{font-size:12px;color:var(--muted);margin-top:2px}
+.ec .ec-tile.ec-alert{border-left:3px solid var(--warn)}
+.ec .ec-watchbox{display:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;gap:8px;flex-direction:column}
+.ec .ec-watchbox.ec-open{display:flex}
+.ec .ec-watchbox textarea{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px;font:13px var(--mono);min-height:60px;resize:vertical}
+.ec .ec-watchbox .ec-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ec .ec-hint{font-size:12px;color:var(--muted)}
+.ec .ec-calwrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.ec .ec-cal{display:grid;grid-template-columns:110px repeat(8,minmax(150px,1fr));min-width:1300px}
+.ec .ec-cal > div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px}
+.ec .ec-cal > div.ec-lastcol{border-right:0}
+.ec .ec-rowlab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:flex;flex-direction:column;gap:2px;background:var(--panel2)}
+.ec .ec-rowlab b{color:var(--ink);font-size:12px;letter-spacing:0;text-transform:none}
+.ec .ec-dayhead{background:var(--panel2)}
+.ec .ec-dayhead .ec-d{font-weight:600}
+.ec .ec-dayhead .ec-dt{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.ec .ec-dayhead.ec-today{box-shadow:inset 0 3px 0 var(--accent)}
+.ec .ec-dayhead .ec-tag{display:inline-block;margin-top:4px;font-size:10px;font-family:var(--mono);padding:1px 6px;border-radius:10px;border:1px solid var(--line);color:var(--muted)}
+.ec .ec-dayhead .ec-tag.ec-today{color:var(--accent);border-color:var(--accent)}
+.ec .ec-dayhead .ec-tag.ec-closed{color:var(--bad);border-color:var(--bad)}
+.ec .ec-dayhead .ec-tag.ec-half{color:var(--warn);border-color:var(--warn)}
+.ec .ec-closedcell{background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(248,81,73,.06) 8px 16px)}
+.ec .ec-closedcell .ec-hint{display:block;text-align:center;margin-top:10px}
+.ec .ec-macro{display:flex;flex-direction:column;gap:5px}
+.ec .ec-ev{font-size:12px;border-left:2px solid var(--muted);padding:2px 0 2px 6px;color:var(--ink)}
+.ec .ec-ev .ec-t{font-family:var(--mono);color:var(--muted);font-size:11px;display:block}
+.ec .ec-ev.ec-hi{border-color:var(--bad)}
+.ec .ec-ev.ec-md{border-color:var(--warn)}
+.ec .ec-chips{display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start}
+.ec .ec-chip{font-family:var(--mono);font-size:12px;padding:2px 6px;border-radius:4px;background:var(--panel2);border:1px solid var(--line);color:var(--ink);cursor:default;white-space:nowrap}
+.ec .ec-chip.ec-key{display:flex;flex-direction:column;align-items:flex-start;white-space:normal;padding:4px 7px;min-width:0;width:100%}
+.ec .ec-chip.ec-key .ec-n{font-family:var(--display);font-size:11px;color:var(--muted)}
+.ec .ec-chip.ec-key .ec-tk{font-weight:600;font-size:13px}
+.ec .ec-bmo .ec-chip.ec-key{border-left:3px solid var(--bmo)}
+.ec .ec-amc .ec-chip.ec-key{border-left:3px solid var(--amc)}
+.ec .ec-chip.ec-est{border-style:dashed;color:var(--muted)}
+.ec .ec-chip.ec-done{opacity:.5}
+.ec .ec-chip.ec-done .ec-tk::after{content:" ✓";color:var(--good);font-weight:400}
+.ec .ec-chip.ec-watch{border-color:var(--watch);box-shadow:0 0 0 1px var(--watch) inset}
+.ec .ec-chip.ec-flag .ec-tk::before{content:"⚠ ";color:var(--warn)}
+.ec .ec-chip.ec-hide{display:none}
+.ec .ec-more{font-size:11px;color:var(--muted);font-family:var(--mono);padding:2px 4px}
+.ec .ec-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted)}
+.ec .ec-legend span{display:inline-flex;align-items:center;gap:6px}
+.ec .ec-sw{width:12px;height:12px;border-radius:2px;display:inline-block}
+.ec .ec-news{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.ec .ec-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.ec .ec-card .ec-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ec .ec-pill{font-family:var(--mono);font-size:10px;padding:1px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em}
+.ec .ec-pill.ec-hi{background:rgba(248,81,73,.15);color:var(--bad)}
+.ec .ec-pill.ec-md{background:rgba(210,153,34,.15);color:var(--warn)}
+.ec .ec-pill.ec-lo{background:rgba(139,152,168,.15);color:var(--muted)}
+.ec .ec-cat{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.ec .ec-card h3{margin:0;font-size:14px;font-weight:600;text-wrap:balance}
+.ec .ec-card p{margin:0;color:#c3ccd6;font-size:13px}
+.ec .ec-card .ec-why{font-size:12px;color:var(--accent)}
+.ec .ec-card a{color:var(--muted);font-size:12px}
+.ec .ec-foot{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.ec .ec-foot a{color:var(--muted)}
+.ec{--bg:#0d1117;--panel:#151b23;--panel2:#1b232d;--line:#2a3441;--ink:#e6edf3;--muted:#8b98a8;--accent:#4cc2ff;--bmo:#f2b84b;--amc:#9d8cff;--watch:#ffd54a;--good:#3fb950;--warn:#d29922;--bad:#f85149;font-family:inherit;font-size:14px;line-height:1.45;color:var(--ink);max-width:1400px;margin:0 auto;padding:12px 16px 30px;display:flex;flex-direction:column;gap:18px;zoom:2;}
+.ec-chip{cursor:pointer}.ec-chip:hover{border-color:var(--accent)}.ec-chip.ec-sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.ec-det{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.ec-det .ec-big{font-size:18px;font-weight:600}
+.ec .ec-btn.ec-go{border-color:var(--accent)}
+.ec-day.ec-past{opacity:.55}
+.ec-flagbox{border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:var(--panel);display:flex;flex-direction:column;gap:6px}
+.ec-flagbox.ec-pos{border-left:3px solid var(--bad)}.ec-flagbox.ec-wl{border-left:3px solid var(--watch)}
+.ec-flagbox .ec-fl{font-weight:600}.ec-flagbox .ec-it{display:inline-block;margin:2px 8px 2px 0;padding:2px 8px;border:1px solid var(--line);border-radius:4px;font-family:var(--mono);cursor:pointer;background:var(--panel2)}
+.ec-flagbox .ec-it:hover{border-color:var(--accent)}
     .pt-grid { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:16px; align-items:start; }
     .pt-rail { position:sticky; top:8px; }
     .pt-grid table input { background:#0f172a; border:1px solid var(--border); color:var(--text); padding:6px 8px; border-radius:4px; font-family:inherit; }
@@ -2323,6 +2411,7 @@
       <div class="steps">
         <div class="step-tab active" data-q-sub="q-screener" onclick="switchQualifySub(this)">Screener</div>
         <div class="step-tab" data-q-sub="q-sip" onclick="switchQualifySub(this)">Stocks In Play</div>
+        <div class="step-tab" data-q-sub="q-earnings" onclick="switchQualifySub(this)">Earnings</div>
       </div>
 
       <div id="q-screener" class="q-sub" style="display:block;">
@@ -2481,6 +2570,45 @@
         </div>
       </div>
       </div><!-- end q-screener -->
+
+<div id="q-earnings" class="q-sub" style="display:none;">
+        <div class="ec" id="ec-root">
+          <header>
+            <div>
+              <div class="ec-crumb">Discover &amp; Qualify · Earnings</div>
+              <h1>Earnings Calendar, Nov 18–27</h1>
+              <div class="ec-asof" id="ec-asof">Data as of Wed Nov 18, 2026 pre-market · times in PT</div>
+            </div>
+            <div class="ec-controls">
+              <div class="ec-seg" role="group" aria-label="Which companies to show">
+                <button id="ec-f-key" aria-pressed="true">Key names</button>
+                <button id="ec-f-all" aria-pressed="false">All reports</button>
+                <button id="ec-f-mine" aria-pressed="false">My watchlist</button>
+              </div>
+              <input type="search" id="ec-q" placeholder="Find ticker" aria-label="Find ticker">
+            </div>
+          </header>
+          <section id="ec-flag" aria-label="Your names reporting"></section>
+          <section class="ec-summary" id="ec-summary" aria-label="Summary"></section>
+          <section aria-label="Calendar"><div class="ec-calwrap"><div class="ec-cal" id="ec-cal"></div></div></section>
+          <div class="ec-legend">
+            <span><i class="ec-sw" style="background:var(--bmo)"></i>Before open (reports by 6:30 AM PT)</span>
+            <span><i class="ec-sw" style="background:var(--amc)"></i>After close (after 1:00 PM PT)</span>
+            <span><i class="ec-sw" style="border:1px dashed var(--muted)"></i>Date expected, not confirmed</span>
+            <span><i class="ec-sw" style="border:1px solid var(--watch)"></i>On your watchlist or open positions</span>
+            <span>⚠ Sources disagree on timing</span><span>✓ Already reported</span><span>Click any ticker for details</span>
+          </div>
+          <section id="ec-detail" aria-live="polite"></section>
+          <section style="display:flex;flex-direction:column;gap:10px" aria-label="Material news">
+            <h2>Material news to know before trading these</h2>
+            <div class="ec-news" id="ec-news"></div>
+          </section>
+          <section class="ec-foot">
+            <div>Dates and times change. Confirm on the company's investor-relations page before holding a position through a report. Not investment advice.</div>
+            <div>Calendar sources: <a href="https://howmanytradingdays.com/earnings" target="_blank" rel="noopener">HowManyTradingDays</a> · <a href="https://www.earningswhispers.com/calweek/20261123" target="_blank" rel="noopener">Earnings Whispers, week of Nov 23</a> · <a href="https://www.openingbelldailynews.com/p/stock-market-week-ahead-retail-earnings-nov-14-2026" target="_blank" rel="noopener">Opening Bell Daily, Nov 16–20</a> · <a href="https://nexusresearchreports.substack.com/p/nexus-retail-morning-note-d5f" target="_blank" rel="noopener">NEXUS Retail Morning Note</a>. EPS and revenue estimates: TheStreet, Kiplinger, Investing.com.</div>
+          </section>
+        </div>
+      </div>
 
       <div id="q-sip" class="q-sub" style="display:none;">
         <div class="panel">
@@ -5942,7 +6070,9 @@
           const r = rrCalc(p.entry, p.stop, p.target);
           summary = `${p.shares != null ? Number(p.shares).toLocaleString() + " sh · " : ""}$${p.entry} → stop $${p.stop}${r ? " · R/R " + r.rr.toFixed(1) : ""}${p.t2 || p.t3 ? " · " + ([p.target, p.t2, p.t3].filter(Boolean).length) + " targets" : ""}`;
         }
-        const price = Number(w.price) > 0 ? `$${Number(w.price).toFixed(2)} · ${w.gap > 0 ? "+" : ""}${w.gap}% · ${w.catalyst || ""}` : "";
+        let price = Number(w.price) > 0 ? `$${Number(w.price).toFixed(2)} · ${w.gap > 0 ? "+" : ""}${w.gap}% · ${w.catalyst || ""}` : "";
+        const eu = (typeof window.ecUpcoming === "function") ? window.ecUpcoming(w.ticker) : null;
+        if (eu) price += `<div style="color:#f59e0b;font-size:24px;margin-top:2px;">⚠ Earnings ${eu.label}</div>`;
         html += `<tr style="${tint}">
           <td style="text-align:center;padding-right:0;"><span onclick="cycleWatchlistPriority('${w.ticker}')" title="${titles[w.priority] || titles[null]}"
               style="display:inline-block;width:18px;height:18px;border-radius:50%;background:${colors[w.priority] || "#334155"};cursor:pointer;border:1px solid rgba(255,255,255,0.15);"></span></td>
@@ -6723,6 +6853,243 @@
       reader.readAsText(file);
     }
 
+    // ===================== Earnings tab =====================
+    (function () {
+// ---------- data ----------
+// Sessions: B = before open, A = after close, U = time unknown. Status: C confirmed, E expected, W window, X sources disagree on timing.
+const DAYS = [
+  {id:"2026-11-18", d:"Wed", dt:"Nov 18"},
+  {id:"2026-11-19", d:"Thu", dt:"Nov 19"},
+  {id:"2026-11-20", d:"Fri", dt:"Nov 20"},
+  {id:"2026-11-23", d:"Mon", dt:"Nov 23"},
+  {id:"2026-11-24", d:"Tue", dt:"Nov 24"},
+  {id:"2026-11-25", d:"Wed", dt:"Nov 25"},
+  {id:"2026-11-26", d:"Thu", dt:"Nov 26", closed:true},
+  {id:"2026-11-27", d:"Fri", dt:"Nov 27", half:true}
+];
+
+const NAMES = {
+  LOW:"Lowe's",TGT:"Target",TJX:"TJX Cos.",SNEX:"StoneX",PANW:"Palo Alto Networks",WWD:"Woodward",UTI:"Universal Technical Inst.",RRGB:"Red Robin",CRNC:"Cerence",
+  WMT:"Walmart",WSM:"Williams-Sonoma",VVV:"Valvoline",BBWI:"Bath & Body Works",WMG:"Warner Music",KLIC:"Kulicke & Soffa",HP:"Helmerich & Payne",MMS:"Maximus",
+  INTU:"Intuit",ROST:"Ross Stores",GAP:"Gap Inc.",KEYS:"Keysight",ESTC:"Elastic",NJR:"New Jersey Resources",UGI:"UGI Corp.",ESE:"ESCO Technologies",NGVC:"Natural Grocers",
+  BJ:"BJ's Wholesale",BKE:"Buckle",POST:"Post Holdings",IESC:"IES Holdings","MOG-A":"Moog",DXLG:"Destination XL",
+  HPE:"Hewlett Packard Ent.",A:"Agilent",ZM:"Zoom",J:"Jacobs Solutions",SMTC:"Semtech",SYM:"Symbotic",TUYA:"Tuya",FLNC:"Fluence Energy",CENT:"Central Garden & Pet",CMP:"Compass Minerals",BLBD:"Blue Bird",PD:"PagerDuty",
+  BBY:"Best Buy",DKS:"Dick's Sporting Goods",ANF:"Abercrombie & Fitch",KSS:"Kohl's",BILI:"Bilibili",DLTR:"Dollar Tree",DY:"Dycom",MDT:"Medtronic",ADI:"Analog Devices",BURL:"Burlington",SJM:"J.M. Smucker",AMTM:"Amentum",MOV:"Movado",TITN:"Titan Machinery",
+  DELL:"Dell Technologies",HPQ:"HP Inc.",NTNX:"Nutanix",URBN:"Urban Outfitters",ADSK:"Autodesk",WDAY:"Workday",AMBA:"Ambarella",CLSK:"CleanSpark",
+  DE:"Deere & Co.",LI:"Li Auto",BZ:"Kanzhun",GDS:"GDS Holdings",IMKTA:"Ingles Markets"
+};
+
+// Tickers shown with full name cards in "Key names" view
+const KEY = new Set(["LOW","TGT","TJX","PANW","WMT","WSM","BBWI","INTU","ROST","GAP","KEYS","ESTC","BJ","HPE","A","ZM","SYM","FLNC","BBY","DKS","ANF","KSS","DLTR","MDT","ADI","BURL","DELL","HPQ","NTNX","URBN","ADSK","WDAY","AMBA","DE","LI"]);
+
+const R = [];
+function add(day, ses, list){ list.split(" ").forEach(t=>{ if(!t) return; let s="C"; let tk=t; const m=t.match(/^(.+?)\/([CEWX])$/); if(m){tk=m[1]; s=m[2];} R.push({day,ses,tk,st:s}); }); }
+
+add("2026-11-18","B","LOW TGT TJX SNEX");
+add("2026-11-18","A","PANW WWD UTI RRGB P CRNC/W RGCO/E");
+add("2026-11-19","B","WMT WSM VVV BBWI WMG KLIC HP MMS NTIC CATO/E ATXG/E ASBP/E AAME/E GDC/E GITS/E IPST/E LIMN/E LQDT/W LOCL/E MYSZ/E NORD/E OLOX/E SHPH/E SOAR/E SOWG/E SEGG/E HLSQ/E ZSQR/E ZONE/E");
+add("2026-11-19","A","INTU ROST GAP KEYS ESTC NJR ESE NGVC MATW MAGN CLIR EXOZ GEOS UGI/E AREC/E AZIO/E BEEM/E BGLC/E BRTX/E BRLS/E BNAI/E CELU/E CENN/E CPHI/E DAIC/E CIRC/E CETY/E DVLT/E DBGI/E DRCT/E SONM/E EDVA/E EONR/E EQS/E XCUR/E FSI/E GCTK/E GURE/E HODO/E ITP/E MNTS/E BURU/E OLB/E POLA/E QXL/E REBN/E SCLX/E WORX/E SIDU/E SRTM/E SUNE/E SURG/E DFNS/E TPCS/E VBIO/E VIVK/E XWEL/E ZSTK/E");
+add("2026-11-20","B","BJ POST IESC MOG-A BKE/E DXLG/E");
+add("2026-11-23","B","VNET");
+add("2026-11-23","A","HPE A ZM J SMTC TUYA CENT CMP ALCO EPSN ISPR PFLT PNNT SYM/E FLNC/W BLBD/E");
+add("2026-11-23","U","PD/E");
+add("2026-11-24","B","BBY DKS ANF/X DLTR DY MDT ADI SJM AMTM MOV SHOE TITN BILI KSS/E BURL/E AVXL/W EMBC/W");
+add("2026-11-24","A","DELL HPQ ADSK WDAY AMBA/X NTNX/E URBN/E BBAR NOAH QFIN CLSK/W");
+add("2026-11-25","B","DE IMKTA LI BZ GDS HDL NNOX OMSE");
+add("2026-11-27","B","LEXX/W LEDS/W");
+add("2026-11-27","A","JCTC/W PTIV/W");
+
+const MACRO = {
+  "2026-11-18":[{t:"11:00 AM",e:"FOMC minutes (Oct 27–28 meeting)",lv:"hi"},{t:"5:30 AM",e:"Housing starts & permits",lv:"lo"}],
+  "2026-11-19":[{t:"5:30 AM",e:"Jobless claims · Philly Fed",lv:"md"},{t:"Open",e:"Anthropic IPO expected to start trading",lv:"md"}],
+  "2026-11-20":[{t:"7:00 AM",e:"UMich sentiment (final)",lv:"lo"},{t:"",e:"Fed Gov. Cook speaks",lv:"lo"}],
+  "2026-11-23":[{t:"6:45 AM",e:"S&P Global flash PMIs",lv:"lo"}],
+  "2026-11-24":[{t:"7:00 AM",e:"Consumer confidence (Conf. Board)",lv:"md"}],
+  "2026-11-25":[{t:"5:30 AM",e:"Oct PCE inflation + Q3 GDP (2nd)",lv:"hi"},{t:"5:30 AM",e:"Jobless claims (a day early)",lv:"md"},{t:"11:00 AM",e:"Fed Beige Book",lv:"md"}],
+  "2026-11-26":[{t:"",e:"Thanksgiving · NYSE & Nasdaq closed",lv:"hi"}],
+  "2026-11-27":[{t:"10:00 AM",e:"Early close (1:00 PM ET)",lv:"md"}]
+};
+
+const NEWS = [
+  {lv:"hi",cat:"AI / Semis",h:"Nvidia beat and guided Q4 to $130B",p:"Fiscal Q3 revenue $115.8B (+103% YoY) vs $108.97B expected; adjusted EPS $2.68 vs $2.48. Data center revenue $107.6B. Shares up over 3% pre-market.",why:"Sets the tone for DELL, HPE, HPQ, NTNX, ADI and AMBA next week: AI server demand is the read-through.",src:"https://billcaradotcom.substack.com/p/the-cara-brief-0df",sn:"The Cara Brief, Nov 18"},
+  {lv:"hi",cat:"Leadership",h:"Jensen Huang stepped down as Nvidia CEO on Nov 12",p:"CFO Colette Kress is interim CEO. Last night's report was the first under the new leadership.",why:"Leadership headlines can move the whole AI complex independently of numbers.",src:"https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-11-16/",sn:"Gotrade, Nov 16"},
+  {lv:"hi",cat:"Fed / Rates",h:"December rate hike is now in play",p:"October inflation data raised hike odds; Governor Waller said he would back a December hike and that 50 bp could be justified. FOMC minutes land today at 11:00 AM PT.",why:"A hawkish read lifts yields and hits high-multiple growth names hardest.",src:"https://iga.capital/post/iga-capital-weekly-macro-update-8",sn:"IGA Capital"},
+  {lv:"md",cat:"Rates",h:"10-year yield near 4.98%; 30-year mortgage near 7.48%",p:"Participants are hedging ahead of the minutes; money is rotating toward energy infrastructure and utilities while semis see selective de-risking.",why:"Rate-sensitive retail and housing names (LOW, DKS, BBY) trade on this as much as on their own numbers.",src:"https://billcaradotcom.substack.com/p/the-cara-brief-0df",sn:"The Cara Brief, Nov 18"},
+  {lv:"md",cat:"Retail",h:"Lowe's beat but trimmed margin outlook; Target posted its best sales growth in five years",p:"Lowe's adjusted EPS $3.10 on $22.76B revenue, comps +1.8%, shares slipped on the margin cut. Target sales $27.1B (+7.1%) yet traded lower pre-market.",why:"Beats are being sold if margins or guidance soften. Expect the same test for WMT, ROST, GAP, BBY, DKS, ANF.",src:"https://billcaradotcom.substack.com/p/the-cara-brief-0df",sn:"The Cara Brief, Nov 18"},
+  {lv:"md",cat:"AI / IPO",h:"Anthropic shares expected to start trading Thursday, Nov 19",p:"The reception is seen as a gauge of investor appetite for AI companies.",why:"A strong or weak debut can spill into AI software and infrastructure names.",src:"https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-11-16/",sn:"Gotrade, Nov 16"},
+  {lv:"md",cat:"Energy",h:"Tanker attacks in the Strait of Hormuz lifted oil",p:"December WTI settled at $86.01 and January Brent at $93.14, though Brent is still down about 20% this month.",why:"Energy and airline names can gap on Middle East headlines; fuel costs feed the retail margin story.",src:"https://nexusresearchreports.substack.com/p/nexus-retail-morning-note-d5f",sn:"NEXUS Retail Morning Note"},
+  {lv:"hi",cat:"Calendar",h:"Thanksgiving week packs the data into Wednesday",p:"Oct PCE and Q3 GDP (second estimate) at 5:30 AM PT Wed Nov 25, then the Beige Book. Markets closed Thu Nov 26; early close 10:00 AM PT Fri Nov 27.",why:"Thin holiday liquidity can exaggerate earnings gaps. Avoid holding fresh swing entries through PCE without a plan.",src:"https://admiralmarkets.com/education/articles/general-trading/market-calendar-2026",sn:"Admiral Markets calendar"},
+  {lv:"lo",cat:"Data quality",h:"Two timing conflicts next week",p:"Sources disagree on Abercrombie & Fitch (ANF) and Ambarella (AMBA) report times. Shown here as ANF before open and AMBA after close.",why:"Check the company's IR page before holding either into Nov 24.",src:"https://www.earningswhispers.com/calweek/20261123",sn:"Earnings Whispers"}
+];
+
+
+      // Fri Nov 20 monthly options expiration
+      MACRO["2026-11-20"].push({t:"",e:"Monthly options expiration",lv:"md"});
+      // Dell/HPE selloff context
+      NEWS.splice(2,0,{lv:"hi",cat:"AI hardware",h:"Dell and HPE report into an AI-hardware selloff",p:"Dell fell about 22% in two days in early November and sat roughly 47% below its 52-week high, with a $95B AI server backlog, 19.9% trailing gross margin and DRAM/NAND supply constraints. HPE reports Monday after the close.",why:"The market wants proof the backlog turns into cash with margins intact. Dell reports Tue Nov 24 after the close.",src:"https://www.tikr.com/blog/dell-has-a-95-billion-ai-backlog-its-november-24-report-must-show-it-turns-into-cash",sn:"TIKR, Nov 6"});
+      const INFO = {"TGT": {"eps": 2.07, "rev": "$26.5B", "cap": null, "news": "", "flag": ""}, "LOW": {"eps": 2.89, "rev": "$22.4B", "cap": 117, "news": "", "flag": ""}, "TJX": {"eps": 1.34, "rev": "$15.82B", "cap": 177, "news": "", "flag": ""}, "PANW": {"eps": 0.97, "rev": "$3.31B", "cap": 264, "news": "Reports after the close today. Cybersecurity read-through for the software group.", "flag": ""}, "WMT": {"eps": 0.64, "rev": "$187.2B", "cap": null, "news": "BofA expects a raise to the upper end of FY27 guidance (EPS $2.80 to $2.87). Focus: US comps and the holiday outlook. The biggest consumer read this week.", "flag": "material"}, "BABA": {"eps": null, "rev": null, "cap": null, "news": "Reports before the US open (per Schwab).", "flag": ""}, "NTES": {"eps": null, "rev": null, "cap": null, "news": "Reports before the US open (per Schwab).", "flag": ""}, "INTU": {"eps": 2.46, "rev": "$4.31B", "cap": null, "news": "Reports after the close.", "flag": ""}, "ROST": {"eps": 1.86, "rev": "", "cap": null, "news": "Off-price retail read after TJX.", "flag": ""}, "WSM": {"eps": null, "rev": null, "cap": null, "news": "", "flag": ""}, "BJ": {"eps": 1.25, "rev": "", "cap": null, "news": "", "flag": ""}, "BKE": {"eps": 0.87, "rev": "", "cap": null, "news": "", "flag": ""}, "ZM": {"eps": 1.49, "rev": "$1.28B", "cap": null, "news": "Company guided EPS $1.46 to $1.48 and revenue $1.275B to $1.28B. Whisper $1.55. Management flagged white-label customer churn as a second-half headwind. FY EPS guide was raised to $6.08 to $6.12.", "flag": "watch"}, "HPE": {"eps": 1.28, "rev": "$14.41B", "cap": 62, "news": "Call at 5:00pm ET. Hit by the same AI-hardware selloff as Dell. A read on server demand and memory costs.", "flag": "material"}, "A": {"eps": 1.73, "rev": "$1.99B", "cap": 49, "news": "", "flag": ""}, "J": {"eps": 2.12, "rev": "$2.55B", "cap": 19, "news": "", "flag": ""}, "KEYS": {"eps": 3.37, "rev": "$1.95B", "cap": null, "news": "", "flag": ""}, "ADI": {"eps": 3.89, "rev": "$4.32B", "cap": 186, "news": "Release at 7:00am ET; the 10:00am ET call time is the least certain item. Chip read-through after the AI selloff and Nvidia's guide.", "flag": ""}, "MDT": {"eps": 1.33, "rev": "$9.48B", "cap": 132, "news": "Prior quarter: revenue $9.76B and non-GAAP EPS $1.45 (company, Sept 1).", "flag": ""}, "BBY": {"eps": 1.49, "rev": "$9.88B", "cap": 21, "news": "The last major retailer to report before Black Friday.", "flag": "watch"}, "DLTR": {"eps": 0.91, "rev": "$5.04B", "cap": 26, "news": "", "flag": ""}, "SJM": {"eps": 2.56, "rev": "$2.27B", "cap": 14, "news": "", "flag": ""}, "DELL": {"eps": 6.6, "rev": "$49.25B", "cap": 204, "news": "The AI-hardware bellwether. The stock fell about 22% in two days in early November and sat about 47% below its 52-week high. $95B AI server backlog, 19.9% trailing gross margin, and DRAM/NAND constraints. The market wants proof that backlog converts to cash and margins hold.", "flag": "material"}, "WDAY": {"eps": 2.75, "rev": "$2.69B", "cap": 47, "news": "Quarter ended Oct 31.", "flag": ""}, "HPQ": {"eps": 0.75, "rev": "$15.46B", "cap": 26, "news": "Closes fiscal 2026. Memory-cost pressure on PCs is the question.", "flag": ""}, "ADSK": {"eps": 3.07, "rev": "$2.13B", "cap": 55, "news": "", "flag": ""}, "DE": {"eps": 4.03, "rev": "$10.40B", "cap": 176, "news": "Call at 9:00am CT, the day before Thanksgiving. Thin holiday-week volume.", "flag": "watch"}};
+
+      let mode = "key", query = "", sel = null;
+      try { const m = localStorage.getItem("tt-earnings-mode"); if (m === "all" || m === "key" || m === "mine") mode = m; } catch (e) {}
+      function watchSet() {
+        const s = new Set();
+        try { getWatchlist().forEach(w => s.add(w.ticker)); } catch (e) {}
+        try { getOpenPositionsWithUnrealized().forEach(p => s.add(p.ticker)); } catch (e) {}
+        return s;
+      }
+      function nowET() { const f = new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}); const p = Object.fromEntries(f.formatToParts(new Date()).map(x=>[x.type,x.value])); return {date:`${p.year}-${p.month}-${p.day}`, mins:(+p.hour%24)*60 + +p.minute}; }
+      let NOW = nowET();
+      function reported(r) { if (r.day < NOW.date) return true; if (r.day > NOW.date) return false; if (r.ses === "B") return NOW.mins >= 9*60+30; if (r.ses === "A") return NOW.mins >= 16*60+30; return false; }
+      let WL = new Set(), POS = new Set();
+      function posSet() { const s = new Set(); try { getOpenPositionsWithUnrealized().forEach(p => s.add(p.ticker)); } catch (e) {} return s; }
+      const sesTxt = r => r.ses === "B" ? "before open" : r.ses === "A" ? "after close" : "time TBD";
+      function upcomingFor(set) { return R.filter(r => set.has(r.tk) && !reported(r)).sort((a, b) => a.day.localeCompare(b.day) || a.ses.localeCompare(b.ses)); }
+      function renderFlags() {
+        const box = document.getElementById("ec-flag"); box.innerHTML = "";
+        let wlOnly = new Set(); try { getWatchlist().forEach(w => { if (!POS.has(w.ticker)) wlOnly.add(w.ticker); }); } catch (e) {}
+        const groups = [["ec-pos", "⚠ You hold these into earnings", upcomingFor(POS)], ["ec-wl", "On your watchlist and reporting soon", upcomingFor(wlOnly)]];
+        let any = false;
+        groups.forEach(([cls, title, rows]) => {
+          if (!rows.length) return; any = true;
+          const d = document.createElement("div"); d.className = "ec-flagbox " + cls;
+          d.innerHTML = '<div class="ec-fl"></div><div class="ec-list"></div>';
+          d.querySelector(".ec-fl").textContent = title + " (" + rows.length + ")";
+          const list = d.querySelector(".ec-list");
+          rows.forEach(r => { const it = document.createElement("span"); it.className = "ec-it"; const dd = dayOf(r.day); it.textContent = r.tk + " · " + dd.d + " " + dd.dt + " " + sesTxt(r) + (r.st !== "C" ? " (est.)" : ""); it.onclick = () => { sel = r; render(); }; list.appendChild(it); });
+          if (cls === "ec-pos") { const h = document.createElement("div"); h.className = "ec-hint"; h.textContent = "Decide before the report: hold through it, trim, or hedge. Gaps can run past your stop."; d.appendChild(h); }
+          box.appendChild(d);
+        });
+        if (!any) { const d = document.createElement("div"); d.className = "ec-hint"; d.textContent = (WL.size ? "None of your watchlist names or open positions report Nov 18–27." : "No watchlist names or open positions to check yet."); box.appendChild(d); }
+      }
+      function visible(r) {
+        if (query) return r.tk.includes(query);
+        if (mode === "mine") return WL.has(r.tk);
+        if (WL.has(r.tk)) return true;
+        return mode === "all" || KEY.has(r.tk);
+      }
+      const ST = {C:"Confirmed",E:"Expected (not confirmed)",W:"Date window (irregular history)",X:"Sources disagree on timing"};
+      const SES = {B:"Before open",A:"After close",U:"Time not announced"};
+      const dayOf = id => DAYS.find(d => d.id === id);
+      function chip(r) {
+        const k = KEY.has(r.tk), el = document.createElement("span");
+        el.className = "ec-chip" + (k?" ec-key":"") + (r.st==="E"||r.st==="W"?" ec-est":"") + (reported(r)?" ec-done":"") + (WL.has(r.tk)?" ec-watch":"") + (r.st==="X"?" ec-flag":"") + (sel && sel.tk===r.tk && sel.day===r.day ? " ec-sel" : "");
+        const nm = NAMES[r.tk] || "";
+        el.title = `${r.tk}${nm?" · "+nm:""}\n${SES[r.ses]} · ${ST[r.st]}${reported(r)?" · Reported":""}`;
+        el.setAttribute("role","button"); el.tabIndex = 0;
+        el.innerHTML = k ? '<span class="ec-tk"></span><span class="ec-n"></span>' : '<span class="ec-tk"></span>';
+        el.querySelector(".ec-tk").textContent = r.tk;
+        if (k) el.querySelector(".ec-n").textContent = nm;
+        const open = () => { sel = r; render(); const d = document.getElementById("ec-detail"); if (d) d.scrollIntoView({block:"nearest"}); };
+        el.onclick = open; el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } };
+        return el;
+      }
+      function band(day, ses) {
+        const box = document.createElement("div");
+        box.className = "ec-chips " + (ses==="B"?"ec-bmo":"ec-amc");
+        const rows = R.filter(r => r.day===day && (r.ses===ses || (ses==="A" && r.ses==="U")));
+        rows.sort((a,b) => (KEY.has(b.tk)-KEY.has(a.tk)) || (WL.has(b.tk)-WL.has(a.tk)));
+        let shown = 0;
+        rows.forEach(r => { if (visible(r)) { box.appendChild(chip(r)); shown++; } });
+        const hidden = rows.length - shown;
+        if (hidden > 0 && !query && mode !== "mine") { const m = document.createElement("span"); m.className="ec-more"; m.textContent = `+${hidden} smaller`; box.appendChild(m); }
+        if (rows.length === 0 || (shown === 0 && mode === "mine")) { const m = document.createElement("span"); m.className="ec-more"; m.textContent="—"; box.appendChild(m); }
+        return box;
+      }
+      function renderCal() {
+        const cal = document.getElementById("ec-cal"); cal.innerHTML = "";
+        const cell = (cls, child) => { const d = document.createElement("div"); d.className = cls; if (child) d.appendChild(child); cal.appendChild(d); return d; };
+        const c0 = cell("ec-rowlab"); c0.innerHTML = "<b>Session</b>";
+        DAYS.forEach((d,i) => {
+          const h = cell("ec-dayhead" + (d.id===NOW.date?" ec-today":"") + (i===DAYS.length-1?" ec-lastcol":""));
+          const tag = d.closed ? '<span class="ec-tag ec-closed">Closed</span>' : d.half ? '<span class="ec-tag ec-half">Early close</span>' : d.id===NOW.date ? '<span class="ec-tag ec-today">Today</span>' : "";
+          const cnt = R.filter(r => r.day===d.id).length;
+          h.innerHTML = `<div class="ec-d">${d.d} <span class="ec-dt">${d.dt}</span></div><div class="ec-dt">${cnt} report${cnt===1?"":"s"}</div>${tag}`;
+        });
+        const c1 = cell("ec-rowlab"); c1.innerHTML = "<b>Macro</b>Fed · data";
+        DAYS.forEach((d,i) => {
+          const box = document.createElement("div"); box.className = "ec-macro";
+          (MACRO[d.id]||[]).forEach(ev => { const e = document.createElement("div"); e.className = "ec-ev ec-" + ev.lv; e.innerHTML = '<span class="ec-t"></span><span class="ec-x"></span>'; e.querySelector(".ec-t").textContent = ev.t ? ev.t+" PT" : ""; e.querySelector(".ec-x").textContent = ev.e; box.appendChild(e); });
+          cell(i===DAYS.length-1?"ec-lastcol":"", box);
+        });
+        [["B","Before open","by 6:30 AM PT"],["A","After close","after 1:00 PM PT"]].forEach(([ses,lab,sub]) => {
+          const l = cell("ec-rowlab"); l.innerHTML = `<b>${lab}</b>${sub}`;
+          DAYS.forEach((d,i) => {
+            const cls = (d.closed?"ec-closedcell ":"") + (i===DAYS.length-1?"ec-lastcol":"");
+            if (d.closed) { const h = document.createElement("span"); h.className = "ec-hint"; h.textContent = ses==="B" ? "Market closed" : ""; cell(cls, h); }
+            else cell(cls, band(d.id, ses));
+          });
+        });
+      }
+      function renderSummary() {
+        const s = document.getElementById("ec-summary");
+        const upcoming = R.filter(r => !reported(r)), keyUp = upcoming.filter(r => KEY.has(r.tk));
+        const wlUp = R.filter(r => WL.has(r.tk) && !reported(r));
+        const order = r => r.day + (r.ses==="B"?"0":"1");
+        const nextKey = [...keyUp].sort((a,b) => order(a)<order(b)?-1:1)[0];
+        const tiles = [
+          {k:"Reports, Nov 18–27", v:R.length, s:`${upcoming.length} still to come`},
+          {k:"Key names still to report", v:keyUp.length, s: nextKey ? `Next: ${nextKey.tk} (${dayOf(nextKey.day).d} ${nextKey.ses==="B"?"before open":"after close"})` : "None left"},
+          {k:"Your watchlist & positions", v: WL.size ? `${wlUp.length} reporting` : "—", s: WL.size ? (wlUp.length ? [...new Set(wlUp.map(r => r.tk))].join(", ") : "None of your names report") : "Add names in Watchlist", alert: wlUp.length>0},
+          {k:"Biggest macro risk", v:"Wed Nov 25", s:"PCE + GDP 5:30 AM PT, then a closed market Thursday", alert:true}
+        ];
+        s.innerHTML = "";
+        tiles.forEach(t => { const d = document.createElement("div"); d.className = "ec-tile" + (t.alert?" ec-alert":""); d.innerHTML = '<div class="ec-k"></div><div class="ec-v"></div><div class="ec-s"></div>'; d.querySelector(".ec-k").textContent = t.k; d.querySelector(".ec-v").textContent = t.v; d.querySelector(".ec-s").textContent = t.s; s.appendChild(d); });
+      }
+      function renderDetail() {
+        const box = document.getElementById("ec-detail"); box.innerHTML = "";
+        if (!sel) return;
+        const r = sel, nm = NAMES[r.tk] || r.tk, inf = INFO[r.tk] || {}, d = dayOf(r.day);
+        const onWl = (() => { try { return getWatchlist().some(w => w.ticker === r.tk); } catch (e) { return false; } })();
+        const est = [inf.eps != null ? `EPS est. <b>$${Number(inf.eps).toFixed(2)}</b>` : "", inf.rev ? `Revenue est. <b>${inf.rev}</b>` : "", inf.cap ? `Mkt cap $${inf.cap}B` : ""].filter(Boolean).join(" · ");
+        const el = document.createElement("div"); el.className = "ec-det" + (inf.flag==="material" ? " ec-hot" : "");
+        el.innerHTML = `<div class="ec-big"></div><div class="ec-line"></div>${est ? '<div class="ec-est"></div>' : ""}${inf.news ? '<div class="ec-note"></div>' : '<div class="ec-hint">No estimates or notes on file for this name. Check its investor-relations page.</div>'}<div class="ec-acts"></div>`;
+        el.querySelector(".ec-big").textContent = `${r.tk} · ${nm}`;
+        el.querySelector(".ec-line").textContent = `${d.d} ${d.dt} · ${SES[r.ses]} · ${ST[r.st]}${reported(r) ? " · Reported" : ""}`;
+        if (est) el.querySelector(".ec-est").innerHTML = est;
+        if (inf.news) el.querySelector(".ec-note").textContent = inf.news;
+        const acts = el.querySelector(".ec-acts");
+        const mk = (label, fn, go) => { const b = document.createElement("button"); b.className = "ec-btn" + (go ? " ec-go" : ""); b.textContent = label; b.onclick = fn; acts.appendChild(b); };
+        if (onWl) mk("Open in Pre-Trade", () => { navTo("watchlist", document.querySelector("[data-section=watchlist]")); openPlanFor(r.tk); }, true);
+        else mk("+ Add to watchlist", () => addToWatchlist(r, inf), true);
+        mk("Close", () => { sel = null; render(); });
+        box.appendChild(el);
+      }
+      function addToWatchlist(r, inf) {
+        const list = getWatchlist(); if (list.some(w => w.ticker === r.tk)) return;
+        const d = dayOf(r.day);
+        list.push({ ticker: r.tk, price: 0, gap: 0, score: 0, catalyst: "Earnings " + d.dt, targets: null, setupType: "Other",
+          setupReason: "Added from Earnings calendar", entryMode: "open", added: new Date().toISOString(), plan: null, position: null,
+          comment: "Earnings " + d.d + " " + d.dt + " " + (r.ses==="B" ? "before open" : r.ses==="A" ? "after close" : "(time TBD)") + (inf.eps != null ? " · EPS est $" + Number(inf.eps).toFixed(2) : "") });
+        saveWatchlist(list); renderWatchlist(); render();
+      }
+      function renderNews() {
+        const n = document.getElementById("ec-news"); n.innerHTML = "";
+        NEWS.forEach(x => {
+          const c = document.createElement("article"); c.className = "ec-card";
+          c.innerHTML = `<div class="ec-top"><span class="ec-pill ec-${x.lv}">${{hi:"High impact",md:"Watch",lo:"Note"}[x.lv]}</span><span class="ec-cat"></span></div><h3></h3><p></p><div class="ec-why"></div><a target="_blank" rel="noopener"></a>`;
+          c.querySelector(".ec-cat").textContent = x.cat; c.querySelector("h3").textContent = x.h; c.querySelector("p").textContent = x.p; c.querySelector(".ec-why").textContent = "Why it matters: " + x.why;
+          const a = c.querySelector("a"); a.href = x.src; a.textContent = "Source: " + x.sn;
+          n.appendChild(c);
+        });
+      }
+      function render() {
+        NOW = nowET(); WL = watchSet(); POS = posSet();
+        ["key","all","mine"].forEach(m => document.getElementById("ec-f-" + m).setAttribute("aria-pressed", mode === m));
+        renderFlags(); renderSummary(); renderCal(); renderDetail();
+      }
+      document.getElementById("ec-f-key").onclick = () => { mode = "key"; try { localStorage.setItem("tt-earnings-mode", mode); } catch (e) {} render(); };
+      document.getElementById("ec-f-all").onclick = () => { mode = "all"; try { localStorage.setItem("tt-earnings-mode", mode); } catch (e) {} render(); };
+      document.getElementById("ec-f-mine").onclick = () => { mode = "mine"; try { localStorage.setItem("tt-earnings-mode", mode); } catch (e) {} render(); };
+      document.getElementById("ec-q").addEventListener("input", e => { query = e.target.value.trim().toUpperCase(); render(); });
+      renderNews();
+      window.renderEarnings = render;
+      window.ecUpcoming = function (ticker) {
+        NOW = nowET();
+        const r = R.filter(x => x.tk === ticker && !reported(x)).sort((a, b) => a.day.localeCompare(b.day))[0];
+        if (!r) return null; const d = dayOf(r.day);
+        return { label: d.d + " " + d.dt + " " + sesTxt(r) + (r.st !== "C" ? " (est.)" : ""), today: r.day === NOW.date };
+      };
+    })();
     function switchQualifySub(el) {
       const sub = el.getAttribute("data-q-sub");
       document.querySelectorAll("#qualify > .steps .step-tab").forEach(t => t.classList.remove("active"));
@@ -6733,6 +7100,7 @@
         panel.style.display = "block";
         panel.classList.add("active");
       }
+      if (sub === "q-earnings") renderEarnings();
       if (sub === "q-sip") {
         renderStocksInPlay();
         renderSipTop5();
