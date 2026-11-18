@@ -1142,5 +1142,12 @@
     "finvizFloat": 27750000,
     "success": true,
     "fetchedAt": "2026-11-17T21:53:34.918Z"
+  },
+  "SCZM": {
+    "shortInterestPct": "2.78%",
+    "daysToCover": 5.3,
+    "finvizFloat": 86310000,
+    "success": true,
+    "fetchedAt": "2026-11-18T14:23:23.116Z"
   }
 }

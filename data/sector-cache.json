@@ -4243,5 +4243,11 @@
     "industry": "Shell Companies",
     "mktCap": 164972968,
     "float": null
+  },
+  "ZSCIX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 26835055,
+    "float": null
   }
 }
