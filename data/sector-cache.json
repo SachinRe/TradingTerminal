@@ -4249,5 +4249,65 @@
     "industry": "Asset Management",
     "mktCap": 26835055,
     "float": null
+  },
+  "BRBR": {
+    "sector": "Consumer Defensive",
+    "industry": "Packaged Foods",
+    "mktCap": 1588357480,
+    "float": null
+  },
+  "HY": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 277075803,
+    "float": null
+  },
+  "KRNT": {
+    "sector": "Industrials",
+    "industry": "Industrial - Machinery",
+    "mktCap": 548683086,
+    "float": null
+  },
+  "PRE": {
+    "sector": "Consumer Defensive",
+    "industry": "Household & Personal Products",
+    "mktCap": 185609365,
+    "float": null
+  },
+  "AGL": {
+    "sector": "Healthcare",
+    "industry": "Medical - Care Facilities",
+    "mktCap": 1520521420,
+    "float": null
+  },
+  "UNHG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 86801985,
+    "float": null
+  },
+  "UNHU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 4565000,
+    "float": null
+  },
+  "AES": {
+    "sector": "Utilities",
+    "industry": "Diversified Utilities",
+    "mktCap": 10717741163,
+    "float": null
+  },
+  "GDX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 22873482274,
+    "float": null
+  },
+  "MDLN": {
+    "sector": "Healthcare",
+    "industry": "Medical - Instruments & Supplies",
+    "mktCap": 34408209686,
+    "float": null
   }
 }

@@ -273,11 +273,11 @@
     "fetchedAt": "2026-10-03T17:36:32.899Z"
   },
   "TSLA": {
-    "shortInterestPct": "2.46%",
-    "daysToCover": 1.88,
+    "shortInterestPct": "2.34%",
+    "daysToCover": 1.76,
     "finvizFloat": 2820000000,
     "success": true,
-    "fetchedAt": "2026-11-05T18:40:25.794Z"
+    "fetchedAt": "2026-11-19T14:08:39.679Z"
   },
   "MXL": {
     "shortInterestPct": "5.68%",
@@ -755,11 +755,11 @@
     "fetchedAt": "2026-11-02T21:55:00.916Z"
   },
   "XOM": {
-    "shortInterestPct": "1.03%",
-    "daysToCover": 3.14,
-    "finvizFloat": 4099999999.9999995,
+    "shortInterestPct": "1.12%",
+    "daysToCover": 3.33,
+    "finvizFloat": 4070000000.0000005,
     "success": true,
-    "fetchedAt": "2026-11-02T21:55:01.583Z"
+    "fetchedAt": "2026-11-19T14:08:38.912Z"
   },
   "OFRM": {
     "shortInterestPct": "27.71%",
@@ -776,11 +776,11 @@
     "fetchedAt": "2026-11-02T21:55:02.915Z"
   },
   "CLRO": {
-    "shortInterestPct": "40.88%",
-    "daysToCover": 0.07,
+    "shortInterestPct": "55.10%",
+    "daysToCover": 0.09,
     "finvizFloat": 710000,
     "success": true,
-    "fetchedAt": "2026-11-02T21:55:04.237Z"
+    "fetchedAt": "2026-11-19T14:08:40.432Z"
   },
   "DRUG": {
     "shortInterestPct": "10.98%",
@@ -1149,5 +1149,26 @@
     "finvizFloat": 86310000,
     "success": true,
     "fetchedAt": "2026-11-18T14:23:23.116Z"
+  },
+  "BRBR": {
+    "shortInterestPct": "12.90%",
+    "daysToCover": 3.87,
+    "finvizFloat": 114060000,
+    "success": true,
+    "fetchedAt": "2026-11-19T14:08:38.142Z"
+  },
+  "HY": {
+    "shortInterestPct": "6.88%",
+    "daysToCover": 3.63,
+    "finvizFloat": 9490000,
+    "success": true,
+    "fetchedAt": "2026-11-19T14:08:41.186Z"
+  },
+  "KRNT": {
+    "shortInterestPct": "1.75%",
+    "daysToCover": 2.24,
+    "finvizFloat": 42270000,
+    "success": true,
+    "fetchedAt": "2026-11-19T14:08:41.960Z"
   }
 }

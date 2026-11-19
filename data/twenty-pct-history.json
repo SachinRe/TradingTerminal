@@ -6050,5 +6050,148 @@
         "mktCap": 4848135
       }
     ]
+  },
+  {
+    "date": "2026-11-19",
+    "up": [
+      {
+        "ticker": "CLRO",
+        "price": 6.9,
+        "changePct": 46.19,
+        "sector": "Technology",
+        "industry": "Communication Equipment",
+        "mktCap": 15116078
+      },
+      {
+        "ticker": "RMIX",
+        "price": 7.53,
+        "changePct": 24.46,
+        "sector": "Basic Materials",
+        "industry": "Construction Materials",
+        "mktCap": 142895542
+      },
+      {
+        "ticker": "OKTG",
+        "price": 45.1094,
+        "changePct": 24.1,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1289788
+      },
+      {
+        "ticker": "BRBR",
+        "price": 13.66,
+        "changePct": 24.07,
+        "sector": "Consumer Defensive",
+        "industry": "Packaged Foods",
+        "mktCap": 1588357480
+      },
+      {
+        "ticker": "RFAI",
+        "price": 33.7,
+        "changePct": 23.81,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 250730138
+      },
+      {
+        "ticker": "CTSO",
+        "price": 5.565,
+        "changePct": 23.12,
+        "sector": "Healthcare",
+        "industry": "Medical - Devices",
+        "mktCap": 19851930
+      },
+      {
+        "ticker": "FIRY",
+        "price": 14.16,
+        "changePct": 22.81,
+        "sector": "Technology",
+        "industry": "Electronic Gaming & Multimedia",
+        "mktCap": 196653958
+      },
+      {
+        "ticker": "RTSN",
+        "price": 13.89,
+        "changePct": 21.74,
+        "sector": "Healthcare",
+        "industry": "Medical - Pharmaceuticals",
+        "mktCap": 52500000
+      },
+      {
+        "ticker": "PANG",
+        "price": 26.5,
+        "changePct": 21.72,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 8764600
+      },
+      {
+        "ticker": "PALU",
+        "price": 43.12,
+        "changePct": 21.43,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 30168490
+      }
+    ],
+    "down": [
+      {
+        "ticker": "HY",
+        "price": 15.44,
+        "changePct": -41.07,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 277075803
+      },
+      {
+        "ticker": "PRE",
+        "price": 10.35,
+        "changePct": -36.62,
+        "sector": "Consumer Defensive",
+        "industry": "Household & Personal Products",
+        "mktCap": 185609365
+      },
+      {
+        "ticker": "NCT",
+        "price": 6.62,
+        "changePct": -34.26,
+        "sector": "Industrials",
+        "industry": "Marine Shipping",
+        "mktCap": 17345570
+      },
+      {
+        "ticker": "KRNT",
+        "price": 12.77,
+        "changePct": -22.89,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 548683086
+      },
+      {
+        "ticker": "AGL",
+        "price": 90.53,
+        "changePct": -21.41,
+        "sector": "Healthcare",
+        "industry": "Medical - Care Facilities",
+        "mktCap": 1520521420
+      },
+      {
+        "ticker": "UNHG",
+        "price": 14.8,
+        "changePct": -20.47,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 86801985
+      },
+      {
+        "ticker": "UNHU",
+        "price": 36.52,
+        "changePct": -20.3,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 4565000
+      }
+    ]
   }
 ]
