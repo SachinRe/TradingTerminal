@@ -518,7 +518,8 @@
   "ETHD": {
     "sector": "Financial Services",
     "industry": "Asset Management - Leveraged",
-    "mktCap": 35807370
+    "mktCap": 83286548,
+    "float": null
   },
   "GAUZ": {
     "sector": "Technology",
@@ -4308,6 +4309,84 @@
     "sector": "Healthcare",
     "industry": "Medical - Instruments & Supplies",
     "mktCap": 34408209686,
+    "float": null
+  },
+  "NVDB": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 3442183,
+    "float": null
+  },
+  "MNGB": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 536863,
+    "float": null
+  },
+  "NVDS": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 47378274,
+    "float": null
+  },
+  "FNGD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 2871848092,
+    "float": null
+  },
+  "TTXD": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 1807000,
+    "float": null
+  },
+  "EDZ": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 26885044,
+    "float": null
+  },
+  "WPSIX": {
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "mktCap": 384872759,
+    "float": null
+  },
+  "NVDG": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 11252000,
+    "float": null
+  },
+  "NVDU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 147888000,
+    "float": null
+  },
+  "MNGU": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Leveraged",
+    "mktCap": 11140000,
+    "float": null
+  },
+  "ANT": {
+    "sector": "Technology",
+    "industry": "Software - Infrastructure",
+    "mktCap": 1199902302909,
+    "float": null
+  },
+  "SNDK": {
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "mktCap": 90200080600,
+    "float": null
+  },
+  "EEM": {
+    "sector": "Financial Services",
+    "industry": "Asset Management - Global",
+    "mktCap": 24954239846,
     "float": null
   }
 }

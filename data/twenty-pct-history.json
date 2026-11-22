@@ -6193,5 +6193,300 @@
         "mktCap": 4565000
       }
     ]
+  },
+  {
+    "date": "2026-11-22",
+    "up": [
+      {
+        "ticker": "MACI",
+        "price": 13.3,
+        "changePct": 62.2,
+        "sector": "Financial Services",
+        "industry": "Shell Companies",
+        "mktCap": 164972968
+      },
+      {
+        "ticker": "SOXS",
+        "price": 83.16,
+        "changePct": 31.71,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 106846669
+      },
+      {
+        "ticker": "BMNZ",
+        "price": 13.13,
+        "changePct": 28.1,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 20457442
+      },
+      {
+        "ticker": "MUZ",
+        "price": 15.27,
+        "changePct": 27.89,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 2520900
+      },
+      {
+        "ticker": "NVD",
+        "price": 10.45,
+        "changePct": 27.59,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 67917048
+      },
+      {
+        "ticker": "DAMD",
+        "price": 11.87,
+        "changePct": 26.41,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 12272060
+      },
+      {
+        "ticker": "SKDD",
+        "price": 15.56,
+        "changePct": 26.09,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 13635300
+      },
+      {
+        "ticker": "SSG",
+        "price": 46.61,
+        "changePct": 25.23,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 10720155
+      },
+      {
+        "ticker": "TSXD",
+        "price": 9.7,
+        "changePct": 25,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 2138133
+      },
+      {
+        "ticker": "AIQD",
+        "price": 95.03,
+        "changePct": 24.34,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 24572500
+      },
+      {
+        "ticker": "RGTZ",
+        "price": 43.64,
+        "changePct": 23.28,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 21695535
+      },
+      {
+        "ticker": "BERZ",
+        "price": 35.04,
+        "changePct": 22.82,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 2908878
+      },
+      {
+        "ticker": "MNGB",
+        "price": 53.6863,
+        "changePct": 22.15,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 536863
+      },
+      {
+        "ticker": "QBTZ",
+        "price": 66.75,
+        "changePct": 22.07,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 12559606
+      },
+      {
+        "ticker": "TECS",
+        "price": 104.28,
+        "changePct": 21.92,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 82797390
+      },
+      {
+        "ticker": "NVDS",
+        "price": 39.82,
+        "changePct": 20.63,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 47378274
+      },
+      {
+        "ticker": "HIBS",
+        "price": 31.83,
+        "changePct": 20.11,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 20059521
+      }
+    ],
+    "down": [
+      {
+        "ticker": "WPSIX",
+        "price": 29.78,
+        "changePct": -39.63,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 384872759
+      },
+      {
+        "ticker": "MRAL",
+        "price": 6.02,
+        "changePct": -36.56,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 4579210
+      },
+      {
+        "ticker": "SOXL",
+        "price": 30.88,
+        "changePct": -31.83,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 41576975437
+      },
+      {
+        "ticker": "BEG",
+        "price": 10.54,
+        "changePct": -30.24,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 15567161
+      },
+      {
+        "ticker": "BMNG",
+        "price": 5.81,
+        "changePct": -28,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 53185914
+      },
+      {
+        "ticker": "MUU",
+        "price": 9.64,
+        "changePct": -27.9,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1960056414
+      },
+      {
+        "ticker": "MULL",
+        "price": 6.7,
+        "changePct": -27.88,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 316349401
+      },
+      {
+        "ticker": "AMDG",
+        "price": 52.1743,
+        "changePct": -27.67,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 39132382
+      },
+      {
+        "ticker": "NVDL",
+        "price": 10.33,
+        "changePct": -27.51,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 1939367644
+      },
+      {
+        "ticker": "NVDB",
+        "price": 9.56,
+        "changePct": -27.47,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 3442183
+      },
+      {
+        "ticker": "NVDG",
+        "price": 5.8,
+        "changePct": -27.41,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 11252000
+      },
+      {
+        "ticker": "NVDU",
+        "price": 41.08,
+        "changePct": -27.37,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 147888000
+      },
+      {
+        "ticker": "MNGU",
+        "price": 11.14,
+        "changePct": -27.13,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 11140000
+      },
+      {
+        "ticker": "AMDL",
+        "price": 31.19,
+        "changePct": -26.9,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 656557408
+      },
+      {
+        "ticker": "AMUU",
+        "price": 111.47,
+        "changePct": -26.53,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 58080000
+      },
+      {
+        "ticker": "SKHU",
+        "price": 5.9,
+        "changePct": -26.43,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 52589251
+      },
+      {
+        "ticker": "PUL",
+        "price": 25.8166,
+        "changePct": -26.3,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "mktCap": 1338153
+      },
+      {
+        "ticker": "HYNX",
+        "price": 7.62,
+        "changePct": -26.16,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 13064500
+      },
+      {
+        "ticker": "SKUU",
+        "price": 7.7,
+        "changePct": -25.96,
+        "sector": "Financial Services",
+        "industry": "Asset Management - Leveraged",
+        "mktCap": 101637900
+      }
+    ]
   }
 ]

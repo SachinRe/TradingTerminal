@@ -21,11 +21,11 @@
     "fetchedAt": "2026-09-23T12:39:22.445Z"
   },
   "JPM": {
-    "shortInterestPct": "0.97%",
-    "daysToCover": 3.72,
-    "finvizFloat": 2650000000,
+    "shortInterestPct": "0.90%",
+    "daysToCover": 3.3,
+    "finvizFloat": 2640000000,
     "success": true,
-    "fetchedAt": "2026-11-04T18:34:42.229Z"
+    "fetchedAt": "2026-11-22T18:25:10.385Z"
   },
   "GRML": {
     "shortInterestPct": "7.75%",
@@ -154,11 +154,11 @@
     "fetchedAt": "2026-09-24T13:04:50.313Z"
   },
   "META": {
-    "shortInterestPct": "1.29%",
-    "daysToCover": 1.37,
+    "shortInterestPct": "3.42%",
+    "daysToCover": 3.64,
     "finvizFloat": 2210000000,
     "success": true,
-    "fetchedAt": "2026-11-05T18:40:28.720Z"
+    "fetchedAt": "2026-11-22T18:25:08.593Z"
   },
   "P": {
     "shortInterestPct": "2.41%",
@@ -889,11 +889,11 @@
   },
   "SOXL": {
     "success": false,
-    "fetchedAt": "2026-11-05T18:40:25.097Z"
+    "fetchedAt": "2026-11-22T18:25:06.836Z"
   },
   "SOXS": {
     "success": false,
-    "fetchedAt": "2026-11-16T21:55:32.884Z"
+    "fetchedAt": "2026-11-22T18:25:08.015Z"
   },
   "VCYT": {
     "shortInterestPct": "12.44%",
@@ -1035,7 +1035,7 @@
   },
   "MUU": {
     "success": false,
-    "fetchedAt": "2026-11-11T18:34:36.185Z"
+    "fetchedAt": "2026-11-22T18:25:09.777Z"
   },
   "FOSL": {
     "shortInterestPct": "9.85%",
@@ -1046,7 +1046,7 @@
   },
   "MULL": {
     "success": false,
-    "fetchedAt": "2026-11-11T18:34:37.970Z"
+    "fetchedAt": "2026-11-22T18:25:10.957Z"
   },
   "MOD": {
     "shortInterestPct": "4.70%",
@@ -1170,5 +1170,13 @@
     "finvizFloat": 42270000,
     "success": true,
     "fetchedAt": "2026-11-19T14:08:41.960Z"
+  },
+  "NVD": {
+    "success": false,
+    "fetchedAt": "2026-11-22T18:25:07.412Z"
+  },
+  "NVDL": {
+    "success": false,
+    "fetchedAt": "2026-11-22T18:25:09.169Z"
   }
 }
