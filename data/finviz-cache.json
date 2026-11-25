@@ -1035,7 +1035,7 @@
   },
   "MUU": {
     "success": false,
-    "fetchedAt": "2026-11-22T18:25:09.777Z"
+    "fetchedAt": "2026-11-25T21:57:17.471Z"
   },
   "FOSL": {
     "shortInterestPct": "9.85%",
@@ -1063,11 +1063,11 @@
     "fetchedAt": "2026-11-13T18:28:59.606Z"
   },
   "FCUV": {
-    "shortInterestPct": "0.27%",
-    "daysToCover": 0.02,
+    "shortInterestPct": "0.37%",
+    "daysToCover": 0,
     "finvizFloat": 880000,
     "success": true,
-    "fetchedAt": "2026-11-13T18:29:00.346Z"
+    "fetchedAt": "2026-11-25T21:57:20.346Z"
   },
   "CADL": {
     "shortInterestPct": "21.34%",
@@ -1177,6 +1177,55 @@
   },
   "NVDL": {
     "success": false,
-    "fetchedAt": "2026-11-22T18:25:09.169Z"
+    "fetchedAt": "2026-11-25T21:57:18.045Z"
+  },
+  "RKT": {
+    "shortInterestPct": "9.05%",
+    "daysToCover": 4.79,
+    "finvizFloat": 1880000000,
+    "success": true,
+    "fetchedAt": "2026-11-25T21:57:15.146Z"
+  },
+  "SNDK": {
+    "shortInterestPct": "3.79%",
+    "daysToCover": 0.5,
+    "finvizFloat": 1120000000,
+    "success": true,
+    "fetchedAt": "2026-11-25T21:57:15.735Z"
+  },
+  "NU": {
+    "shortInterestPct": "4.34%",
+    "daysToCover": 1.98,
+    "finvizFloat": 3610000000,
+    "success": true,
+    "fetchedAt": "2026-11-25T21:57:16.323Z"
+  },
+  "MU": {
+    "shortInterestPct": "2.12%",
+    "daysToCover": 0.83,
+    "finvizFloat": 1130000000,
+    "success": true,
+    "fetchedAt": "2026-11-25T21:57:16.898Z"
+  },
+  "AMBA": {
+    "shortInterestPct": "10.42%",
+    "daysToCover": 2.64,
+    "finvizFloat": 42120000,
+    "success": true,
+    "fetchedAt": "2026-11-25T21:57:18.621Z"
+  },
+  "BNAI": {
+    "shortInterestPct": "17.55%",
+    "daysToCover": 0.84,
+    "finvizFloat": 5100000,
+    "success": true,
+    "fetchedAt": "2026-11-25T21:57:19.194Z"
+  },
+  "AGLT": {
+    "shortInterestPct": "9.99%",
+    "daysToCover": 1.29,
+    "finvizFloat": 38850000,
+    "success": true,
+    "fetchedAt": "2026-11-25T21:57:19.767Z"
   }
 }
