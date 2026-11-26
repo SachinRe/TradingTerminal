@@ -1,12 +1,44 @@
 {
-  "generatedAt": "2026-11-25T21:57:20.849Z",
+  "generatedAt": "2026-11-26T21:53:07.180Z",
   "generatedSlot": "2:00pm PT",
   "wsjHeadlines": [
     {
-      "title": "Stock Market Today: Stocks Pare Losses as Tech Selloff Eases",
+      "title": "Stock Market News, Nov. 25, 2026: Stocks Pare Losses as Tech Selloff Eases",
       "description": "Nasdaq tumbles; Nvidia and Micron slump",
       "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-11-25-2026?mod=rss_markets_main",
       "pubDate": "Wed, 25 Nov 2026 09:56:46 GMT",
+      "tickers": [
+        "NVDA"
+      ]
+    },
+    {
+      "title": "Pensions Trusted by Millions of Industrial Workers Make a Surprising Comeback",
+      "description": "An ironworkers’ retirement plan is now fully funded, thanks largely to the U.S. stock market’s yearslong rally.",
+      "link": "https://www.wsj.com/finance/investing/pensions-trusted-by-millions-of-industrial-workers-make-a-surprising-comeback-9937ea46?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 19:55:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "The Other Nvidia Romance With an Executive at a Company Linked to China",
+      "description": "Nvidia’s sales chief dated a Super Micro executive for years. Now they have married and her former company has been linked to chip smuggling.",
+      "link": "https://www.wsj.com/finance/stocks/nvidia-china-executive-affair-jay-puri-cenly-chen-a42d733b?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 02:00:00 GMT",
+      "tickers": [
+        "NVDA"
+      ]
+    },
+    {
+      "title": "Aschenbrenner’s Situational Awareness Tells Investors It Lost 65% in Third Quarter",
+      "description": "The hedge fund that nearly went out of business after steep losses this summer said it has worked to learn from its mistakes.",
+      "link": "https://www.wsj.com/finance/investing/aschenbrenners-situational-awareness-tells-investors-it-lost-65-in-third-quarter-de8e9797?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 01:04:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Jensen Huang, Trump and the 11 Days That Rocked Nvidia",
+      "description": "Watch WSJ reporters break down what happened in the days after Nvidia ousted its CEO&#x2014;and then brought him back.",
+      "link": "https://www.wsj.com/finance/stocks/jensen-huang-trump-and-the-11-days-that-rocked-nvidia-604fff0b?mod=rss_markets_main",
+      "pubDate": "Wed, 25 Nov 2026 22:27:00 GMT",
       "tickers": [
         "NVDA"
       ]
@@ -23,36 +55,6 @@
       "description": "Plus, tariffs are back on the agenda and Nvidia gets a warning",
       "link": "https://www.wsj.com/finance/stocks/stocks-finish-lower-after-wild-session-df50cdeb?mod=rss_markets_main",
       "pubDate": "Wed, 25 Nov 2026 21:23:00 GMT",
-      "tickers": [
-        "NVDA"
-      ]
-    },
-    {
-      "title": "Dan Loeb’s Hedge Fund Returns to Startup Investing Years After FTX Loss",
-      "description": "The billionaire told investors that Third Point overhauled its process for investing in late-stage private companies.",
-      "link": "https://www.wsj.com/finance/investing/dan-loebs-hedge-fund-returns-to-startup-investing-years-after-ftx-loss-46f36108?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 19:33:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Jamie Dimon Loved Britain&#x2014;Until It Raised Taxes on JPMorgan",
-      "description": "The chief executive wants to strike back against the U.K. after its cash-strapped government targeted banks for extra revenue.",
-      "link": "https://www.wsj.com/finance/banking/jamie-dimon-loved-britainuntil-it-raised-taxes-on-jpmorgan-3462d7b6?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 18:24:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "The AI Grinch Won’t Steal Christmas, but Watch Next Year",
-      "description": "Plus, Anthropic’s slide continues",
-      "link": "https://www.wsj.com/finance/stocks/the-ai-grinch-wont-steal-christmas-but-watch-next-year-b5b2dd7a?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 11:31:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "The Car Industry Has a Seat-Belt Problem It Can’t Fix",
-      "description": "Plus, Jensen Huang’s vision for the new Nvidia is a lot like the old one, and our game tests whether you can secure your money for old age.",
-      "link": "https://www.wsj.com/personal-finance/the-car-industry-has-a-seat-belt-problem-it-cant-fix-0aa4be6e?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 11:02:00 GMT",
       "tickers": [
         "NVDA"
       ]
@@ -95,6 +97,13 @@
       "tickers": []
     },
     {
+      "title": "Jamie Dimon Loved Britain&#x2014;Until It Raised Taxes on JPMorgan",
+      "description": "The chief executive wants to strike back against the U.K. after its cash-strapped government targeted banks for extra revenue.",
+      "link": "https://www.wsj.com/finance/banking/jamie-dimon-loved-britainuntil-it-raised-taxes-on-jpmorgan-3462d7b6?mod=rss_markets_main",
+      "pubDate": "Wed, 25 Nov 2026 18:24:00 GMT",
+      "tickers": []
+    },
+    {
       "title": "Financial Services Roundup: Market Talk",
       "description": "Find insight on France’s sovereign rating, Fitch Rating’s 2027 U.S. banks sector outlook, Saudi Arabia’s banking sector and more in the latest Market Talks covering Financial Services.",
       "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-59d5ef65?mod=rss_markets_main",
@@ -123,86 +132,93 @@
       "tickers": []
     },
     {
-      "title": "Wall Street Pledged to Mobilize $500 Billion for Nvidia&#x2014;but Hasn’t Put Up a Dime",
-      "description": "A wave of money that was supposed to help customers keep buying Nvidia chips hasn’t materialized.",
-      "link": "https://www.wsj.com/finance/wall-street-pledged-to-mobilize-500-billion-for-nvidiabut-hasnt-put-up-a-dime-1e41f276?mod=rss_markets_main",
-      "pubDate": "Thu, 19 Nov 2026 02:00:00 GMT",
-      "tickers": [
-        "NVDA"
-      ]
-    },
-    {
-      "title": "Treasury Yields Extend Fall After U.S. Data Flurry",
-      "description": "U.S. Treasury yields briefly extended their fall  after a flurry of U.S. economic data including the personal consumption expenditures price index, the Federal Reserve’s preferred gauge of inflation.",
-      "link": "https://www.wsj.com/finance/investing/u-s-treasury-yields-fall-ahead-of-pce-inflation-data-dfeb7995?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 21:02:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "Dodgers Owner Todd Boehly Clinches Deal for Overseas Assets of Russia’s Lukoil",
-      "description": "The sale was initially sparked after the Trump administration slapped sanctions on Lukoil assets to pressure Moscow in negotiations over the war in Ukraine.",
-      "link": "https://www.wsj.com/business/deals/dodgers-owner-todd-boehly-clinches-deal-for-overseas-assets-of-russias-lukoil-9679356a?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 18:41:00 GMT",
-      "tickers": []
-    },
-    {
       "title": "Health Care Roundup: Market Talk",
-      "description": "Find insight on Sanofi, Sandoz Group, Genmab and more in the latest Market Talks covering the Health Care sector.",
-      "link": "https://www.wsj.com/articles/health-care-roundup-market-talk-a0c4634c?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 18:26:00 GMT",
+      "description": "Find insight on Bayer, Sandoz Group, Hikma Pharmaceuticals and more in the latest Market Talks covering Health Care.",
+      "link": "https://www.wsj.com/business/health-care-roundup-market-talk-b4d17b6e?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 12:11:00 GMT",
       "tickers": []
     },
     {
-      "title": "Financial Services Roundup: Market Talk",
-      "description": "Find insight on Hannover Re, AXA, Malayan Banking and more in the latest Market Talks covering Financial Services.",
-      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-f29f7572?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 17:41:00 GMT",
+      "title": "Auto & Transport Roundup: Market Talk",
+      "description": "Find insight on Renault, easyJet, Capital A and more in the latest Market Talks covering Auto and Transport.",
+      "link": "https://www.wsj.com/business/auto-transport-roundup-market-talk-7aa75f48?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 12:06:00 GMT",
       "tickers": []
     },
     {
       "title": "Energy & Utilities Roundup: Market Talk",
-      "description": "Find insight on oil futures, Repsol, Galp Energia and more in the latest Market Talks covering Energy and Utilities.",
-      "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-7cb12596?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 17:32:00 GMT",
+      "description": "Find insight on BP, Tullow Oil, Beijing Enterprises Water and more in the latest Market Talks covering Energy and Utilities.",
+      "link": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-635bd624?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 11:54:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Financial Services Roundup: Market Talk",
+      "description": "Find insight on Hannover Re, AXA, Bitcoin and more in the latest Market Talks covering Financial Services.",
+      "link": "https://www.wsj.com/business/financial-services-roundup-market-talk-7d2d237c?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 11:49:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Lilly, Novo Supplier Bachem Hit by Share Drop After Growth Plans Disappoint",
+      "description": "Bachem Holding shares fell after the Swiss peptide maker, a supplier to both Novo Nordisk and Eli Lilly, outlined plans to boost spending and issued new targets that analysts saw as weaker than anticipated.",
+      "link": "https://www.wsj.com/business/earnings/lilly-novo-supplier-bachem-hit-by-share-drop-after-growth-plans-disappoint-d3bcf6fa?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 10:55:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "U.S. Stock Futures Higher as AI Trade Steadies for Thanksgiving Break",
+      "description": "Stock futures extended a late rally from the previous session to trade higher with sentiment helped by an upward revision to third-quarter GDP.",
+      "link": "https://www.wsj.com/finance/stocks/u-s-stock-futures-higher-as-ai-trade-steadies-for-thanksgiving-break-8f712d82?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 13:01:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "European Indexes Open Sharply Higher After U.S. Recovery",
+      "description": "European stock indexes opened with strong gains after a late equity rally in the U.S. session.",
+      "link": "https://www.wsj.com/finance/stocks/nikkei-rises-1-3-led-by-chip-metals-stocks-3b7004c9?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 08:35:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Asian Stocks Rise as Investors Shrug Off U.S. Tariff Plan",
+      "description": "Asian markets rose Thursday as investors brushed aside new U.S. tariff proposals and Wall Street recouped most of its sharp losses ahead of the Thanksgiving holiday.",
+      "link": "https://www.wsj.com/finance/asian-stocks-rise-as-investors-shrug-off-u-s-tariff-plan-f8daa85b?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 05:22:00 GMT",
       "tickers": []
     },
     {
       "title": "U.S. Stocks Mixed as Nvidia, AI Rout Continues",
       "description": "U.S. stocks finished mixed as the tech sector gave back more of the gains garnered in the wake of Jensen Huang’s reinstatement as Nvidia CEO.",
       "link": "https://www.wsj.com/finance/stocks/u-s-stocks-mixed-as-nvidia-ai-rout-continues-35d59863?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 21:31:00 GMT",
+      "pubDate": "Wed, 25 Nov 2026 22:21:00 GMT",
       "tickers": [
         "NVDA"
       ]
-    },
-    {
-      "title": "Stocks Pare Losses as Anthropic Shares Swing Higher",
-      "description": "Stocks were paring their losses heading into the Thanksgiving holiday.",
-      "link": "https://www.wsj.com/finance/stocks/nasdaq-futures-slide-as-ai-growth-fears-return-to-center-stage-ff9a6d6b?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 19:30:00 GMT",
-      "tickers": []
     },
     {
       "title": "Tech, Media & Telecom Roundup: Market Talk",
-      "description": "Find insight on Nvidia, Dell, Workday and more in the latest Market Talks covering Technology, Media and Telecom.",
+      "description": "Find insight on Nvidia, Ambarella, HP and more in the latest Market Talks covering Technology, Media and Telecom.",
       "link": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-39807782?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 17:29:00 GMT",
+      "pubDate": "Wed, 25 Nov 2026 22:01:00 GMT",
       "tickers": [
         "NVDA"
       ]
     },
     {
-      "title": "Newly-Listed Airtel Mobile to Replace IG Group in FTSE 100 Index Review",
-      "description": "Airtel Mobile Commerce is expected to join London’s premier FTSE 100 index as part of the next quarterly review replacing IG Group Holdings, according to indicative data from FTSE Russell.",
-      "link": "https://www.wsj.com/finance/stocks/newly-listed-airtel-mobile-to-replace-ig-group-in-ftse-100-index-review-ad6b860c?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 08:54:00 GMT",
-      "tickers": []
+      "title": "Opinion | Zohran Mamdani Has a Nvidia Revelation",
+      "description": "New York’s mayor discovers that city pensions depend on stock-market returns.",
+      "link": "https://www.wsj.com/opinion/zohran-mamdani-has-a-nvidia-revelation-1e048235?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 19:05:00 GMT",
+      "tickers": [
+        "NVDA"
+      ]
     },
     {
-      "title": "European Stock Indexes Mostly Higher as Industrials, Luxuries Gain",
-      "description": "Energy-intensive stocks rose as oil prices fell, though tech stocks extended losses as the bounce following Jensen Huang’s reinstatement as Nvidia CEO continued to fade.",
-      "link": "https://www.wsj.com/finance/stocks/nikkei-falls-2-8-dragged-by-chip-related-stocks-79ef7a34?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 08:35:00 GMT",
+      "title": "Opinion | Does Nvidia Really Need Its Brilliant Nutjob?",
+      "description": "President Trump brought back Jensen Huang before investors could fully assess his value to the company.",
+      "link": "https://www.wsj.com/opinion/does-nvidia-really-need-its-brilliant-nutjob-33b21d47?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 18:10:00 GMT",
       "tickers": [
         "NVDA"
       ]
@@ -236,54 +252,45 @@
       "tickers": []
     },
     {
-      "title": "Opinion | The Astonishing Wealth of Anthropic",
-      "description": "Investors weren’t fazed by doubts about AI after the Nvidia tumult.",
-      "link": "https://www.wsj.com/opinion/the-astonishing-wealth-of-anthropic-a6bb9746?mod=rss_markets_main",
-      "pubDate": "Fri, 20 Nov 2026 00:50:00 GMT",
-      "tickers": [
-        "NVDA"
-      ]
-    },
-    {
-      "title": "Opinion | Last Week’s Outages Were Only the Start",
-      "description": "With AI’s power growing faster than we can keep up, we can expect a difficult two to three years.",
-      "link": "https://www.wsj.com/opinion/last-weeks-outages-were-only-the-start-361c19ed?mod=rss_markets_main",
-      "pubDate": "Thu, 19 Nov 2026 22:57:00 GMT",
+      "title": "Gold Rises But Big Moves Seen as Unlikely for Now",
+      "description": "Gold prices extend gains, with futures up 1% to $3,579.90 a troy ounce.",
+      "link": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-amid-rate-hike-bets-1d4057c0?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 17:23:00 GMT",
       "tickers": []
     },
     {
-      "title": "U.S. Natural Gas Futures End Lower As December Contract Expires",
-      "description": "Natural gas futures ended the session lower after the EIA’s weekly storage report showed a 24 Bcf draw.",
-      "link": "https://www.wsj.com/finance/commodities-futures/u-s-natural-gas-steady-as-december-contract-set-to-expire-9d411e92?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 21:32:00 GMT",
+      "title": "Basic Materials Roundup: Market Talk",
+      "description": "Find insight on Tata Steel, Horizon Gold and more in the latest Market Talks covering Basic Materials.",
+      "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-fd3f4387?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 12:00:00 GMT",
       "tickers": []
     },
     {
-      "title": "Gold Futures Settle Off Day’s Lows as Yields, U.S. Dollar Slip",
-      "description": "Gold futures settled lower for a second straight session as precious metals remain pressured by dollar strength and expectations that inflation will drive the Fed to raise interest rates.",
-      "link": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-with-u-s-inflation-data-in-focus-17f37be3?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 19:34:00 GMT",
+      "title": "Oil Mixed Amid Middle East Attacks, U.S. Inventory Build",
+      "description": "Oil prices were mixed as traders weighed expectations of a supply surplus against persistent attacks on shipping and energy facilities in the Middle East.",
+      "link": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-ongoing-middle-east-tensions-c730426d?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 08:55:00 GMT",
+      "tickers": []
+    },
+    {
+      "title": "Crude Posts Back-to-Back Gains on Middle East Tension",
+      "description": "Oil futures rose for a second straight session as expectations for a global supply surplus were tempered by continuing tension in the Middle East.",
+      "link": "https://www.wsj.com/finance/commodities-futures/oil-futures-decline-as-traders-weigh-competing-supply-risks-9dd3835d?mod=rss_markets_main",
+      "pubDate": "Wed, 25 Nov 2026 22:09:00 GMT",
       "tickers": []
     },
     {
       "title": "Basic Materials Roundup: Market Talk",
       "description": "Find insight on Petronas Chemicals, Monadelphous and more in the latest Market Talks covering Basic Materials.",
       "link": "https://www.wsj.com/business/basic-materials-roundup-market-talk-9535388e?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 17:37:00 GMT",
+      "pubDate": "Wed, 25 Nov 2026 22:00:00 GMT",
       "tickers": []
     },
     {
-      "title": "Copper Slumps Amid AI Roller Coaster But Physical Supply Remains Tight",
-      "description": "The metal was heading for one of its worst monthly performances in more than a decade as investors retreated from riskier assets and tariff uncertainty clouded the global demand outlook.",
-      "link": "https://www.wsj.com/finance/commodities-futures/copper-slumps-amid-ai-roller-coaster-but-physical-supply-remains-tight-14fd2a91?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 16:30:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "U.S. Crude Oil Stockpiles Rise for Third Straight Week",
-      "description": "Commercial crude oil stocks rose by 1.1 million barrels last week, matching analyst expectations.",
-      "link": "https://www.wsj.com/business/energy-oil/u-s-crude-oil-stockpiles-rise-for-third-straight-week-90dfcab0?mod=rss_markets_main",
-      "pubDate": "Wed, 25 Nov 2026 16:29:00 GMT",
+      "title": "Euro Stays Slightly Higher After Europe Picks New ECB Chief",
+      "description": "The euro rose slightly against the dollar after confirmation that Spain’s Pablo Hernandez de Cos is to be the next ECB president.",
+      "link": "https://www.wsj.com/finance/currencies/asian-currencies-consolidate-but-risk-off-sentiment-might-weigh-13bdefa1?mod=rss_markets_main",
+      "pubDate": "Thu, 26 Nov 2026 15:12:00 GMT",
       "tickers": []
     },
     {
@@ -291,13 +298,6 @@
       "description": "The dollar turned lower as earlier strength following a raft of economic indicators faded.",
       "link": "https://www.wsj.com/finance/currencies/still-too-early-to-bet-against-the-u-s-dollar-f6411c71?mod=rss_markets_main",
       "pubDate": "Wed, 25 Nov 2026 21:28:00 GMT",
-      "tickers": []
-    },
-    {
-      "title": "The WSJ Dollar Index Falls 0.27% to 98.75",
-      "description": "The WSJ Dollar Index fell 0.27%, down two of the past three trading days.",
-      "link": "https://www.wsj.com/articles/dollar-stays-strong-after-nvidia-news-boosts-u-s-tech-stocks-a0c603c2?mod=rss_markets_main",
-      "pubDate": "Tue, 24 Nov 2026 23:44:00 GMT",
       "tickers": []
     }
   ],
@@ -312,8 +312,8 @@
         "price": 149.73,
         "changePct": -3.698224852071006,
         "volume": 16167250,
-        "avgVolume": 9312632.111111112,
-        "rvol": 1.7360559084805345,
+        "avgVolume": 9557439.892857144,
+        "rvol": 1.6915879337188162,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -329,8 +329,8 @@
         "price": 15.28,
         "changePct": 7.341060765718299,
         "volume": 5315631,
-        "avgVolume": 2625058.4444444445,
-        "rvol": 2.0249572009529015,
+        "avgVolume": 2721150.3214285714,
+        "rvol": 1.9534499649432662,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -346,8 +346,8 @@
         "price": 73.48,
         "changePct": -5.679994865541361,
         "volume": 3107205,
-        "avgVolume": 585428.4814814815,
-        "rvol": 5.30757402191456,
+        "avgVolume": 675491.9285714285,
+        "rvol": 4.599914326987306,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -363,8 +363,8 @@
         "price": 12.365,
         "changePct": 4.214075010535188,
         "volume": 3081745,
-        "avgVolume": 4986928.555555556,
-        "rvol": 0.6179645378249631,
+        "avgVolume": 4918886.285714285,
+        "rvol": 0.62651275532638,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -380,8 +380,8 @@
         "price": 59.4,
         "changePct": 0.8917197452229275,
         "volume": 3048250,
-        "avgVolume": 2561604.925925926,
-        "rvol": 1.18997663111464,
+        "avgVolume": 2578985.1071428573,
+        "rvol": 1.1819571937648838,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -397,8 +397,8 @@
         "price": 244.49,
         "changePct": -3.076313181367687,
         "volume": 3012259,
-        "avgVolume": 1974947.5555555555,
-        "rvol": 1.525234931695514,
+        "avgVolume": 2011994.392857143,
+        "rvol": 1.4971507926135053,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -414,8 +414,8 @@
         "price": 355.14,
         "changePct": 0.2540650406504001,
         "volume": 2179078,
-        "avgVolume": 1412635.6666666667,
-        "rvol": 1.5425619297450368,
+        "avgVolume": 1440008.607142857,
+        "rvol": 1.5132395662019977,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -431,8 +431,8 @@
         "price": 104.07,
         "changePct": -4.993609640314052,
         "volume": 1716864,
-        "avgVolume": 1367580.3333333333,
-        "rvol": 1.2554026686061832,
+        "avgVolume": 1380054.75,
+        "rvol": 1.2440549912965408,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -448,8 +448,8 @@
         "price": 273.11,
         "changePct": -2.1163736716663886,
         "volume": 1361785,
-        "avgVolume": 1467782.7037037036,
-        "rvol": 0.9277837901780447,
+        "avgVolume": 1463997.0714285714,
+        "rvol": 0.9301828716577741,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -465,8 +465,8 @@
         "price": 301.01,
         "changePct": -0.08630132439339826,
         "volume": 1313015,
-        "avgVolume": 1005106.1111111111,
-        "rvol": 1.306344659021629,
+        "avgVolume": 1016102.8571428572,
+        "rvol": 1.2922067788412872,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -482,8 +482,8 @@
         "price": 406.14,
         "changePct": -1.6872019558955307,
         "volume": 1266039,
-        "avgVolume": 1068498.2592592593,
-        "rvol": 1.1848769888288695,
+        "avgVolume": 1075553.2857142857,
+        "rvol": 1.1771048601829253,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -499,8 +499,8 @@
         "price": 599.5,
         "changePct": -4.854862003840726,
         "volume": 1000262,
-        "avgVolume": 822213.1851851852,
-        "rvol": 1.2165482359355662,
+        "avgVolume": 828572.0714285715,
+        "rvol": 1.2072118219908277,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -516,8 +516,8 @@
         "price": 379.53,
         "changePct": -1.4105361596009993,
         "volume": 990021,
-        "avgVolume": 920649.3333333334,
-        "rvol": 1.0753508031288062,
+        "avgVolume": 923126.8928571428,
+        "rvol": 1.072464693272899,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -533,8 +533,8 @@
         "price": 9.38,
         "changePct": -9.196515004840263,
         "volume": 985109,
-        "avgVolume": 336863.18518518517,
-        "rvol": 2.9243593343643415,
+        "avgVolume": 360014.8214285714,
+        "rvol": 2.7363012336297663,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -550,8 +550,8 @@
         "price": 271.2,
         "changePct": -1.9753131042958203,
         "volume": 949882,
-        "avgVolume": 850173.6666666666,
-        "rvol": 1.1172799596631433,
+        "avgVolume": 853734.6785714285,
+        "rvol": 1.1126196742873988,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -567,8 +567,8 @@
         "price": 489.99,
         "changePct": -1.2415600120931105,
         "volume": 935968,
-        "avgVolume": 961805.5185185185,
-        "rvol": 0.9731364418054947,
+        "avgVolume": 960882.75,
+        "rvol": 0.9740709779627119,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -584,8 +584,8 @@
         "price": 609.21,
         "changePct": 3.2734361756229973,
         "volume": 772422,
-        "avgVolume": 816095.1111111111,
-        "rvol": 0.9464852680569912,
+        "avgVolume": 814535.3571428572,
+        "rvol": 0.9482976929441368,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -601,8 +601,8 @@
         "price": 13.57,
         "changePct": -7.875084860828243,
         "volume": 740303,
-        "avgVolume": 515203.4074074074,
-        "rvol": 1.4369140214451077,
+        "avgVolume": 523242.6785714286,
+        "rvol": 1.4148368057842595,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -618,8 +618,8 @@
         "price": 131.91,
         "changePct": -0.3173883473135463,
         "volume": 711053,
-        "avgVolume": 960655.8518518518,
-        "rvol": 0.7401745366244389,
+        "avgVolume": 951741.4642857143,
+        "rvol": 0.7471073045384736,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -635,8 +635,8 @@
         "price": 158.17,
         "changePct": -0.15150558676851783,
         "volume": 570279,
-        "avgVolume": 528395.1111111111,
-        "rvol": 1.079266230909698,
+        "avgVolume": 529890.9642857143,
+        "rvol": 1.0762195214419785,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -652,8 +652,8 @@
         "price": 35.665,
         "changePct": -19.763779527559063,
         "volume": 481126,
-        "avgVolume": 75749.92592592593,
-        "rvol": 6.351504560816097,
+        "avgVolume": 90227.64285714286,
+        "rvol": 5.332356966941553,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -669,8 +669,8 @@
         "price": 173.22,
         "changePct": 0.39411151037440995,
         "volume": 439772,
-        "avgVolume": 489813.18518518517,
-        "rvol": 0.8978361818368243,
+        "avgVolume": 488026,
+        "rvol": 0.9011241204362063,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -686,8 +686,8 @@
         "price": 273.97,
         "changePct": -0.9221756111673495,
         "volume": 319126,
-        "avgVolume": 320373.51851851854,
-        "rvol": 0.9961060498249439,
+        "avgVolume": 320328.96428571426,
+        "rvol": 0.996244597211505,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -703,8 +703,8 @@
         "price": 424.515,
         "changePct": 1.860783184566656,
         "volume": 302320,
-        "avgVolume": 398070.44444444444,
-        "rvol": 0.7594635678665473,
+        "avgVolume": 394650.78571428574,
+        "rvol": 0.7660443382947419,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -720,8 +720,8 @@
         "price": 197.17,
         "changePct": 2.0284605433376393,
         "volume": 261584,
-        "avgVolume": 349087.6666666667,
-        "rvol": 0.7493361266463152,
+        "avgVolume": 345962.53571428574,
+        "rvol": 0.7561049911370461,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -737,8 +737,8 @@
         "price": 346.02,
         "changePct": 1.1754385964912228,
         "volume": 258764,
-        "avgVolume": 373067.4074074074,
-        "rvol": 0.6936119180130291,
+        "avgVolume": 368985.14285714284,
+        "rvol": 0.7012856886223836,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -754,8 +754,8 @@
         "price": 660.29,
         "changePct": 2.0036458011493408,
         "volume": 237525,
-        "avgVolume": 200943.07407407407,
-        "rvol": 1.1820511908384592,
+        "avgVolume": 202249.57142857142,
+        "rvol": 1.174415343984483,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -771,8 +771,8 @@
         "price": 361.355,
         "changePct": 2.1946011680029387,
         "volume": 226021,
-        "avgVolume": 219803.5185185185,
-        "rvol": 1.028286542105365,
+        "avgVolume": 220025.57142857142,
+        "rvol": 1.0272487808235278,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -788,8 +788,8 @@
         "price": 164.515,
         "changePct": 0.5961844197138281,
         "volume": 214068,
-        "avgVolume": 415627.51851851854,
-        "rvol": 0.5150477060879742,
+        "avgVolume": 408428.96428571426,
+        "rvol": 0.5241254140101824,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -805,8 +805,8 @@
         "price": 316.66,
         "changePct": -0.15135271488931112,
         "volume": 202129,
-        "avgVolume": 229137.4814814815,
-        "rvol": 0.8821297968937296,
+        "avgVolume": 228172.89285714287,
+        "rvol": 0.885858953134066,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -822,8 +822,8 @@
         "price": 7.99,
         "changePct": 20.512820512820518,
         "volume": 163884,
-        "avgVolume": 17996.037037037036,
-        "rvol": 9.106671633466627,
+        "avgVolume": 23206.321428571428,
+        "rvol": 7.062041284933139,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -839,8 +839,8 @@
         "price": 232.755,
         "changePct": 0.33840582833987004,
         "volume": 149178,
-        "avgVolume": 152314.8148148148,
-        "rvol": 0.9794057142857143,
+        "avgVolume": 152202.7857142857,
+        "rvol": 0.980126607406754,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -856,8 +856,8 @@
         "price": 6.495,
         "changePct": 20.949720670391063,
         "volume": 127704,
-        "avgVolume": 141090.07407407407,
-        "rvol": 0.905123913486315,
+        "avgVolume": 140612,
+        "rvol": 0.9082012914971695,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -873,8 +873,8 @@
         "price": 1086.625,
         "changePct": -0.4411603019863716,
         "volume": 81588,
-        "avgVolume": 98012.33333333333,
-        "rvol": 0.8324258511683904,
+        "avgVolume": 97425.75,
+        "rvol": 0.8374377410489526,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -890,8 +890,8 @@
         "price": 5.62,
         "changePct": 40.852130325814535,
         "volume": 79849,
-        "avgVolume": 7445.62962962963,
-        "rvol": 10.724277726929046,
+        "avgVolume": 10031.464285714286,
+        "rvol": 7.959854885164892,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -907,8 +907,8 @@
         "price": 16.04,
         "changePct": 26.39873916469661,
         "volume": 23254,
-        "avgVolume": 12580.703703703704,
-        "rvol": 1.8483862705672118,
+        "avgVolume": 12961.892857142857,
+        "rvol": 1.794028098850201,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -924,8 +924,8 @@
         "price": 8.375,
         "changePct": 22.352081811541275,
         "volume": 13302,
-        "avgVolume": 26839.11111111111,
-        "rvol": 0.4956199907266345,
+        "avgVolume": 26355.64285714286,
+        "rvol": 0.5047116502565187,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -941,8 +941,8 @@
         "price": 8.04,
         "changePct": 22.560975609756092,
         "volume": 5680,
-        "avgVolume": 4217.962962962963,
-        "rvol": 1.3466215919567985,
+        "avgVolume": 4270.178571428572,
+        "rvol": 1.3301551457366285,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -958,8 +958,8 @@
         "price": 10.11,
         "changePct": -13.367609254498719,
         "volume": 2794,
-        "avgVolume": 74,
-        "rvol": 37.75675675675676,
+        "avgVolume": 171.14285714285714,
+        "rvol": 16.325542570951587,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -975,8 +975,8 @@
         "price": 25.01,
         "changePct": -80.56677,
         "volume": 810,
-        "avgVolume": null,
-        "rvol": null,
+        "avgVolume": 369.9642857142857,
+        "rvol": 2.1894005212858385,
         "hasProfileData": true,
         "megaCap": false,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -1074,8 +1074,8 @@
       {
         "ticker": "SOXS",
         "name": "Direxion Daily Semiconductor Bear 3X ETF",
-        "price": 62.197,
-        "changePct": 2.0292,
+        "price": 62.13,
+        "changePct": 1.91929,
         "volume": 0,
         "avgVolume": null,
         "rvol": null,
@@ -1310,23 +1310,6 @@
         "industry": "Asset Management - Bonds"
       },
       {
-        "ticker": "BMNR",
-        "name": "Bitmine Immersion Technologies, Inc.",
-        "price": 13.44,
-        "changePct": 2.01139,
-        "volume": 0,
-        "avgVolume": null,
-        "rvol": null,
-        "hasProfileData": false,
-        "megaCap": false,
-        "source": "Financial Modeling Prep (free tier, licensed API)",
-        "sourceUrl": "https://financialmodelingprep.com/quote/BMNR",
-        "catalystHeadline": null,
-        "catalystUrl": null,
-        "sector": "Financial Services",
-        "industry": "Financial - Capital Markets"
-      },
-      {
         "ticker": "SLV",
         "name": "iShares Silver Trust",
         "price": 37.1,
@@ -1347,7 +1330,7 @@
     "rawMoveCounts": {
       "up20": 6,
       "down20": 2,
-      "poolSize": 40,
+      "poolSize": 39,
       "upMovers": [
         {
           "ticker": "FCUV",
@@ -1404,8 +1387,8 @@
         "price": 149.73,
         "changePct": -3.698224852071006,
         "volume": 16167250,
-        "avgVolume": 9312632.111111112,
-        "rvol": 1.7360559084805345,
+        "avgVolume": 9557439.892857144,
+        "rvol": 1.6915879337188162,
         "hasProfileData": true,
         "megaCap": true,
         "source": "Alpaca (free real-time, IEX feed) + Financial Modeling Prep (screener lists)",
@@ -1419,42 +1402,20 @@
   },
   "buzz": [
     {
-      "ticker": "SNDK",
-      "name": "Sandisk Corp",
-      "price": 73.68,
+      "ticker": "DE",
+      "name": "Deere & Co",
+      "price": 644,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/SNDK",
-      "catalystHeadline": null,
-      "catalystUrl": null
-    },
-    {
-      "ticker": "SOXL",
-      "name": "Direxion Daily Semiconductor Bull 3X Shares",
-      "price": 31.94,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/SOXL",
-      "catalystHeadline": null,
-      "catalystUrl": null
-    },
-    {
-      "ticker": "VRTX",
-      "name": "Vertex Pharmaceuticals, Inc.",
-      "price": 520,
-      "changePct": 0,
-      "volume": 0,
-      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/VRTX",
+      "sourceUrl": "https://stocktwits.com/symbol/DE",
       "catalystHeadline": null,
       "catalystUrl": null
     },
     {
       "ticker": "NVDA",
       "name": "NVIDIA Corp",
-      "price": 149.1,
+      "price": 151.23,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
@@ -1463,13 +1424,35 @@
       "catalystUrl": null
     },
     {
-      "ticker": "VERA",
-      "name": "Vera Therapeutics Inc - Ordinary Shares - Class A",
-      "price": 35,
+      "ticker": "SPY",
+      "name": "SPDR S&P 500 ETF Trust",
+      "price": 720.41,
       "changePct": 0,
       "volume": 0,
       "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
-      "sourceUrl": "https://stocktwits.com/symbol/VERA",
+      "sourceUrl": "https://stocktwits.com/symbol/SPY",
+      "catalystHeadline": null,
+      "catalystUrl": null
+    },
+    {
+      "ticker": "LLY",
+      "name": "Lilly(Eli) & Co",
+      "price": 1395.43,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/LLY",
+      "catalystHeadline": null,
+      "catalystUrl": null
+    },
+    {
+      "ticker": "HL",
+      "name": "Hecla Mining Co",
+      "price": 11.41,
+      "changePct": 0,
+      "volume": 0,
+      "source": "StockTwits trending (public feed — real substitute for X, which has no free read API)",
+      "sourceUrl": "https://stocktwits.com/symbol/HL",
       "catalystHeadline": null,
       "catalystUrl": null
     }
@@ -1768,6 +1751,12 @@
       "up20": 6,
       "down20": 2,
       "poolSize": 40
+    },
+    {
+      "date": "2026-11-26",
+      "up20": 6,
+      "down20": 2,
+      "poolSize": 39
     }
   ]
 }

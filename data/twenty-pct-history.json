@@ -6559,5 +6559,76 @@
         "mktCap": 711319905
       }
     ]
+  },
+  {
+    "date": "2026-11-26",
+    "up": [
+      {
+        "ticker": "FCUV",
+        "price": 5.65,
+        "changePct": 53.12,
+        "sector": "Technology",
+        "industry": "Hardware, Equipment & Parts",
+        "mktCap": 6805336
+      },
+      {
+        "ticker": "OTLY",
+        "price": 16.08,
+        "changePct": 26.12,
+        "sector": "Consumer Defensive",
+        "industry": "Packaged Foods",
+        "mktCap": 513154222
+      },
+      {
+        "ticker": "CPIX",
+        "price": 7.99,
+        "changePct": 24.26,
+        "sector": "Healthcare",
+        "industry": "Drug Manufacturers - Specialty & Generic",
+        "mktCap": 116119025
+      },
+      {
+        "ticker": "CUE",
+        "price": 8.42,
+        "changePct": 22.92,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 196920103
+      },
+      {
+        "ticker": "BNAI",
+        "price": 8.15,
+        "changePct": 22.56,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "mktCap": 55184636
+      },
+      {
+        "ticker": "AGLT",
+        "price": 6.49,
+        "changePct": 20.41,
+        "sector": "Industrials",
+        "industry": "Industrial - Machinery",
+        "mktCap": 1577975303
+      }
+    ],
+    "down": [
+      {
+        "ticker": "RMTX",
+        "price": 25.99,
+        "changePct": -80.57,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 13938463
+      },
+      {
+        "ticker": "PHAR",
+        "price": 10.05,
+        "changePct": -23.98,
+        "sector": "Healthcare",
+        "industry": "Biotechnology",
+        "mktCap": 711319905
+      }
+    ]
   }
 ]
